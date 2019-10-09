@@ -50,7 +50,16 @@ void j1Map::Draw()
 					SDL_Texture* texture = data.tilesets.start->data->texture;
 					iPoint position = MapToWorld(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->GetTileRect(l->data[l->Get(i, j)]);
-					App->render->Blit(texture, position.x, position.y, sect);
+
+					if (l->name == "Background") {
+						App->render->Blit(texture, position.x, position.y, sect, 0.5f);
+					}
+					if (l->name == "Background_2") {
+						App->render->Blit(texture, position.x, position.y, sect, 0.8f);
+					}
+					if (l->name == "plataforms") {
+						App->render->Blit(texture, position.x, position.y, sect);
+					}
 				}
 			}
 		}
