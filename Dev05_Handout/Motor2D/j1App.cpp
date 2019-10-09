@@ -1,4 +1,5 @@
 #include <iostream> 
+#include <sstream> 
 
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -272,7 +273,7 @@ const char* j1App::GetOrganization() const
 }
 
 // Load / Save
-void j1App::LoadGame()
+void j1App::LoadGame(const char* file)
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
@@ -280,12 +281,13 @@ void j1App::LoadGame()
 }
 
 // ---------------------------------------
-void j1App::SaveGame() const
+void j1App::SaveGame(const char* file) const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
 
 	want_to_save = true;
+	save_game.create(file);
 }
 
 // ---------------------------------------
@@ -353,8 +355,12 @@ bool j1App::SavegameNow() const
 
 	if(ret == true)
 	{
-		data.save_file(save_game.GetString());
-		LOG("... finished saving", );
+		std::stringstream stream;
+		data.save(stream);
+
+		// we are done, so write data to disk
+//		fs->Save(save_game.GetString(), stream.str().c_str(), stream.str().length());
+		LOG("... finished saving", save_game.GetString());
 	}
 	else
 		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");

@@ -6,28 +6,34 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-// TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
-struct Layer
+struct MapLayer
 {
-	p2SString			layer_name;
-	uint				layer_width;
-	uint				layer_height;
-	uint*				layer_gid;
-	unsigned int*		layer_list;
+	p2SString	name;
+	int			width;
+	int			height;
+	uint*		data;
 
+	MapLayer() : data(NULL)
+	{}
+
+	~MapLayer()
+	{
+		RELEASE(data);
+	}
+
+	// TODO 6 (old): Short function to get the value of x,y
 	inline uint Get(int x, int y) const
 	{
-		return x + y * layer_width;
+		return x + y * width;	
 	}
 };
-	// TODO 6: Short function to get the value of x,y
 
 // ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rect
-	SDL_Rect TileToRect(uint tileid);
+	SDL_Rect GetTileRect(int id) const;
+
 	p2SString			name;
 	int					firstgid;
 	int					margin;
@@ -41,9 +47,6 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
-	SDL_Rect			getrect(int firstgid) {
-
-	}
 };
 
 enum MapTypes
@@ -63,8 +66,7 @@ struct MapData
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
-	// TODO 2: Add a list/array of layers to the map!
-	p2List<Layer*>	map_layer;
+	p2List<MapLayer*>	layers;
 };
 
 // ----------------------------------------------------
@@ -89,15 +91,16 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
-	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
-	iPoint PosConverter(int x, int y);
+	// Coordinate translation methods
+	iPoint MapToWorld(int x, int y) const;
+	iPoint WorldToMap(int x, int y) const;
+
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	// TODO 3: Create a method that loads a single layer
-	bool LoadLayer(pugi::xml_node& layer_node, Layer* layer);
+	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 
 public:
 
@@ -108,11 +111,6 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
-
-	SDL_Rect tile_id(uint, uint*) const;
-	p2List<SDL_Texture*> tilesets_texture;
-	inline uint Get(uint, uint, uint) const;
-	inline p2Point<uint> GetWorldPos(uint, uint) const;
 };
 
 #endif // __j1MAP_H__
