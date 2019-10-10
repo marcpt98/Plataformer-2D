@@ -24,7 +24,7 @@
 
   <map>
     <folder>maps/</folder>
-    <parallax back_1="0.5" back_2="0.8"/>
+    <parallax back_1="0.5" back_2="0.8" back_3="0.5" back_4="0.8"/>
   </map>
 
 </config>

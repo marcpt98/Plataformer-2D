@@ -31,7 +31,7 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	//App->map->Load("hello2.tmx");
-	App->map->Load("hello3.tmx");
+	App->map->Load("hello4.tmx");
 	
 	return true;
 }
