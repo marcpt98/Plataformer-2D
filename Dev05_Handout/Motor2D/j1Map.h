@@ -111,6 +111,10 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+	
+	float back1;
+	float back2;
+	
 };
 
 #endif // __j1MAP_H__

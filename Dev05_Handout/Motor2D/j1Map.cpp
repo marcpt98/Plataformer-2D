@@ -23,6 +23,10 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 
+	back1 = config.child("parallax").attribute("back_1").as_float();
+	back2 = config.child("parallax").attribute("back_2").as_float();
+	
+
 	return ret;
 }
 
@@ -52,10 +56,10 @@ void j1Map::Draw()
 					SDL_Rect* sect = &data.tilesets.start->data->GetTileRect(l->data[l->Get(i, j)]);
 
 					if (l->name == "Background") {
-						App->render->Blit(texture, position.x, position.y, sect, 0.5f);
+						App->render->Blit(texture, position.x, position.y, sect, back1);
 					}
 					if (l->name == "Background_2") {
-						App->render->Blit(texture, position.x, position.y, sect, 0.8f);
+						App->render->Blit(texture, position.x, position.y, sect, back2);
 					}
 					if (l->name == "plataforms") {
 						App->render->Blit(texture, position.x, position.y, sect);
