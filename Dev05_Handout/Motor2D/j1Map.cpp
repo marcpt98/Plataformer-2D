@@ -57,27 +57,34 @@ void j1Map::Draw()
 					iPoint position = MapToWorld(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->GetTileRect(l->data[l->Get(i, j)]);
 
-					if (l->name == "Background") 
+					if (data.type == MAPTYPE_ORTHOGONAL) 
 					{
-						App->render->Blit(texture, position.x, position.y, sect, back1);
+						if (l->name == "Background")
+						{
+							App->render->Blit(texture, position.x, position.y, sect, back1);
+						}
+						if (l->name == "Background_2")
+						{
+							App->render->Blit(texture, position.x, position.y, sect, back2);
+						}
+						if (l->name == "plataforms")
+						{
+							App->render->Blit(texture, position.x, position.y, sect);
+						}
+						if (l->name == "m2_Background")
+						{
+							App->render->Blit(texture, position.x, position.y, sect, back3);
+						}
+						if (l->name == "m2_Background_2")
+						{
+							App->render->Blit(texture, position.x, position.y, sect, back4);
+						}
+						if (l->name == "m2_plataforms")
+						{
+							App->render->Blit(texture, position.x, position.y, sect);
+						}
 					}
-					if (l->name == "Background_2") 
-					{
-						App->render->Blit(texture, position.x, position.y, sect, back2);
-					}
-					if (l->name == "plataforms") 
-					{
-						App->render->Blit(texture, position.x, position.y, sect);
-					}
-					if (l->name == "m2_Background")
-					{
-						App->render->Blit(texture, position.x, position.y, sect, back3);
-					}
-					if (l->name == "m2_Background_2")
-					{
-						App->render->Blit(texture, position.x, position.y, sect, back4);
-					}
-					if (l->name == "m2_plataforms")
+					else
 					{
 						App->render->Blit(texture, position.x, position.y, sect);
 					}
