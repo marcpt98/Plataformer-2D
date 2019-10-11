@@ -12,6 +12,7 @@ struct MapLayer
 	p2SString	name;
 	int			width;
 	int			height;
+	float		speed;
 	uint*		data;
 
 	MapLayer() : data(NULL)
@@ -111,15 +112,7 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
-	
-	// Background map 1
-	float back1;
-	float back2;
-
-	// Background map 2
-	float back3;
-	float back4;
-	
+	float				parallax;
 };
 
 #endif // __j1MAP_H__

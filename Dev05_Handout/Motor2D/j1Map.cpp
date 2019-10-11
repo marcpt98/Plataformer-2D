@@ -9,6 +9,7 @@
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
+
 }
 
 // Destructor
@@ -22,12 +23,6 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
-
-	back1 = config.child("parallax").attribute("back_1").as_float();
-	back2 = config.child("parallax").attribute("back_2").as_float();
-
-	back3 = config.child("parallax").attribute("back_3").as_float();
-	back4 = config.child("parallax").attribute("back_4").as_float();
 	
 	return ret;
 }
@@ -56,33 +51,10 @@ void j1Map::Draw()
 					SDL_Texture* texture = data.tilesets.start->data->texture;
 					iPoint position = MapToWorld(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->GetTileRect(l->data[l->Get(i, j)]);
-
+		
 					if (data.type == MAPTYPE_ORTHOGONAL) 
-					{
-						if (l->name == "Background")
-						{
-							App->render->Blit(texture, position.x, position.y, sect, back1);
-						}
-						if (l->name == "Background_2")
-						{
-							App->render->Blit(texture, position.x, position.y, sect, back2);
-						}
-						if (l->name == "plataforms")
-						{
-							App->render->Blit(texture, position.x, position.y, sect);
-						}
-						if (l->name == "m2_Background")
-						{
-							App->render->Blit(texture, position.x, position.y, sect, back3);
-						}
-						if (l->name == "m2_Background_2")
-						{
-							App->render->Blit(texture, position.x, position.y, sect, back4);
-						}
-						if (l->name == "m2_plataforms")
-						{
-							App->render->Blit(texture, position.x, position.y, sect);
-						}
+					{	
+						App->render->Blit(texture, position.x, position.y, sect, l->speed);
 					}
 					else
 					{
@@ -394,6 +366,8 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
+
+	layer->speed = node.child("properties").child("property").attribute("value").as_float();
 	pugi::xml_node layer_data = node.child("data");
 
 	if(layer_data == NULL)
@@ -411,6 +385,7 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		for(pugi::xml_node tile = layer_data.child("tile"); tile; tile = tile.next_sibling("tile"))
 		{
 			layer->data[i++] = tile.attribute("gid").as_int(0);
+			
 		}
 	}
 
