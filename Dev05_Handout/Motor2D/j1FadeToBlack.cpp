@@ -4,6 +4,7 @@
 #include "j1FadeToBlack.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Map.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -44,14 +45,15 @@ bool j1FadeToBlack::Update()
 		if (now >= total_time)
 		{
 			// TODO 3: enable / disable the modules received when FadeToBlacks() gets called
-			/*App->map->Load("hello4.tmx");
-			App->CleanUp();
-			//App->textures->CleanUp();
-			//App->
-			// ---
+			/*off_map->Disable();
+			on_module->Enable();
+			App->map->Load("hello4.tmx");
+			App->map->Load("hello3.tmx");
+			App->map->CleanUp();*/
+
 			total_time += total_time;
 			start_time = SDL_GetTicks();
-			current_step = fade_step::fade_from_black;*/
+			current_step = fade_step::fade_from_black;
 		}
 	} break;
 

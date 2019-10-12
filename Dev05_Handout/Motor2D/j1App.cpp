@@ -26,9 +26,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render = new j1Render();
 	tex = new j1Textures();
 	audio = new j1Audio();
+	fade = new j1FadeToBlack();
 	scene = new j1Scene();
 	map = new j1Map();
-	fade = new j1FadeToBlack();
 	player = new j1Player();
 	
 
@@ -38,9 +38,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(fade);
 	AddModule(map);
 	AddModule(scene);
-	AddModule(fade);
 	AddModule(player);
 
 	// render last to swap buffer

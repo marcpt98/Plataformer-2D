@@ -50,6 +50,17 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt) 
 {
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		App->player->position.y -= 2;
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		App->player->position.x -= 2;
+
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		App->player->position.y += 2;
+
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		App->player->position.x += 2;
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f);
 	return true;

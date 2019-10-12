@@ -63,17 +63,15 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 2;
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->player->position.y -= 2;
+	// LOAD AND UNLOAD MAP
+	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		App->map->Load("hello3.tmx");
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->player->position.x -= 2;
+	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+		App->map->UnLoad("hello3.tmx");
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		App->player->position.y += 2;
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->player->position.x += 2;
+	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
+		App->map->Load("hello4.tmx");*/
 
 	App->map->Draw();
 

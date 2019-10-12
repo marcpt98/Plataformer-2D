@@ -147,7 +147,35 @@ bool j1Map::CleanUp()
 
 	return true;
 }
+// UnLoad map
+bool j1Map::UnLoad(const char* file_name)
+{
+	/*p2List_item<TileSet*>* item;
+	item = data.tilesets.start;
 
+	while (item != NULL)
+	{
+		RELEASE(item->data);
+		item = item->next;
+	}
+	data.tilesets.clear();
+
+	// Remove all layers
+	p2List_item<MapLayer*>* item2;
+	item2 = data.layers.start;
+
+	while (item2 != NULL)
+	{
+		RELEASE(item2->data);
+		item2 = item2->next;
+	}
+	data.layers.clear();
+
+	// Clean up the pugui tree
+	map_file.reset();*/
+
+	return true;
+}
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
