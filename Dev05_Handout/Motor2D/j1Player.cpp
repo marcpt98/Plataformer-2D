@@ -8,12 +8,22 @@
 #include "j1App.h"
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
+#include "Animation.h"
 #include<stdio.h>
 
 j1Player::j1Player() { 
 
+	graphics = NULL;
+	current_animation = NULL;
+
 	position.x = 200;
-	position.y = 400;
+	position.y = 550;
+
+	idle.PushBack({ 0,0,42,52 });
+	idle.PushBack({ 44,0,40,54 });
+	idle.PushBack({ 86,0,42,54 });
+	idle.PushBack({ 130,0,44,52 });
+	idle.speed = 0.035f;
 
 }
 
@@ -24,8 +34,8 @@ j1Player::~j1Player()
 
 bool j1Player::Start() 
 {
-
-	graphics = App->tex->Load("textures/test.png");
+	current_animation = &idle;
+	graphics = App->tex->Load("textures/Spritesheet_Character_1.png");
 	return true;
 
 }
@@ -41,7 +51,7 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt) 
 {
 
-	App->render->Blit(graphics, position.x, position.y);//this still need to pass the diferents animations of the character
+	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()), 1.0f);
 	return true;
 
 }

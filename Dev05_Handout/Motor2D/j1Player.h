@@ -2,7 +2,7 @@
 #define __j1Player_H__
 
 #include "j1Module.h"
-//#include "Animation.h"
+#include "Animation.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
 
@@ -20,6 +20,8 @@ public:
 
 	SDL_Texture* graphics = nullptr;
 	iPoint position;
+	Animation* current_animation = nullptr;
+	Animation idle;
 };
 
 #endif // __j1Player_H__
