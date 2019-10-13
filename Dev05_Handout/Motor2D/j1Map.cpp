@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Scene.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -147,32 +148,11 @@ bool j1Map::CleanUp()
 
 	return true;
 }
-// UnLoad map
-bool j1Map::UnLoad(const char* file_name)
+// Unload the previous map and charge the new one
+bool j1Map::ChangeMap(p2SString* map)
 {
-	/*p2List_item<TileSet*>* item;
-	item = data.tilesets.start;
-
-	while (item != NULL)
-	{
-		RELEASE(item->data);
-		item = item->next;
-	}
-	data.tilesets.clear();
-
-	// Remove all layers
-	p2List_item<MapLayer*>* item2;
-	item2 = data.layers.start;
-
-	while (item2 != NULL)
-	{
-		RELEASE(item2->data);
-		item2 = item2->next;
-	}
-	data.layers.clear();
-
-	// Clean up the pugui tree
-	map_file.reset();*/
+	CleanUp();
+	Load(map->GetString());
 
 	return true;
 }

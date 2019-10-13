@@ -20,9 +20,18 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
+
+	for (pugi::xml_node map = config.child("map_name"); map; map = map.next_sibling("map_name"))
+	{
+		p2SString* data = new p2SString;
+
+		data->create(map.attribute("name").as_string());
+		map_names.add(data);
+	}
+
 	bool ret = true;
 
 	return ret;
@@ -63,15 +72,12 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 2;
 
-	// LOAD AND UNLOAD MAP
-	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
-		App->map->Load("hello3.tmx");
+	// CHANGE MAP
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+		LevelName(0), currentMap = 0;
 
 	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
-		App->map->UnLoad("hello3.tmx");
-
-	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_DOWN)
-		App->map->Load("hello4.tmx");*/
+		LevelName(1), currentMap = 1;
 
 	App->map->Draw();
 
@@ -103,6 +109,14 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	return true;
+}
+
+// Say which map has to be loaded
+bool j1Scene::LevelName(int time)
+{
+	App->map->ChangeMap(map_names[time]);
 
 	return true;
 }

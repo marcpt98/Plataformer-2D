@@ -91,7 +91,7 @@ public:
 
 	// Load new map
 	bool Load(const char* path);
-	bool UnLoad(const char* path);
+	bool ChangeMap(p2SString* map);
 
 	// Coordinate translation methods
 	iPoint MapToWorld(int x, int y) const;

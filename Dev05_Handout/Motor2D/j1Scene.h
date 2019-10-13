@@ -5,6 +5,14 @@
 
 struct SDL_Texture;
 
+// Different maps that the game can load
+enum MapNames
+{
+	hello3 = 0,
+	hello4 = 1
+};
+
+
 class j1Scene : public j1Module
 {
 public:
@@ -15,7 +23,7 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
 
 	// Called before the first frame
 	bool Start();
@@ -31,6 +39,13 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	// Say which map has to be loaded
+	bool LevelName(int time);
+
+
+	p2List<p2SString*> map_names;
+	int currentMap;
 
 private:
 };
