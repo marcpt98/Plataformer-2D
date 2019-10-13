@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include <math.h>
+#include "j1Colliders.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -207,6 +208,20 @@ bool j1Map::Load(const char* file_name)
 			data.layers.add(lay);
 	}
 
+	//Load objectgroup info -------------------------------------
+
+	pugi::xml_node objectgroup;
+	for (objectgroup = map_file.child("map").child("objectgroup"); objectgroup && ret; objectgroup = objectgroup.next_sibling("objectgroup"))
+	{
+		ObjectGroup* set = new ObjectGroup();
+
+		if (ret == true)
+		{
+			ret = LoadObjectGroup(objectgroup, set);
+		}
+		data.objectgroups.add(set);
+	}
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -232,6 +247,16 @@ bool j1Map::Load(const char* file_name)
 			LOG("name: %s", l->name.GetString());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
+		}
+
+		p2List_item<ObjectGroup*>* item_object = data.objectgroups.start;
+
+		while (item_object != NULL)
+		{
+			ObjectGroup* o = item_object->data;
+			LOG("ObjectGroup ----");
+			LOG("name: %s", o->name.GetString());
+			item_object = item_object->next;
 		}
 	}
 
@@ -399,3 +424,54 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	return ret;
 }
+
+bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
+
+	bool ret = true;
+	pugi::xml_node object = node.child("object");
+	SDL_Rect rect = { 0,0,0,0 };
+	objectgroup->name = node.attribute("name").as_string();
+	uint i = 0u;
+	p2SString type;
+
+	if (object == NULL)
+	{
+		LOG("Error loading object group");
+		ret = false;
+	}
+
+	else
+	{
+		objectgroup->object = new SDL_Rect[MAX_COLLIDERS];
+
+		while (object != NULL)
+		{
+			objectgroup->object[i].x = object.attribute("x").as_int();
+			objectgroup->object[i].y = object.attribute("y").as_int();
+			objectgroup->object[i].w = object.attribute("width").as_int();
+			objectgroup->object[i].h = object.attribute("height").as_int();
+			objectgroup->object[i].y += COLLIDER_OFFSET;
+
+			p2SString type(object.attribute("name").as_string());
+			LOG("this name %s", type);
+
+			if (type == "Floor") {
+				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_WALL);
+				LOG("NEW COLLIDER ADDED!!!!!!!!!!!!");
+			}
+
+			if (type == "Death")
+				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_DEATH);
+
+			object = object.next_sibling("object");
+
+			LOG("Collider %i", i);
+			LOG("Collider x: %i y: %i", objectgroup->object[i].x, objectgroup->object[i].y);
+			LOG("Collider w: %i h: %i", objectgroup->object[i].w, objectgroup->object[i].h);
+			i++;
+		}
+	}
+
+	return ret;
+}
+

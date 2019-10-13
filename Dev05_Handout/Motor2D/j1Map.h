@@ -6,6 +6,8 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+#define COLLIDER_OFFSET 25
+
 // ----------------------------------------------------
 struct MapLayer
 {
@@ -50,6 +52,13 @@ struct TileSet
 	int					offset_y;
 };
 
+struct ObjectGroup {
+	p2SString name = "No name";
+	int size = 0;
+	SDL_Rect* object;
+};
+
+
 enum MapTypes
 {
 	MAPTYPE_UNKNOWN = 0,
@@ -68,6 +77,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
+	p2List<ObjectGroup*> objectgroups;
 };
 
 // ----------------------------------------------------
@@ -103,7 +113,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-
+	bool LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup);
 public:
 
 	MapData data;
