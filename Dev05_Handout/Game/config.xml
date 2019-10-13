@@ -30,5 +30,18 @@
     <map_name name="hello3.tmx"></map_name>
     <map_name name="hello4.tmx"></map_name>
   </scene>
+  
+  <player>
+   <spritesheet player="textures/Spritesheet_Character_1.png"/>
+   <position x="200" y="530"/>
+   <animation>   
+    <!--IDLE ANIMATION-->   
+    <anim x="0" y="0" w="42" h="52"/>  
+    <anim x="44" y="0" w="40" h="54"/> 
+    <anim x="86" y="0" w="42" h="54"/>  
+    <anim x="130" y="0" w="44" h="52"/>    
+    <speed s="0.035"/>    
+   </animation>  
+  </player>
 
 </config>

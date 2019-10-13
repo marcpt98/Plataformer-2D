@@ -13,20 +13,18 @@
 #include "j1Colliders.h"
 #include "p2Log.h"
 
-j1Player::j1Player() { 
+j1Player::j1Player() 
+{ 
+	name.create("player");
 
 	graphics = NULL;
 	current_animation = NULL;
-
-	position.x = 200;
-	position.y = 550;
 
 	idle.PushBack({ 0,0,42,52 });
 	idle.PushBack({ 44,0,40,54 });
 	idle.PushBack({ 86,0,42,54 });
 	idle.PushBack({ 130,0,44,52 });
 	idle.speed = 0.035f;
-
 }
 
 j1Player::~j1Player()
@@ -34,13 +32,36 @@ j1Player::~j1Player()
 
 }
 
+bool j1Player::Awake(pugi::xml_node& config)
+{
+	LOG("Loading Player");
+
+	bool ret = true;
+
+	// Player initial position
+	position.x = config.child("position").attribute("x").as_int();
+	position.y = config.child("position").attribute("y").as_int();
+
+	// Player spritesheet
+	spritesheet = config.child("spritesheet").attribute("player").as_string("");
+
+	return ret;
+}
+
 bool j1Player::Start() 
 {
 	current_animation = &idle;
-	graphics = App->tex->Load("textures/Spritesheet_Character_1.png");
+
+	graphics = App->tex->Load(spritesheet.GetString());
+
 	collider = App->colliders->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_PLAYER, this); //a collider to start
 
 	return true;
+
+	/*p2List<Animation> animations;
+	pugi::xml_node node;
+	current_animation = &Animations(node);
+	return true;*/
 
 }
 
@@ -116,3 +137,24 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		break;
 	}
 }
+
+/*Animation j1Player::Animations(pugi::xml_node config)
+{
+	Animation state;
+
+	pugi::xml_node animation;
+	animation = config.child("animation").child("anim");
+	velocity = config.child("animation").child("speed").attribute("s").as_float();
+	LOG("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+	while (animation)
+	{
+		LOG("ADEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEU");
+		state.PushBack({ animation.attribute("x").as_int(), animation.attribute("y").as_int(),animation.attribute("w").as_int(),animation.attribute("h").as_int() });
+		animation = animation.next_sibling("anim");
+	}
+
+	state.speed = velocity;
+
+	return state;
+}*/
