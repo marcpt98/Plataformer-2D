@@ -27,10 +27,10 @@ j1Player::j1Player()
 	idle.PushBack({ 130,0,44,52 }, 0.2, 0, 0);
 	
 	// Run animation
-	run.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	run.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	run.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	run.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
+	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
+	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
+	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
+	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
 
 	// Jump animation
 	jump.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
@@ -68,12 +68,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 bool j1Player::Start() 
 {
-	current_animation = &idle;
-
 	graphics = App->tex->Load(spritesheet.GetString());
-
 	collider = App->colliders->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_PLAYER, this); //a collider to start
-
+	
 	return true;
 }
 
@@ -87,8 +84,10 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt) 
 {
+	// "Gravity" force
 	App->player->position.y += 2;
 
+	// Player controllers
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->player->position.y -= 2;
 
@@ -101,8 +100,24 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		App->player->position.x += 2;
 
+	// PLayer colliders
 	collider->SetPos(position.x, position.y);
 
+	// Run animation
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		current_animation = &run;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		current_animation = &jump;
+	}
+	else
+	{
+		current_animation = &idle;
+	}
+
+	// Print player
 	App->render->Blit(graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), 1.0f);
 	
 	return true;
@@ -137,11 +152,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		{
 			position.y = position.y - 4;
-			LOG("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		}
 		else
 		{
-			LOG("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 			position.y = position.y - 2;
 		}
 		/*position = lastPosition;
