@@ -38,9 +38,6 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 public:
-	int initial_x_position = 200;
-	int initial_y_position = 530;
-
 	SDL_Texture* graphics = nullptr;
 	iPoint position;
 	
@@ -48,6 +45,9 @@ public:
 	p2SString spritesheet;
 	Animation* current_animation = nullptr;
 	Animation idle;
+	Animation run;
+	Animation jump;
+	Animation special;
 	
 	// Colliders
 	Collider* collider = nullptr;
