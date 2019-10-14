@@ -6,7 +6,6 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-#define COLLIDER_OFFSET 25
 
 // ----------------------------------------------------
 struct MapLayer

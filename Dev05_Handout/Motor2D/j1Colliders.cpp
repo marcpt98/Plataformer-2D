@@ -108,15 +108,14 @@ bool j1Colliders::PreUpdate()
 			}
 		}
 	}
-
+	
 	return ret;
 }
 
 // Called before render is available
-bool j1Colliders::Update()
+bool j1Colliders::Update(float dt)
 {
 	bool ret = true;
-
 	DebugDraw();
 
 	return ret;
@@ -124,31 +123,37 @@ bool j1Colliders::Update()
 
 void j1Colliders::DebugDraw()
 {
+	
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
 		return;
-
+	
 	Uint8 alpha = 80;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
+		
 		if (colliders[i] == nullptr)
 			continue;
 
 		switch (colliders[i]->type)
 		{
-
+	
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 
 		case COLLIDER_WALL: // blue
-			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			if (App->player->showcolliders == true) {
+				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			}
 			break;
 
 		case COLLIDER_PLAYER: // green
-			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			if (App->player->showcolliders == true) {
+				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			}
 			break;
 
 		case COLLIDER_DEATH: // NOT green

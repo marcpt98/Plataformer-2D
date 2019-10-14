@@ -69,7 +69,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start() 
 {
 	graphics = App->tex->Load(spritesheet.GetString());
-	collider = App->colliders->AddCollider({ position.x,position.y, 35, 80 }, COLLIDER_PLAYER, this); //a collider to start
+	collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, COLLIDER_PLAYER, this); //a collider to start
 	
 	return true;
 }
@@ -99,6 +99,9 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		App->player->position.x += 2;
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_REPEAT)
+		showcolliders = true;
 
 	// PLayer colliders
 	collider->SetPos(position.x, position.y);

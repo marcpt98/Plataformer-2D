@@ -450,7 +450,6 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 			objectgroup->object[i].y = object.attribute("y").as_int();
 			objectgroup->object[i].w = object.attribute("width").as_int();
 			objectgroup->object[i].h = object.attribute("height").as_int();
-			objectgroup->object[i].y += COLLIDER_OFFSET;
 
 			p2SString type(object.attribute("name").as_string());
 			LOG("this name %s", type);
@@ -462,6 +461,7 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 
 			if (type == "Death")
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_DEATH);
+
 
 			object = object.next_sibling("object");
 

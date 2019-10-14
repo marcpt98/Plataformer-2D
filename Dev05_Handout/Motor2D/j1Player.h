@@ -52,6 +52,7 @@ public:
 	// Colliders
 	Collider* collider = nullptr;
 	Collider* collider2 = nullptr;
+	bool showcolliders = false;
 };
 
 #endif // __j1Player_H__

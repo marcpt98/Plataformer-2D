@@ -55,7 +55,7 @@ public:
 	~j1Colliders();
 
 	bool PreUpdate();
-	bool Update();
+	bool Update(float dt);
 	bool CleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
