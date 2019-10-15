@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+#include "j1Colliders.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -73,10 +74,11 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 2;
 
 	// CHANGE MAP
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
 		LevelName(0), currentMap = 0;
 
-	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+	
+	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) 
 		LevelName(1), currentMap = 1;
 
 	App->map->Draw();

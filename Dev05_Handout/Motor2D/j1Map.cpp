@@ -147,6 +147,18 @@ bool j1Map::CleanUp()
 	// Clean up the pugui tree
 	map_file.reset();
 
+	p2List_item<ObjectGroup*>* item3;
+	item3 = data.objectgroups.start;
+	while (item3 != NULL)
+	{
+		RELEASE(item3->data);
+		item3 = item3->next;
+	}
+	data.objectgroups.clear();
+
+	// Clean up the pugui tree
+	map_file.reset();
+
 	return true;
 }
 // Unload the previous map and charge the new one
@@ -429,7 +441,7 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 
 	bool ret = true;
 	pugi::xml_node object = node.child("object");
-	SDL_Rect rect = { 0,0,0,0 };
+	
 	objectgroup->name = node.attribute("name").as_string();
 	uint i = 0u;
 	p2SString type;

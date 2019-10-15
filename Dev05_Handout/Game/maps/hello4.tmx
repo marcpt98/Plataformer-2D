@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="5">
  <tileset firstgid="1" name="BACKGROUND_2 COMPLETED" tilewidth="32" tileheight="32" tilecount="1035" columns="23">
   <image source="BACKGROUND_2 COMPLETED.png" width="736" height="1450"/>
  </tileset>
@@ -30024,4 +30024,7 @@
    <tile gid="0"/>
   </data>
  </layer>
+ <objectgroup name="Collisions">
+  <object id="3" name="Floor" x="65" y="582" width="1085" height="250"/>
+ </objectgroup>
 </map>
