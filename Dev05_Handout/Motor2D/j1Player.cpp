@@ -27,16 +27,22 @@ j1Player::j1Player()
 	idle.PushBack({ 130,0,44,52 }, 0.2, 0, 0);
 	
 	// Run animation
-	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
-	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
-	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
-	run.PushBack({ 0,0,10,10 }, 0.2, 0, 0);
+	run.PushBack({ 0,110,40,50 }, 0.2, 0, 0);
+	run.PushBack({ 42,110,42,50 }, 0.2, 0, 0);
+	run.PushBack({ 86,110,42,48 }, 0.2, 0, 0);
+	run.PushBack({ 130,110,40,50 }, 0.2, 0, 0);
+	run.PushBack({ 172,110,42,50 }, 0.2, 0, 0);
+	run.PushBack({ 216,110,42,48 }, 0.2, 0, 0);
 
 	// Jump animation
-	jump.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	jump.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	jump.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	jump.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
+	jump.PushBack({ 0,161,42,52 }, 0.2, 0, 0);
+	jump.PushBack({ 44,161,44,48 }, 0.2, 0, 0);
+	jump.PushBack({ 90,161,46,48 }, 0.2, 0, 0);
+	jump.PushBack({ 138,161,40,60 }, 0.2, 0, 0);
+	jump.PushBack({ 180,161,42,54 }, 0.2, 0, 0);
+	jump.PushBack({ 224,161,44,54 }, 0.2, 0, 0);
+	jump.PushBack({ 270,161,46,48 }, 0.2, 0, 0);
+	jump.PushBack({ 318,161,40,52 }, 0.2, 0, 0);
 
 	// Special animation
 	special.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
@@ -84,9 +90,6 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt) 
 {
-	// "Gravity" force
-	App->player->position.y += 2;
-
 	// Player controllers
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->player->position.y -= 2;
@@ -154,7 +157,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		{
-			position.y = position.y - 4;
+			//position.y = position.y - 4;
 		}
 		else
 		{
