@@ -7,6 +7,7 @@
 #include "j1Scene.h"
 #include <math.h>
 #include "j1Colliders.h"
+#include "j1Player.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -166,7 +167,7 @@ bool j1Map::ChangeMap(p2SString* map)
 {
 	CleanUp();
 	Load(map->GetString());
-
+	
 	return true;
 }
 // Load new map

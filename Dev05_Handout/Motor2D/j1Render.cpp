@@ -48,6 +48,9 @@ bool j1Render::Awake(pugi::xml_node& config)
 		camera.y = 0;
 	}
 
+	// Camera scale
+	cameraScale = config.child("resolution").attribute("scale").as_int();
+
 	return ret;
 }
 
@@ -162,6 +165,62 @@ bool j1Render::Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section,
 	}
 
 	return ret;
+}
+
+bool j1Render::BlitWithScale(SDL_Texture* texture, int x, int y, SDL_Rect* _section, float scale, float speed, float fillAmount, RENDER_PIVOT pivot)
+{
+	bool ret = true;
+	SDL_Rect rect;
+	SDL_Rect section = *_section;
+	int w = section.w - section.w * fillAmount;
+
+	section.w -= w;
+
+
+	switch (pivot)
+	{
+	case TOP_RIGHT:
+		rect.x = (int)(camera.x * speed + camera_offset.x) + (x - section.w) * 1;
+		rect.y = (int)(camera.y * speed + camera_offset.y) + y * 1;
+		break;
+	case TOP_LEFT:
+		rect.x = (int)(camera.x * speed + camera_offset.x) + (x)* 1;
+		rect.y = (int)(camera.y * speed + camera_offset.y) + y * 1;
+		break;
+	case MIDDLE:
+		rect.x = (int)(camera.x * speed + camera_offset.x) + (x + w + section.x / 2) * 1;
+		rect.y = (int)(camera.y * speed + camera_offset.y) + (y + section.y / 2) * 1;
+		break;
+	}
+
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+
+	if (scale < 0)
+	{
+		scale = fabsf(scale);
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+
+	if (&section != NULL)
+	{
+		rect.w = section.w * scale;
+		rect.h = section.h * scale;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	}
+
+	rect.w *= 1;
+	rect.h *= 1;
+
+	if (SDL_RenderCopyEx(renderer, texture, &section, &rect, 0, NULL, flip) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		ret = false;
+	}
+	return ret;
+
 }
 
 bool j1Render::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const

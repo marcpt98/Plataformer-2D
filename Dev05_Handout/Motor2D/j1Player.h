@@ -10,6 +10,14 @@
 struct SDL_Texture;
 struct Collider;
 
+enum states
+{
+	ST_IDLE,
+	ST_RUN,
+	ST_JUMP,
+	ST_FALL
+};
+
 class j1Player : public j1Module
 {
 public:
@@ -54,8 +62,23 @@ public:
 	Collider* collider2 = nullptr;
 	bool showcolliders = false;
 
-	// Stats machine
+	// Gravity
+	float gravity;
 
+	// Speed
+	float speed;
+
+	// Jump force
+	float jumpF;
+
+	// Stats machine
+	void CheckInputState();
+	void CheckAnimation();
+	
+	states	actualState;
+	bool	blit = false;
+
+	int		cameraScale;
 };
 
 #endif // __j1Player_H__

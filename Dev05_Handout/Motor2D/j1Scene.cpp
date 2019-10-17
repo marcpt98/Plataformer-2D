@@ -83,6 +83,19 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
+	// Show player and map colliders
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		if (App->player->showcolliders == false)
+		{
+			App->player->showcolliders = true;
+		}
+		else if (App->player->showcolliders == true)
+		{
+			App->player->showcolliders = false;
+		}
+	}
+
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);

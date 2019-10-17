@@ -43,18 +43,10 @@ j1Player::j1Player()
 	jump.PushBack({ 224,161,44,54 }, 0.2, 0, 0);
 	jump.PushBack({ 270,161,46,48 }, 0.2, 0, 0);
 	jump.PushBack({ 318,161,40,52 }, 0.2, 0, 0);
-
-	// Special animation
-	special.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	special.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	special.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
-	special.PushBack({ 0,0,0,0 }, 0.2, 0, 0);
 }
 
 j1Player::~j1Player()
-{
-
-}
+{}
 
 bool j1Player::Awake(pugi::xml_node& config)
 {
@@ -69,6 +61,15 @@ bool j1Player::Awake(pugi::xml_node& config)
 	// Player spritesheet
 	spritesheet = config.child("spritesheet").attribute("player").as_string("");
 
+	// Player speed
+	speed = config.child("speed").attribute("s").as_float();
+
+	// Gravity
+	gravity = config.child("gravity").attribute("g").as_int();
+
+	// Jump force
+	jumpF = config.child("jumpF").attribute("j").as_float();
+
 	return ret;
 }
 
@@ -82,59 +83,31 @@ bool j1Player::Start()
 
 bool j1Player::CleanUp() 
 {
-
 	App->tex->UnLoad(graphics);
-	return true;
 
+	return true;
 }
 
 bool j1Player::Update(float dt) 
 {
-	// Player controllers
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->player->position.y -= 2;
+	// Gravity
+	position.y = position.y + gravity;
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->player->position.x -= 2;
+	CheckInputState();
+	CheckAnimation();
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		App->player->position.y += 2;
-
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->player->position.x += 2;
-
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		if (showcolliders == false)
-		{
-			showcolliders = true;
-		}
-		else if (showcolliders == true)
-		{
-			showcolliders = false;
-		}
-	}
-
-	// PLayer colliders
+	// Player colliders
 	collider->SetPos(position.x, position.y);
 
-	// Run animation
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	// Print player
+	if (blit == false)
 	{
-		current_animation = &run;
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-		current_animation = &jump;
+		App->render->Blit(graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), 1.0f);
 	}
 	else
 	{
-		current_animation = &idle;
+		App->render->BlitWithScale(graphics, position.x +40+ (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
 	}
-
-	// Print player
-	App->render->Blit(graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), 1.0f);
-	
 	return true;
 
 }
@@ -144,6 +117,56 @@ bool j1Player::PostUpdate(float dt)
 	return true;
 
 }
+
+void j1Player::CheckInputState()
+{
+	// Player controllers
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	{
+		actualState = ST_JUMP;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		actualState = ST_RUN;
+		position.x = position.x - speed;
+		blit = true;
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		actualState = ST_RUN;
+		position.x = position.x + speed;
+		blit = false;
+	}
+	else
+	{
+		actualState = ST_IDLE;
+	}
+
+}
+
+void j1Player::CheckAnimation()
+{
+	if (actualState == ST_JUMP)
+	{
+		current_animation = &jump;
+	}
+
+	if (actualState == ST_RUN)
+	{
+		current_animation = &run;
+	}
+
+	if (actualState == ST_IDLE)
+	{
+		current_animation = &idle;
+	}
+}
+
+
+
+
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (collider == c1 && c2->type == COLLIDER_WALL)
@@ -163,15 +186,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	{
 	case COLLIDER_WALL: //here we will put what happens when the colliders collide 
 		LOG("COLLIDERS WOOOOOOOOOOOOOOOOOOOOOORKS");
-		
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		{
-			//position.y = position.y - 4;
-		}
-		else
-		{
-			position.y = position.y - 2;
-		}
+			
+		position.y = position.y - gravity;
+
 		/*position = lastPosition;
 		velocity.x = velocity.y = 0;
 		if ((position.y < c2->rect.y) && (last_state == FALL))
