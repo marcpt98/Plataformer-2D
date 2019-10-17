@@ -124,7 +124,7 @@ bool j1Colliders::Update(float dt)
 void j1Colliders::DebugDraw()
 {
 	
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)

@@ -103,8 +103,17 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		App->player->position.x += 2;
 
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_REPEAT)
-		showcolliders = true;
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		if (showcolliders == false)
+		{
+			showcolliders = true;
+		}
+		else if (showcolliders == true)
+		{
+			showcolliders = false;
+		}
+	}
 
 	// PLayer colliders
 	collider->SetPos(position.x, position.y);

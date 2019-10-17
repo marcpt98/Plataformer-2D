@@ -53,6 +53,9 @@ public:
 	Collider* collider = nullptr;
 	Collider* collider2 = nullptr;
 	bool showcolliders = false;
+
+	// Stats machine
+
 };
 
 #endif // __j1Player_H__
