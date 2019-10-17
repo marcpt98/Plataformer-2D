@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="5">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="26">
  <tileset firstgid="1" name="BACKGROUND_2 COMPLETED" tilewidth="32" tileheight="32" tilecount="1035" columns="23">
   <image source="BACKGROUND_2 COMPLETED.png" width="736" height="1450"/>
  </tileset>
@@ -30026,5 +30026,20 @@
  </layer>
  <objectgroup name="Collisions">
   <object id="3" name="Floor" x="65" y="582" width="1085" height="250"/>
+  <object id="6" name="Floor" x="0" y="0" width="65.3333" height="832.667"/>
+  <object id="7" name="Floor" x="1216" y="512.667" width="64" height="64"/>
+  <object id="8" name="Floor" x="1345.33" y="582.667" width="286.667" height="249.333"/>
+  <object id="10" name="Floor" x="1664.67" y="553.333" width="30.6667" height="118.667"/>
+  <object id="11" name="Floor" x="1728.67" y="522" width="31.3333" height="116.667"/>
+  <object id="12" name="Floor" x="1793.33" y="488" width="30" height="119.333"/>
+  <object id="13" name="Floor" x="1856" y="453.333" width="31.3333" height="123.333"/>
+  <object id="14" name="Floor" x="1920" y="422.667" width="32.6667" height="120"/>
+  <object id="15" name="Floor" x="1984" y="392" width="351.333" height="439.333"/>
+  <object id="16" name="Floor" x="2528.67" y="552.667" width="127.333" height="280.667"/>
+  <object id="17" name="Floor" x="2656.67" y="512" width="254.667" height="127.333"/>
+  <object id="18" name="Floor" x="2720.67" y="447.333" width="190.667" height="86"/>
+  <object id="19" name="Floor" x="2784.67" y="384.667" width="127.333" height="94.6667"/>
+  <object id="22" name="Floor" x="2848" y="320.667" width="64" height="75.3333"/>
+  <object id="23" name="Floor" x="2656" y="637.333" width="256" height="196"/>
  </objectgroup>
 </map>
