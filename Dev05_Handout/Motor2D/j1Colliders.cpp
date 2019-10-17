@@ -14,6 +14,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_WALL][COLLIDER_PLATAFORM] = false;
 	/*matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY_SHOT] = true;*/
@@ -21,6 +22,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PLATAFORM] = true;
 	/*matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;*/
@@ -28,6 +30,8 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_DEATH][COLLIDER_PLATAFORM] = true;
+
 
 	/*matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
@@ -147,6 +151,12 @@ void j1Colliders::DebugDraw()
 		case COLLIDER_WALL: // blue
 			if (App->player->showcolliders == true) {
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
+			}
+			break;
+
+		case COLLIDER_PLATAFORM: //purple
+			if (App->player->showcolliders == true) {
+				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			}
 			break;
 

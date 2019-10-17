@@ -468,11 +468,15 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 
 			if (type == "Floor") {
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_WALL);
-				LOG("NEW COLLIDER ADDED!!!!!!!!!!!!");
 			}
 
-			if (type == "Death")
+			if (type == "Death") {
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_DEATH);
+			}
+
+			if (type == "Plataform") {
+				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_PLATAFORM);
+			}
 
 
 			object = object.next_sibling("object");
