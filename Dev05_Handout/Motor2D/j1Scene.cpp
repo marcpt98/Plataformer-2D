@@ -83,7 +83,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 
 	// Show player and map colliders
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		if (App->player->showcolliders == false)
 		{
