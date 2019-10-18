@@ -80,6 +80,8 @@ public:
 	states	actualState;
 	bool	blit = false;	
 	int		cameraScale;
+
+	int fixBlit;
 };
 
 #endif // __j1Player_H__

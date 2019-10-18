@@ -70,6 +70,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 	// Jump force
 	jumpF = config.child("jumpF").attribute("j").as_float();
 
+	// Fix blit
+	fixBlit = config.child("fixBlit").attribute("fix").as_float();
+
 	return ret;
 }
 
@@ -106,7 +109,7 @@ bool j1Player::Update(float dt)
 	}
 	else
 	{
-		App->render->BlitWithScale(graphics, position.x +40+ (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
+		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
 	}
 	return true;
 
@@ -159,7 +162,7 @@ void j1Player::CheckAnimation()
 		canJump1 = false;
 		current_animation = &jump;
 		if (energyJump < gravity) {
-			energyJump += 0.2;
+			energyJump += 0.5;
 			position.y = position.y + energyJump;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
