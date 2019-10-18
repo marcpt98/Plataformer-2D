@@ -63,6 +63,7 @@ public:
 
 	// Camera scale
 	int				cameraScale;
+	int				cameraOffset;
 };
 
 #endif // __j1RENDER_H__

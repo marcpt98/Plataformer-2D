@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Window.h"
 #include "j1Render.h"
+#include "j1Player.h"
 
 #define VSYNC true
 
@@ -50,7 +51,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	// Camera scale
 	cameraScale = config.child("resolution").attribute("scale").as_int();
-
+	cameraOffset = config.child("offset").attribute("value").as_int();
 	return ret;
 }
 
@@ -72,6 +73,11 @@ bool j1Render::PreUpdate()
 
 bool j1Render::Update(float dt)
 {
+	camera.x = -(App->player->position.x + cameraOffset);
+	if (camera.x > 0) {
+		camera.x=0;
+	}
+
 	return true;
 }
 
