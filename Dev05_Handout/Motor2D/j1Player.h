@@ -15,6 +15,7 @@ enum states
 	ST_IDLE,
 	ST_RUN,
 	ST_JUMP,
+	ST_JUMPRUN,
 	ST_FALL
 };
 
@@ -69,15 +70,15 @@ public:
 	float speed;
 
 	// Jump force
+	bool canJump1 = false;
 	float jumpF;
-
+	float energyJump;
 	// Stats machine
 	void CheckInputState();
 	void CheckAnimation();
 	
 	states	actualState;
-	bool	blit = false;
-
+	bool	blit = false;	
 	int		cameraScale;
 };
 

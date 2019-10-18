@@ -124,25 +124,31 @@ void j1Player::CheckInputState()
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
 		actualState = ST_JUMP;
+		if (canJump1 == true) {
+			energyJump = jumpF;
+		}
+		
 	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true)
 	{
 		actualState = ST_RUN;
 		position.x = position.x - speed;
 		blit = true;
 	}
 
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true)
 	{
 		actualState = ST_RUN;
 		position.x = position.x + speed;
 		blit = false;
 	}
-	else
+	else if(canJump1==true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_W) == NULL)
 	{
 		actualState = ST_IDLE;
 	}
+
 
 }
 
@@ -150,7 +156,22 @@ void j1Player::CheckAnimation()
 {
 	if (actualState == ST_JUMP)
 	{
+		canJump1 = false;
 		current_animation = &jump;
+		if (energyJump < gravity) {
+			energyJump += 0.2;
+			position.y = position.y + energyJump;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			position.x = position.x - speed;
+			blit = true;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			position.x = position.x + speed;
+			blit = false;
+		}
 	}
 
 	if (actualState == ST_RUN)
@@ -171,21 +192,16 @@ void j1Player::CheckAnimation()
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
+		canJump1 = true;
 		LOG("COLLIDERS WOOOOOOOOOOOOOOOOOOOOOORKS");
-
-
 	}
 	
-	if (collider == c2 && c1->type == COLLIDER_WALL)
-	{
-		LOG("COLLIDERS WOOOOOOOOOOOOOOOOOOOOOORKS");
-
-	}
+	
 
 	switch (c2->type)
 	{
-	case COLLIDER_WALL: //here we will put what happens when the colliders collide 
-		LOG("COLLIDERS WOOOOOOOOOOOOOOOOOOOOOORKS");
+	case COLLIDER_WALL: // what happens when colliders collide 
+		
 			
 		position.y = position.y - gravity;
 
