@@ -34,9 +34,10 @@
   <player>
    <spritesheet player="textures/Spritesheet_Character_1.png"/>
    <position x="200" y="530"/>
+   <fixBlit fix="40"/>
    <gravity g="2"/>
    <speed s="2"/>
-   <jumpF j="5"/>
+   <jumpF j="-2"/>
   </player>
 
 </config>

@@ -165,7 +165,13 @@ bool j1Map::CleanUp()
 // Unload the previous map and charge the new one
 bool j1Map::ChangeMap(p2SString* map)
 {
+	// CleanUp
+	App->player->CleanUp();
+	App->colliders->CleanUp();
 	CleanUp();
+	
+	// Load
+	App->player->Start();
 	Load(map->GetString());
 	
 	return true;

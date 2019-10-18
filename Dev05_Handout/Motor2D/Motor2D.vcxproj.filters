@@ -132,4 +132,9 @@
       <UniqueIdentifier>{e3159a1a-4bb5-4309-bef7-a77cdf11d9a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Game\config.xml">
+      <Filter>Desenvolupament  ========\Containers</Filter>
+    </Xml>
+  </ItemGroup>
 </Project>

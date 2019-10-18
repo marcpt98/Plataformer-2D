@@ -77,7 +77,6 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
 		LevelName(0), currentMap = 0;
 
-	
 	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) 
 		LevelName(1), currentMap = 1;
 
