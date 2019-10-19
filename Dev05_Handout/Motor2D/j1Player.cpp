@@ -248,7 +248,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
 		canJump1 = true;
-		LOG("COLLIDERS WOOOOOOOOOOOOOOOOOOOOOORKS");
+		
 	}
 	
 	

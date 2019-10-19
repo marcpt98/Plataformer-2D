@@ -97,21 +97,21 @@ bool j1Render::CleanUp()
 }
 
 // Load Game State
-bool j1Render::Load(pugi::xml_node& data)
+bool j1Render::Load(pugi::xml_node& save_game)
 {
-	camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();
+	pugi::xml_node cam = save_game.append_child("camera");
+
+	camera.x = save_game.child("camera").attribute("x").as_int();
+	camera.y = save_game.child("camera").attribute("y").as_int();
 
 	return true;
 }
 
 // Save Game State
-bool j1Render::Save(pugi::xml_node& data) const
+bool j1Render::Save(pugi::xml_node& save_game) const
 {
-	pugi::xml_node cam = data.append_child("camera");
-
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
+	save_game.append_child("camera.x").append_attribute("x").set_value(camera.x);
+	save_game.append_child("camera.y").append_attribute("y").set_value(camera.y);
 
 	return true;
 }

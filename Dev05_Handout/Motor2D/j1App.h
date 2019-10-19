@@ -57,6 +57,9 @@ private:
 	// Load config file
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
 
+	// Load save_game file
+	pugi::xml_node LoadSaveGame(pugi::xml_document&);
+
 	// Call modules before each loop iteration
 	void PrepareUpdate();
 
@@ -100,6 +103,7 @@ private:
 	p2SString			title;
 	p2SString			organization;
 
+	// Save and load
 	mutable bool		want_to_save;
 	bool				want_to_load;
 	p2SString			load_game;
