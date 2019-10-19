@@ -73,12 +73,25 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x -= 2;
 
-	// CHANGE MAP
+	// Change map
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		LevelName(0), currentMap = 0;
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
 		LevelName(1), currentMap = 1;
+
+	// Start from the beginning of the current level
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		if (currentMap == 0)
+		{
+			LevelName(0);
+		}
+		if (currentMap == 1)
+		{
+			LevelName(1);
+		}
+	}
 
 	App->map->Draw();
 
