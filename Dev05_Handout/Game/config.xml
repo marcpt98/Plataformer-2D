@@ -28,8 +28,10 @@
   </map>
 
   <scene>
-    <map_name name="hello3.tmx"></map_name>
-    <map_name name="hello4.tmx"></map_name>
+    <map_name name="hello3.tmx"/>
+    <map_name name="hello4.tmx"/>
+    <music_name name="audio/music/music_level_1.ogg"/>
+    <music_name name="audio/music/music_level_2.ogg"/>
   </scene>
   
   <player>

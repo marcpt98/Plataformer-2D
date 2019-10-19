@@ -33,6 +33,14 @@ bool j1Scene::Awake(pugi::xml_node& config)
 		map_names.add(data);
 	}
 
+	for (pugi::xml_node music = config.child("music_name"); music; music = music.next_sibling("music_name"))
+	{
+		p2SString* data = new p2SString;
+
+		data->create(music.attribute("name").as_string());
+		music_names.add(data);
+	}
+
 	bool ret = true;
 
 	return ret;
@@ -42,7 +50,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->Load("hello3.tmx");
-	
+	App->audio->PlayMusic("audio/music/music_level_1.ogg");
+
 	return true;
 }
 
@@ -75,10 +84,16 @@ bool j1Scene::Update(float dt)
 
 	// Change map
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		LevelName(0), currentMap = 0;
+	{
+		LevelName(0);
+		currentMap = 0;
+	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
-		LevelName(1), currentMap = 1;
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		LevelName(1);
+		currentMap = 1;
+	}
 
 	// Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
@@ -153,14 +168,17 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	App->audio->CleanUp();
 
 	return true;
 }
 
-// Say which map has to be loaded
+// Say which map and music has to be loaded
 bool j1Scene::LevelName(int time)
 {
 	App->map->ChangeMap(map_names[time]);
+	App->map->ChangeMusic(music_names[time]);
 
 	return true;
 }
+

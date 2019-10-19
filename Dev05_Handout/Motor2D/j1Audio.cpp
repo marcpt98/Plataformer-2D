@@ -79,6 +79,18 @@ bool j1Audio::CleanUp()
 	return true;
 }
 
+bool j1Audio::UnloadMusic(const char* path)
+{
+	bool ret = true;
+
+	if (music != NULL)
+	{
+		Mix_FreeMusic(music);
+	}
+
+	return ret;
+}
+
 // Play a music file
 bool j1Audio::PlayMusic(const char* path, float fade_time)
 {

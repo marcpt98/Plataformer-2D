@@ -8,6 +8,7 @@
 #include <math.h>
 #include "j1Colliders.h"
 #include "j1Player.h"
+#include "j1Audio.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -162,6 +163,19 @@ bool j1Map::CleanUp()
 
 	return true;
 }
+
+// Load and play level music
+bool j1Map::ChangeMusic(p2SString* music)
+{
+	// CleanUp
+	App->audio->UnloadMusic(music->GetString());
+
+	// Load
+	App->audio->PlayMusic(music->GetString());
+
+	return true;
+}
+
 // Unload the previous map and charge the new one
 bool j1Map::ChangeMap(p2SString* map)
 {

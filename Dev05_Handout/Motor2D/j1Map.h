@@ -102,6 +102,9 @@ public:
 	bool Load(const char* path);
 	bool ChangeMap(p2SString* map);
 
+	// Load new music
+	bool ChangeMusic(p2SString* music);
+
 	// Coordinate translation methods
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;

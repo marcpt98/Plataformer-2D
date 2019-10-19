@@ -5,14 +5,6 @@
 
 struct SDL_Texture;
 
-// Different maps that the game can load
-enum MapNames
-{
-	hello3 = 0,
-	hello4 = 1
-};
-
-
 class j1Scene : public j1Module
 {
 public:
@@ -40,12 +32,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Say which map has to be loaded
+	// Say which map and music has to be loaded
 	bool LevelName(int time);
-
 
 	p2List<p2SString*> map_names;
 	int currentMap;
+	p2List<p2SString*> music_names;
 
 private:
 };
