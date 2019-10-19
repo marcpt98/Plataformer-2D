@@ -95,6 +95,23 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
+	// Map limits for God mode
+	if (App->player->godMode == true)
+	{
+		if (App->player->position.x < 0)
+		{
+			App->player->position.x = 0;
+		}
+		if (App->player->position.y < 0)
+		{
+			App->player->position.y = 0;
+		}
+		else if (App->player->position.y > 713)
+		{
+			App->player->position.y = 713;
+		}
+	}
+
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);

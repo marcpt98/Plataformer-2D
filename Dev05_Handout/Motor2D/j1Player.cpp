@@ -94,7 +94,14 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt) 
 {
 	// Gravity
-	position.y = position.y + gravity;
+	if (godMode == true)
+	{
+		position.y = position.y;
+	}
+	else
+	{
+		position.y = position.y + gravity;
+	}
 
 	CheckInputState();
 	CheckAnimation();
@@ -123,36 +130,74 @@ bool j1Player::PostUpdate(float dt)
 
 void j1Player::CheckInputState()
 {
-	// Player controllers
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	// God mode
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		actualState = ST_JUMP;
-		if (canJump1 == true) {
-			energyJump = jumpF;
+		if (godMode == false)
+		{
+			collider->to_delete = true;
+			godMode = true;
 		}
-		
+		else if (godMode == true)
+		{
+			collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, COLLIDER_PLAYER, this);
+			godMode = false;
+		}
 	}
 
-
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true)
-	{
-		actualState = ST_RUN;
-		position.x = position.x - speed;
-		blit = true;
-	}
-
-	else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true)
-	{
-		actualState = ST_RUN;
-		position.x = position.x + speed;
-		blit = false;
-	}
-	else if(canJump1==true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_W) == NULL)
+	if (godMode == true)
 	{
 		actualState = ST_IDLE;
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+		{
+			position.y = position.y - speed;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+		{
+			position.y = position.y + speed;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			position.x = position.x - speed;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			position.x = position.x + speed;
+		}
 	}
+	else
+	{
+		// Player controllers
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		{
+			actualState = ST_JUMP;
+			if (canJump1 == true) 
+			{
+				energyJump = jumpF;
+			}
+
+		}
 
 
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true)
+		{
+			actualState = ST_RUN;
+			position.x = position.x - speed;
+			blit = true;
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true)
+		{
+			actualState = ST_RUN;
+			position.x = position.x + speed;
+			blit = false;
+		}
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_W) == NULL)
+		{
+			actualState = ST_IDLE;
+		}
+	}
 }
 
 void j1Player::CheckAnimation()

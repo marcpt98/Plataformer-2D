@@ -73,15 +73,20 @@ public:
 	bool canJump1 = false;
 	float jumpF;
 	float energyJump;
+	
 	// Stats machine
 	void CheckInputState();
 	void CheckAnimation();
-	
 	states	actualState;
+	
+	// Player blit
 	bool	blit = false;	
-	int		cameraScale;
-
 	int fixBlit;
+
+	// God mode
+	bool godMode = false;
+
+
 };
 
 #endif // __j1Player_H__
