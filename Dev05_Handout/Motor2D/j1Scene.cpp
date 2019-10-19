@@ -74,10 +74,10 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x -= 2;
 
 	// CHANGE MAP
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		LevelName(0), currentMap = 0;
 
-	if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) 
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) 
 		LevelName(1), currentMap = 1;
 
 	App->map->Draw();

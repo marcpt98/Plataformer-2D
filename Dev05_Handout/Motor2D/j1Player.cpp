@@ -54,7 +54,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	bool ret = true;
 
-	// Player initial position
+	// Player position
 	position.x = config.child("position").attribute("x").as_int();
 	position.y = config.child("position").attribute("y").as_int();
 
@@ -78,9 +78,16 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 bool j1Player::Start() 
 {
+	// Load spritesheet
 	graphics = App->tex->Load(spritesheet.GetString());
+
+	// Add player collider
 	collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, COLLIDER_PLAYER, this); //a collider to start
 	
+	// Set initial position
+	position.x = 200;
+	position.y = 530;
+
 	return true;
 }
 

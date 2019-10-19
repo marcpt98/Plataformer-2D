@@ -81,7 +81,7 @@ public:
 	
 	// Player blit
 	bool	blit = false;	
-	int fixBlit;
+	int		fixBlit;
 
 	// God mode
 	bool godMode = false;
