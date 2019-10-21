@@ -49,7 +49,7 @@ public:
 public:
 	SDL_Texture* graphics = nullptr;
 	iPoint position;
-	
+	iPoint lasPosition;
 	// Animations
 	p2SString spritesheet;
 	Animation* current_animation = nullptr;
@@ -86,7 +86,9 @@ public:
 	// God mode
 	bool godMode = false;
 
-
+	//PLayer interaction with plataform
+	bool canjumpPlat = false;
+	bool goingdown = false;
 };
 
 #endif // __j1Player_H__

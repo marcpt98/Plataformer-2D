@@ -82,7 +82,8 @@ bool j1Player::Start()
 	graphics = App->tex->Load(spritesheet.GetString());
 
 	// Add player collider
-	collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, COLLIDER_PLAYER, this); //a collider to start
+	collider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
+
 	
 	// Set initial position
 	position.x = 200;
@@ -100,6 +101,7 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt) 
 {
+
 	// Gravity
 	if (godMode == true)
 	{
@@ -107,6 +109,8 @@ bool j1Player::Update(float dt)
 	}
 	else
 	{
+		lasPosition.x = position.x;
+		lasPosition.y = position.y;
 		position.y = position.y + gravity;
 	}
 
@@ -209,6 +213,8 @@ void j1Player::CheckInputState()
 
 void j1Player::CheckAnimation()
 {
+	goingdown = true;
+	canjumpPlat = false;
 	if (actualState == ST_JUMP)
 	{
 		canJump1 = false;
@@ -216,6 +222,8 @@ void j1Player::CheckAnimation()
 		if (energyJump < gravity) {
 			energyJump += 0.5;
 			position.y = position.y + energyJump;
+			if (energyJump < 0) { canjumpPlat = true; }
+			if (energyJump > 0) { goingdown = true; }
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
@@ -247,12 +255,29 @@ void j1Player::CheckAnimation()
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
+		position.y = lasPosition.y;
 		canJump1 = true;
-		
-	}
-	
-	
 
+		LOG("COLLIDERS WOOOOOOOOOOOOOOOOOOOOOORKS");
+	}
+
+	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
+	{
+		if ((position.y + 50) < c2->rect.y || (c2->rect.y + 1) && canjumpPlat == false) {
+			position.y = lasPosition.y;
+			canJump1 = true;
+		}
+		else if ((position.y + 50) > c2->rect.y && goingdown == true) {
+			position.y = position.y++;
+		}
+		if (goingdown == true && canjumpPlat == false && (position.y + 50) > c2->rect.y) {
+			position.y = position.y + 5;
+		}
+		LOG("COLLIDERS PLATAFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORM");
+
+
+	}
+	/*
 	switch (c2->type)
 	{
 	case COLLIDER_WALL: // what happens when colliders collide 
@@ -266,7 +291,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		{
 			//state = IDLE;
 			position.y--;
-		}*/
+		}
 		break;
 	case COLLIDER_DEATH:
 		
@@ -274,5 +299,5 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		break;
 	default:
 		break;
-	}
+	}*/
 }
