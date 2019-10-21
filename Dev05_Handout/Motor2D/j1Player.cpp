@@ -232,7 +232,7 @@ void j1Player::CheckInputState()
 			jump.Reset();
 			death.Reset();
 		}
-		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_W) == NULL && dead_animation==false)
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation==false)
 		{
 			actualState = ST_IDLE;
 
