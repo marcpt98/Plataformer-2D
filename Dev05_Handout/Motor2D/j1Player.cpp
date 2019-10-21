@@ -311,7 +311,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			position.y = position.y++;
 		}
 		if (goingdown == true && canjumpPlat == false && (position.y + 50) > c2->rect.y) {
-			position.y = position.y + 5;
+			position.y = position.y + gravity;
 		}
 	}
 
