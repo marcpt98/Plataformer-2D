@@ -487,15 +487,18 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 			p2SString type(object.attribute("name").as_string());
 			LOG("this name %s", type);
 
-			if (type == "Floor") {
+			if (type == "Floor") 
+			{
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_WALL);
 			}
 
-			if (type == "Death") {
+			if (type == "Dead") 
+			{
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_DEATH);
 			}
 
-			if (type == "Plataform") {
+			if (type == "Plataform") 
+			{
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_PLATAFORM);
 			}
 

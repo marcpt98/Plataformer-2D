@@ -96,7 +96,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	// Start from the beginning of the current level
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->player->dead==true)
 	{
 		if (currentMap == 0)
 		{
@@ -106,6 +106,8 @@ bool j1Scene::Update(float dt)
 		{
 			LevelName(1);
 		}
+
+		App->player->dead = false;
 	}
 
 	App->map->Draw();

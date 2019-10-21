@@ -274,9 +274,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			position.y = position.y + 5;
 		}
 		LOG("COLLIDERS PLATAFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORM");
-
-
 	}
+
+	if (collider == c1 && c2->type == COLLIDER_DEATH)
+	{
+		dead = true;
+	}
+
 	/*
 	switch (c2->type)
 	{
@@ -298,6 +302,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		//App->scene->Reset_Camera(); we will make something to reset the camera maybe we can just make the camera follow the player
 		break;
 	default:
-		break;
-	}*/
+		break;*/
+	
 }

@@ -89,6 +89,8 @@ public:
 	//PLayer interaction with plataform
 	bool canjumpPlat = false;
 	bool goingdown = false;
+
+	bool dead;
 };
 
 #endif // __j1Player_H__

@@ -28,9 +28,9 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;*/
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_DEATH][COLLIDER_WALL] = true;
+	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_DEATH][COLLIDER_PLATAFORM] = true;
+	matrix[COLLIDER_DEATH][COLLIDER_PLATAFORM] = false;
 
 
 	/*matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
@@ -105,7 +105,7 @@ bool j1Colliders::PreUpdate()
 			if (c1->CheckCollision(c2->rect) == true)
 			{
 				if (matrix[c1->type][c2->type] && c1->callback)
-					c1->callback->OnCollision(c1, c2);                       // needs to change
+					c1->callback->OnCollision(c1, c2);                      
 
 				if (matrix[c2->type][c1->type] && c2->callback)
 					c2->callback->OnCollision(c2, c1);
@@ -149,25 +149,31 @@ void j1Colliders::DebugDraw()
 			break;
 
 		case COLLIDER_WALL: // blue
-			if (App->player->showcolliders == true) {
+			if (App->player->showcolliders == true) 
+			{
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			}
 			break;
 
 		case COLLIDER_PLATAFORM: //purple
-			if (App->player->showcolliders == true) {
+			if (App->player->showcolliders == true) 
+			{
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			}
 			break;
 
 		case COLLIDER_PLAYER: // green
-			if (App->player->showcolliders == true) {
+			if (App->player->showcolliders == true) 
+			{
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			}
 			break;
 
-		case COLLIDER_DEATH: // NOT green
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+		case COLLIDER_DEATH: // red
+			if (App->player->showcolliders == true)
+			{
+				App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			}
 			break;
 			/*
 		case COLLIDER_ENEMY: // red
