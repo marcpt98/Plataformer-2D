@@ -53,6 +53,12 @@ j1Player::j1Player()
 	death.PushBack({ 284,444,50,26 }, 0.15, 0, 30);
 	death.PushBack({ 336,444,30,30 }, 0.15, 0, 25);
 	death.PushBack({ 374,444,18,16 }, 0.15, 0, 25);
+
+	//Grab animation
+	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
+	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
+	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
+	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 }
 
 j1Player::~j1Player()
@@ -207,6 +213,7 @@ void j1Player::CheckInputState()
 			idle.Reset();
 			run.Reset();
 			death.Reset();
+			grab.Reset();
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false)
@@ -219,6 +226,7 @@ void j1Player::CheckInputState()
 			idle.Reset();
 			jump.Reset();
 			death.Reset();
+			grab.Reset();
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false)
@@ -231,8 +239,9 @@ void j1Player::CheckInputState()
 			idle.Reset();
 			jump.Reset();
 			death.Reset();
+			grab.Reset();
 		}
-		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation==false)
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation==false && grabing==false)
 		{
 			actualState = ST_IDLE;
 
@@ -240,6 +249,7 @@ void j1Player::CheckInputState()
 			run.Reset();
 			jump.Reset();
 			death.Reset();
+			grab.Reset();
 		}
 		else if (dead_animation == true)
 		{
@@ -288,6 +298,11 @@ void j1Player::CheckAnimation()
 	{
 		current_animation = &death;
 	}
+
+	if (grabing == true) 
+	{
+		current_animation = &grab;
+	}
 }
 
 
@@ -295,7 +310,7 @@ void j1Player::CheckAnimation()
 
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
-	if (collider == c1 && c2->type == COLLIDER_WALL)
+	if (collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
 		position.y = lasPosition.y;
 		canJump1 = true;
@@ -332,7 +347,18 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 			count_dead = false;
 		}
 	}
+	if (collider == c1 && c2->type == COLLIDER_WALL)
+	{
+		LOG("GRABING WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALL");
+		grabing = true;
+		canJump1 = true;
+		position.y = lasPosition.y;
+		position.x = lasPosition.x;
 
+	}
+	else {
+		grabing = false;
+	}
 	/*
 	switch (c2->type)
 	{

@@ -485,11 +485,10 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 			objectgroup->object[i].h = object.attribute("height").as_int();
 
 			p2SString type(object.attribute("name").as_string());
-			LOG("this name %s", type);
 
 			if (type == "Floor") 
 			{
-				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_WALL);
+				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_FLOOR);
 			}
 
 			if (type == "Dead") 
@@ -500,6 +499,11 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 			if (type == "Plataform") 
 			{
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_PLATAFORM);
+			}
+
+			if (type == "Wall") 
+			{
+				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_WALL);
 			}
 
 

@@ -11,28 +11,35 @@ j1Colliders::j1Colliders()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
-	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_WALL][COLLIDER_PLATAFORM] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_PLATAFORM] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_WALL] = false;
 	/*matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY_SHOT] = true;*/
 
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLATAFORM] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	/*matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;*/
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PLATAFORM] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
 
-
+	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
+	matrix[COLLIDER_WALL][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_WALL][COLLIDER_PLATAFORM] = false;
+	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
 	/*matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_SHOT] = false;*/
@@ -148,7 +155,7 @@ void j1Colliders::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 
-		case COLLIDER_WALL: // blue
+		case COLLIDER_FLOOR: // blue
 			if (App->player->showcolliders == true) 
 			{
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
@@ -161,7 +168,12 @@ void j1Colliders::DebugDraw()
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			}
 			break;
-
+		case COLLIDER_WALL: //turquesa
+			if (App->player->showcolliders == true)
+			{
+				App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
+			}
+			break;
 		case COLLIDER_PLAYER: // green
 			if (App->player->showcolliders == true) 
 			{

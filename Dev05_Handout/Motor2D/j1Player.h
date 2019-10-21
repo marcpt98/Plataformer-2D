@@ -60,7 +60,7 @@ public:
 	Animation jump;
 	Animation special;
 	Animation death;
-	
+	Animation grab;
 	// Colliders
 	Collider* collider = nullptr;
 	Collider* collider2 = nullptr;
@@ -99,6 +99,9 @@ public:
 	bool dead_animation = false;
 	bool count_dead = false;
 	int dead_animation_finish = 0;
+
+	//Player grabing
+	bool grabing = false;
 };
 
 #endif // __j1Player_H__
