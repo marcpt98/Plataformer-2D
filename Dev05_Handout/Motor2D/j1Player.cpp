@@ -43,6 +43,16 @@ j1Player::j1Player()
 	jump.PushBack({ 224,161,44,54 }, 0.2, 0, 0);
 	jump.PushBack({ 270,161,46,48 }, 0.2, 0, 0);
 	jump.PushBack({ 318,161,40,52 }, 0.2, 0, 0);
+
+	// Death animation
+	death.PushBack({ 0,444,44,56 }, 0.15, 0, 0);
+	death.PushBack({ 46,444,50,58 }, 0.15, 0, 0);
+	death.PushBack({ 98,444,52,38 }, 0.15, 0, 20);
+	death.PushBack({ 152,444,58,22 }, 0.15, 0, 30);
+	death.PushBack({ 212,444,70,24 }, 0.15, 0, 30);
+	death.PushBack({ 284,444,50,26 }, 0.15, 0, 30);
+	death.PushBack({ 336,444,30,30 }, 0.15, 0, 25);
+	death.PushBack({ 374,444,18,16 }, 0.15, 0, 25);
 }
 
 j1Player::~j1Player()
@@ -57,6 +67,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 	// Player position
 	position.x = config.child("position").attribute("x").as_int();
 	position.y = config.child("position").attribute("y").as_int();
+
+	// Player initial position
+	iPosition.x = config.child("iPosition").attribute("x").as_int();
+	iPosition.y = config.child("iPosition").attribute("y").as_int();
 
 	// Player spritesheet
 	spritesheet = config.child("spritesheet").attribute("player").as_string("");
@@ -86,8 +100,8 @@ bool j1Player::Start()
 
 	
 	// Set initial position
-	position.x = 200;
-	position.y = 530;
+	position.x = iPosition.x;
+	position.y = iPosition.y;
 
 	return true;
 }
@@ -130,7 +144,6 @@ bool j1Player::Update(float dt)
 		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
 	}
 	return true;
-
 }
 
 bool j1Player::PostUpdate(float dt)
@@ -177,10 +190,12 @@ void j1Player::CheckInputState()
 			position.x = position.x + speed;
 		}
 	}
+
+	// Without god mode
 	else
 	{
 		// Player controllers
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && dead_animation == false)
 		{
 			actualState = ST_JUMP;
 			if (canJump1 == true) 
@@ -188,25 +203,47 @@ void j1Player::CheckInputState()
 				energyJump = jumpF;
 			}
 
+			// Reset animations
+			idle.Reset();
+			run.Reset();
+			death.Reset();
 		}
 
-
-		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true)
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x - speed;
 			blit = true;
+
+			// Reset animations
+			idle.Reset();
+			jump.Reset();
+			death.Reset();
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true)
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x + speed;
 			blit = false;
+
+			// Reset animations
+			idle.Reset();
+			jump.Reset();
+			death.Reset();
 		}
-		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_W) == NULL)
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_W) == NULL && dead_animation==false)
 		{
 			actualState = ST_IDLE;
+
+			// Reset animations
+			run.Reset();
+			jump.Reset();
+			death.Reset();
+		}
+		else if (dead_animation == true)
+		{
+			actualState = ST_DEAD;
 		}
 	}
 }
@@ -246,6 +283,11 @@ void j1Player::CheckAnimation()
 	{
 		current_animation = &idle;
 	}
+
+	if (actualState == ST_DEAD) 
+	{
+		current_animation = &death;
+	}
 }
 
 
@@ -257,8 +299,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	{
 		position.y = lasPosition.y;
 		canJump1 = true;
-
-		LOG("COLLIDERS WOOOOOOOOOOOOOOOOOOOOOORKS");
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
@@ -273,12 +313,24 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 		if (goingdown == true && canjumpPlat == false && (position.y + 50) > c2->rect.y) {
 			position.y = position.y + 5;
 		}
-		LOG("COLLIDERS PLATAFOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORM");
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_DEATH)
 	{
-		dead = true;
+		dead_animation = true;
+		position.y = lasPosition.y;
+		
+		if (count_dead == false)
+		{
+			dead_animation_finish = SDL_GetTicks();
+			count_dead = true;
+		}
+		if (SDL_GetTicks() > dead_animation_finish + 800)
+		{
+			dead = true;
+			dead_animation = false;
+			count_dead = false;
+		}
 	}
 
 	/*

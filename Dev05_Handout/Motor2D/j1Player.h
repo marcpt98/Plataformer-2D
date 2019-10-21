@@ -16,7 +16,8 @@ enum states
 	ST_RUN,
 	ST_JUMP,
 	ST_JUMPRUN,
-	ST_FALL
+	ST_FALL,
+	ST_DEAD
 };
 
 class j1Player : public j1Module
@@ -50,6 +51,7 @@ public:
 	SDL_Texture* graphics = nullptr;
 	iPoint position;
 	iPoint lasPosition;
+	iPoint iPosition;
 	// Animations
 	p2SString spritesheet;
 	Animation* current_animation = nullptr;
@@ -57,6 +59,7 @@ public:
 	Animation run;
 	Animation jump;
 	Animation special;
+	Animation death;
 	
 	// Colliders
 	Collider* collider = nullptr;
@@ -90,7 +93,12 @@ public:
 	bool canjumpPlat = false;
 	bool goingdown = false;
 
-	bool dead;
+	// Player dead
+	bool dead = false;
+	int dead_timer;
+	bool dead_animation = false;
+	bool count_dead = false;
+	int dead_animation_finish = 0;
 };
 
 #endif // __j1Player_H__
