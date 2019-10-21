@@ -64,6 +64,7 @@ bool j1Audio::CleanUp()
 	if(music != NULL)
 	{
 		Mix_FreeMusic(music);
+		music = NULL;
 	}
 
 	p2List_item<Mix_Chunk*>* item;
@@ -99,7 +100,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 	if(!active)
 		return false;
 
-	if(music != NULL)
+	/*if(music != NULL)
 	{
 		if(fade_time > 0.0f)
 		{
@@ -112,7 +113,7 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 
 		// this call blocks until fade out is done
 		Mix_FreeMusic(music);
-	}
+	}*/
 
 	music = Mix_LoadMUS(path);
 
