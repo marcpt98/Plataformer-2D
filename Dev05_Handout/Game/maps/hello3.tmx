@@ -45043,10 +45043,10 @@
   <object id="28" name="Floor" x="3392" y="514" width="126" height="125"/>
   <object id="30" name="Floor" x="2721" y="0" width="541" height="349"/>
   <object id="32" name="Floor" x="2751" y="321" width="510" height="60"/>
-  <object id="47" name="Plataform" x="416.5" y="480.5" width="159" height="5.5"/>
-  <object id="48" name="Plataform" x="1057" y="417" width="94" height="3.75"/>
-  <object id="49" name="Plataform" x="1600.55" y="544.545" width="62.7273" height="3.63636"/>
-  <object id="50" name="Plataform" x="1504.13" y="480.125" width="63.75" height="3.75"/>
-  <object id="51" name="Plataform" x="1600.13" y="416.125" width="63.75" height="3.875"/>
+  <object id="47" name="Plataform" x="416.5" y="480.5" width="159" height="30.5"/>
+  <object id="48" name="Plataform" x="1057" y="417" width="94" height="30.5"/>
+  <object id="49" name="Plataform" x="1600.55" y="544.545" width="62.7273" height="30.5"/>
+  <object id="50" name="Plataform" x="1504.13" y="480.125" width="63.75" height="30.5"/>
+  <object id="51" name="Plataform" x="1600.13" y="416.125" width="63.75" height="30.5"/>
  </objectgroup>
 </map>
