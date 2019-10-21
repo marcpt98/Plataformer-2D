@@ -195,7 +195,7 @@ void j1Player::CheckInputState()
 	else
 	{
 		// Player controllers
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN && dead_animation == false)
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false)
 		{
 			actualState = ST_JUMP;
 			if (canJump1 == true) 
