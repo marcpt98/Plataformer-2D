@@ -284,7 +284,7 @@ void j1Player::CheckAnimation()
 		}
 	}
 
-	if (actualState == ST_RUN)
+	if (actualState == ST_RUN )
 	{
 		current_animation = &run;
 	}
@@ -301,6 +301,7 @@ void j1Player::CheckAnimation()
 
 	if (grabing == true) 
 	{
+		LOG("grabiiiiiiiiing");
 		current_animation = &grab;
 	}
 }
@@ -310,10 +311,17 @@ void j1Player::CheckAnimation()
 
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) {
+
 	if (collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
 		position.y = lasPosition.y;
+		if ((position.y + 58) > c2->rect.y && position.y < c2->rect.y) {// this is because the gravity makes colliders go weird with this 
+			position.y = position.y-2;                                  //the colliders from the player works well
+		}
 		canJump1 = true;
+		if ((position.y+53) > c2->rect.y|| position.y > c2->rect.y) {
+			position.x = lasPosition.x;
+		}
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
@@ -349,7 +357,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
-		LOG("GRABING WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALL");
 		grabing = true;
 		canJump1 = true;
 		position.y = lasPosition.y;

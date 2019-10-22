@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="150" height="100" tilewidth="32" tileheight="32" nextobjectid="99">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="150" height="100" tilewidth="32" tileheight="32" nextobjectid="101">
  <tileset firstgid="1" name="tilesets_cave" tilewidth="32" tileheight="32" tilecount="1311" columns="23">
   <image source="BACKGROUND COMPLETED.png" width="736" height="1824"/>
  </tileset>
@@ -45059,22 +45059,22 @@
   <object id="65" name="Floor" x="1184.12" y="481" width="30.0417" height="20.1051"/>
   <object id="66" name="Wall" x="1184.08" y="498.488" width="19.2108" height="267.15"/>
   <object id="67" name="Floor" x="1280.23" y="481" width="30.0417" height="20.1051"/>
-  <object id="68" name="Wall" x="1291.06" y="499.758" width="19.2108" height="111.15"/>
-  <object id="69" name="Floor" x="1343.56" y="608" width="30.0417" height="20.1051"/>
+  <object id="68" name="Wall" x="1291.06" y="486.122" width="19.2108" height="124.786"/>
+  <object id="69" name="Floor" x="1353.65" y="609.364" width="19.9508" height="18.7415"/>
   <object id="70" name="Wall" x="1355.06" y="628.758" width="20.7108" height="137.15"/>
   <object id="71" name="Dead" x="1369.5" y="767.667" width="325" height="14"/>
-  <object id="73" name="Floor" x="1699.22" y="387.16" width="30.0417" height="14.1392"/>
-  <object id="74" name="Wall" x="1699.22" y="401.239" width="21.2108" height="202.002"/>
+  <object id="73" name="Floor" x="1700.97" y="387.16" width="28.2917" height="14.1392"/>
+  <object id="74" name="Wall" x="1699.22" y="393.989" width="21.2108" height="209.252"/>
   <object id="75" name="Wall" x="1665.39" y="613.395" width="23.2108" height="153.544"/>
   <object id="76" name="Floor" x="1665.98" y="602.66" width="51.7084" height="11.0142"/>
   <object id="78" name="Floor" x="1984.65" y="237.311" width="56.0417" height="72.0104"/>
-  <object id="79" name="Wall" x="2113.73" y="269.582" width="25.2108" height="120.002"/>
-  <object id="80" name="Wall" x="2032.39" y="199.332" width="14.2108" height="111.669"/>
-  <object id="81" name="Floor" x="2016.98" y="309.097" width="30.0417" height="9.80587"/>
-  <object id="82" name="Floor" x="2016.04" y="192.722" width="31.2292" height="14.8059"/>
-  <object id="83" name="Floor" x="2113.73" y="256.097" width="30.5417" height="14.8059"/>
+  <object id="79" name="Wall" x="2112.82" y="258.311" width="26.1199" height="131.273"/>
+  <object id="80" name="Wall" x="2032.39" y="200.037" width="15.0858" height="113.783"/>
+  <object id="81" name="Floor" x="2016.98" y="309.097" width="28.1326" height="9.80587"/>
+  <object id="82" name="Floor" x="2016.04" y="192.722" width="27.519" height="14.8059"/>
+  <object id="83" name="Floor" x="2115.28" y="256" width="29.0872" height="14.715"/>
   <object id="84" name="Wall" x="1984.56" y="237.075" width="14.2108" height="72.5781"/>
-  <object id="85" name="Floor" x="1984.62" y="308.552" width="33.1326" height="10.3513"/>
+  <object id="85" name="Floor" x="1985.31" y="308.552" width="32.4451" height="10.3513"/>
   <object id="86" name="Floor" x="1984.62" y="224.37" width="47.4962" height="12.8968"/>
   <object id="87" name="Wall" x="3584.73" y="200.332" width="21.2108" height="278.669"/>
   <object id="88" name="Wall" x="3498.06" y="64.999" width="21.2108" height="350.002"/>
@@ -45082,11 +45082,11 @@
   <object id="90" name="Floor" x="3586.76" y="192.076" width="188.5" height="31"/>
   <object id="91" name="Floor" x="2206.73" y="256" width="30.5417" height="14.8059"/>
   <object id="92" name="Wall" x="2206.73" y="270.999" width="31.2108" height="496.002"/>
-  <object id="93" name="Wall" x="2432.14" y="393.999" width="32.3017" height="41.3353"/>
-  <object id="94" name="Floor" x="2432" y="384" width="25.3409" height="15.4091"/>
-  <object id="95" name="Floor" x="2471.38" y="384" width="24.25" height="15.5"/>
-  <object id="96" name="Floor" x="2432.13" y="432.75" width="25.25" height="15.1364"/>
-  <object id="97" name="Floor" x="2471.63" y="433.273" width="24.25" height="14.5"/>
+  <object id="93" name="Wall" x="2432.14" y="388.124" width="63.9267" height="55.5853"/>
+  <object id="94" name="Floor" x="2434.36" y="384" width="22.9773" height="2.1591"/>
+  <object id="95" name="Floor" x="2471.38" y="384" width="24.25" height="2.125"/>
+  <object id="96" name="Floor" x="2434.31" y="445.75" width="30.4432" height="2.1364"/>
+  <object id="97" name="Floor" x="2471.63" y="445.523" width="24.25" height="2.25"/>
   <object id="98" name="Wall" x="2463.39" y="396.241" width="32.3017" height="41.3353"/>
  </objectgroup>
 </map>
