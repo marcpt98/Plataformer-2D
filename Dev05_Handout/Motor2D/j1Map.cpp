@@ -9,6 +9,7 @@
 #include "j1Colliders.h"
 #include "j1Player.h"
 #include "j1Audio.h"
+#include "j1FadeToBlack.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -172,7 +173,7 @@ bool j1Map::ChangeMusic(p2SString* music)
 
 	// Load
 	App->audio->PlayMusic(music->GetString());
-
+	
 	return true;
 }
 
@@ -183,13 +184,17 @@ bool j1Map::ChangeMap(p2SString* map)
 	App->player->CleanUp();
 	App->colliders->CleanUp();
 	CleanUp();
-	
+
+	// FadeToBlack
+	App->fade->FadeToBlack(2);
+
 	// Load
 	App->player->Start();
 	Load(map->GetString());
-	
+
 	return true;
 }
+
 // Load new map
 bool j1Map::Load(const char* file_name)
 {

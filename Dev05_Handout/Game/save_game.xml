@@ -7,5 +7,12 @@
     <camera.x x="100"/>
     <camera.y y="100"/>
   </renderer>
+  <scene>
+    <scenename name="hello3.tmx" />
+  </scene>
+  <player>
+    <position x="0"/>
+    <position y="0"/>
+  </player>
   
 </game_state>

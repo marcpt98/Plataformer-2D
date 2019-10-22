@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Window.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
 
@@ -19,7 +20,14 @@ j1FadeToBlack::j1FadeToBlack()
 j1FadeToBlack::~j1FadeToBlack()
 {}
 
+bool j1FadeToBlack::Awake(pugi::xml_node&)
+{
+	bool ret = true;
 
+	screen = { 0, 0, App->win->width * App->win->scale, App->win->height * App->win->scale };
+
+	return ret;
+}
 
 // Load assets
 bool j1FadeToBlack::Start()
@@ -30,40 +38,32 @@ bool j1FadeToBlack::Start()
 }
 
 // Update: draw background
-bool j1FadeToBlack::Update()
+bool j1FadeToBlack::Update(float dt)
 {
 	if (current_step == fade_step::none)
 		return true;
-
 	Uint32 now = SDL_GetTicks() - start_time;
 	float normalized = MIN(1.0f, (float)now / (float)total_time);
 
 	switch (current_step)
 	{
-	case fade_step::fade_to_black:
-	{
-		if (now >= total_time)
+		case fade_step::fade_to_black:
 		{
-			// TODO 3: enable / disable the modules received when FadeToBlacks() gets called
-			/*off_map->Disable();
-			on_module->Enable();
-			App->map->Load("hello4.tmx");
-			App->map->Load("hello3.tmx");
-			App->map->CleanUp();*/
-
-			total_time += total_time;
-			start_time = SDL_GetTicks();
-			current_step = fade_step::fade_from_black;
-		}
+			if (now >= total_time)
+			{
+				total_time += total_time;
+				start_time = SDL_GetTicks();
+				current_step = fade_step::fade_from_black;
+			}
 	} break;
-
-	case fade_step::fade_from_black:
-	{
-		normalized = 1.0f - normalized;
-
-		if (now >= total_time)
-			current_step = fade_step::none;
-	} break;
+	
+		case fade_step::fade_from_black:
+		{
+			normalized = 1.0f - normalized;
+	
+			if (now >= total_time)
+				current_step = fade_step::none;
+		} break;
 	}
 
 	// Finally render the black square with alpha on the screen
@@ -74,18 +74,17 @@ bool j1FadeToBlack::Update()
 }
 
 // Fade to black. At mid point deactivate one module, then activate the other
-bool j1FadeToBlack::FadeToBlack(pugi::xml_document map_off, pugi::xml_document	map_on, float time)
+bool j1FadeToBlack::FadeToBlack(float time)
 {
 	bool ret = false;
-
-	/*if (current_step == fade_step::none)
+	
+	if (current_step == fade_step::none)
 	{
-		on_map = map_on;
-		off_map = map_off;
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time * 0.5f * 1000.0f);
 		ret = true;
-	}*/
+	}
+
 	return ret;
 }

@@ -39,10 +39,10 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(win);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(fade);
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
+	AddModule(fade);
 	AddModule(colliders);
 	// render last to swap buffer
 	AddModule(render);
@@ -186,11 +186,11 @@ void j1App::PrepareUpdate()
 // ---------------------------------------------
 void j1App::FinishUpdate()
 {
-	if(want_to_save == true)
-		SavegameNow();
+	/*if(want_to_save == true)
+		App->render->Save(const char* file);
 
 	if(want_to_load == true)
-		LoadGameNow();
+		App->render->Load(const char* file);*/
 }
 
 // Call modules before each loop iteration
