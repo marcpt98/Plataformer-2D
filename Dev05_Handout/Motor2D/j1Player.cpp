@@ -310,7 +310,8 @@ void j1Player::CheckAnimation()
 
 
 
-void j1Player::OnCollision(Collider* c1, Collider* c2) {
+void j1Player::OnCollision(Collider* c1, Collider* c2) 
+{
 
 	if (collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
@@ -365,6 +366,26 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {
 	}
 	else {
 		grabing = false;
+	}
+
+	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)
+	{
+		if (next_map == false)
+		{
+			if (App->scene->currentMap == 1)
+			{
+				App->scene->LevelName(0);
+				App->scene->currentMap = 0;
+				next_map = true;
+			}
+
+			else if (App->scene->currentMap == 0)
+			{
+				App->scene->LevelName(1);
+				App->scene->currentMap = 1;
+				next_map = true;
+			}
+		}
 	}
 	/*
 	switch (c2->type)

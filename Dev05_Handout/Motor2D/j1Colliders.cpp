@@ -16,6 +16,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_WALL] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_NEXTMAP] = false;
 	/*matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY_SHOT] = true;*/
@@ -25,6 +26,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLATAFORM] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_NEXTMAP] = true;
 	/*matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;*/
@@ -34,15 +36,25 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_NEXTMAP] = false;
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_WALL][COLLIDER_NEXTMAP] = false;
 	/*matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_SHOT] = false;*/
+
+	matrix[COLLIDER_NEXTMAP][COLLIDER_NEXTMAP] = false;
+	matrix[COLLIDER_NEXTMAP][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_NEXTMAP][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_NEXTMAP][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_NEXTMAP][COLLIDER_PLATAFORM] = false;
+	matrix[COLLIDER_NEXTMAP][COLLIDER_WALL] = false;
+
 	/*
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER] = false;
@@ -135,7 +147,7 @@ bool j1Colliders::Update(float dt)
 void j1Colliders::DebugDraw()
 {
 	
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -185,6 +197,12 @@ void j1Colliders::DebugDraw()
 			if (App->player->showcolliders == true)
 			{
 				App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			}
+			break;
+		case COLLIDER_NEXTMAP: // violet
+			if (App->player->showcolliders == true)
+			{
+				App->render->DrawQuad(colliders[i]->rect, 130, 5, 255, alpha);
 			}
 			break;
 			/*

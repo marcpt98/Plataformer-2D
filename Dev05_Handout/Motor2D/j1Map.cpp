@@ -181,6 +181,7 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 	App->player->Start();
 	App->audio->PlayMusic(music->GetString());
 	Load(map->GetString());
+	App->player->next_map = false;
 
 	return true;
 }
@@ -499,6 +500,11 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 			if (type == "Wall") 
 			{
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_WALL);
+			}
+
+			if (type == "NextMap")
+			{
+				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_NEXTMAP);
 			}
 
 

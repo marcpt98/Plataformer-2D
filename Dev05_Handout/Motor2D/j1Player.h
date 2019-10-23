@@ -102,6 +102,9 @@ public:
 
 	//Player grabing
 	bool grabing = false;
+
+	// Next map
+	bool next_map = false;
 };
 
 #endif // __j1Player_H__

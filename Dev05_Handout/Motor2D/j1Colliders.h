@@ -1,7 +1,7 @@
 #ifndef __j1Colliders_H__
 #define __j1Colliders_H__
 
-#define MAX_COLLIDERS 200
+#define MAX_COLLIDERS 250
 
 #include "j1Module.h"
 
@@ -14,6 +14,7 @@ enum COLLIDER_TYPE
 	COLLIDER_PLAYER,
 	COLLIDER_ENEMY,
 	COLLIDER_DEATH,
+	COLLIDER_NEXTMAP,
 	COLLIDER_PLAYER_SHOT,
 	COLLIDER_ENEMY_SHOT,
 	NO_COLLIDER,
