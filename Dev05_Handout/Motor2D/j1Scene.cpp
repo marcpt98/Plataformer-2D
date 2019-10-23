@@ -178,8 +178,7 @@ bool j1Scene::CleanUp()
 // Say which map and music has to be loaded
 bool j1Scene::LevelName(int time)
 {
-	App->map->ChangeMap(map_names[time]);
-	App->map->ChangeMusic(music_names[time]);
+	App->map->ChangeMapMusic(map_names[time], music_names[time]);
 
 	return true;
 }
