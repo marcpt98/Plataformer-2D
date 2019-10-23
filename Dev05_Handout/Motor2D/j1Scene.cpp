@@ -110,6 +110,21 @@ bool j1Scene::Update(float dt)
 		App->player->dead = false;
 	}
 
+	if (App->player->map_next == true)
+	{
+		if (currentMap == 0)
+		{
+			LevelName(1);
+			currentMap = 1;
+		}
+		else if (currentMap == 1)
+		{
+			LevelName(0);
+			currentMap = 0;
+		}
+		App->player->map_next = false;
+	}
+
 	App->map->Draw();
 
 	// Show player and map colliders

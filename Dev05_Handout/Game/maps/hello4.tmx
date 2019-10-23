@@ -30041,6 +30041,6 @@
   <object id="19" name="Floor" x="2784.67" y="384.667" width="127.333" height="94.6667"/>
   <object id="22" name="Floor" x="2848" y="320.667" width="64" height="75.3333"/>
   <object id="23" name="Floor" x="2656" y="637.333" width="256" height="196"/>
-  <object id="26" name="NextMap" x="406" y="504" width="97" height="70"/>
+  <object id="26" name="NextMap" x="2913.79" y="774.272" width="221.667" height="11.3333"/>
  </objectgroup>
 </map>

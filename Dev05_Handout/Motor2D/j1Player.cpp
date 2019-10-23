@@ -35,14 +35,14 @@ j1Player::j1Player()
 	run.PushBack({ 216,110,42,48 }, 0.2, 0, 0);
 
 	// Jump animation
-	jump.PushBack({ 0,161,42,52 }, 0.2, 0, 0);
-	jump.PushBack({ 44,161,44,48 }, 0.2, 0, 0);
-	jump.PushBack({ 90,161,46,48 }, 0.2, 0, 0);
-	jump.PushBack({ 138,161,40,60 }, 0.2, 0, 0);
-	jump.PushBack({ 180,161,42,54 }, 0.2, 0, 0);
-	jump.PushBack({ 224,161,44,54 }, 0.2, 0, 0);
-	jump.PushBack({ 270,161,46,48 }, 0.2, 0, 0);
-	jump.PushBack({ 318,161,40,52 }, 0.2, 0, 0);
+	jump.PushBack({ 0,161,42,52 }, 0.15, 0, 0);
+	jump.PushBack({ 44,161,44,48 }, 0.15, 0, 0);
+	jump.PushBack({ 90,161,46,48 }, 0.15, 0, 0);
+	jump.PushBack({ 138,161,40,60 }, 0.15, 0, 0);
+	jump.PushBack({ 180,161,42,54 }, 0.15, 0, 0);
+	jump.PushBack({ 224,161,44,54 }, 0.15, 0, 0);
+	jump.PushBack({ 270,161,46,48 }, 0.15, 0, 0);
+	jump.PushBack({ 318,161,40,52 }, 0.15, 0, 0);
 
 	// Death animation
 	death.PushBack({ 0,444,44,56 }, 0.15, 0, 0);
@@ -364,28 +364,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		position.x = lasPosition.x;
 
 	}
-	else {
+	else 
+	{
 		grabing = false;
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)
 	{
-		if (next_map == false)
-		{
-			if (App->scene->currentMap == 1)
-			{
-				App->scene->LevelName(0);
-				App->scene->currentMap = 0;
-				next_map = true;
-			}
-
-			else if (App->scene->currentMap == 0)
-			{
-				App->scene->LevelName(1);
-				App->scene->currentMap = 1;
-				next_map = true;
-			}
-		}
+		map_next = true;
 	}
 	/*
 	switch (c2->type)

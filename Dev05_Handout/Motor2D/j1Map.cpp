@@ -181,7 +181,6 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 	App->player->Start();
 	App->audio->PlayMusic(music->GetString());
 	Load(map->GetString());
-	App->player->next_map = false;
 
 	return true;
 }

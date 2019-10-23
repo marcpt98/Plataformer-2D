@@ -45088,6 +45088,6 @@
   <object id="96" name="Floor" x="2434.31" y="445.75" width="30.4432" height="2.1364"/>
   <object id="97" name="Floor" x="2471.63" y="445.523" width="24.25" height="2.25"/>
   <object id="98" name="Wall" x="2463.39" y="396.241" width="32.3017" height="41.3353"/>
-  <object id="101" name="NextMap" x="798" y="398" width="100" height="73"/>
+  <object id="101" name="NextMap" x="3756.45" y="1.78788" width="20" height="197"/>
  </objectgroup>
 </map>
