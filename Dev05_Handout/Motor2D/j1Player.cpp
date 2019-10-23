@@ -358,18 +358,6 @@ void j1Player::CheckAnimation()
 
 	if (actualState == ST_FALL)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		{
-			position.x = position.x - speed;
-			blit = true;
-		}
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		{
-			position.x = position.x + speed;
-			blit = false;
-		}
-		current_animation = &fall;
-
 		if (controls == false)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
@@ -383,6 +371,7 @@ void j1Player::CheckAnimation()
 				blit = false;
 			}
 		}
+		current_animation = &fall;
 	}
 
 	if (grabing == true) 
@@ -397,25 +386,30 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
 		position.y = lasPosition.y;
-		if ((position.y + 58) > c2->rect.y && position.y < c2->rect.y) {// this is because the gravity makes colliders go weird with this 
-			position.y = position.y-2;                                  //the colliders from the player works well
+		if ((position.y + 58) > c2->rect.y && position.y < c2->rect.y) // this is because the gravity makes colliders go weird with this 
+		{
+			position.y = position.y-2;                                 //the colliders from the player works well
 		}
 		canJump1 = true;
-		if ((position.y+53) > c2->rect.y|| position.y > c2->rect.y) {
+		if ((position.y+53) > c2->rect.y|| position.y > c2->rect.y) 
+		{
 			position.x = lasPosition.x;
 		}
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
 	{
-		if ((position.y + 50) < c2->rect.y || (c2->rect.y + 1) && canjumpPlat == false) {
+		if ((position.y + 50) < c2->rect.y || (c2->rect.y + 1) && canjumpPlat == false) 
+		{
 			position.y = lasPosition.y;
 			canJump1 = true;
 		}
-		else if ((position.y + 50) > c2->rect.y && goingdown == true) {
+		else if ((position.y + 50) > c2->rect.y && goingdown == true) 
+		{
 			position.y = position.y++;
 		}
-		if (goingdown == true && canjumpPlat == false && (position.y + 50) > c2->rect.y) {
+		if (goingdown == true && canjumpPlat == false && (position.y + 50) > c2->rect.y) 
+		{
 			position.y = position.y + gravity;
 		}
 	}
