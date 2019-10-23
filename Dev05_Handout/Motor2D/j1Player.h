@@ -77,6 +77,17 @@ public:
 	bool canJump1 = false;
 	float jumpF;
 	float energyJump;
+
+	// Jump when grabbed
+	float jumpG;
+	float energyGrab;
+	bool goright = false;
+	bool goleft = false;
+	bool grabFinish = false; 
+	int timegrab;
+	bool controls = false;
+	bool nojumpingleft = false;
+	bool nojumpingright = false;
 	
 	// Stats machine
 	void CheckInputState();

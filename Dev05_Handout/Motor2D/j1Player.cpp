@@ -35,14 +35,16 @@ j1Player::j1Player()
 	run.PushBack({ 216,110,42,48 }, 0.2, 0, 0);
 
 	// Jump animation
-	jump.PushBack({ 0,161,42,52 }, 0.15, 0, 0);
-	jump.PushBack({ 44,161,44,48 }, 0.15, 0, 0);
-	jump.PushBack({ 90,161,46,48 }, 0.15, 0, 0);
-	jump.PushBack({ 138,161,40,60 }, 0.15, 0, 0);
-	jump.PushBack({ 180,161,42,54 }, 0.15, 0, 0);
-	jump.PushBack({ 224,161,44,54 }, 0.15, 0, 0);
-	jump.PushBack({ 270,161,46,48 }, 0.15, 0, 0);
-	jump.PushBack({ 318,161,40,52 }, 0.15, 0, 0);
+	jump.PushBack({ 0,161,42,52 }, 0.2, 0, 0);
+	jump.PushBack({ 44,161,44,48 }, 0.2, 0, 0);
+	jump.PushBack({ 90,161,46,48 }, 0.2, 0, 0);
+	jump.PushBack({ 138,161,40,60 }, 0.2, 0, 0);
+	jump.PushBack({ 180,161,42,54 }, 0.2, 0, 0);
+	jump.PushBack({ 224,161,44,54 }, 0.2, 0, 0);
+	jump.PushBack({ 270,161,46,48 }, 0.2, 0, 0);
+	jump.PushBack({ 318,161,40,52 }, 0.2, 0, 0);
+	jump.PushBack({ 90,161,46,48 }, 0.2, 0, 0);
+	jump.loop = false;
 
 	// Death animation
 	death.PushBack({ 0,444,44,56 }, 0.15, 0, 0);
@@ -55,9 +57,6 @@ j1Player::j1Player()
 	death.PushBack({ 374,444,18,16 }, 0.15, 0, 25);
 
 	// Grab animation
-	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
-	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
-	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 
 	// Fall animation
@@ -92,6 +91,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	// Jump force
 	jumpF = config.child("jumpF").attribute("j").as_float();
+	
+	// Jump force when grabbed
+	jumpG = config.child("jumpG").attribute("g").as_float();
 
 	// Fix blit
 	fixBlit = config.child("fixBlit").attribute("fix").as_float();
@@ -202,6 +204,20 @@ void j1Player::CheckInputState()
 	// Without god mode
 	else
 	{
+		// Check grab time
+		if (grabFinish == true)
+		{
+			timegrab = SDL_GetTicks();
+			grabFinish = false;
+		}
+		if (SDL_GetTicks() > timegrab + 200)
+		{
+			grabing = false;
+			goright = false;
+			goleft = false;
+			controls = false;
+		}
+
 		// Player controllers
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false)
 		{
@@ -209,6 +225,7 @@ void j1Player::CheckInputState()
 			if (canJump1 == true)
 			{
 				energyJump = jumpF;
+				energyGrab = jumpG;
 			}
 
 			// Reset animations
@@ -218,12 +235,14 @@ void j1Player::CheckInputState()
 			grab.Reset();
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false)
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x - speed;
 			blit = true;
 
+			goright = false;
+			goleft = true;
 			// Reset animations
 			idle.Reset();
 			jump.Reset();
@@ -231,12 +250,14 @@ void j1Player::CheckInputState()
 			grab.Reset();
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false)
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x + speed;
 			blit = false;
 
+			goleft = false;
+			goright = true;
 			// Reset animations
 			idle.Reset();
 			jump.Reset();
@@ -272,21 +293,51 @@ void j1Player::CheckAnimation()
 	{
 		canJump1 = false;
 		current_animation = &jump;
-		if (energyJump < gravity) {
-			energyJump += 0.5;
-			position.y = position.y + energyJump;
-			if (energyJump < 0) { canjumpPlat = true; }
-			if (energyJump > 0) { goingdown = true; }
-		}
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		
+		if (grabing == false)
 		{
-			position.x = position.x - speed;
-			blit = true;
+			if (energyJump < gravity)
+			{
+				energyJump += 0.5;
+				position.y = position.y + energyJump;
+				if (energyJump < 0) { canjumpPlat = true; }
+				if (energyJump > 0) { goingdown = true; }
+			}
 		}
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		if (grabing == true)
 		{
-			position.x = position.x + speed;
-			blit = false;
+			if (energyJump < gravity)
+			{
+				energyJump += 0.5;
+				position.y = position.y + energyJump;
+				if (goleft == true && nojumpingleft == true)
+				{
+					position.x = position.x - energyGrab;
+					controls = true;
+				}
+				if (goright == true && nojumpingright == true)
+				{
+					position.x = position.x + energyGrab;
+					controls = true;
+					
+				}
+				if (energyJump < 0) { canjumpPlat = true; }
+				if (energyJump > 0) { goingdown = true; }
+			}
+		}
+
+		if (controls == false)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				position.x = position.x - speed;
+				blit = true;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				position.x = position.x + speed;
+				blit = false;
+			}
 		}
 	}
 
@@ -308,6 +359,20 @@ void j1Player::CheckAnimation()
 	if (actualState == ST_FALL)
 	{
 		current_animation = &fall;
+
+		if (controls == false)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			{
+				position.x = position.x - speed;
+				blit = true;
+			}
+			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			{
+				position.x = position.x + speed;
+				blit = false;
+			}
+		}
 	}
 
 	if (grabing == true) 
@@ -315,10 +380,6 @@ void j1Player::CheckAnimation()
 		current_animation = &grab;
 	}
 }
-
-
-
-
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) 
 {
@@ -369,14 +430,21 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
 		grabing = true;
+		grabFinish = true;
 		canJump1 = true;
 		position.y = lasPosition.y;
 		position.x = lasPosition.x;
 
-	}
-	else 
-	{
-		grabing = false;
+		if (position.x > c2->rect.x)
+		{
+			nojumpingright = false;
+			nojumpingleft = true;
+		}
+		else
+		{
+			nojumpingleft = false;
+			nojumpingright = true;
+		}
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)

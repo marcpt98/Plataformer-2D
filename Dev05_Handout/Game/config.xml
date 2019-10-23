@@ -42,6 +42,7 @@
    <gravity g="5"/>
    <speed s="3"/>
    <jumpF j="-13"/>
+   <jumpG g="-5"/>
   </player>
 
 </config>
