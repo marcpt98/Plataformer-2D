@@ -54,11 +54,14 @@ j1Player::j1Player()
 	death.PushBack({ 336,444,30,30 }, 0.15, 0, 25);
 	death.PushBack({ 374,444,18,16 }, 0.15, 0, 25);
 
-	//Grab animation
+	// Grab animation
 	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
+
+	// Fall animation
+	fall.PushBack({ 90,161,46,48 }, 0.15, 0, 0);
 }
 
 j1Player::~j1Player()
@@ -121,7 +124,6 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt) 
 {
-
 	// Gravity
 	if (godMode == true)
 	{
@@ -149,13 +151,13 @@ bool j1Player::Update(float dt)
 	{
 		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
 	}
+
 	return true;
 }
 
 bool j1Player::PostUpdate(float dt)
 {
 	return true;
-
 }
 
 void j1Player::CheckInputState()
@@ -204,7 +206,7 @@ void j1Player::CheckInputState()
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false)
 		{
 			actualState = ST_JUMP;
-			if (canJump1 == true) 
+			if (canJump1 == true)
 			{
 				energyJump = jumpF;
 			}
@@ -241,7 +243,7 @@ void j1Player::CheckInputState()
 			death.Reset();
 			grab.Reset();
 		}
-		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation==false && grabing==false)
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false && isfalling == false)
 		{
 			actualState = ST_IDLE;
 
@@ -254,6 +256,10 @@ void j1Player::CheckInputState()
 		else if (dead_animation == true)
 		{
 			actualState = ST_DEAD;
+		}
+		else if (goingdown == true && canjumpPlat == false || isfalling == true && actualState != ST_JUMP)
+		{
+			actualState = ST_FALL;
 		}
 	}
 }
@@ -299,9 +305,13 @@ void j1Player::CheckAnimation()
 		current_animation = &death;
 	}
 
+	if (actualState == ST_FALL)
+	{
+		current_animation = &fall;
+	}
+
 	if (grabing == true) 
 	{
-		LOG("grabiiiiiiiiing");
 		current_animation = &grab;
 	}
 }
@@ -372,6 +382,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)
 	{
 		map_next = true;
+	}
+
+	if(collider == c1 && c2 != NULL)
+	{
+		isfalling = false;
 	}
 	/*
 	switch (c2->type)

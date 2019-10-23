@@ -61,6 +61,7 @@ public:
 	Animation special;
 	Animation death;
 	Animation grab;
+	Animation fall;
 	// Colliders
 	Collider* collider = nullptr;
 	Collider* collider2 = nullptr;
@@ -105,6 +106,9 @@ public:
 
 	// Next map
 	bool map_next = false;
+
+	// Fall state
+	bool isfalling = false;
 };
 
 #endif // __j1Player_H__

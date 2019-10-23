@@ -55,6 +55,15 @@ struct ObjectGroup {
 	p2SString name = "No name";
 	int size = 0;
 	SDL_Rect* object;
+	uint* data;
+
+	ObjectGroup(): data(NULL)
+	{}
+
+	~ObjectGroup()
+	{
+		RELEASE(data);
+	}
 };
 
 

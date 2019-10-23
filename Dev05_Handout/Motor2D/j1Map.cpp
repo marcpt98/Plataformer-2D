@@ -152,6 +152,7 @@ bool j1Map::CleanUp()
 
 	p2List_item<ObjectGroup*>* item3;
 	item3 = data.objectgroups.start;
+
 	while (item3 != NULL)
 	{
 		RELEASE(item3->data);
