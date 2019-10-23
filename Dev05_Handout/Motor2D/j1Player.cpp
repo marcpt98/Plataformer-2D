@@ -358,6 +358,16 @@ void j1Player::CheckAnimation()
 
 	if (actualState == ST_FALL)
 	{
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{
+			position.x = position.x - speed;
+			blit = true;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		{
+			position.x = position.x + speed;
+			blit = false;
+		}
 		current_animation = &fall;
 
 		if (controls == false)
