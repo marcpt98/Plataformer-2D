@@ -523,6 +523,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 // Load Game State
 bool j1Player::load(pugi::xml_node& savegame)
 {
+	lasPosition.x = savegame.child("posx").attribute("x").as_int();
+	lasPosition.y = savegame.child("posy").attribute("y").as_int();
 	position.x = savegame.child("posx").attribute("x").as_int();
 	position.y = savegame.child("posy").attribute("y").as_int();
 	return true;

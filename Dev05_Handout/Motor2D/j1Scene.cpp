@@ -64,10 +64,10 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->want_load = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->want_save = true;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -204,10 +204,12 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	if (savegame.child("map").attribute("actual").as_int() == 0)
 	{
 		LevelName(0);
+		currentMap = 0;
 	}
-	else if (savegame.child("map").attribute("actual").as_int() == 1)
+	if (savegame.child("map").attribute("actual").as_int() == 1)
 	{
 		LevelName(1);
+		currentMap = 1;
 	}
 	
 	return true;
@@ -220,7 +222,7 @@ bool j1Scene::save(pugi::xml_node& savegame)
 	{
 		savegame.append_child("map").append_attribute("actual").set_value(0);
 	}
-	else if (currentMap == 1)
+	if (currentMap == 1)
 	{
 		savegame.append_child("map").append_attribute("actual").set_value(1);
 	}
