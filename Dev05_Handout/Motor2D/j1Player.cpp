@@ -83,6 +83,15 @@ bool j1Player::Awake(pugi::xml_node& config)
 	// Player spritesheet
 	spritesheet = config.child("spritesheet").attribute("player").as_string("");
 
+	// Player Fx
+	for (pugi::xml_node fx = config.child("fx_name"); fx; fx = fx.next_sibling("fx_name"))
+	{
+		p2SString* data = new p2SString;
+
+		data->create(fx.attribute("name").as_string());
+		fx_names.add(data);
+	}
+
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
 
@@ -94,6 +103,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 	
 	// Jump force when grabbed
 	jumpG = config.child("jumpG").attribute("g").as_float();
+
+	// Increment of jump force
+	incrementJ = config.child("incrementJ").attribute("i").as_float();
 
 	// Fix blit
 	fixBlit = config.child("fixBlit").attribute("fix").as_float();
@@ -243,11 +255,15 @@ void j1Player::CheckInputState()
 
 			goright = false;
 			goleft = true;
+			
 			// Reset animations
 			idle.Reset();
 			jump.Reset();
 			death.Reset();
 			grab.Reset();
+
+			// ResetFx
+			playTest = false;
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false)
@@ -258,11 +274,15 @@ void j1Player::CheckInputState()
 
 			goleft = false;
 			goright = true;
+			
 			// Reset animations
 			idle.Reset();
 			jump.Reset();
 			death.Reset();
 			grab.Reset();
+
+			// ResetFx
+			playTest = false;
 		}
 		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false && isfalling == false)
 		{
@@ -273,10 +293,16 @@ void j1Player::CheckInputState()
 			jump.Reset();
 			death.Reset();
 			grab.Reset();
+
+			// ResetFx
+			playTest = false;
 		}
 		else if (dead_animation == true)
 		{
 			actualState = ST_DEAD;
+
+			// ResetFx
+			playTest = false;
 		}
 		else if (goingdown == true && canjumpPlat == false || isfalling == true && actualState != ST_JUMP)
 		{
@@ -291,6 +317,12 @@ void j1Player::CheckAnimation()
 	canjumpPlat = false;
 	if (actualState == ST_JUMP)
 	{
+		if (playTest == false)
+		{
+			App->audio->PlayFx(1, 0);
+			playTest = true;
+		}
+
 		canJump1 = false;
 		current_animation = &jump;
 		
@@ -298,7 +330,7 @@ void j1Player::CheckAnimation()
 		{
 			if (energyJump < gravity)
 			{
-				energyJump += 0.5;
+				energyJump += incrementJ;
 				position.y = position.y + energyJump;
 				if (energyJump < 0) { canjumpPlat = true; }
 				if (energyJump > 0) { goingdown = true; }
@@ -308,7 +340,7 @@ void j1Player::CheckAnimation()
 		{
 			if (energyJump < gravity)
 			{
-				energyJump += 0.5;
+				energyJump += incrementJ;
 				position.y = position.y + energyJump;
 				if (goleft == true && nojumpingleft == true)
 				{

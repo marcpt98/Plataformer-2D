@@ -52,6 +52,7 @@ public:
 	iPoint position;
 	iPoint lasPosition;
 	iPoint iPosition;
+	
 	// Animations
 	p2SString spritesheet;
 	Animation* current_animation = nullptr;
@@ -62,6 +63,11 @@ public:
 	Animation death;
 	Animation grab;
 	Animation fall;
+
+	// Fx
+	p2List<p2SString*> fx_names;
+	bool playTest = false;
+	
 	// Colliders
 	Collider* collider = nullptr;
 	Collider* collider2 = nullptr;
@@ -77,6 +83,7 @@ public:
 	bool canJump1 = false;
 	float jumpF;
 	float energyJump;
+	float incrementJ;
 
 	// Jump when grabbed
 	float jumpG;
