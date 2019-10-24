@@ -29,6 +29,9 @@ public:
 	// Unload Music
 	bool UnloadMusic(const char* path);
 
+	// Unload Fx
+	bool UnloadFx(const char* path);
+
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
 

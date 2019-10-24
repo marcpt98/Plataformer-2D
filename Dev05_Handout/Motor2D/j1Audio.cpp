@@ -80,6 +80,7 @@ bool j1Audio::CleanUp()
 	return true;
 }
 
+// Unload Music
 bool j1Audio::UnloadMusic(const char* path)
 {
 	bool ret = true;
@@ -88,6 +89,20 @@ bool j1Audio::UnloadMusic(const char* path)
 	{
 		Mix_FreeMusic(music);
 	}
+
+	return ret;
+}
+
+// Unload Fx
+bool j1Audio::UnloadFx(const char* path)
+{
+	bool ret = true;
+
+	p2List_item<Mix_Chunk*>* item;
+	for (item = fx.start; item != NULL; item = item->next)
+		Mix_FreeChunk(item->data);
+
+	fx.clear();
 
 	return ret;
 }

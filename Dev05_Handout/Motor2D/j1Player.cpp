@@ -84,7 +84,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	spritesheet = config.child("spritesheet").attribute("player").as_string("");
 
 	// Play Fx
-	playTest = config.child("fx_name").attribute("test").as_string("");
+	jumpFx = config.child("fx_name").attribute("test").as_string("");
 
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
@@ -110,7 +110,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 bool j1Player::Start() 
 {
 	// Load Fx 
-	App->audio->LoadFx(playTest.GetString());
+	App->audio->LoadFx(jumpFx.GetString());
 
 	// Load spritesheet
 	graphics = App->tex->Load(spritesheet.GetString());
@@ -129,6 +129,7 @@ bool j1Player::Start()
 bool j1Player::CleanUp() 
 {
 	App->tex->UnLoad(graphics);
+	App->audio->UnloadFx(jumpFx.GetString());
 
 	return true;
 }
@@ -260,10 +261,7 @@ void j1Player::CheckInputState()
 			idle.Reset();
 			jump.Reset();
 			death.Reset();
-			grab.Reset();
-
-			
-			
+			grab.Reset();	
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false)
@@ -280,8 +278,8 @@ void j1Player::CheckInputState()
 			jump.Reset();
 			death.Reset();
 			grab.Reset();
-
 		}
+
 		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false && isfalling == false)
 		{
 			actualState = ST_IDLE;
@@ -290,18 +288,14 @@ void j1Player::CheckInputState()
 			run.Reset();
 			jump.Reset();
 			death.Reset();
-			grab.Reset();
-
-			
-			
+			grab.Reset();	
 		}
+
 		else if (dead_animation == true)
 		{
 			actualState = ST_DEAD;
-
-			
-			
 		}
+
 		else if (goingdown == true && canjumpPlat == false || isfalling == true && actualState != ST_JUMP)
 		{
 			actualState = ST_FALL;
@@ -409,21 +403,6 @@ void j1Player::CheckAnimation()
 		current_animation = &grab;
 	}
 }
-
-void j1Player::CheckAudio()
-{
-	if (playFx == true)
-	{
-		/*if (actualState == ST_JUMP)
-		{
-			App->audio->PlayFx(1, 0);
-		}*/
-
-		playFx = false;
-	}
-
-}
-
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) 
 {
