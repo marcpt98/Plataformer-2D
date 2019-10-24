@@ -9,8 +9,8 @@
 		<map actual="0" />
 	</scene>
 	<player>
-		<posx x="488" />
-		<posy y="554" />
+		<posx x="2177" />
+		<posy y="203" />
 	</player>
 	<fadetoblack />
 	<colliders />

@@ -36,7 +36,7 @@
   
   <player>
    <spritesheet player="textures/Spritesheet_Character_1.png"/>
-   <fx_name name="audio/fx/hello_man.wav"/>
+   <fx_name test="audio/fx/jump.wav"/>
    <position x="200" y="530"/>
    <iPosition x="200" y="530"/>
    <fixBlit fix="40"/>

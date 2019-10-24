@@ -69,9 +69,9 @@ public:
 	Animation fall;
 
 	// Fx
-	p2List<p2SString*> fx_names;
-	bool playTest = false;
-	
+	p2SString playTest;
+	bool playFx = false;
+
 	// Colliders
 	Collider* collider = nullptr;
 	Collider* collider2 = nullptr;
@@ -103,6 +103,7 @@ public:
 	// Stats machine
 	void CheckInputState();
 	void CheckAnimation();
+	void CheckAudio();
 	states	actualState;
 	
 	// Player blit
