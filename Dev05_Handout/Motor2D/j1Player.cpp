@@ -145,9 +145,12 @@ bool j1Player::Update(float dt)
 	}
 	else
 	{
-		lasPosition.x = position.x;
-		lasPosition.y = position.y;
-		position.y = position.y + gravity;
+		if (App->want_load == false)
+		{
+			lasPosition.x = position.x;
+			lasPosition.y = position.y;
+			position.y = position.y + gravity;
+		}
 	}
 
 	CheckInputState();
@@ -515,4 +518,21 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	default:
 		break;*/
 	
+}
+
+// Load Game State
+bool j1Player::load(pugi::xml_node& savegame)
+{
+	position.x = savegame.child("posx").attribute("x").as_int();
+	position.y = savegame.child("posy").attribute("y").as_int();
+	return true;
+}
+
+// Save Game State
+bool j1Player::save(pugi::xml_node& savegame)
+{
+	savegame.append_child("posx").append_attribute("x").set_value(position.x);
+	savegame.append_child("posy").append_attribute("y").set_value(position.y);
+
+	return true;
 }

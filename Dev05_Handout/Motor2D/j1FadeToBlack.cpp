@@ -12,8 +12,7 @@
 // Constructor
 j1FadeToBlack::j1FadeToBlack()
 {
-	name.create("window");
-	name.create("map");
+	name.create("fadetoblack");
 }
 
 // Destructor

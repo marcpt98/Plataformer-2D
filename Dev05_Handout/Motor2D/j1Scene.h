@@ -35,6 +35,10 @@ public:
 	// Say which map and music has to be loaded
 	bool LevelName(int time);
 
+	// Save and Load
+	bool load(pugi::xml_node&);
+	bool save(pugi::xml_node&);
+
 	p2List<p2SString*> map_names;
 	int currentMap;
 	p2List<p2SString*> music_names;

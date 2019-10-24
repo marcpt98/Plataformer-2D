@@ -20,7 +20,6 @@
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
-	want_to_save = want_to_load = false;
 
 	input = new j1Input();
 	win = new j1Window();
@@ -76,13 +75,9 @@ bool j1App::Awake()
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 
-	pugi::xml_document	save_game_file;
-	pugi::xml_node		save_game;
-
 	bool ret = false;
 		
 	config = LoadConfig(config_file);
-	save_game = LoadSaveGame(save_game_file);
 
 	if(config.empty() == false)
 	{
@@ -162,7 +157,7 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 }
 
 // ---------------------------------------------
-pugi::xml_node j1App::LoadSaveGame(pugi::xml_document& save_game_file)
+/*pugi::xml_node j1App::LoadSaveGame(pugi::xml_document& save_game_file)
 {
 	pugi::xml_parse_result result = save_game_file.load_file("save_game.xml");
 	pugi::xml_node ret;
@@ -176,6 +171,23 @@ pugi::xml_node j1App::LoadSaveGame(pugi::xml_document& save_game_file)
 		ret = save_game_file.child("game_state");
 	}
 	return ret;
+}*/
+bool j1App::LoadSaveGame()
+{
+	pugi::xml_parse_result result = save_game_doc.load_file("save_game.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file config.xml pugi error: %s", result.description());
+		return false;
+	}
+	else
+	{
+		save_game_nod = save_game_doc.child("game_state");
+
+	}
+
+	return true;
 }
 
 // ---------------------------------------------
@@ -191,6 +203,16 @@ void j1App::FinishUpdate()
 
 	if(want_to_load == true)
 		App->render->Load(const char* file);*/
+	if (want_load == true)
+	{
+		load();
+		want_load = false;
+	}
+	if (want_save == true)
+	{
+		save();
+		want_save = false;
+	}
 }
 
 // Call modules before each loop iteration
@@ -302,30 +324,30 @@ const char* j1App::GetOrganization() const
 }
 
 // Load / Save
-void j1App::LoadGame(const char* file)
+/*void j1App::LoadGame(const char* file)
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list
 	want_to_load = true;
-}
+}*/
 
 // ---------------------------------------
-void j1App::SaveGame(const char* file) const
+/*void j1App::SaveGame(const char* file) const
 {
 	// we should be checking if that file actually exist
 	// from the "GetSaveGames" list ... should we overwrite ?
 
 	want_to_save = true;
-	save_game.create(file);
-}
+	//save_game.create(file);
+}*/
 
 // ---------------------------------------
-void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
+/*void j1App::GetSaveGames(p2List<p2SString>& list_to_fill) const
 {
 	// need to add functionality to file_system module for this to work 
-}
+}*/
 
-bool j1App::LoadGameNow()
+/*bool j1App::LoadGameNow()
 {
 	bool ret = false;
 
@@ -360,9 +382,65 @@ bool j1App::LoadGameNow()
 
 	want_to_load = false;
 	return ret;
+}*/
+bool j1App::load()
+{
+	bool ret = true;
+	pugi::xml_document	load;
+	pugi::xml_node load1;
+
+	pugi::xml_parse_result result = load.load_file("save_game.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file save.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		LOG("SAVE XML LOADED");
+	}
+
+	if (ret == true)
+	{
+		p2List_item<j1Module*>* item;
+		item = modules.start;
+		load1 = load.child("game_state");
+
+		while (item != NULL && ret == true)
+		{
+			ret = item->data->load(load1.child(item->data->name.GetString()));
+			item = item->next;
+		}
+	}
+
+	return true;
 }
 
-bool j1App::SavegameNow() const
+bool j1App::save()
+{
+	bool ret = LoadSaveGame();
+
+	if (ret == true)
+	{
+		p2List_item<j1Module*>* item;
+		item = modules.start;
+
+		while (item != NULL && ret == true)
+		{
+			save_game_nod.remove_child(item->data->name.GetString());
+
+			save_game_doc.set_value(item->data->name.GetString());
+			ret = item->data->save(save_game_nod.append_child(item->data->name.GetString()));
+			item = item->next;
+		}
+		save_game_doc.save_file("save_game.xml");
+	}
+
+	return true;
+}
+
+/*bool j1App::SavegameNow() const
 {
 	bool ret = true;
 
@@ -397,4 +475,4 @@ bool j1App::SavegameNow() const
 	data.reset();
 	want_to_save = false;
 	return ret;
-}
+}*/

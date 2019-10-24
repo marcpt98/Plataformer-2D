@@ -47,6 +47,10 @@ public:
 	// Collisions
 	void OnCollision(Collider* c1, Collider* c2);
 
+	// Save and Load
+	bool load(pugi::xml_node&);
+	bool save(pugi::xml_node&);
+
 public:
 	SDL_Texture* graphics = nullptr;
 	iPoint position;

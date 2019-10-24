@@ -58,7 +58,7 @@ private:
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
 
 	// Load save_game file
-	pugi::xml_node LoadSaveGame(pugi::xml_document&);
+	//pugi::xml_node LoadSaveGame(pugi::xml_document&);
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -87,7 +87,7 @@ public:
 	j1Render*			render;
 	j1Textures*			tex;
 	j1Audio*			audio;
-	j1FadeToBlack* fade;
+	j1FadeToBlack*		fade;
 	j1Scene*			scene;
 	j1Map*				map;
 	j1Player*			player;
@@ -103,11 +103,16 @@ private:
 	p2SString			title;
 	p2SString			organization;
 
+public:
 	// Save and load
-	mutable bool		want_to_save;
-	bool				want_to_load;
-	p2SString			load_game;
-	mutable p2SString	save_game;
+	bool	want_save;
+	bool	want_load;
+	pugi::xml_document save_game_doc;
+	pugi::xml_node save_game_nod;
+	bool load();
+	bool save();
+	bool LoadSaveGame();
+	
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S

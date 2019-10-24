@@ -64,11 +64,11 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->want_load = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		App->want_save = true;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y += 2;
@@ -194,6 +194,36 @@ bool j1Scene::CleanUp()
 bool j1Scene::LevelName(int pos)
 {
 	App->map->ChangeMapMusic(map_names[pos], music_names[pos]);
+
+	return true;
+}
+
+// Load Game State
+bool j1Scene::load(pugi::xml_node& savegame)
+{
+	if (savegame.child("map").attribute("actual").as_int() == 0)
+	{
+		LevelName(0);
+	}
+	else if (savegame.child("map").attribute("actual").as_int() == 1)
+	{
+		LevelName(1);
+	}
+	
+	return true;
+}
+
+// Save Game State
+bool j1Scene::save(pugi::xml_node& savegame)
+{
+	if (currentMap == 0)
+	{
+		savegame.append_child("map").append_attribute("actual").set_value(0);
+	}
+	else if (currentMap == 1)
+	{
+		savegame.append_child("map").append_attribute("actual").set_value(1);
+	}
 
 	return true;
 }

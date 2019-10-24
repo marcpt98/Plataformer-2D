@@ -97,7 +97,7 @@ bool j1Render::CleanUp()
 }
 
 // Load Game State
-bool j1Render::Load(pugi::xml_node& save_game)
+/*bool j1Render::Load(pugi::xml_node& save_game)
 {
 	pugi::xml_node cam = save_game.append_child("camera");
 
@@ -114,7 +114,7 @@ bool j1Render::Save(pugi::xml_node& save_game) const
 	save_game.append_child("camera.y").append_attribute("y").set_value(camera.y);
 
 	return true;
-}
+}*/
 
 void j1Render::SetBackgroundColor(SDL_Color color)
 {

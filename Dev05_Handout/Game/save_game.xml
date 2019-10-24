@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
-<!-- Save game for the game -->
-
 <game_state>
-  
-  <renderer>
-    <camera.x x="100"/>
-    <camera.y y="100"/>
-  </renderer>
-  <scene>
-    <scenename name="hello3.tmx" />
-  </scene>
-  <player>
-    <position x="0"/>
-    <position y="0"/>
-  </player>
-  
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene>
+		<map actual="1" />
+	</scene>
+	<player>
+		<posx x="644" />
+		<posy y="626" />
+	</player>
+	<fadetoblack />
+	<colliders />
+	<renderer />
 </game_state>
