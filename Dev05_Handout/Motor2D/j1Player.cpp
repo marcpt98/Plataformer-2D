@@ -479,11 +479,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		map_next = true;
 	}
-
-	if(collider == c1 && c2 != NULL)
-	{
-		isfalling = false;
-	}
 	/*
 	switch (c2->type)
 	{

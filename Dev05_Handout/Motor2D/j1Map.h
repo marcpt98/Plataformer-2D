@@ -49,9 +49,19 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+	uint* data;
+
+	TileSet(): data(NULL)
+	{}
+
+	~TileSet()
+	{
+		RELEASE(data);
+	}
 };
 
-struct ObjectGroup {
+struct ObjectGroup 
+{
 	p2SString name = "No name";
 	int size = 0;
 	SDL_Rect* object;
@@ -86,6 +96,15 @@ struct MapData
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
 	p2List<ObjectGroup*> objectgroups;
+	uint* data;
+
+	MapData() : data(NULL)
+	{}
+
+	~MapData()
+	{
+		RELEASE(data);
+	}
 };
 
 // ----------------------------------------------------

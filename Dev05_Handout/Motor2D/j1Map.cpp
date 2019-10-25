@@ -125,7 +125,7 @@ bool j1Map::CleanUp()
 {
 	LOG("Unloading map");
 
-	// Remove all tilesets
+	// CleanUp TileSet
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;
 
@@ -136,7 +136,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	// Remove all layers
+	// CleanUp MapLayer
 	p2List_item<MapLayer*>* item2;
 	item2 = data.layers.start;
 
@@ -147,9 +147,7 @@ bool j1Map::CleanUp()
 	}
 	data.layers.clear();
 
-	// Clean up the pugui tree
-	map_file.reset();
-
+	// CleanUp ObjectGroup
 	p2List_item<ObjectGroup*>* item3;
 	item3 = data.objectgroups.start;
 
