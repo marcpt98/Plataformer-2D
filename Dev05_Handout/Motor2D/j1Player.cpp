@@ -437,16 +437,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
 	{
-		if ((position.y + 53) < c2->rect.y || (c2->rect.y + 1) && canjumpPlat == false) 
+		if ((position.y + 53) < (c2->rect.y+1) && (c2->rect.y + 2)|| goingdown == true)
 		{
 			position.y = lasPosition.y;
 			canJump1 = true;
 		}
-		/*else if ((position.y + 50) > c2->rect.y && goingdown == true) 
-		{
-			position.y = position.y++;
-		}*/
-		if (goingdown == true && (position.y + 53) > c2->rect.y) 
+		if ((position.y + 53) > (c2->rect.y+3) && goingdown==true)
 		{
 			position.y = position.y + gravity;
 		}
