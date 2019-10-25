@@ -16,7 +16,6 @@ enum states
 	ST_RUN,
 	ST_JUMP,
 	ST_JUMPRUN,
-	ST_FALL,
 	ST_DEAD
 };
 
@@ -66,7 +65,7 @@ public:
 	Animation special;
 	Animation death;
 	Animation grab;
-	Animation fall;
+	
 
 	// Fx
 	p2SString jumpFx;
@@ -79,6 +78,7 @@ public:
 
 	// Gravity
 	float gravity;
+	float igravity;
 
 	// Speed
 	float speed;
@@ -123,15 +123,14 @@ public:
 	bool count_dead = false;
 	int dead_animation_finish = 0;
 
-	//Player grabing
+	// Player grabing
 	bool grabing = false;
-	bool slipping;
-	bool slipping2;
+
+	// Player is grab_falling
+	bool grab_falling = false;
+
 	// Next map
 	bool map_next = false;
-
-	// Fall state
-	bool isfalling = false;
 };
 
 #endif // __j1Player_H__

@@ -59,8 +59,6 @@ j1Player::j1Player()
 	// Grab animation
 	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 
-	// Fall animation
-	fall.PushBack({ 90,161,46,48 }, 0.15, 0, 0);
 }
 
 j1Player::~j1Player()
@@ -91,6 +89,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	// Gravity
 	gravity = config.child("gravity").attribute("g").as_int();
+
+	// Initial Gravity
+	igravity = config.child("igravity").attribute("g").as_int();
 
 	// Jump force
 	jumpF = config.child("jumpF").attribute("j").as_float();
@@ -145,9 +146,11 @@ bool j1Player::Update(float dt)
 	{
 		if (App->want_load == false)
 		{
+			
 			lasPosition.x = position.x;
 			lasPosition.y = position.y;
-			position.y = position.y + gravity;
+			position.y = position.y + gravity; 
+			
 		}
 	}
 
@@ -225,6 +228,8 @@ void j1Player::CheckInputState()
 		}
 		if (SDL_GetTicks() > timegrab + 200)
 		{
+			grab_falling = false;
+			gravity = igravity;
 			grabing = false;
 			goright = false;
 			goleft = false;
@@ -234,6 +239,7 @@ void j1Player::CheckInputState()
 		// Player controllers
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false)
 		{
+			
 			actualState = ST_JUMP;
 			if (canJump1 == true)
 			{
@@ -280,7 +286,7 @@ void j1Player::CheckInputState()
 			grab.Reset();
 		}
 
-		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false && isfalling == false)
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false)
 		{
 			actualState = ST_IDLE;
 
@@ -295,11 +301,6 @@ void j1Player::CheckInputState()
 		{
 			actualState = ST_DEAD;
 		}
-
-		else if (goingdown == true && canjumpPlat == false || isfalling == true && actualState != ST_JUMP)
-		{
-			actualState = ST_FALL;
-		}
 	}
 }
 
@@ -308,6 +309,7 @@ void j1Player::CheckAnimation()
 
 	if (actualState == ST_JUMP)
 	{
+
 		canJump1 = false;
 		current_animation = &jump;
 		
@@ -391,31 +393,14 @@ void j1Player::CheckAnimation()
 		current_animation = &death;
 	}
 
-	if (actualState == ST_FALL)
-	{
-		if (controls == false)
-		{
-			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			{
-				position.x = position.x - speed;
-				blit = true;
-			}
-			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			{
-				position.x = position.x + speed;
-				blit = false;
-			}
-		}
-		current_animation = &fall;
-	}
-
 	if (grabing == true) 
 	{
 		current_animation = &grab;
-		if (slipping == true) {
-			position.y = position.y + 2;
-		}
+		gravity = 2;
+		position.y = position.y+1;
+		
 	}
+
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) 
@@ -423,6 +408,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
+		grab_falling = false; 
+		gravity = igravity;
 		position.y = lasPosition.y;
 		if ((position.y + 58) > c2->rect.y && position.y < c2->rect.y) // this is because the gravity makes colliders go weird with this 
 		{
@@ -437,6 +424,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
 	{
+		grab_falling = false;
+		gravity = igravity;
 		if ((position.y + 53) < (c2->rect.y+1) && (c2->rect.y + 2)|| goingdown == true)
 		{
 			position.y = lasPosition.y;
@@ -467,10 +456,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	}
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
+		grab_falling = true;
 		grabing = true;
 		grabFinish = true;
 		canJump1 = true;
-		position.y = lasPosition.y;
+		//position.y = lasPosition.y; owo
 		position.x = lasPosition.x;
 
 		if (position.x > c2->rect.x)
@@ -489,28 +479,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		map_next = true;
 	}
-	/*
-	switch (c2->type)
-	{
-	case COLLIDER_WALL: // what happens when colliders collide 
-		
-			
-		position.y = position.y - gravity;
-
-		/*position = lastPosition;
-		velocity.x = velocity.y = 0;
-		if ((position.y < c2->rect.y) && (last_state == FALL))
-		{
-			//state = IDLE;
-			position.y--;
-		}
-		break;
-	case COLLIDER_DEATH:
-		
-		//App->scene->Reset_Camera(); we will make something to reset the camera maybe we can just make the camera follow the player
-		break;
-	default:
-		break;*/
 	
 }
 

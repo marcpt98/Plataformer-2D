@@ -41,6 +41,7 @@
    <iPosition x="200" y="530"/>
    <fixBlit fix="40"/>
    <gravity g="5"/>
+   <igravity g="5"/>
    <speed s="3"/>
    <jumpF j="-14"/>
    <jumpG g="-5"/>
