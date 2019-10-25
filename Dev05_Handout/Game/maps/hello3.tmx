@@ -32438,9 +32438,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="1"/>
-   <tile gid="3"/>
-   <tile gid="5"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -32588,9 +32588,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="1"/>
+   <tile gid="3"/>
+   <tile gid="5"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="197"/>
@@ -45043,7 +45043,7 @@
   <object id="28" name="Floor" x="3392" y="514" width="126" height="125"/>
   <object id="30" name="Floor" x="2721" y="0" width="541" height="349"/>
   <object id="32" name="Floor" x="2751" y="321" width="510" height="60"/>
-  <object id="47" name="Plataform" x="511.83" y="512.5" width="97" height="30.5"/>
+  <object id="47" name="Plataform" x="511.83" y="545.5" width="97" height="2.5"/>
   <object id="48" name="Plataform" x="1056.25" y="447.875" width="95.625" height="31.625"/>
   <object id="49" name="Plataform" x="1408.05" y="543.878" width="63.8523" height="32.125"/>
   <object id="50" name="Plataform" x="1504.13" y="480.125" width="63.75" height="30.5"/>

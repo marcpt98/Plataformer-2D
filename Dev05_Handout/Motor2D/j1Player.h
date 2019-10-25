@@ -125,7 +125,8 @@ public:
 
 	//Player grabing
 	bool grabing = false;
-
+	bool slipping;
+	bool slipping2;
 	// Next map
 	bool map_next = false;
 

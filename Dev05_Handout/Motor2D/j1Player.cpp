@@ -306,8 +306,6 @@ void j1Player::CheckInputState()
 void j1Player::CheckAnimation()
 {
 
-	goingdown = true;
-	canjumpPlat = false;
 	if (actualState == ST_JUMP)
 	{
 		canJump1 = false;
@@ -320,11 +318,16 @@ void j1Player::CheckAnimation()
 				if (energyJump == -13) { App->audio->PlayFx(1, 0); }
 				energyJump += incrementJ;
 				position.y = position.y + energyJump;
-				if (energyJump < 0) { 
-					canjumpPlat = true; 
-					
+				if (energyJump < 0)
+				{
+					canjumpPlat = true;
+					goingdown = false;
 				}
-				if (energyJump > 0) { goingdown = true; }
+				else 
+				{
+					goingdown = true;
+					canjumpPlat = false;
+				}
 			}
 		}
 		if (grabing == true)
@@ -345,8 +348,16 @@ void j1Player::CheckAnimation()
 					controls = true;
 					
 				}
-				if (energyJump < 0) { canjumpPlat = true; }
-				if (energyJump > 0) { goingdown = true; }
+				if (energyJump < 0)
+				{
+					canjumpPlat = true;
+					goingdown = false;
+				}
+				else 
+				{
+					goingdown = true;
+					canjumpPlat = false;
+				}
 			}
 		}
 
@@ -401,6 +412,9 @@ void j1Player::CheckAnimation()
 	if (grabing == true) 
 	{
 		current_animation = &grab;
+		if (slipping == true) {
+			position.y = position.y + 2;
+		}
 	}
 }
 
@@ -423,16 +437,16 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
 	{
-		if ((position.y + 50) < c2->rect.y || (c2->rect.y + 1) && canjumpPlat == false) 
+		if ((position.y + 53) < c2->rect.y || (c2->rect.y + 1) && canjumpPlat == false) 
 		{
 			position.y = lasPosition.y;
 			canJump1 = true;
 		}
-		else if ((position.y + 50) > c2->rect.y && goingdown == true) 
+		/*else if ((position.y + 50) > c2->rect.y && goingdown == true) 
 		{
 			position.y = position.y++;
-		}
-		if (goingdown == true && canjumpPlat == false && (position.y + 50) > c2->rect.y) 
+		}*/
+		if (goingdown == true && (position.y + 53) > c2->rect.y) 
 		{
 			position.y = position.y + gravity;
 		}
