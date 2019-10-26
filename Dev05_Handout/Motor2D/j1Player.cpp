@@ -396,9 +396,8 @@ void j1Player::CheckAnimation()
 	if (grabing == true) 
 	{
 		current_animation = &grab;
-		gravity = 2;
+		gravity = 4;
 		position.y = position.y+1;
-		
 	}
 
 }
@@ -416,7 +415,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.y = position.y-2;                                 //the colliders from the player works well
 		}
 		canJump1 = true;
-		if ((position.y+53) > c2->rect.y|| position.y > c2->rect.y) 
+		if ((position.y + 53) > c2->rect.y || position.y > c2->rect.y)
 		{
 			position.x = lasPosition.x;
 		}
@@ -460,7 +459,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		grabing = true;
 		grabFinish = true;
 		canJump1 = true;
-		//position.y = lasPosition.y; owo
+		//position.y = lasPosition.y;
 		position.x = lasPosition.x;
 
 		if (position.x > c2->rect.x)
