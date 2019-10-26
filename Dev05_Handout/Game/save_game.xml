@@ -6,11 +6,11 @@
 	<audio />
 	<map />
 	<scene>
-		<map actual="0" />
+		<map actual="1" />
 	</scene>
 	<player>
-		<posx x="2177" />
-		<posy y="203" />
+		<posx x="2006" />
+		<posy y="334" />
 	</player>
 	<fadetoblack />
 	<colliders />

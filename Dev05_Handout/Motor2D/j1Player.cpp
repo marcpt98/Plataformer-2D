@@ -82,7 +82,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	spritesheet = config.child("spritesheet").attribute("player").as_string("");
 
 	// Play Fx
-	jumpFx = config.child("fx_name").attribute("test").as_string("");
+	jumpFx = config.child("fx_name").attribute("jump").as_string("");
 
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();

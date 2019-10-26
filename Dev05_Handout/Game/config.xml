@@ -28,15 +28,15 @@
   </map>
 
   <scene>
-    <map_name name="hello3.tmx"/>
-    <map_name name="hello4.tmx"/>
+    <map_name name="Level_1.tmx"/>
+    <map_name name="Level_2.tmx"/>
     <music_name name="audio/music/music_level_1.ogg"/>
     <music_name name="audio/music/music_level_2.ogg"/>
   </scene>
   
   <player>
    <spritesheet player="textures/Spritesheet_Character_1.png"/>
-   <fx_name test="audio/fx/jump.wav"/>
+   <fx_name jump="audio/fx/fx_jump.wav"/>
    <position x="200" y="530"/>
    <iPosition x="200" y="530"/>
    <fixBlit fix="40"/>
