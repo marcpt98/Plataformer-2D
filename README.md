@@ -10,7 +10,27 @@ https://github.com/marcpt98/Plataformer-2D
 
 - Marc Palma Turón https://github.com/marcpt98.
   Loading things from XML,level 1,animations
-  
+
+## Controls 
+
+- A: Move left.
+
+- D: Move right.
+
+- SPACE BAR: Jump.
+
+## Other controls
+- F1: Charge level 1 from the begining
+
+- F2: Charge level 2 from the begining
+
+- F5: Save your current position
+
+- F6: Load your past position
+
+- F9: Show all colliders
+
+- F10: God mode (players without collisions).
   
 ## License
 //MIT License
