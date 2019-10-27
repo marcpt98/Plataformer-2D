@@ -60047,9 +60047,8 @@
   <object id="48" name="Plataform" x="1056.25" y="447.875" width="95.625" height="31.625"/>
   <object id="51" name="Plataform" x="1599.92" y="447.875" width="63.75" height="32"/>
   <object id="52" name="Dead" x="941.667" y="764.667" width="325" height="14"/>
-  <object id="53" name="Dead" x="2335" y="801" width="477" height="19"/>
   <object id="54" name="Dead" x="2938.67" y="769.333" width="3437.09" height="34.6667"/>
-  <object id="56" name="Dead" x="2169" y="766" width="302" height="43"/>
+  <object id="56" name="Dead" x="2169" y="766" width="553" height="43"/>
   <object id="58" name="Wall" x="703.971" y="482.014" width="14.029" height="125.486"/>
   <object id="61" name="Floor" x="707.534" y="478" width="10.4659" height="6.25"/>
   <object id="63" name="Floor" x="992.333" y="478" width="31.6667" height="20.1051"/>
