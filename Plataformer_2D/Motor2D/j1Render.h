@@ -60,6 +60,10 @@ public:
 	// Camera scale
 	int				cameraScale;
 	int				cameraOffset;
+
+	// Map limits
+	int MapLimitStart;
+	int MapLimitEnd;
 };
 
 #endif // __j1RENDER_H__

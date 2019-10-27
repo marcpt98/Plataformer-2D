@@ -22,6 +22,8 @@ j1Render::j1Render() : j1Module()
 	viewport.y = 0;
 	cameraScale = 0;
 	cameraOffset = 0;
+	MapLimitStart = 0;
+	MapLimitEnd = 0;
 }
 
 // Destructor
@@ -60,6 +62,11 @@ bool j1Render::Awake(pugi::xml_node& config)
 	// Camera scale
 	cameraScale = config.child("resolution").attribute("scale").as_int();
 	cameraOffset = config.child("offset").attribute("value").as_int();
+
+	// Map limits
+	MapLimitStart = config.child("map_limits").attribute("start").as_int();
+	MapLimitEnd = config.child("map_limits").attribute("final").as_int();
+
 	return ret;
 }
 
@@ -82,8 +89,13 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	camera.x = -(App->player->position.x + cameraOffset);
-	if (camera.x > 0) {
+	if (camera.x > 0) 
+	{
 		camera.x=0;
+	}
+	if (camera.x < -5375)
+	{
+		camera.x = -5375;
 	}
 
 	return true;

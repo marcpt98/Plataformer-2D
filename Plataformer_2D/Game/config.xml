@@ -9,6 +9,8 @@
   <renderer>
     <vsync value="true"/>
     <offset value="-350"/>
+    <map_limits start="0"/>
+    <map_limits final="-5375"/>
   </renderer>
 
   <window>

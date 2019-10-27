@@ -80127,7 +80127,7 @@
   <object id="144" name="Floor" x="4768" y="607.115" width="30.3333" height="33.437"/>
   <object id="145" name="Wall" x="4221.45" y="293.108" width="37.0039" height="30.4214"/>
   <object id="147" name="Wall" x="4221.5" y="421.789" width="37.0039" height="30.4214"/>
-  <object id="148" name="Wall" x="4348.5" y="355.789" width="37.0039" height="30.4214"/>
+  <object id="148" name="Wall" x="4348.5" y="359.539" width="37.0039" height="26.6714"/>
   <object id="149" name="Wall" x="4477" y="262.289" width="37.0039" height="30.4214"/>
   <object id="150" name="Wall" x="4477" y="453.289" width="37.0039" height="30.4214"/>
   <object id="151" name="Wall" x="4348.5" y="550.289" width="37.0039" height="30.4214"/>
