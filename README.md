@@ -26,6 +26,8 @@ https://github.com/marcpt98/Plataformer-2D
 
 - F2: Charge level 2 from the begining
 
+- F2: Charge current level from the begining
+
 - F5: Save your current position
 
 - F6: Load your past position
