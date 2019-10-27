@@ -94,8 +94,8 @@ private:
 
 public:
 	// Save and load
-	bool	want_save;
-	bool	want_load;
+	bool	want_save = false;
+	bool	want_load = false;
 	pugi::xml_document save_game_doc;
 	pugi::xml_node save_game_nod;
 	bool load();

@@ -17,8 +17,27 @@ j1Player::j1Player()
 { 
 	name.create("player");
 
-	graphics = NULL;
-	current_animation = NULL;
+	actualState = ST_IDLE;
+	dead_timer = 0;
+	energyGrab = 0;
+	energyJump = 0;
+	energyfalling = 0;
+	fixBlit = 0;
+	gravity = 0;
+	igravity = 0;
+	incrementJ = 0;
+	jumpF = 0;
+	jumpG = 0;
+	speed = 0;
+	timegrab = 0;
+	timegrab2 = 0;
+	position.x = 0;
+	position.y = 0;
+	iPosition.x = 0;
+	iPosition.y = 0;
+	lasPosition.x = 0;
+	lasPosition.y = 0;
+
 
 	// Idle animation
 	idle.PushBack({ 0,0,42,52 }, 0.2, 0, 0);
@@ -89,10 +108,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 	speed = config.child("speed").attribute("s").as_float();
 
 	// Gravity
-	gravity = config.child("gravity").attribute("g").as_int();
+	gravity = config.child("gravity").attribute("g").as_float();
 
 	// Initial Gravity
-	igravity = config.child("igravity").attribute("g").as_int();
+	igravity = config.child("igravity").attribute("g").as_float();
 
 	// Jump force
 	jumpF = config.child("jumpF").attribute("j").as_float();
@@ -104,7 +123,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	incrementJ = config.child("incrementJ").attribute("i").as_float();
 
 	// Fix blit
-	fixBlit = config.child("fixBlit").attribute("fix").as_float();
+	fixBlit = config.child("fixBlit").attribute("fix").as_int();
 
 	return ret;
 }

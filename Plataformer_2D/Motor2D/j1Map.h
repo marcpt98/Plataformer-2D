@@ -11,10 +11,10 @@
 struct MapLayer
 {
 	p2SString	name;
-	int			width;
-	int			height;
-	float		speed;
-	uint*		data;
+	int			width = 0;
+	int			height = 0;
+	float		speed = 0;
+	uint*		data=nullptr;
 
 	MapLayer() : data(NULL)
 	{}
@@ -36,19 +36,19 @@ struct TileSet
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
-	int					firstgid;
-	int					margin;
-	int					spacing;
-	int					tile_width;
-	int					tile_height;
-	SDL_Texture*		texture;
-	int					tex_width;
-	int					tex_height;
-	int					num_tiles_width;
-	int					num_tiles_height;
-	int					offset_x;
-	int					offset_y;
-	uint* data;
+	int					firstgid = 0;
+	int					margin = 0;
+	int					spacing = 0;
+	int					tile_width = 0;
+	int					tile_height = 0;
+	SDL_Texture*		texture = nullptr;
+	int					tex_width = 0;
+	int					tex_height = 0;
+	int					num_tiles_width = 0;
+	int					num_tiles_height = 0;
+	int					offset_x = 0;
+	int					offset_y = 0;
+	uint* data=nullptr;
 
 	TileSet(): data(NULL)
 	{}
@@ -63,8 +63,8 @@ struct ObjectGroup
 {
 	p2SString name = "No name";
 	int size = 0;
-	SDL_Rect* object;
-	uint* data;
+	SDL_Rect* object=nullptr;
+	uint* data=nullptr;
 
 	ObjectGroup(): data(NULL)
 	{}
@@ -86,16 +86,16 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
+	int					width = 0;;
+	int					height = 0;;
+	int					tile_width = 0;;
+	int					tile_height = 0;;
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
 	p2List<ObjectGroup*> objectgroups;
-	uint* data;
+	uint* data = nullptr;
 
 	MapData() : data(NULL)
 	{}
@@ -150,8 +150,8 @@ private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
-	bool				map_loaded;
-	float				parallax;
+	bool				map_loaded = false;
+	float				parallax = 0;
 };
 
 #endif // __j1MAP_H__
