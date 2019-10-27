@@ -69,7 +69,7 @@ public:
 
 	// Fx
 	p2SString jumpFx;
-	bool playFx = false;
+	p2SString deadFx;
 
 	// Colliders
 	Collider* collider = nullptr;
@@ -81,6 +81,7 @@ public:
 	float igravity;
 	bool fallingravity = false;
 	float energyfalling;
+	
 	// Speed
 	float speed;
 

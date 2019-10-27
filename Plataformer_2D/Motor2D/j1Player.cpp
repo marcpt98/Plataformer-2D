@@ -82,7 +82,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 	spritesheet = config.child("spritesheet").attribute("player").as_string("");
 
 	// Play Fx
-	jumpFx = config.child("fx_name").attribute("jump").as_string("");
+	jumpFx = config.child("fx_name").attribute("name").as_string("");
+	deadFx = config.child("fx_name").attribute("name").as_string("");
 
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
@@ -112,6 +113,7 @@ bool j1Player::Start()
 {
 	// Load Fx 
 	App->audio->LoadFx(jumpFx.GetString());
+	App->audio->LoadFx(deadFx.GetString());
 
 	// Load spritesheet
 	graphics = App->tex->Load(spritesheet.GetString());
@@ -131,6 +133,7 @@ bool j1Player::CleanUp()
 {
 	App->tex->UnLoad(graphics);
 	App->audio->UnloadFx(jumpFx.GetString());
+	App->audio->UnloadFx(deadFx.GetString());
 
 	return true;
 }
@@ -467,6 +470,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		if (count_dead == false)
 		{
 			dead_animation_finish = SDL_GetTicks();
+			App->audio->PlayFx(2, 0);
 			count_dead = true;
 		}
 		if (SDL_GetTicks() > dead_animation_finish + 800)
