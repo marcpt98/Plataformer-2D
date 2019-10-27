@@ -79,7 +79,8 @@ public:
 	// Gravity
 	float gravity;
 	float igravity;
-
+	bool fallingravity = false;
+	float energyfalling;
 	// Speed
 	float speed;
 
@@ -96,6 +97,7 @@ public:
 	bool goleft = false;
 	bool grabFinish = false; 
 	int timegrab;
+	int timegrab2;
 	bool controls = false;
 	bool nojumpingleft = false;
 	bool nojumpingright = false;

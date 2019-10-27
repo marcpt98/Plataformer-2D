@@ -49,8 +49,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	LevelName(0);
-
+	App->map->Load("Level_1.tmx");
+	App->audio->PlayMusic("audio/music/music_level_1.ogg");
 	return true;
 }
 

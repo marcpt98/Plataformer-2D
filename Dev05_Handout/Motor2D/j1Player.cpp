@@ -393,12 +393,29 @@ void j1Player::CheckAnimation()
 		current_animation = &death;
 	}
 
-	if (grabing == true) 
+	if (grabing == true)
 	{
 		current_animation = &grab;
 		gravity = 4;
-		position.y = position.y+1;
+		position.y = position.y + 1;
 	}
+	if (fallingravity == true && godMode == false && canjumpPlat == false)
+	{
+
+		grabFinish = false;
+
+		if (SDL_GetTicks() > timegrab2 + 500)
+		{	
+			if (energyfalling < 50)
+			{
+				gravity = gravity + energyfalling;
+				energyfalling = energyfalling + 0.2;	
+			}
+		}
+
+	}
+	fallingravity = true;
+
 
 }
 
@@ -407,6 +424,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
+		timegrab2 = SDL_GetTicks();
+		energyfalling = 0;
 		grab_falling = false; 
 		gravity = igravity;
 		position.y = lasPosition.y;
@@ -423,6 +442,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
 	{
+		timegrab2 = SDL_GetTicks();
+		energyfalling = 0;
 		grab_falling = false;
 		gravity = igravity;
 		if ((position.y + 53) < (c2->rect.y+1) && (c2->rect.y + 2)|| goingdown == true)
@@ -438,6 +459,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_DEATH)
 	{
+		timegrab2 = SDL_GetTicks();
+		energyfalling = 0;
 		dead_animation = true;
 		position.y = lasPosition.y;
 		
@@ -455,6 +478,8 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	}
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
+		timegrab2 = SDL_GetTicks();
+		energyfalling = 0;
 		grab_falling = true;
 		grabing = true;
 		grabFinish = true;
