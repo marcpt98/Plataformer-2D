@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="200" height="100" tilewidth="32" tileheight="32" nextobjectid="202">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="200" height="100" tilewidth="32" tileheight="32" nextobjectid="203">
  <tileset firstgid="1" name="tilesets_cave" tilewidth="32" tileheight="32" tilecount="1311" columns="23">
   <image source="Background_level_2.png" width="736" height="1824"/>
  </tileset>
@@ -41724,10 +41724,10 @@
    <tile gid="222"/>
    <tile gid="199"/>
    <tile gid="201"/>
-   <tile gid="202"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="206"/>
+   <tile gid="207"/>
+   <tile gid="206"/>
+   <tile gid="207"/>
    <tile gid="206"/>
    <tile gid="207"/>
    <tile gid="0"/>
@@ -41924,10 +41924,10 @@
    <tile gid="222"/>
    <tile gid="222"/>
    <tile gid="224"/>
-   <tile gid="225"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="229"/>
+   <tile gid="230"/>
+   <tile gid="229"/>
+   <tile gid="230"/>
    <tile gid="229"/>
    <tile gid="230"/>
    <tile gid="0"/>
@@ -42128,8 +42128,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="206"/>
-   <tile gid="207"/>
+   <tile gid="0"/>
+   <tile gid="160"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -42328,8 +42328,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="229"/>
-   <tile gid="230"/>
+   <tile gid="0"/>
+   <tile gid="160"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -42529,7 +42529,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="160"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -60074,8 +60074,7 @@
   <object id="85" name="Floor" x="1950.58" y="307.734" width="30.7178" height="10.3513"/>
   <object id="86" name="Floor" x="1920.62" y="224.37" width="47.4962" height="12.8968"/>
   <object id="87" name="Wall" x="3584.73" y="200.332" width="21.2108" height="278.669"/>
-  <object id="88" name="Wall" x="3423.31" y="64.999" width="31.7941" height="344.127"/>
-  <object id="89" name="Floor" x="3395.33" y="351.167" width="53.3333" height="31"/>
+  <object id="88" name="Wall" x="3423.31" y="64.999" width="31.7941" height="318.627"/>
   <object id="90" name="Floor" x="3586.76" y="192.076" width="156.5" height="31"/>
   <object id="91" name="Floor" x="2206.73" y="256" width="30.5417" height="14.8059"/>
   <object id="92" name="Wall" x="2206.73" y="270.999" width="31.2108" height="496.002"/>
@@ -60087,7 +60086,6 @@
   <object id="98" name="Wall" x="2463.39" y="396.241" width="32.3017" height="41.3353"/>
   <object id="101" name="NextMap" x="6301.45" y="541.788" width="70" height="129.667"/>
   <object id="102" name="Wall" x="49" y="3" width="13" height="618"/>
-  <object id="103" name="Floor" x="3430.36" y="402.577" width="18.2083" height="10.2416"/>
   <object id="104" name="Floor" x="3681.08" y="224.5" width="127.167" height="31"/>
   <object id="106" name="Floor" x="3875.58" y="283.5" width="55.5" height="16"/>
   <object id="107" name="Wall" x="3870.89" y="289.666" width="21.2108" height="408.669"/>
@@ -60172,5 +60170,6 @@
   <object id="199" name="Floor" x="5475.25" y="544" width="89.833" height="29.6664"/>
   <object id="200" name="Wall" x="5472.85" y="549.499" width="5.25243" height="23.6694"/>
   <object id="201" name="Wall" x="5562.56" y="551.165" width="7.5441" height="21.6694"/>
+  <object id="202" name="Floor" x="3251.9" y="258.379" width="184.208" height="61.2416"/>
  </objectgroup>
 </map>
