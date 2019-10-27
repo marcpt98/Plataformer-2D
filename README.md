@@ -34,6 +34,17 @@ https://github.com/marcpt98/Plataformer-2D
 
 - F10: God mode (players without collisions).
   
+## Disclosure
+
+Level 1 assets: Pixel Art created by Vicente Nitti (@vnitti) https://vnitti.itch.io/taiga-asset-pack 
+Twitter:   https://twitter.com/vnitti_art Itch.io:   https://vnitti.itch.io/
+Level 2 assets: Artwork created by Luis Zuno (@ansimuz) https://ansimuz.itch.io/warped-caves
+
+
+## Inovation
+
+Colliders made in Tiled, player can besides jumping can grab on walls to make doble jumps.
+
 ## License
 //MIT License
 
