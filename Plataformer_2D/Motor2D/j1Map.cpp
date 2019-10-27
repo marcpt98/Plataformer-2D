@@ -37,7 +37,6 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
-	// TODO 5(old): Prepare the loop to draw all tilesets + Blit
 	MapLayer* layer = data.layers.start->data; // for now we just use the first layer and tileset
 	TileSet* tileset = data.tilesets.start->data;
 
@@ -69,20 +68,20 @@ void j1Map::Draw()
 			}
 		}
 	}
-
-	// TODO 10(old): Complete the draw function
 }
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret(0,0);
-	// TODO 8(old): Create a method that translates x,y coordinates from map positions to world positions
-	if (data.type == MAPTYPE_ORTHOGONAL) {
+	
+	if (data.type == MAPTYPE_ORTHOGONAL) 
+	{
 		ret.x = x * data.tile_width;
 		ret.y = y * data.tile_height;
 	}
-	// TODO 1: Add isometric map to world coordinates
-	if (data.type == MAPTYPE_ISOMETRIC) {
+	
+	if (data.type == MAPTYPE_ISOMETRIC) 
+	{
 		ret.x = (x - y) * (data.tile_width * 0.5f);
 		ret.y = (x + y) * (data.tile_height * 0.5f);
 	}
@@ -93,14 +92,15 @@ iPoint j1Map::MapToWorld(int x, int y) const
 iPoint j1Map::WorldToMap(int x, int y) const
 {
 	iPoint ret(0,0);
-	// TODO 2: Add orthographic world to map coordinates
-	if (data.type == MAPTYPE_ORTHOGONAL) {
+	
+	if (data.type == MAPTYPE_ORTHOGONAL) 
+	{
 		ret.x = (x) /(data.tile_width );
 		ret.y = (y) / (data.tile_height );
 	}
 
-	// TODO 3: Add the case for isometric maps to WorldToMap
-	if (data.type == MAPTYPE_ISOMETRIC) {
+	if (data.type == MAPTYPE_ISOMETRIC) 
+	{
 		ret.x = x / data.tile_width + y / data.tile_height;
 		ret.y = y / data.tile_height - x / data.tile_width;
 	}
@@ -112,7 +112,7 @@ SDL_Rect TileSet::GetTileRect(int tileid) const
 {
 	uint id = tileid - firstgid;
 	SDL_Rect rect = {0, 0, 0, 0};
-	// TODO 7(old): Create a method that receives a tile id and returns it's Rect
+	
 	rect.w = tile_width;
 	rect.h = tile_height;
 	rect.x = margin + ((rect.w + spacing) * (id % num_tiles_width));

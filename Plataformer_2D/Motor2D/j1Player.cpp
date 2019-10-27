@@ -27,12 +27,12 @@ j1Player::j1Player()
 	idle.PushBack({ 130,0,44,52 }, 0.2, 0, 0);
 	
 	// Run animation
-	run.PushBack({ 0,110,40,50 }, 0.2, 0, 0);
-	run.PushBack({ 42,110,42,50 }, 0.2, 0, 0);
-	run.PushBack({ 86,110,42,48 }, 0.2, 0, 0);
-	run.PushBack({ 130,110,40,50 }, 0.2, 0, 0);
-	run.PushBack({ 172,110,42,50 }, 0.2, 0, 0);
-	run.PushBack({ 216,110,42,48 }, 0.2, 0, 0);
+	run.PushBack({ 0,110,40,50 }, 0.2, 0, 4);
+	run.PushBack({ 42,110,42,50 }, 0.2, 0, 4);
+	run.PushBack({ 86,110,42,48 }, 0.2, 0, 4);
+	run.PushBack({ 130,110,40,50 }, 0.2, 0, 4);
+	run.PushBack({ 172,110,42,50 }, 0.2, 0, 4);
+	run.PushBack({ 216,110,42,48 }, 0.2, 0, 4);
 
 	// Jump animation
 	jump.PushBack({ 0,161,42,52 }, 0.2, 0, 0);
@@ -488,7 +488,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		grabing = true;
 		grabFinish = true;
 		canJump1 = true;
-		//position.y = lasPosition.y;
 		position.x = lasPosition.x;
 
 		if (position.x > c2->rect.x)

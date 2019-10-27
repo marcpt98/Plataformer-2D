@@ -48,17 +48,10 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-	void LoadGame(const char* file);
-	void SaveGame(const char* file) const;
-	void GetSaveGames(p2List<p2SString>& list_to_fill) const;
-
 private:
 
 	// Load config file
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
-
-	// Load save_game file
-	//pugi::xml_node LoadSaveGame(pugi::xml_document&);
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
@@ -74,10 +67,6 @@ private:
 
 	// Call modules after each loop iteration
 	bool PostUpdate();
-
-	// Load / Save
-	bool LoadGameNow();
-	bool SavegameNow() const;
 
 public:
 

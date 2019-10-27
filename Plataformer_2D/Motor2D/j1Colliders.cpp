@@ -13,26 +13,23 @@ j1Colliders::j1Colliders()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
+	// Collider floor
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_WALL] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_NEXTMAP] = false;
-	/*matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT] = true;
-	matrix[COLLIDER_WALL][COLLIDER_ENEMY_SHOT] = true;*/
 
+	// Collider player
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLATAFORM] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_NEXTMAP] = true;
-	/*matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
-	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;*/
 
+	// Collider death
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
@@ -40,42 +37,21 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_NEXTMAP] = false;
 
+	// Collider wall
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALL][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_WALL][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_WALL][COLLIDER_NEXTMAP] = false;
-	/*matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
-	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_SHOT] = false;*/
 
+	// Collider next map
 	matrix[COLLIDER_NEXTMAP][COLLIDER_NEXTMAP] = false;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_WALL] = false;
-
-	/*
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = false;
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY] = true;
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT] = false;
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY_SHOT] = true;
-
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = false;
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER_SHOT] = true;
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY_SHOT] = false;
-	
-	matrix[NO_COLLIDER][COLLIDER_WALL] = false;
-	matrix[NO_COLLIDER][COLLIDER_PLAYER] = false;
-	matrix[NO_COLLIDER][COLLIDER_ENEMY] = false;
-	matrix[NO_COLLIDER][COLLIDER_PLAYER_SHOT] = false;
-	matrix[NO_COLLIDER][COLLIDER_ENEMY_SHOT] = false;
-	*/
 }
 
 // Destructor
@@ -207,23 +183,9 @@ void j1Colliders::DebugDraw()
 				App->render->DrawQuad(colliders[i]->rect, 130, 5, 255, alpha);
 			}
 			break;
-			/*
-		case COLLIDER_ENEMY: // red
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
-			break;
-
-		case COLLIDER_PLAYER_SHOT: // yellow
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
-			break;
-
-		case COLLIDER_ENEMY_SHOT: // magenta
-			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
-			break;*/
-
 		}
 
 	}
-	//App->render->DrawQuad(camera_window, 100, 100, 153, 70);
 }
 
 // Called before quitting
@@ -263,21 +225,10 @@ Collider* j1Colliders::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* 
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	// TODO 0: Return true if there is an overlap
-	// between argument "r" and property "rect"
-
-	/*
-	return (r.x + r.w < rect.x || r.x + r.w > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.y + rect.h);
-	return false;
-	}*/
-
 	if (r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.y + rect.h) {
 		return false;
 	}
 	else {
 		return true;
 	}
-
-	//return (rect.x < r.x + r.w && rect.x + rect.w > r.x && rect.y < r.y + r.h &&n rect.h + rect.y > r.y); another option that actually works
-
 }
