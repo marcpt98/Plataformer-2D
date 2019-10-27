@@ -7,11 +7,11 @@ https://github.com/marcpt98/Plataformer-2D
 ## Team:
 - Pol de la Torre Solé https://github.com/polf780.
 
-  Colliders,phisics,level 2
+  Colliders, phisics, level 2
 
 - Marc Palma Turón https://github.com/marcpt98.
 
-  Loading things from XML,level 1,animations
+  Loading things from XML, level 1,animations
 
 ## Controls 
 
@@ -25,6 +25,8 @@ https://github.com/marcpt98/Plataformer-2D
 - F1: Charge level 1 from the begining
 
 - F2: Charge level 2 from the begining
+
+- F2: Charge current level from the begining
 
 - F5: Save your current position
 
@@ -42,10 +44,27 @@ Twitter:   https://twitter.com/vnitti_art    Itch.io:   https://vnitti.itch.io/
 
 Level 2 assets: Artwork created by Luis Zuno (@ansimuz) https://ansimuz.itch.io/warped-caves
 
+Twitter: https://twitter.com/ansimuz?lang=es
+
+Player: " Free Tiny Hero Sprites Pixel Art " License: https://craftpix.net/file-licenses/
+
+Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
+
+Background music: TeknoAXE's Royalty Free Music http://www.facebook.com/teknoaxe
+
+Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sounds/399095/
+
+Game made with SDL libraries:
+
+SDL: https://www.libsdl.org/
+
+SDL_Image: https://www.libsdl.org/projects/SDL_image/
+
+SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
 
 ## Inovation
 
-Colliders made in Tiled, player can besides jumping can grab on walls to make doble jumps.
+Colliders made in Tiled, player besides jumping also can grab on walls to make doble jumps.
 
 ## License
 //MIT License
