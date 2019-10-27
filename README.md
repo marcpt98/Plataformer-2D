@@ -51,7 +51,7 @@ Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
 
 ## Inovation
 
-Colliders made in Tiled, player can besides jumping can grab on walls to make doble jumps.
+Colliders made in Tiled, player besides jumping also can grab on walls to make doble jumps.
 
 ## License
 //MIT License
