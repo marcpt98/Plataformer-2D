@@ -11,7 +11,7 @@ https://github.com/marcpt98/Plataformer-2D
 
 - Marc Palma Turón https://github.com/marcpt98.
 
-  Loading things from XML, level 1,animations
+  Loading things from XML, level 1,animations, keybinds
 
 ## Controls 
 
@@ -34,7 +34,7 @@ https://github.com/marcpt98/Plataformer-2D
 
 - F9: Show all colliders
 
-- F10: God mode (players without collisions).
+- F10: God mode (player without collisions and can fly).
   
 ## Disclosure
 
@@ -64,7 +64,7 @@ SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
 
 ## Inovation
 
-Colliders made in Tiled, player besides jumping also can grab on walls to make doble jumps.
+Colliders made in Tiled, player besides jumping also can grab on walls to jump again and player can double jump if he's only a bit under the platform to facilitate the level.
 
 ## License
 //MIT License
