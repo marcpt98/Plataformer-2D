@@ -12,7 +12,7 @@ https://github.com/marcpt98/Plataformer-2D
   Loading things from XML,level 1,animations
   
   
-##License
+## License
 //MIT License
 
 Copyright (c) [2019] [Pol de la Torre Solé and Marc Palma Turón]
