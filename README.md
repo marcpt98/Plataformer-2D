@@ -6,9 +6,11 @@ https://github.com/marcpt98/Plataformer-2D
 
 ## Team:
 - Pol de la Torre Solé https://github.com/polf780.
+
   Colliders,phisics,level 2
 
 - Marc Palma Turón https://github.com/marcpt98.
+
   Loading things from XML,level 1,animations
 
 ## Controls 
