@@ -10,7 +10,7 @@
     <vsync value="true"/>
     <offset value="-350"/>
     <map_limits start="0"/>
-    <map_limits final="-5375"/>
+    <map_limits2 final="5375"/>
   </renderer>
 
   <window>
@@ -45,10 +45,20 @@
    <fixBlit fix="40"/>
    <gravity g="5"/>
    <igravity g="5"/>
+   <gGravity g="4"/>
    <speed s="3"/>
    <jumpF j="-14"/>
+   <iJumpF j="-14"/>
    <jumpG g="-5"/>
+   <slipping s="1"/>
+   <timeGrabDelay time="200"/>
+   <timeAccelerationDelay time="500"/>
+   <acceleration a="0.2"/>
+   <maxAcceleration max="50"/>
+   <playerHeight h="58"/>
+   <playerHeight2 h="53"/>
    <incrementJ i="0.5"/>
+   <deadDelay d="800"/>
   </player>
 
 </config>

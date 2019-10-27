@@ -65,7 +65,7 @@ bool j1Render::Awake(pugi::xml_node& config)
 
 	// Map limits
 	MapLimitStart = config.child("map_limits").attribute("start").as_int();
-	MapLimitEnd = config.child("map_limits").attribute("final").as_int();
+	MapLimitEnd = config.child("map_limits2").attribute("final").as_int();
 
 	return ret;
 }
@@ -89,13 +89,13 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	camera.x = -(App->player->position.x + cameraOffset);
-	if (camera.x > 0) 
+	if (camera.x > MapLimitStart)
 	{
-		camera.x=0;
+		camera.x = MapLimitStart;
 	}
-	if (camera.x < -5375)
+	if (camera.x < -MapLimitEnd)
 	{
-		camera.x = -5375;
+		camera.x = -MapLimitEnd;
 	}
 
 	return true;

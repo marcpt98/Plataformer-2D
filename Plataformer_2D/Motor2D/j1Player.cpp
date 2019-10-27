@@ -17,6 +17,7 @@ j1Player::j1Player()
 { 
 	name.create("player");
 
+	// Initializing variables
 	actualState = ST_IDLE;
 	dead_timer = 0;
 	energyGrab = 0;
@@ -37,6 +38,16 @@ j1Player::j1Player()
 	iPosition.y = 0;
 	lasPosition.x = 0;
 	lasPosition.y = 0;
+	timeGrabDelay = 0;
+	iJumpF = 0;
+	gGravity = 0;
+	slipping = 0;
+	timeAccelerationDelay = 0;
+	maxAcceleration = 0;
+	acceleration = 0;
+	playerHeight = 0;
+	playerHeight2 = 0;
+	deadDelay = 0;
 
 
 	// Idle animation
@@ -110,8 +121,20 @@ bool j1Player::Awake(pugi::xml_node& config)
 	// Gravity
 	gravity = config.child("gravity").attribute("g").as_float();
 
+	// Gravity when grabbed
+	gGravity = config.child("gGravity").attribute("g").as_float();
+
 	// Initial Gravity
 	igravity = config.child("igravity").attribute("g").as_float();
+
+	// Acceleration
+	acceleration = config.child("acceleration").attribute("a").as_float();
+
+	// Gravity max acceleration
+	maxAcceleration = config.child("maxAcceleration").attribute("max").as_float();
+
+	// Initial jump force
+	iJumpF= config.child("iJumpF").attribute("j").as_float();
 
 	// Jump force
 	jumpF = config.child("jumpF").attribute("j").as_float();
@@ -119,9 +142,25 @@ bool j1Player::Awake(pugi::xml_node& config)
 	// Jump force when grabbed
 	jumpG = config.child("jumpG").attribute("g").as_float();
 
+	// Slipping velocity
+	slipping = config.child("slipping").attribute("s").as_int();
+
+	// Grab time delay
+	timeGrabDelay= config.child("timeGrabDelay").attribute("time").as_int();
+
+	// Delay to activate gravity accelerated
+	timeAccelerationDelay = config.child("timeAccelerationDelay").attribute("time").as_float();
+
 	// Increment of jump force
 	incrementJ = config.child("incrementJ").attribute("i").as_float();
 
+	// Jumping on platform
+	playerHeight = config.child("playerHeight").attribute("h").as_int();
+	playerHeight2 = config.child("playerHeight2").attribute("h").as_int();
+
+	// Dead delay
+	deadDelay = config.child("deadDelay").attribute("d").as_int();
+	
 	// Fix blit
 	fixBlit = config.child("fixBlit").attribute("fix").as_int();
 
@@ -248,7 +287,7 @@ void j1Player::CheckInputState()
 			timegrab = SDL_GetTicks();
 			grabFinish = false;
 		}
-		if (SDL_GetTicks() > timegrab + 200)
+		if (SDL_GetTicks() > timegrab + timeGrabDelay)
 		{
 			grab_falling = false;
 			gravity = igravity;
@@ -339,7 +378,7 @@ void j1Player::CheckAnimation()
 		{
 			if (energyJump < gravity)
 			{
-				if (energyJump == -13) { App->audio->PlayFx(1, 0); }
+				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0); }
 				energyJump += incrementJ;
 				position.y = position.y + energyJump;
 				if (energyJump < 0)
@@ -358,7 +397,7 @@ void j1Player::CheckAnimation()
 		{
 			if (energyJump < gravity)
 			{
-				if (energyJump == -13) { App->audio->PlayFx(1, 0); }
+				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0); }
 				energyJump += incrementJ;
 				position.y = position.y + energyJump;
 				if (goleft == true && nojumpingleft == true)
@@ -418,20 +457,20 @@ void j1Player::CheckAnimation()
 	if (grabing == true)
 	{
 		current_animation = &grab;
-		gravity = 4;
-		position.y = position.y + 1;
+		gravity = gGravity;
+		position.y = position.y + slipping;
 	}
 	if (fallingravity == true && godMode == false && canjumpPlat == false)
 	{
 
 		grabFinish = false;
 
-		if (SDL_GetTicks() > timegrab2 + 500)
+		if (SDL_GetTicks() > timegrab2 + timeAccelerationDelay)
 		{	
-			if (energyfalling < 50)
+			if (energyfalling < maxAcceleration)
 			{
 				gravity = gravity + energyfalling;
-				energyfalling = energyfalling + 0.2;	
+				energyfalling = energyfalling + acceleration;
 			}
 		}
 
@@ -451,12 +490,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		grab_falling = false; 
 		gravity = igravity;
 		position.y = lasPosition.y;
-		if ((position.y + 58) > c2->rect.y && position.y < c2->rect.y) // this is because the gravity makes colliders go weird with this 
+		if ((position.y + playerHeight) > c2->rect.y && position.y < c2->rect.y) // this is because the gravity makes colliders go weird with this 
 		{
 			position.y = position.y-2;                                 //the colliders from the player works well
 		}
 		canJump1 = true;
-		if ((position.y + 53) > c2->rect.y || position.y > c2->rect.y)
+		if ((position.y + playerHeight2) > c2->rect.y || position.y > c2->rect.y)
 		{
 			position.x = lasPosition.x;
 		}
@@ -468,12 +507,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		energyfalling = 0;
 		grab_falling = false;
 		gravity = igravity;
-		if ((position.y + 53) < (c2->rect.y+1) && (c2->rect.y + 2)|| goingdown == true)
+		if ((position.y + playerHeight2) < (c2->rect.y+1) && (c2->rect.y + 2)|| goingdown == true)
 		{
 			position.y = lasPosition.y;
 			canJump1 = true;
 		}
-		if ((position.y + 53) > (c2->rect.y+3) && goingdown==true)
+		if ((position.y + playerHeight2) > (c2->rect.y+3) && goingdown==true)
 		{
 			position.y = position.y + gravity;
 		}
@@ -492,7 +531,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			App->audio->PlayFx(2, 0);
 			count_dead = true;
 		}
-		if (SDL_GetTicks() > dead_animation_finish + 800)
+		if (SDL_GetTicks() > dead_animation_finish + deadDelay)
 		{
 			dead = true;
 			dead_animation = false;

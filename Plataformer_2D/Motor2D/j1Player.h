@@ -66,7 +66,6 @@ public:
 	Animation death;
 	Animation grab;
 	
-
 	// Fx
 	p2SString jumpFx;
 	p2SString deadFx;
@@ -81,6 +80,9 @@ public:
 	float igravity;
 	bool fallingravity = false;
 	float energyfalling;
+	float timeAccelerationDelay;
+	float acceleration;
+	float maxAcceleration;
 	
 	// Speed
 	float speed;
@@ -90,6 +92,7 @@ public:
 	float jumpF;
 	float energyJump;
 	float incrementJ;
+	float iJumpF;
 
 	// Jump when grabbed
 	float jumpG;
@@ -102,6 +105,7 @@ public:
 	bool controls = false;
 	bool nojumpingleft = false;
 	bool nojumpingright = false;
+	float gGravity;
 	
 	// Stats machine
 	void CheckInputState();
@@ -125,15 +129,22 @@ public:
 	bool dead_animation = false;
 	bool count_dead = false;
 	int dead_animation_finish = 0;
+	int deadDelay;
 
 	// Player grabing
 	bool grabing = false;
+	int timeGrabDelay;
+	int slipping;
 
 	// Player is grab_falling
 	bool grab_falling = false;
 
 	// Next map
 	bool map_next = false;
+
+	// Platforms
+	int playerHeight;
+	int playerHeight2;
 };
 
 #endif // __j1Player_H__
