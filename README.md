@@ -42,6 +42,12 @@ Twitter:   https://twitter.com/vnitti_art    Itch.io:   https://vnitti.itch.io/
 
 Level 2 assets: Artwork created by Luis Zuno (@ansimuz) https://ansimuz.itch.io/warped-caves
 
+Twitter: https://twitter.com/ansimuz?lang=es
+
+Player: " Free Tiny Hero Sprites Pixel Art " License: https://craftpix.net/file-licenses/
+
+Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
+
 
 ## Inovation
 
