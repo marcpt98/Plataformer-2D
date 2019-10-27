@@ -60128,7 +60128,7 @@
   <object id="141" name="Floor" x="4835.92" y="18" width="55.5" height="16"/>
   <object id="142" name="Wall" x="4832.62" y="-0.0769409" width="24.2108" height="29.6084"/>
   <object id="144" name="Wall" x="4871.71" y="0.104891" width="24.2108" height="29.6084"/>
-  <object id="148" name="Floor" x="4999.75" y="189.5" width="111.5" height="134.333"/>
+  <object id="148" name="Floor" x="4999.75" y="189.5" width="114.833" height="134.333"/>
   <object id="149" name="Wall" x="5092.23" y="198.832" width="27.5441" height="114.336"/>
   <object id="150" name="Wall" x="4994.89" y="198.832" width="24.8775" height="117.669"/>
   <object id="151" name="Wall" x="5245.89" y="2.1655" width="22.2108" height="503.669"/>
