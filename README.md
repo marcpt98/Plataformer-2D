@@ -11,7 +11,7 @@ https://github.com/marcpt98/Plataformer-2D
 
 - Marc Palma Turón https://github.com/marcpt98.
 
-  Loading things from XML, level 1,animations
+  Loading things from XML, level 1,animations, keyblinds
 
 ## Controls 
 
