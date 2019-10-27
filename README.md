@@ -50,6 +50,16 @@ Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
 
 Background music: TeknoAXE's Royalty Free Music http://www.facebook.com/teknoaxe
 
+Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sounds/399095/
+
+Game made with SDL libraries:
+
+SDL: https://www.libsdl.org/
+
+SDL_Image: https://www.libsdl.org/projects/SDL_image/
+
+SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
+
 ## Inovation
 
 Colliders made in Tiled, player besides jumping also can grab on walls to make doble jumps.
