@@ -48,6 +48,7 @@ Player: " Free Tiny Hero Sprites Pixel Art " License: https://craftpix.net/file-
 
 Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
 
+Background music: TeknoAXE's Royalty Free Music http://www.facebook.com/teknoaxe
 
 ## Inovation
 
