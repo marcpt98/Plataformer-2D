@@ -80074,7 +80074,7 @@
   <object id="85" name="Wall" x="2653.77" y="695.774" width="27.7917" height="130.619"/>
   <object id="87" name="Dead" x="1116.67" y="811.333" width="546" height="18"/>
   <object id="88" name="Dead" x="2462.5" y="815" width="193.333" height="18"/>
-  <object id="89" name="Dead" x="3290" y="813" width="1610" height="18"/>
+  <object id="89" name="Dead" x="3290" y="767" width="1610" height="64"/>
   <object id="90" name="Dead" x="5151" y="812.333" width="439" height="18"/>
   <object id="91" name="Wall" x="3134.1" y="553.357" width="27.7917" height="130.619"/>
   <object id="92" name="Floor" x="3139.54" y="549.448" width="151.25" height="135.77"/>
@@ -80151,7 +80151,7 @@
   <object id="170" name="Floor" x="5281.33" y="366.039" width="95" height="11.3461"/>
   <object id="171" name="Wall" x="5569" y="209.873" width="28.0039" height="348.588"/>
   <object id="172" name="Wall" x="5569" y="690.539" width="30.0039" height="123.255"/>
-  <object id="173" name="Floor" x="5580.83" y="551.327" width="768" height="23.3461"/>
+  <object id="173" name="Floor" x="5596.33" y="551.327" width="752.5" height="23.3461"/>
   <object id="174" name="Floor" x="5574.5" y="673.827" width="586" height="23.3461"/>
   <object id="175" name="Wall" x="6138" y="682.872" width="30.0039" height="148.255"/>
   <object id="176" name="Wall" x="6337" y="557.372" width="30.0039" height="277.255"/>
