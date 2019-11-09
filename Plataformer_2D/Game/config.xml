@@ -38,8 +38,8 @@
   
   <player>
    <spritesheet player="textures/Spritesheet_Character_1.png"/>
-   <fx_name name="audio/fx/fx_jump.wav"/>
-   <fx_name name="audio/fx/fx_dead.wav"/>
+   <fx_name jump="audio/fx/fx_jump.wav"/>
+   <fx_name2 dead="audio/fx/fx_dead.wav"/>
    <position x="200" y="530"/>
    <iPosition x="200" y="530"/>
    <fixBlit fix="40"/>
