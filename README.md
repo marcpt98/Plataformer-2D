@@ -54,6 +54,12 @@ Background music: TeknoAXE's Royalty Free Music http://www.facebook.com/teknoaxe
 
 Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sounds/399095/
 
+Slime enemy art: Pixel Art created by rvros  Itch.io: https://rvros.itch.io/
+
+Ghost enemy art: Pixel Art created by ansimuz (@ansimuz) https://ansimuz.itch.io/gothicvania-patreon-collection
+
+Twitter: https://twitter.com/ansimuz
+
 Game made with SDL libraries:
 
 SDL: https://www.libsdl.org/
@@ -61,6 +67,7 @@ SDL: https://www.libsdl.org/
 SDL_Image: https://www.libsdl.org/projects/SDL_image/
 
 SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
+
 
 ## Inovation
 
