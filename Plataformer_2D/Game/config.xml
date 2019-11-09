@@ -60,5 +60,9 @@
    <incrementJ i="0.5"/>
    <deadDelay d="800"/>
   </player>
+  
+  <particles>
+    <spritesheet projectiles="textures/Spritesheet_Projectiles.png"/>
+  </particles>
 
 </config>

@@ -8,6 +8,7 @@
 #include "j1App.h"
 #include "j1FadeToBlack.h"
 #include "j1Player.h"
+#include "j1Particles.h"
 #include "Animation.h"
 #include<stdio.h>
 #include "j1Colliders.h"
@@ -49,7 +50,6 @@ j1Player::j1Player()
 	playerHeight2 = 0;
 	deadDelay = 0;
 
-
 	// Idle animation
 	idle.PushBack({ 0,0,42,52 }, 0.2, 0, 0);
 	idle.PushBack({ 44,0,40,54 }, 0.2, 2, -2);
@@ -89,6 +89,21 @@ j1Player::j1Player()
 	// Grab animation
 	grab.PushBack({ 0,389,45,50 }, 0.15, 0, 0);
 
+	// Shoot animation
+	shoot.PushBack({ 0,279,42,52 }, 0.2, 0, 0);
+	shoot.PushBack({ 44,279,42,48 }, 0.2, 0, 4);
+	shoot.PushBack({ 88,279,54,54 }, 0.2, 3, -1);
+	shoot.PushBack({ 144,279,46,54 }, 0.2, 1, -1);
+	shoot.loop = false;
+
+	// Shoot running animation
+	shoot_run.PushBack({ 0,334,42,50 }, 0.2, 0, 0);
+	shoot_run.PushBack({ 44,334,54,54 }, 0.2, 0, -3);
+	shoot_run.PushBack({ 100,334,46,54 }, 0.2, 0, -3);
+	shoot_run.PushBack({ 148,334,42,50 }, 0.2, 0, -2);
+	shoot_run.PushBack({ 192,334,42,52 }, 0.2, 0, 0);
+	shoot_run.PushBack({ 236,334,40,54 }, 0.2, 0, -4);
+	shoot_run.loop = false;
 }
 
 j1Player::~j1Player()
@@ -207,11 +222,9 @@ bool j1Player::Update(float dt)
 	{
 		if (App->want_load == false)
 		{
-			
 			lasPosition.x = position.x;
 			lasPosition.y = position.y;
 			position.y = position.y + gravity; 
-			
 		}
 	}
 
@@ -225,10 +238,12 @@ bool j1Player::Update(float dt)
 	if (blit == false)
 	{
 		App->render->Blit(graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), 1.0f);
+		App->particles->Projectile.speed.x = 6;
 	}
 	else
 	{
 		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
+		App->particles->Projectile.speed.x = -6;
 	}
 
 	return true;
@@ -300,7 +315,7 @@ void j1Player::CheckInputState()
 		// Player controllers
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false)
 		{
-			
+
 			actualState = ST_JUMP;
 			if (canJump1 == true)
 			{
@@ -314,8 +329,43 @@ void j1Player::CheckInputState()
 			death.Reset();
 			grab.Reset();
 		}
+		
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL)
+		{
+			App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+			isshooting = true;
 
-		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false)
+			if (shootfinish == false)
+			{
+				shoottime = SDL_GetTicks();
+				//App->audio->PlayFx(2, 0);
+				shootfinish = true;
+			}
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false)
+		{
+			App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+			isrunshooting = true;
+
+			if (goleft == true)
+			{
+				position.x = position.x - speed;
+			}
+			if (goright == true)
+			{
+				position.x = position.x + speed;
+			}
+
+			if (shootrunfinish == false)
+			{
+				shootruntime = SDL_GetTicks();
+				//App->audio->PlayFx(2, 0);
+				shootrunfinish = true;
+			}
+		}
+
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false && isshooting == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x - speed;
@@ -331,7 +381,7 @@ void j1Player::CheckInputState()
 			grab.Reset();	
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false)
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false && isshooting == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x + speed;
@@ -347,7 +397,7 @@ void j1Player::CheckInputState()
 			grab.Reset();
 		}
 
-		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false)
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false && isshooting == false)
 		{
 			actualState = ST_IDLE;
 
@@ -449,6 +499,31 @@ void j1Player::CheckAnimation()
 		current_animation = &idle;
 	}
 
+	if (isshooting == true)
+	{
+		if (actualState == ST_IDLE|| actualState == ST_JUMP)
+		{
+			current_animation = &shoot;
+			if (SDL_GetTicks() > shoottime + 300)
+			{
+				isshooting = false;
+				shootfinish = false;
+				shoot.Reset();
+			}
+		}
+	}
+
+	if (isrunshooting == true)
+	{
+		current_animation = &shoot_run;
+		if (SDL_GetTicks() > shootruntime + 300)
+		{
+			isrunshooting = false;
+			shootrunfinish = false;
+			shoot_run.Reset();
+		}
+	}
+
 	if (actualState == ST_DEAD) 
 	{
 		current_animation = &death;
@@ -476,8 +551,6 @@ void j1Player::CheckAnimation()
 
 	}
 	fallingravity = true;
-
-
 }
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) 

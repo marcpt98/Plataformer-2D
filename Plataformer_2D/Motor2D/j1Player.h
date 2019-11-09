@@ -15,14 +15,14 @@ enum states
 	ST_IDLE,
 	ST_RUN,
 	ST_JUMP,
-	ST_JUMPRUN,
+	ST_SHOOT,
 	ST_DEAD
 };
 
 class j1Player : public j1Module
 {
 public:
-	
+
 	j1Player();
 	
 	// Destructor
@@ -65,6 +65,8 @@ public:
 	Animation special;
 	Animation death;
 	Animation grab;
+	Animation shoot;
+	Animation shoot_run;
 	
 	// Fx
 	p2SString jumpFx;
@@ -119,7 +121,7 @@ public:
 	// God mode
 	bool godMode = false;
 
-	//PLayer interaction with plataform
+	//Player interaction with plataform
 	bool canjumpPlat = false;
 	bool goingdown = false;
 
@@ -145,6 +147,16 @@ public:
 	// Platforms
 	int playerHeight;
 	int playerHeight2;
+
+	// Shoot
+	int shoottime = 0;
+	bool shootfinish = false;
+	bool isshooting = false;
+
+	// Shoot run
+	int shootruntime = 0;
+	bool shootrunfinish = false;
+	bool isrunshooting = false;
 };
 
 #endif // __j1Player_H__

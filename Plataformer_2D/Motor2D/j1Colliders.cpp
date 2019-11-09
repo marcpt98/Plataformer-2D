@@ -20,6 +20,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_FLOOR][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_WALL] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_NEXTMAP] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER_SHOT] = true;
 
 	// Collider player
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
@@ -28,6 +29,16 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLATAFORM] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_NEXTMAP] = true;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_NEXTMAP] = false;
+
+	// Collider player shot
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLATAFORM] = true;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_NEXTMAP] = false;
 
 	// Collider death
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
@@ -36,6 +47,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_DEATH][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_WALL] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_NEXTMAP] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_NEXTMAP] = false;
 
 	// Collider wall
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
@@ -52,6 +64,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_NEXTMAP][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_WALL] = false;
+	matrix[COLLIDER_NEXTMAP][COLLIDER_PLAYER_SHOT] = true;
 }
 
 // Destructor
@@ -158,16 +171,25 @@ void j1Colliders::DebugDraw()
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			}
 			break;
+
 		case COLLIDER_WALL: //turquesa
 			if (App->player->showcolliders == true)
 			{
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			}
 			break;
+
 		case COLLIDER_PLAYER: // green
 			if (App->player->showcolliders == true) 
 			{
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			}
+			break;
+
+		case COLLIDER_PLAYER_SHOT: // yellow
+			if (App->player->showcolliders == true)
+			{
+				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			}
 			break;
 
@@ -177,6 +199,7 @@ void j1Colliders::DebugDraw()
 				App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			}
 			break;
+
 		case COLLIDER_NEXTMAP: // violet
 			if (App->player->showcolliders == true)
 			{
