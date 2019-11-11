@@ -1,7 +1,7 @@
 #ifndef __j1Colliders_H__
 #define __j1Colliders_H__
 
-#define MAX_COLLIDERS 250
+#define MAX_COLLIDERS 1000
 
 #include "j1Module.h"
 
