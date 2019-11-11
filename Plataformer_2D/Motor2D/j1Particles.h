@@ -8,7 +8,7 @@
 #include "p2Log.h"
 #include "j1Colliders.h"
 
-#define MAX_ACTIVE_PARTICLES 3
+#define MAX_ACTIVE_PARTICLES 1
 
 struct SDL_Texture;
 struct Collider;

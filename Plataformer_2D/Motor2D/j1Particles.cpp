@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "j1Player.h"
 #include "j1Particles.h"
+#include "j1Audio.h"
 #include "SDL/include/SDL_timer.h"
 #include <math.h>
 
@@ -101,6 +102,7 @@ bool j1Particles::Update(float dt)
 				}
 				AddParticle(Projectile_explosion, p->position.x, p->position.y, NO_COLLIDER);
 				explosion = true;
+				App->player->lifetimeball = false;
 			}	
 		}
 		else if (SDL_GetTicks() >= p->born)
@@ -144,8 +146,8 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_WALL)
 			{
+				App->audio->PlayFx(4, 0);
 				hitobject = true;
-				LOG("HOLA :3");
 			}
 			
 			// Uncomment when implement enemy shot

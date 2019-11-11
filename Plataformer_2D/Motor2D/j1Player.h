@@ -72,6 +72,7 @@ public:
 	p2SString jumpFx;
 	p2SString deadFx;
 	p2SString throwrockFx;
+	p2SString ballhitFx;
 
 	// Colliders
 	Collider* collider = nullptr;
@@ -153,6 +154,7 @@ public:
 	int shoottime = 0;
 	bool shootfinish = false;
 	bool isshooting = false;
+	bool lifetimeball = false;
 
 	// Shoot run
 	int shootruntime = 0;

@@ -130,6 +130,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	jumpFx = config.child("fx_name").attribute("jump").as_string("");
 	deadFx = config.child("fx_name2").attribute("dead").as_string("");
 	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
+	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
 
@@ -188,6 +189,7 @@ bool j1Player::Start()
 	App->audio->LoadFx(jumpFx.GetString());
 	App->audio->LoadFx(deadFx.GetString());
 	App->audio->LoadFx(throwrockFx.GetString());
+	App->audio->LoadFx(ballhitFx.GetString());
 	// Load spritesheet
 	graphics = App->tex->Load(spritesheet.GetString());
 
@@ -208,6 +210,7 @@ bool j1Player::CleanUp()
 	App->audio->UnloadFx(jumpFx.GetString());
 	App->audio->UnloadFx(deadFx.GetString());
 	App->audio->UnloadFx(throwrockFx.GetString());
+	App->audio->UnloadFx(ballhitFx.GetString());
 	return true;
 }
 
@@ -331,9 +334,10 @@ void j1Player::CheckInputState()
 			death.Reset();
 			grab.Reset();
 		}
-		
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL)
+
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && lifetimeball == false)
 		{
+			lifetimeball = true;
 			App->audio->PlayFx(3, 0);
 			App->particles->explosion = false;
 			App->particles->hitobject = false;
@@ -358,10 +362,10 @@ void j1Player::CheckInputState()
 			}
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false)
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && lifetimeball == false)
 		{
+			lifetimeball = true;
 			App->audio->PlayFx(3, 0);
-
 			App->particles->explosion = false;
 			App->particles->hitobject = false;
 
@@ -662,11 +666,6 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)
-	{
-		map_next = true;
-	}
-	
 }
 
 // Load Game State
