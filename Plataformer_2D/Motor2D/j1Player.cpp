@@ -129,7 +129,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	// Play Fx
 	jumpFx = config.child("fx_name").attribute("jump").as_string("");
 	deadFx = config.child("fx_name2").attribute("dead").as_string("");
-
+	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
 
@@ -187,7 +187,7 @@ bool j1Player::Start()
 	// Load Fx 
 	App->audio->LoadFx(jumpFx.GetString());
 	App->audio->LoadFx(deadFx.GetString());
-
+	App->audio->LoadFx(throwrockFx.GetString());
 	// Load spritesheet
 	graphics = App->tex->Load(spritesheet.GetString());
 
@@ -207,7 +207,7 @@ bool j1Player::CleanUp()
 	App->tex->UnLoad(graphics);
 	App->audio->UnloadFx(jumpFx.GetString());
 	App->audio->UnloadFx(deadFx.GetString());
-
+	App->audio->UnloadFx(throwrockFx.GetString());
 	return true;
 }
 
@@ -334,6 +334,7 @@ void j1Player::CheckInputState()
 		
 		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL)
 		{
+			App->audio->PlayFx(3, 0);
 			App->particles->explosion = false;
 			App->particles->hitobject = false;
 
@@ -353,13 +354,14 @@ void j1Player::CheckInputState()
 			if (shootfinish == false)
 			{
 				shoottime = SDL_GetTicks();
-				//App->audio->PlayFx(2, 0);
 				shootfinish = true;
 			}
 		}
 
 		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false)
 		{
+			App->audio->PlayFx(3, 0);
+
 			App->particles->explosion = false;
 			App->particles->hitobject = false;
 
@@ -388,7 +390,6 @@ void j1Player::CheckInputState()
 			if (shootrunfinish == false)
 			{
 				shootruntime = SDL_GetTicks();
-				//App->audio->PlayFx(2, 0);
 				shootrunfinish = true;
 			}
 		}
