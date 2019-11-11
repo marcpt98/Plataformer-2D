@@ -243,7 +243,7 @@ bool j1Player::Update(float dt)
 	else
 	{
 		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
-		App->particles->Projectile.speed.x = -6;
+		App->particles->Projectile_flip.speed.x = -6;
 	}
 
 	return true;
@@ -262,10 +262,12 @@ void j1Player::CheckInputState()
 		if (godMode == false)
 		{
 			collider->to_delete = true;
+			collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, NO_COLLIDER, this);
 			godMode = true;
 		}
 		else if (godMode == true)
 		{
+			collider->to_delete = true;
 			collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, COLLIDER_PLAYER, this);
 			godMode = false;
 		}
@@ -332,7 +334,20 @@ void j1Player::CheckInputState()
 		
 		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL)
 		{
-			App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+			App->particles->explosion = false;
+			App->particles->hitobject = false;
+
+			if (blit == false)
+			{
+				App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+				App->particles->explosion_right = true;
+			}
+			else
+			{
+				App->particles->AddParticle(App->particles->Projectile_flip, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+				App->particles->explosion_right = false;
+			}
+
 			isshooting = true;
 
 			if (shootfinish == false)
@@ -345,7 +360,20 @@ void j1Player::CheckInputState()
 
 		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false)
 		{
-			App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+			App->particles->explosion = false;
+			App->particles->hitobject = false;
+
+			if (blit == false)
+			{
+				App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+				App->particles->explosion_right = true;
+			}
+			else
+			{
+				App->particles->AddParticle(App->particles->Projectile_flip, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+				App->particles->explosion_right = false;
+			}
+
 			isrunshooting = true;
 
 			if (goleft == true)

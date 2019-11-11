@@ -37,7 +37,7 @@ bool j1Particles::Start()
 	Projectile.anim.PushBack({ 17,0,16,16 }, 0.15, 0, 0);
 	Projectile.anim.PushBack({ 34,0,16,16 }, 0.15, 0, 0);
 	Projectile.anim.PushBack({ 51,0,16,16 }, 0.15, 0, 0);
-	Projectile.life = 1000;
+	Projectile.life = 800;
 
 	// Projectile flip
 	Projectile_flip.anim.PushBack({ 0,0,16,16 }, 0.15, 0, 0);
@@ -47,10 +47,10 @@ bool j1Particles::Start()
 	Projectile_flip.life = 1000;
 
 	// Projectile explosion
-	Projectile_explosion.anim.PushBack({ 0,17,18,17 }, 0.15, 0, 0);
-	Projectile_explosion.anim.PushBack({ 19,17,20,19 }, 0.15, 0, 0);
-	Projectile_explosion.anim.PushBack({ 40,17,23,21 }, 0.15, 0, 0);
-	Projectile_explosion.anim.PushBack({ 64,17,25,24 }, 0.15, 0, 0);
+	Projectile_explosion.anim.PushBack({ 0,17,18,17 }, 0.2, 0, 0);
+	Projectile_explosion.anim.PushBack({ 19,17,20,19 }, 0.2, 0, 0);
+	Projectile_explosion.anim.PushBack({ 40,17,23,21 }, 0.2, 0, 0);
+	Projectile_explosion.anim.PushBack({ 64,17,25,24 }, 0.2, 0, 0);
 	Projectile_explosion.anim.loop = false;
 	Projectile_explosion.life = 300;
 
@@ -85,10 +85,23 @@ bool j1Particles::Update(float dt)
 		if (p == nullptr)
 			continue;
 
-		if (p->Update() == false)
+		if (p->Update() == false || hitobject == true)
 		{
 			delete p;
 			active[i] = nullptr;
+			if (explosion == false)
+			{
+				if (explosion_right == true)
+				{
+					App->particles->Projectile_explosion.speed.x = 6;
+				}
+				else
+				{
+					App->particles->Projectile_explosion.speed.x = -6;
+				}
+				AddParticle(Projectile_explosion, p->position.x, p->position.y, NO_COLLIDER);
+				explosion = true;
+			}	
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
@@ -129,17 +142,11 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if (active[i] != nullptr && active[i]->collider == c1)
 		{
-			delete active[i];
-			active[i] = nullptr;
-			/*if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
+			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_WALL)
 			{
-				if (App->player->cooldown >= 20)
-				{
-					App->player->damageHadokenP2 = true;
-					App->input->inputs2.Push(IN_DAMAGE_HADOKEN2);
-					App->player2->Life = App->player2->Life - 10;
-				}
-			}*/
+				hitobject = true;
+				LOG("HOLA :3");
+			}
 			
 			// Uncomment when implement enemy shot
 			/*	if (c1->type == COLLIDER_ENEMY_SHOT && c2->type == COLLIDER_PLAYER)
