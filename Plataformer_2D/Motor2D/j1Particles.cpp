@@ -34,7 +34,9 @@ bool j1Particles::Start()
 
 	// Projectile
 	Projectile.anim.PushBack({ 0,0,16,16 }, 0.15, 0, 0);
-	Projectile.anim.loop = false;
+	Projectile.anim.PushBack({ 17,0,16,16 }, 0.15, 0, 0);
+	Projectile.anim.PushBack({ 34,0,16,16 }, 0.15, 0, 0);
+	Projectile.anim.PushBack({ 51,0,16,16 }, 0.15, 0, 0);
 	Projectile.life = 1000;
 
 	return true;
