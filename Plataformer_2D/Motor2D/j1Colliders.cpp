@@ -41,16 +41,16 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLATAFORM] = true;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_NEXTMAP] = false;
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY] = true;
 
 	// Collider enemy
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLATAFORM] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_NEXTMAP] = false;
 
 	// Collider death
@@ -170,20 +170,20 @@ void j1Colliders::DebugDraw()
 
 		switch (colliders[i]->type)
 		{
-	
+
 		case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 
 		case COLLIDER_FLOOR: // blue
-			if (App->player->showcolliders == true) 
+			if (App->player->showcolliders == true)
 			{
 				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			}
 			break;
 
 		case COLLIDER_PLATAFORM: //purple
-			if (App->player->showcolliders == true) 
+			if (App->player->showcolliders == true)
 			{
 				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			}
@@ -197,7 +197,7 @@ void j1Colliders::DebugDraw()
 			break;
 
 		case COLLIDER_PLAYER: // green
-			if (App->player->showcolliders == true) 
+			if (App->player->showcolliders == true)
 			{
 				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			}
@@ -223,8 +223,14 @@ void j1Colliders::DebugDraw()
 				App->render->DrawQuad(colliders[i]->rect, 130, 5, 255, alpha);
 			}
 			break;
-		}
 
+		case COLLIDER_ENEMY: // dark slategray
+			if (App->player->showcolliders == true)
+			{
+				App->render->DrawQuad(colliders[i]->rect, 0,0,0, alpha);
+			}
+			break;
+		}
 	}
 }
 
