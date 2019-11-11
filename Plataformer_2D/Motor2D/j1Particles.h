@@ -66,7 +66,11 @@ private:
 public:
 	// Projectile
 	Particle Projectile;
-	Particle FlipProjectile;
+	Particle Projectile_flip;
+
+	// Projectile explosion
+	Particle Projectile_explosion;
+	Particle FlipProjectile_explosion;
 	
 	// Projectile spritesheet
 	p2SString spritesheet_projectiles;

@@ -39,6 +39,21 @@ bool j1Particles::Start()
 	Projectile.anim.PushBack({ 51,0,16,16 }, 0.15, 0, 0);
 	Projectile.life = 1000;
 
+	// Projectile flip
+	Projectile_flip.anim.PushBack({ 0,0,16,16 }, 0.15, 0, 0);
+	Projectile_flip.anim.PushBack({ 51,0,16,16 }, 0.15, 0, 0);
+	Projectile_flip.anim.PushBack({ 34,0,16,16 }, 0.15, 0, 0);
+	Projectile_flip.anim.PushBack({ 17,0,16,16 }, 0.15, 0, 0);
+	Projectile_flip.life = 1000;
+
+	// Projectile explosion
+	Projectile_explosion.anim.PushBack({ 0,17,18,17 }, 0.15, 0, 0);
+	Projectile_explosion.anim.PushBack({ 19,17,20,19 }, 0.15, 0, 0);
+	Projectile_explosion.anim.PushBack({ 40,17,23,21 }, 0.15, 0, 0);
+	Projectile_explosion.anim.PushBack({ 64,17,25,24 }, 0.15, 0, 0);
+	Projectile_explosion.anim.loop = false;
+	Projectile_explosion.life = 300;
+
 	return true;
 }
 
