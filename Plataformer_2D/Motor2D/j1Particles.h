@@ -74,6 +74,9 @@ public:
 	bool explosion = false;
 	bool hitobject = false;
 	bool explosion_right = false;
+	bool explosion_finish = false;
+	int explosion_time = false;
+	bool explosion_time_init = false;
 	
 	// Projectile spritesheet
 	p2SString spritesheet_projectiles;

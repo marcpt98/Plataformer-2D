@@ -249,6 +249,17 @@ bool j1Player::Update(float dt)
 		App->particles->Projectile_flip.speed.x = -6;
 	}
 
+	if (App->particles->explosion_time_init == true)
+	{
+		App->particles->explosion_time = SDL_GetTicks();
+		App->particles->explosion_time_init = false;
+	}
+	if (SDL_GetTicks() > App->particles->explosion_time + 1200)
+	{
+		App->particles->explosion_finish = false;
+		App->particles->explosion_time_init = false;
+	}
+
 	return true;
 }
 
@@ -335,9 +346,10 @@ void j1Player::CheckInputState()
 			grab.Reset();
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && lifetimeball == false)
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->particles->explosion_finish == false)
 		{
-			lifetimeball = true;
+			App->particles->explosion_time_init = true;
+			App->particles->explosion_finish = true;
 			App->audio->PlayFx(3, 0);
 			App->particles->explosion = false;
 			App->particles->hitobject = false;
@@ -362,9 +374,10 @@ void j1Player::CheckInputState()
 			}
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && lifetimeball == false)
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->particles->explosion_finish == false)
 		{
-			lifetimeball = true;
+			App->particles->explosion_time_init = true;
+			App->particles->explosion_finish = true;
 			App->audio->PlayFx(3, 0);
 			App->particles->explosion = false;
 			App->particles->hitobject = false;
@@ -385,10 +398,12 @@ void j1Player::CheckInputState()
 			if (goleft == true)
 			{
 				position.x = position.x - speed;
+				goright = false;
 			}
 			if (goright == true)
 			{
 				position.x = position.x + speed;
+				goleft = false;
 			}
 
 			if (shootrunfinish == false)

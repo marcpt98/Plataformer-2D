@@ -154,7 +154,6 @@ public:
 	int shoottime = 0;
 	bool shootfinish = false;
 	bool isshooting = false;
-	bool lifetimeball = false;
 
 	// Shoot run
 	int shootruntime = 0;

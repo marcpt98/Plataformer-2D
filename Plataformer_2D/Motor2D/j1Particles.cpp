@@ -45,7 +45,7 @@ bool j1Particles::Start()
 	Projectile_flip.anim.PushBack({ 51,0,16,16 }, 0.15, 0, 0);
 	Projectile_flip.anim.PushBack({ 34,0,16,16 }, 0.15, 0, 0);
 	Projectile_flip.anim.PushBack({ 17,0,16,16 }, 0.15, 0, 0);
-	Projectile_flip.life = 1000;
+	Projectile_flip.life = 800;
 
 	// Projectile explosion
 	Projectile_explosion.anim.PushBack({ 0,17,18,17 }, 0.2, 0, 0);
@@ -102,7 +102,6 @@ bool j1Particles::Update(float dt)
 				}
 				AddParticle(Projectile_explosion, p->position.x, p->position.y, NO_COLLIDER);
 				explosion = true;
-				App->player->lifetimeball = false;
 			}	
 		}
 		else if (SDL_GetTicks() >= p->born)
