@@ -16,6 +16,7 @@
 #include "j1Player.h"
 #include "j1Colliders.h"
 #include "j1Particles.h"
+#include "j1Enemy.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -33,6 +34,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	colliders = new j1Colliders();
 	particles = new j1Particles();
+	enemy = new j1Enemy();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -46,6 +48,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(particles);
 	AddModule(fade);
 	AddModule(colliders);
+	AddModule(enemy);
 	// render last to swap buffer
 	AddModule(render);
 }
