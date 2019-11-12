@@ -9,8 +9,17 @@
 
 j1Enemy::j1Enemy()
 {
+	name.create("enemy");
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
+
+	idle.PushBack({  0, 182, 48, 84}, 0.2, 0, 0);
+	idle.PushBack({ 50, 182, 56, 82 }, 0.2, 0, 0);
+	idle.PushBack({ 108, 182, 52, 84 }, 0.2, 0, 0);
+	idle.PushBack({ 162, 182, 48, 84 }, 0.2, 0, 0);
+	idle.PushBack({ 212, 182, 48, 84 }, 0.2, 0, 0);
+	idle.PushBack({ 262, 182, 49, 88 }, 0.2, 0, 0);
+	idle.PushBack({ 314, 182, 47, 86 }, 0.2, 0, 0);
 }
 
 // Destructor

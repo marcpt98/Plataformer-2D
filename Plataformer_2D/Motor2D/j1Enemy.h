@@ -40,7 +40,7 @@ private:
 	void SpawnEnemy(const EnemyInfo& info);
 
 private:
-
+	Animation idle;
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
 };

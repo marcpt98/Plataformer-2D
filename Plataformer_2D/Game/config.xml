@@ -63,6 +63,10 @@
    <deadDelay d="800"/>
   </player>
   
+  <enemy>
+    <spritesheet enemy="textures/Spritesheet_Ghost.png"/>
+  </enemy>
+  
   <particles>
     <spritesheet projectiles="textures/Spritesheet_Projectiles.png"/>
   </particles>

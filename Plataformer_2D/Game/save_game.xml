@@ -9,10 +9,12 @@
 		<map actual="1" />
 	</scene>
 	<player>
-		<posx x="3431" />
-		<posy y="461" />
+		<posx x="308" />
+		<posy y="554" />
 	</player>
+	<particles />
 	<fadetoblack />
 	<colliders />
+	<enemy />
 	<renderer />
 </game_state>
