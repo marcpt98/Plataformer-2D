@@ -49,6 +49,12 @@
     <ClCompile Include="j1Enemy.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy_Ghost.cpp">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -120,6 +126,12 @@
     <ClInclude Include="j1Enemy.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy_Ghost.h">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Desenvolupament  ========\Modules\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -142,6 +154,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Containers">
       <UniqueIdentifier>{e3159a1a-4bb5-4309-bef7-a77cdf11d9a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Enemies">
+      <UniqueIdentifier>{d25731d6-9a65-4b40-a4fe-ae6668b82b79}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

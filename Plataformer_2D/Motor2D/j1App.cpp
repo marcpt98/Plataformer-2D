@@ -45,10 +45,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
+	AddModule(enemy);
 	AddModule(particles);
 	AddModule(fade);
 	AddModule(colliders);
-	AddModule(enemy);
+	
 	// render last to swap buffer
 	AddModule(render);
 }

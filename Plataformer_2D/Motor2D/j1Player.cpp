@@ -10,6 +10,7 @@
 #include "j1Player.h"
 #include "j1Particles.h"
 #include "Animation.h"
+#include "j1Enemy.h"
 #include<stdio.h>
 #include "j1Colliders.h"
 #include "p2Log.h"
@@ -641,7 +642,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_DEATH)
+	if (collider == c1 && c2->type == COLLIDER_DEATH || collider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;

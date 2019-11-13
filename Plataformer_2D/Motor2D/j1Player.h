@@ -160,6 +160,9 @@ public:
 	int shootruntime = 0;
 	bool shootrunfinish = false;
 	bool isrunshooting = false;
+
+	// Interaction with enemy
+
 };
 
 #endif // __j1Player_H__

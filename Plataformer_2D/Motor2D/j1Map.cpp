@@ -8,6 +8,7 @@
 #include <math.h>
 #include "j1Colliders.h"
 #include "j1Player.h"
+#include "j1Enemy.h"
 #include "j1Audio.h"
 #include "j1FadeToBlack.h"
 

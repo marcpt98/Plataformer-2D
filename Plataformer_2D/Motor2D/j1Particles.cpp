@@ -2,6 +2,7 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Player.h"
+#include "j1Enemy.h"
 #include "j1Particles.h"
 #include "j1Audio.h"
 #include "SDL/include/SDL_timer.h"
@@ -147,6 +148,11 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 			{
 				App->audio->PlayFx(4, 0);
 				hitobject = true;
+			}
+
+			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
+			{
+				
 			}
 			
 			// Uncomment when implement enemy shot

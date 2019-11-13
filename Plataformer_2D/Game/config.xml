@@ -65,7 +65,8 @@
   </player>
   
   <enemy>
-    <spritesheet enemy="textures/Spritesheet_Ghost.png"/>
+    <spritesheet ghost="textures/Spritesheet_Ghost.png"/>
+    <position x="600" y="520"/>
   </enemy>
   
   <particles>

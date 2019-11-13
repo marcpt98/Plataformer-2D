@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+#include "j1Enemy.h"
 #include "j1Colliders.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -51,6 +52,10 @@ bool j1Scene::Start()
 {
 	App->map->Load("Level_1.tmx");
 	App->audio->PlayMusic("audio/music/music_level_1.ogg");
+
+	// Enemies
+	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 500, 400);
+
 	return true;
 }
 
