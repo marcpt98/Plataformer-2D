@@ -681,6 +681,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
+	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)
+	{
+		map_next = true;
+	}
+
 }
 
 // Load Game State
