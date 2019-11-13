@@ -131,8 +131,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 	deadFx = config.child("fx_name2").attribute("dead").as_string("");
 	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
 	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
+	
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
+	speedgm = config.child("speedgm").attribute("sgm").as_float();
 
 	// Gravity
 	gravity = config.child("gravity").attribute("g").as_float();
@@ -293,19 +295,19 @@ void j1Player::CheckInputState()
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
-			position.y = position.y - speed;
+			position.y = position.y - speedgm;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		{
-			position.y = position.y + speed;
+			position.y = position.y + speedgm;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			position.x = position.x - speed;
+			position.x = position.x - speedgm;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			position.x = position.x + speed;
+			position.x = position.x + speedgm;
 		}
 	}
 

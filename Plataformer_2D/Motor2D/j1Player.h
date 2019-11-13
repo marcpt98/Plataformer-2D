@@ -90,6 +90,7 @@ public:
 	
 	// Speed
 	float speed;
+	float speedgm;
 
 	// Jump force
 	bool canJump1 = false;
