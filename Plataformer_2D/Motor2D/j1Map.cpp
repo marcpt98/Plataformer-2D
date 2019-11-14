@@ -170,6 +170,7 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 {
 	// CleanUp
 	App->player->CleanUp();
+	App->enemy->CleanUp();
 	App->colliders->CleanUp();
 	App->audio->UnloadMusic(music->GetString());
 	CleanUp();
@@ -179,6 +180,7 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 
 	// Load
 	App->player->Start();
+	App->enemy->Start();
 	App->audio->PlayMusic(music->GetString());
 	Load(map->GetString());
 

@@ -56,6 +56,17 @@ bool j1Particles::Start()
 	Projectile_explosion.anim.loop = false;
 	Projectile_explosion.life = 300;
 
+	// Ghost dead
+	dead.anim.PushBack({ 0, 92, 48, 84 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 50, 92, 60, 60 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 112, 92, 52, 84 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 162, 92, 58, 52 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 172, 92, 30, 34 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 204, 92, 20, 24 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 226, 92, 40, 36 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 268, 92, 34, 36 }, 0.15, 0, 0);
+	dead.life = 1000;
+
 	return true;
 }
 
@@ -150,9 +161,13 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 				hitobject = true;
 			}
 
-			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
+			// Delete particle and add a collisions particle (hit effect)
+			if (active[i] != nullptr && active[i]->collider == c1)
 			{
-				
+				AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y);
+				delete active[i];
+				active[i] = nullptr;
+				break;
 			}
 			
 			// Uncomment when implement enemy shot

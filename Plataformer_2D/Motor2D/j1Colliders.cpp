@@ -61,10 +61,10 @@ j1Colliders::j1Colliders()
 	// Collider enemy
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_ENEMY][COLLIDER_FLOOR] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_PLATAFORM] = true;
-	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLATAFORM] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_NEXTMAP] = false;
 	matrix[COLLIDER_ENEMY][NO_COLLIDER] = false;

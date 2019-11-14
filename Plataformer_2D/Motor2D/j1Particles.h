@@ -80,6 +80,9 @@ public:
 	
 	// Projectile spritesheet
 	p2SString spritesheet_projectiles;
+
+	// Enemy Ghost
+	Particle dead;
 };
 
 #endif

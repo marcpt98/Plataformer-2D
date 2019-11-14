@@ -643,7 +643,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_DEATH || collider == c1 && c2->type == COLLIDER_ENEMY)
+	if (collider == c1 && c2->type == COLLIDER_DEATH) //|| collider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;

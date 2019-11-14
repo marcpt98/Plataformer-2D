@@ -62,11 +62,10 @@ private:
 	void SpawnEnemy(const EnemyInfo& info);
 
 private:
-
 	EnemyInfo queue[MAX_ENEMIES];
-	Enemy* enemies[MAX_ENEMIES];
 	p2SString spritesheetGhost;
 	SDL_Texture* graphicsGhost;
+	Enemy* enemies[MAX_ENEMIES];
 };
 
 

@@ -7,6 +7,9 @@ class Enemy_Ghost : public Enemy
 {
 private:
 	Animation idle;
+	float wave = -1.0f;
+	bool going_up = true;
+	int original_y = 0;
 
 public:
 

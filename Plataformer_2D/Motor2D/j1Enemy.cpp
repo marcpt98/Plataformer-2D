@@ -4,10 +4,13 @@
 #include "j1Textures.h"
 #include "j1Colliders.h"
 #include "j1Player.h"
+#include "j1Particles.h"
 #include "p2Log.h"
 #include "j1Scene.h"
 #include "j1Enemy.h"
 #include "Enemy_Ghost.h"
+
+#define SPAWN_MARGIN 50
 
 j1Enemy::j1Enemy()
 {
@@ -39,6 +42,12 @@ bool j1Enemy::Start()
 	// Load spritesheet
 	graphicsGhost = App->tex->Load(spritesheetGhost.GetString());
 
+	// Enemies
+	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 350, 550);
+	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 450, 550);
+	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 550, 550);
+	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 650, 550);
+
 	return true;
 }
 
@@ -66,7 +75,7 @@ bool j1Enemy::PreUpdate()
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			if (queue[i].x * 1 < App->render->camera.x + (App->render->camera.w * 1) + 50)
+			if (queue[i].x * 1 < App->render->camera.x + (App->render->camera.w * 1) + SPAWN_MARGIN)
 			{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
@@ -92,7 +101,7 @@ bool j1Enemy::PostUpdate()
 	{
 		if (enemies[i] != nullptr)
 		{
-			if (enemies[i]->position.x * 1 < (App->render->camera.x) - 50)
+			if (enemies[i]->position.x * 1 < (App->render->camera.x) - SPAWN_MARGIN)
 			{
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -102,13 +111,6 @@ bool j1Enemy::PostUpdate()
 
 	return true;
 }
-
-void j1Enemy::OnCollision(Collider* c1, Collider* c2)
-{
-	
-}
-
-
 
 bool j1Enemy::AddEnemy(ENEMY_TYPES type, int x, int y)
 {
@@ -133,7 +135,7 @@ void j1Enemy::SpawnEnemy(const EnemyInfo& info)
 {
 	// find room for the new enemy
 	uint i = 0;
-	for (; enemies[i] != nullptr && i < MAX_ENEMIES; ++i);
+	for (;  enemies[i] != nullptr && i < MAX_ENEMIES; ++i);
 
 	if (i != MAX_ENEMIES)
 	{
@@ -141,6 +143,21 @@ void j1Enemy::SpawnEnemy(const EnemyInfo& info)
 		{
 		case ENEMY_TYPES::GHOST:
 			enemies[i] = new Enemy_Ghost(info.x, info.y);
+			break;
+		}
+	}
+}
+
+void j1Enemy::OnCollision(Collider* c1, Collider* c2)
+{
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
+		{
+			//App->particles->AddParticle(App->particles->dead, enemies[i]->position.x, enemies[i]->position.y); // This breaks the code OwO
+			delete enemies[i];
+			enemies[i] = nullptr;
+			
 			break;
 		}
 	}
