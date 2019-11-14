@@ -17,6 +17,7 @@
 #include "j1Colliders.h"
 #include "j1Particles.h"
 #include "j1Enemy.h"
+#include "j1PathFinding.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -36,6 +37,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	colliders = new j1Colliders();
 	particles = new j1Particles();
 	enemy = new j1Enemy();
+	path = new j1PathFinding();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,6 +47,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(path);
 	AddModule(player);
 	AddModule(enemy);
 	AddModule(particles);
