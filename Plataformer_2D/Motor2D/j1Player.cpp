@@ -234,8 +234,8 @@ bool j1Player::Update(float dt)
 		}
 	}
 
-	CheckInputState();
-	CheckAnimation();
+	CheckInputState(dt);
+	CheckAnimation(dt);
 
 	// Player colliders
 	collider->SetPos(position.x, position.y);
@@ -271,8 +271,9 @@ bool j1Player::PostUpdate(float dt)
 	return true;
 }
 
-void j1Player::CheckInputState()
+void j1Player::CheckInputState(float dt)
 {
+	
 	// God mode
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
@@ -466,7 +467,7 @@ void j1Player::CheckInputState()
 	}
 }
 
-void j1Player::CheckAnimation()
+void j1Player::CheckAnimation(float dt)
 {
 
 	if (actualState == ST_JUMP)

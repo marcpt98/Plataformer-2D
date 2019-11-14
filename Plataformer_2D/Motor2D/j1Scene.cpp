@@ -54,7 +54,7 @@ bool j1Scene::Start()
 	App->audio->PlayMusic("audio/music/music_level_1.ogg");
 
 	// Enemies
-	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 500, 400);
+	//App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 500, 400); this is braking our game for now :)
 
 	return true;
 }

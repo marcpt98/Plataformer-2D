@@ -1,13 +1,14 @@
 <!-- Config file for the game -->
 
 <config>
-  <app>
+  
+  <app framerate_cap="60">
     <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>
 	
   <renderer>
-    <vsync value="true"/>
+    <vsync value="false"/>
     <offset value="-350"/>
     <map_limits start="0"/>
     <map_limits2 final="5375"/>

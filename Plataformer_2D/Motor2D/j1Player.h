@@ -113,8 +113,8 @@ public:
 	float gGravity;
 	
 	// Stats machine
-	void CheckInputState();
-	void CheckAnimation();
+	void CheckInputState(float dt);
+	void CheckAnimation(float dt);
 	states	actualState;
 	
 	// Player blit

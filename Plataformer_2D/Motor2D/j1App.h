@@ -3,6 +3,8 @@
 
 #include "p2List.h"
 #include "j1Module.h"
+#include "j1PerfTimer.h"
+#include "j1Timer.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -90,7 +92,7 @@ private:
 
 	p2List<j1Module*>	modules;
 	uint				frames;
-	float				dt;
+	
 	int					argc;
 	char**				args;
 
@@ -106,6 +108,17 @@ public:
 	bool load();
 	bool save();
 	bool LoadSaveGame();
+
+	j1PerfTimer			ptimer;
+	j1PerfTimer			timewaits;
+	uint64				frame_count = 0;
+	j1Timer				startup_time;
+	j1Timer				frame_time;
+	j1Timer				last_sec_frame_time;
+	uint32				last_sec_frame_count = 0u;
+	uint32				prev_last_sec_frame_count = 0u;
+	uint32				framerate=0u;
+	float				dt;
 	
 };
 
