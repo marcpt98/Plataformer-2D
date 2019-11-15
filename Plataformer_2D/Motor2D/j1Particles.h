@@ -8,7 +8,7 @@
 #include "p2Log.h"
 #include "j1Colliders.h"
 
-#define MAX_ACTIVE_PARTICLES 1
+#define MAX_ACTIVE_PARTICLES 100
 
 struct SDL_Texture;
 struct Collider;
@@ -61,27 +61,21 @@ public:
 private:
 	// Create particle
 	SDL_Texture* graphics = nullptr;
-	Particle* active[MAX_ACTIVE_PARTICLES];
 
 public:
 	// Projectile
+	Particle* active[MAX_ACTIVE_PARTICLES];
 	Particle Projectile;
 	Particle Projectile_flip;
 
 	// Projectile explosion
 	Particle Projectile_explosion;
 	Particle FlipProjectile_explosion;
-	bool explosion = false;
-	bool hitobject = false;
-	bool explosion_right = false;
-	bool explosion_finish = false;
-	int explosion_time = false;
-	bool explosion_time_init = false;
 	
 	// Projectile spritesheet
 	p2SString spritesheet_projectiles;
 
-	// Enemy Ghost
+	// Ghost
 	Particle dead;
 };
 

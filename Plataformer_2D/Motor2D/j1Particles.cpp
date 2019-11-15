@@ -14,25 +14,6 @@ j1Particles::j1Particles()
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
-}
-
-j1Particles::~j1Particles()
-{}
-
-bool j1Particles::Awake(pugi::xml_node& config)
-{
-	// Player spritesheet
-	spritesheet_projectiles = config.child("spritesheet").attribute("projectiles").as_string("");
-
-	return true;
-}
-
-bool j1Particles::Start()
-{
-	LOG("Loading particles");
-
-	// Load spritesheet
-	graphics = App->tex->Load(spritesheet_projectiles.GetString());
 
 	// Projectile
 	Projectile.anim.PushBack({ 0,0,16,16 }, 0.15, 0, 0);
@@ -54,18 +35,35 @@ bool j1Particles::Start()
 	Projectile_explosion.anim.PushBack({ 40,17,23,21 }, 0.2, 0, 0);
 	Projectile_explosion.anim.PushBack({ 64,17,25,24 }, 0.2, 0, 0);
 	Projectile_explosion.anim.loop = false;
-	Projectile_explosion.life = 300;
 
 	// Ghost dead
-	dead.anim.PushBack({ 0, 92, 48, 84 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 50, 92, 60, 60 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 112, 92, 52, 84 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 162, 92, 58, 52 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 172, 92, 30, 34 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 204, 92, 20, 24 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 226, 92, 40, 36 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 268, 92, 34, 36 }, 0.15, 0, 0);
-	dead.life = 1000;
+	dead.anim.PushBack({ 0, 42, 60, 60 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 62, 42, 58, 52 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 122, 42, 30, 34 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 154, 42, 20, 24 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 176, 42, 40, 36 }, 0.15, 0, 0);
+	dead.anim.PushBack({ 218, 42, 34, 36 }, 0.15, 0, 0);
+	dead.anim.loop = false;
+	dead.life = 500;
+}
+
+j1Particles::~j1Particles()
+{}
+
+bool j1Particles::Awake(pugi::xml_node& config)
+{
+	// Player spritesheet
+	spritesheet_projectiles = config.child("spritesheet").attribute("projectiles").as_string("");
+
+	return true;
+}
+
+bool j1Particles::Start()
+{
+	LOG("Loading particles");
+
+	// Load spritesheet
+	graphics = App->tex->Load(spritesheet_projectiles.GetString());
 
 	return true;
 }
@@ -98,23 +96,10 @@ bool j1Particles::Update(float dt)
 		if (p == nullptr)
 			continue;
 
-		if (p->Update() == false || hitobject == true)
+		if (p->Update() == false)
 		{
 			delete p;
 			active[i] = nullptr;
-			if (explosion == false)
-			{
-				if (explosion_right == true)
-				{
-					App->particles->Projectile_explosion.speed.x = 6;
-				}
-				else
-				{
-					App->particles->Projectile_explosion.speed.x = -6;
-				}
-				AddParticle(Projectile_explosion, p->position.x, p->position.y, NO_COLLIDER);
-				explosion = true;
-			}	
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
@@ -158,28 +143,32 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_WALL)
 			{
 				App->audio->PlayFx(4, 0);
-				hitobject = true;
-			}
+				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
 
-			// Delete particle and add a collisions particle (hit effect)
-			if (active[i] != nullptr && active[i]->collider == c1)
-			{
-				AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y);
 				delete active[i];
 				active[i] = nullptr;
 				break;
 			}
-			
-			// Uncomment when implement enemy shot
-			/*	if (c1->type == COLLIDER_ENEMY_SHOT && c2->type == COLLIDER_PLAYER)
-			{
 
-				if (App->player2->cooldown >= 20)
-				{
-					App->player2->damageHadokenP1 = true;
-					App->input->inputs.Push(IN_DAMAGE_HADOKEN);
-					App->player->Life = App->player->Life - 10;
-				}
+			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
+			{
+				App->audio->PlayFx(4, 0);
+				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
+				AddParticle(dead, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
+
+				delete active[i];
+				active[i] = nullptr;
+				break;
+			}
+
+			// Always destroy particles that collide
+			/*if (active[i] != nullptr && active[i]->collider == c1)
+			{
+				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
+
+				delete active[i];
+				active[i] = nullptr;
+				break;
 			}*/
 			break;
 		}

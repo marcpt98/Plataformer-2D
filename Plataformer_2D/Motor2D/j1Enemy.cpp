@@ -26,11 +26,9 @@ j1Enemy::~j1Enemy()
 
 bool j1Enemy::Awake(pugi::xml_node& config)
 {
-	LOG("Loading Ghost enemy");
-
 	bool ret = true;
 
-	// Ghost spritesheet
+	LOG("Loading Ghost enemy");
 	spritesheetGhost = config.child("spritesheet").attribute("ghost").as_string("");
 
 	return ret;
@@ -103,6 +101,7 @@ bool j1Enemy::PostUpdate()
 		{
 			if (enemies[i]->position.x * 1 < (App->render->camera.x) - SPAWN_MARGIN)
 			{
+				
 				delete enemies[i];
 				enemies[i] = nullptr;
 			}
@@ -154,10 +153,9 @@ void j1Enemy::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
-			//App->particles->AddParticle(App->particles->dead, enemies[i]->position.x, enemies[i]->position.y); // This breaks the code OwO
 			delete enemies[i];
 			enemies[i] = nullptr;
-			
+
 			break;
 		}
 	}

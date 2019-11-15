@@ -6,11 +6,12 @@
 	<audio />
 	<map />
 	<scene>
-		<map actual="1" />
+		<map actual="0" />
 	</scene>
+	<pathfinding />
 	<player>
-		<posx x="485" />
-		<posy y="554" />
+		<posx x="200" />
+		<posy y="625" />
 	</player>
 	<enemy />
 	<particles />

@@ -71,7 +71,7 @@
   </enemy>
   
   <particles>
-    <spritesheet projectiles="textures/Spritesheet_Projectiles.png"/>
+    <spritesheet projectiles="textures/Spritesheet_Projectiles_2.png"/>
   </particles>
 
 </config>
