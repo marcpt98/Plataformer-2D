@@ -66,6 +66,8 @@ private:
 	p2SString spritesheetGhost;
 	SDL_Texture* graphicsGhost;
 	Enemy* enemies[MAX_ENEMIES];
+
+public:
 };
 
 

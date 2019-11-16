@@ -43,8 +43,7 @@ public:
 
 	// Utility: return the walkability value of a tile
 	uchar GetTileAt(const iPoint& pos) const;
-private:
-public:
+
 private:
 
 	// size of the map

@@ -9,6 +9,7 @@
 #include "j1Colliders.h"
 #include "j1Player.h"
 #include "j1Enemy.h"
+#include "j1Particles.h"
 #include "j1Audio.h"
 #include "j1FadeToBlack.h"
 
@@ -171,6 +172,7 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 	// CleanUp
 	App->player->CleanUp();
 	App->enemy->CleanUp();
+	App->particles->CleanUp();
 	App->colliders->CleanUp();
 	App->audio->UnloadMusic(music->GetString());
 	CleanUp();
@@ -181,6 +183,7 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 	// Load
 	App->player->Start();
 	App->enemy->Start();
+	App->particles->Start();
 	App->audio->PlayMusic(music->GetString());
 	Load(map->GetString());
 

@@ -77,14 +77,14 @@ bool j1Scene::Update(float dt)
 	// Change map
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		LevelName(0);
 		currentMap = 0;
+		LevelName(0);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		LevelName(1);
 		currentMap = 1;
+		LevelName(1);
 	}
 
 	// Start from the beginning of the current level
@@ -195,13 +195,13 @@ bool j1Scene::load(pugi::xml_node& savegame)
 {
 	if (savegame.child("map").attribute("actual").as_int() == 0)
 	{
-		LevelName(0);
 		currentMap = 0;
+		LevelName(0);
 	}
 	if (savegame.child("map").attribute("actual").as_int() == 1)
 	{
-		LevelName(1);
 		currentMap = 1;
+		LevelName(1);
 	}
 	
 	return true;

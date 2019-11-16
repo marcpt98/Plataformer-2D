@@ -41,10 +41,10 @@ bool j1Enemy::Start()
 	graphicsGhost = App->tex->Load(spritesheetGhost.GetString());
 
 	// Enemies
-	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 350, 550);
-	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 450, 550);
-	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 550, 550);
-	App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 650, 550);
+	if (App->scene->currentMap == 0)
+	{
+		AddEnemy(ENEMY_TYPES::GHOST, 350, 550);
+	}
 
 	return true;
 }
