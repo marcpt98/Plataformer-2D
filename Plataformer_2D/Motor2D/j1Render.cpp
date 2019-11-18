@@ -89,6 +89,7 @@ bool j1Render::PreUpdate()
 bool j1Render::Update(float dt)
 {
 	camera.x = -(App->player->position.x + cameraOffset);
+
 	if (camera.x > MapLimitStart)
 	{
 		camera.x = MapLimitStart;

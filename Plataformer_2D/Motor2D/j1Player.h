@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
-
+#define VELOCITY 60
 
 struct SDL_Texture;
 struct Collider;
@@ -166,8 +166,13 @@ public:
 	bool shootrunfinish = false;
 	bool isrunshooting = false;
 
-	// Interaction with enemy
-
+	// Framerate new variables
+	bool ground = false;
+	
+	//Player colliders
+	int playerwidth = 0;
+	int playerhigh = 0;
+	int number = 0;
 };
 
 #endif // __j1Player_H__

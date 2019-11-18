@@ -510,6 +510,10 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 			{
 				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_NEXTMAP);
 			}
+			if (type == "Corner")
+			{
+				App->colliders->AddCollider(objectgroup->object[i], COLLIDER_CORNER);
+			}
 
 
 			object = object.next_sibling("object");

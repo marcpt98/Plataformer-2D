@@ -123,6 +123,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 	iPosition.x = config.child("iPosition").attribute("x").as_int();
 	iPosition.y = config.child("iPosition").attribute("y").as_int();
 
+	// Player colliders
+	playerwidth = config.child("widthPlayer").attribute("w").as_int();
+	playerhigh = config.child("highPlayer").attribute("h").as_int();
+
 	// Player spritesheet
 	spritesheet = config.child("spritesheet").attribute("player").as_string("");
 
@@ -196,9 +200,8 @@ bool j1Player::Start()
 	graphics = App->tex->Load(spritesheet.GetString());
 
 	// Add player collider
-	collider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
+	collider = App->colliders->AddCollider({ position.x,position.y, playerwidth, playerhigh }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
 
-	
 	// Set initial position
 	position.x = iPosition.x;
 	position.y = iPosition.y;
@@ -229,10 +232,13 @@ bool j1Player::Update(float dt)
 		{
 			lasPosition.x = position.x;
 			lasPosition.y = position.y;
-			position.y = position.y + gravity; 
+			if (ground == false)
+			{
+				position.y += (int)(gravity * dt * VELOCITY);
+			}
 		}
 	}
-
+	ground = false;
 	CheckInputState(dt);
 	CheckAnimation(dt);
 
@@ -250,7 +256,7 @@ bool j1Player::Update(float dt)
 		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
 		App->particles->Projectile_flip.speed.x = -6;
 	}
-
+	speed = 3;
 	return true;
 }
 
@@ -285,19 +291,19 @@ void j1Player::CheckInputState(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
-			position.y = position.y - speedgm;
+			position.y -= (int)(speedgm * dt * VELOCITY);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		{
-			position.y = position.y + speedgm;
+			position.y += (int)(speedgm * dt * VELOCITY);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			position.x = position.x - speedgm;
+			position.x -= (int)(speedgm * dt * VELOCITY);
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			position.x = position.x + speedgm;
+			position.x += (int)(speedgm * dt * VELOCITY);
 		}
 	}
 
@@ -377,12 +383,12 @@ void j1Player::CheckInputState(float dt)
 
 			if (goleft == true)
 			{
-				position.x = position.x - speed;
+				position.x -= (int)(speed * dt * VELOCITY);
 				goright = false;
 			}
 			if (goright == true)
 			{
-				position.x = position.x + speed;
+				position.x += (int)(speed * dt * VELOCITY);
 				goleft = false;
 			}
 
@@ -395,8 +401,9 @@ void j1Player::CheckInputState(float dt)
 
 		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false && dead_monster_animation == false && controls == false && isshooting == false)
 		{
+			speed = 3;
 			actualState = ST_RUN;
-			position.x = position.x - speed;
+			position.x -= (int)(speed * dt * VELOCITY);
 			blit = true;
 
 			goright = false;
@@ -411,8 +418,9 @@ void j1Player::CheckInputState(float dt)
 
 		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && dead_monster_animation == false && controls == false && isshooting == false)
 		{
+			speed = 3;
 			actualState = ST_RUN;
-			position.x = position.x + speed;
+			position.x += (int)(speed * dt * VELOCITY);
 			blit = false;
 
 			goleft = false;
@@ -462,8 +470,8 @@ void j1Player::CheckAnimation(float dt)
 			if (energyJump < gravity)
 			{
 				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0); }
-				energyJump += incrementJ;
-				position.y = position.y + energyJump;
+				energyJump += (incrementJ * dt * VELOCITY);
+				position.y += (int)(energyJump * dt * VELOCITY);
 				if (energyJump < 0)
 				{
 					canjumpPlat = true;
@@ -481,16 +489,16 @@ void j1Player::CheckAnimation(float dt)
 			if (energyJump < gravity)
 			{
 				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0); }
-				energyJump += incrementJ;
-				position.y = position.y + energyJump;
+				energyJump += (incrementJ * dt * VELOCITY);
+				position.y += (int)(energyJump * dt * VELOCITY);
 				if (goleft == true && nojumpingleft == true)
 				{
-					position.x = position.x - energyGrab;
+					position.x -= (int)(energyGrab * dt * VELOCITY);
 					controls = true;
 				}
 				if (goright == true && nojumpingright == true)
 				{
-					position.x = position.x + energyGrab;
+					position.x += (int)(energyGrab * dt * VELOCITY);
 					controls = true;
 					
 				}
@@ -511,12 +519,12 @@ void j1Player::CheckAnimation(float dt)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			{
-				position.x = position.x - speed;
+				position.x -= (int)(speed * dt * VELOCITY);
 				blit = true;
 			}
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			{
-				position.x = position.x + speed;
+				position.x += (int)(speed * dt * VELOCITY);
 				blit = false;
 			}
 		}
@@ -601,22 +609,28 @@ void j1Player::CheckAnimation(float dt)
 void j1Player::OnCollision(Collider* c1, Collider* c2) 
 {
 
+
 	if (collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
+		canJump1 = true;
+		ground = true;
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
-		grab_falling = false; 
-		gravity = igravity;
-		position.y = lasPosition.y;
-		if ((position.y + playerHeight) > c2->rect.y && position.y < c2->rect.y) // this is because the gravity makes colliders go weird with this 
+		grab_falling = false;
+		//gravity = igravity;
+		ground = true;
+		if (position.y >= (c2->rect.y))// under a floor collision
 		{
-			position.y = position.y-2;                                 //the colliders from the player works well
+			canJump1 = false;
+			position.y = c2->rect.y + c2->rect.h + 1;
+			ground = false;
 		}
-		canJump1 = true;
-		if ((position.y + playerHeight2) > c2->rect.y || position.y > c2->rect.y)
+		else if (position.y + playerhigh > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + playerwidth) >(c2->rect.x))// over a floor collision  
 		{
-			position.x = lasPosition.x;
+			position.y = c2->rect.y - playerhigh;
 		}
+
+
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
@@ -669,8 +683,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	}
 
+
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
+		speed = 0;
+		number = ((position.x + playerwidth) - c2->rect.x);
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
 		grab_falling = true;
@@ -678,6 +695,12 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		grabFinish = true;
 		canJump1 = true;
 		position.x = lasPosition.x;
+		/*if (goright == true) {
+			position.x = c2->rect.x-(playerwidth+number-10);
+		}
+		if (goleft == true) {
+			position.x = c2->rect.x+c2->rect.w;
+		}*/
 
 		if (position.x > c2->rect.x)
 		{
@@ -688,6 +711,15 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			nojumpingleft = false;
 			nojumpingright = true;
+		}
+	}
+
+	if (collider == c1 && c2->type == COLLIDER_CORNER)
+	{
+		if (position.y >= ceil(c2->rect.y + (c2->rect.h/1.5)))// under a floor collision
+		{
+			position.y = c2->rect.y + c2->rect.h + 1;
+			ground = false;
 		}
 	}
 

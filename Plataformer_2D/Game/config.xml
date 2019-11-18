@@ -43,16 +43,18 @@
    <fx_name2 dead="audio/fx/fx_dead.wav"/>
    <fx_name3 throwrock="audio/fx/fx_trhowrock.wav"/>
    <fx_name4 ballhit="audio/fx/fx_ballhit.wav"/>
-   <position x="200" y="530"/>
-   <iPosition x="200" y="530"/>
+   <position x="200" y="430"/>
+   <iPosition x="200" y="430"/>
+   <widthPlayer w="40"/>
+   <highPlayer h="53"/>
    <fixBlit fix="40"/>
    <gravity g="5"/>
    <igravity g="5"/>
    <gGravity g="4"/>
-   <speed s="3"/>
+   <speed s="1"/>
    <speedgm sgm="6"/>
-   <jumpF j="-14"/>
-   <iJumpF j="-14"/>
+   <jumpF j="-15"/>
+   <iJumpF j="-15"/>
    <jumpG g="-5"/>
    <slipping s="1"/>
    <timeGrabDelay time="200"/>
