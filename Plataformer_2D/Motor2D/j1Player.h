@@ -16,7 +16,8 @@ enum states
 	ST_RUN,
 	ST_JUMP,
 	ST_SHOOT,
-	ST_DEAD
+	ST_DEAD,
+	ST_DEADMONS
 };
 
 class j1Player : public j1Module
@@ -130,11 +131,15 @@ public:
 
 	// Player dead
 	bool dead = false;
-	int dead_timer;
 	bool dead_animation = false;
 	bool count_dead = false;
 	int dead_animation_finish = 0;
 	int deadDelay;
+
+	// Player dead by monster
+	bool dead_monster_animation = false;
+	bool count_monster_dead = false;
+	int dead_monster_animation_finish = 0;
 
 	// Player grabing
 	bool grabing = false;

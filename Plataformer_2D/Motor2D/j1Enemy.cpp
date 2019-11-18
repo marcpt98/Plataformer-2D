@@ -45,6 +45,10 @@ bool j1Enemy::Start()
 	{
 		AddEnemy(ENEMY_TYPES::GHOST, 350, 550);
 	}
+	if (App->scene->currentMap == 1)
+	{
+		AddEnemy(ENEMY_TYPES::GHOST, 500, 400);
+	}
 
 	return true;
 }

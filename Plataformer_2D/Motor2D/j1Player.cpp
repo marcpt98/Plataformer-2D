@@ -21,7 +21,6 @@ j1Player::j1Player()
 
 	// Initializing variables
 	actualState = ST_IDLE;
-	dead_timer = 0;
 	energyGrab = 0;
 	energyJump = 0;
 	energyfalling = 0;
@@ -339,7 +338,7 @@ void j1Player::CheckInputState(float dt)
 			grab.Reset();
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL)
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && dead_monster_animation==false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL)
 		{
 			App->audio->PlayFx(3, 0);
 
@@ -361,7 +360,7 @@ void j1Player::CheckInputState(float dt)
 			}
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false)
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && dead_monster_animation == false && controls == false)
 		{
 			App->audio->PlayFx(3, 0);
 
@@ -394,7 +393,7 @@ void j1Player::CheckInputState(float dt)
 			}
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false && isshooting == false)
+		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canJump1 == true && dead_animation == false && dead_monster_animation == false && controls == false && isshooting == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x - speed;
@@ -410,7 +409,7 @@ void j1Player::CheckInputState(float dt)
 			grab.Reset();	
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && controls == false && isshooting == false)
+		else if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canJump1 == true && dead_animation == false && dead_monster_animation == false && controls == false && isshooting == false)
 		{
 			actualState = ST_RUN;
 			position.x = position.x + speed;
@@ -426,7 +425,7 @@ void j1Player::CheckInputState(float dt)
 			grab.Reset();
 		}
 
-		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && grabing == false && isshooting == false)
+		else if (canJump1 == true && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->input->GetKey(SDL_SCANCODE_SPACE) == NULL && dead_animation == false && dead_monster_animation == false && grabing == false && isshooting == false)
 		{
 			actualState = ST_IDLE;
 
@@ -440,6 +439,11 @@ void j1Player::CheckInputState(float dt)
 		else if (dead_animation == true)
 		{
 			actualState = ST_DEAD;
+		}
+		
+		else if (dead_monster_animation == true)
+		{
+			actualState = ST_DEADMONS;
 		}
 	}
 }
@@ -558,6 +562,18 @@ void j1Player::CheckAnimation(float dt)
 		current_animation = &death;
 	}
 
+	if (actualState == ST_DEADMONS)
+	{
+		current_animation = &death;
+
+		if (SDL_GetTicks() > dead_monster_animation_finish + deadDelay)
+		{
+			dead = true;
+			dead_monster_animation = false;
+			count_monster_dead = false;
+		}
+	}
+
 	if (grabing == true)
 	{
 		current_animation = &grab;
@@ -620,7 +636,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_DEATH) //|| collider == c1 && c2->type == COLLIDER_ENEMY)
+	if (collider == c1 && c2->type == COLLIDER_DEATH)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
@@ -640,6 +656,19 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			count_dead = false;
 		}
 	}
+
+	if (collider == c1 && c2->type == COLLIDER_ENEMY)
+	{
+		if (count_monster_dead == false)
+		{
+			dead_monster_animation_finish = SDL_GetTicks();
+			App->audio->PlayFx(2, 0);
+			dead_monster_animation = true;
+			count_monster_dead = true;
+		}
+
+	}
+
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
 		timegrab2 = SDL_GetTicks();
