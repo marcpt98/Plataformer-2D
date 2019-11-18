@@ -43,8 +43,8 @@
    <fx_name2 dead="audio/fx/fx_dead.wav"/>
    <fx_name3 throwrock="audio/fx/fx_trhowrock.wav"/>
    <fx_name4 ballhit="audio/fx/fx_ballhit.wav"/>
-   <position x="200" y="430"/>
-   <iPosition x="200" y="430"/>
+   <position x="200" y="0"/>
+   <iPosition x="200" y="0"/>
    <widthPlayer w="40"/>
    <highPlayer h="53"/>
    <fixBlit fix="40"/>
