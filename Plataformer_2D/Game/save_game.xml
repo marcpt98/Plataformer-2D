@@ -10,8 +10,8 @@
 	</scene>
 	<pathfinding />
 	<player>
-		<posx x="3885" />
-		<posy y="230" />
+		<posx x="3684" />
+		<posy y="139" />
 	</player>
 	<enemy />
 	<particles />

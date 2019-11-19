@@ -723,6 +723,21 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
+	if (collider == c1 && c2->type == COLLIDER_LOW_CORNER)
+	{
+		if (position.y + 35 < c2->rect.y)// over a floor collision
+		{
+			canJump1 = true;
+			energyfalling = 0;
+			position.y = c2->rect.y-playerhigh;
+			ground = true;
+		}
+		else // under a lowcorner floor collision
+		{
+			
+		}
+	}
+
 	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)
 	{
 		map_next = true;

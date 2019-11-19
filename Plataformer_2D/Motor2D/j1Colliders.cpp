@@ -25,6 +25,7 @@ j1Colliders::j1Colliders()
 	matrix[NO_COLLIDER][COLLIDER_PLAYER_SHOT] = false;
 	matrix[NO_COLLIDER][COLLIDER_CORNER] = false;
 	matrix[NO_COLLIDER][COLLIDER_ENEMY] = false;
+	matrix[NO_COLLIDER][COLLIDER_LOW_CORNER] = false;
 
 	// Collider floor
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
@@ -37,6 +38,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_FLOOR][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_FLOOR][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_FLOOR][NO_COLLIDER] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_LOW_CORNER] = false;
 
 	// Collider player
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
@@ -49,6 +51,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_CORNER] = true;
 	matrix[COLLIDER_PLAYER][NO_COLLIDER] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_LOW_CORNER] = true;
 
 	// Collider player shot
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT] = false;
@@ -61,6 +64,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_PLAYER_SHOT][NO_COLLIDER] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_LOW_CORNER] = false;
 
 	// Collider enemy
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
@@ -73,6 +77,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_ENEMY][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_NEXTMAP] = false;
 	matrix[COLLIDER_ENEMY][NO_COLLIDER] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_LOW_CORNER] = false;
 
 	// Collider death
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
@@ -85,6 +90,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_DEATH][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_DEATH][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_DEATH][NO_COLLIDER] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_LOW_CORNER] = false;
 
 	// Collider wall
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
@@ -97,6 +103,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_WALL][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_WALL][NO_COLLIDER] = false;
+	matrix[COLLIDER_WALL][COLLIDER_LOW_CORNER] = false;
 
 	// Collider next map
 	matrix[COLLIDER_NEXTMAP][COLLIDER_NEXTMAP] = false;
@@ -109,8 +116,9 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_NEXTMAP][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_NEXTMAP][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_NEXTMAP][NO_COLLIDER] = false;
+	matrix[COLLIDER_NEXTMAP][COLLIDER_LOW_CORNER] = false;
 
-	// Collider next map
+	// Collider CORNER
 	matrix[COLLIDER_CORNER][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_CORNER][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_CORNER][COLLIDER_FLOOR] = false;
@@ -120,7 +128,20 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_CORNER][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_CORNER][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_CORNER][COLLIDER_NEXTMAP] = false;
+	matrix[COLLIDER_CORNER][COLLIDER_LOW_CORNER] = false;
 	matrix[COLLIDER_CORNER][NO_COLLIDER] = false;
+
+	// Collider LOW_corner
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_LOW_CORNER] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_PLATAFORM] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_WALL] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_NEXTMAP] = false;
+	matrix[COLLIDER_LOW_CORNER][NO_COLLIDER] = false;
 }
 
 // Destructor
@@ -276,10 +297,18 @@ void j1Colliders::DebugDraw()
 				App->render->DrawQuad(colliders[i]->rect, 0,0,0, alpha);
 			}
 			break;
+
 		case COLLIDER_CORNER: // LIMA
 			if (App->player->showcolliders == true)
 			{
 				App->render->DrawQuad(colliders[i]->rect, 81, 255, 0, alpha);
+			}
+			break;
+
+		case COLLIDER_LOW_CORNER: // Pink
+			if (App->player->showcolliders == true)
+			{
+				App->render->DrawQuad(colliders[i]->rect, 255, 0, 243, alpha);
 			}
 			break;
 		}
