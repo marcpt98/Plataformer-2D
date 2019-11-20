@@ -135,6 +135,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 	deadFx = config.child("fx_name2").attribute("dead").as_string("");
 	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
 	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
+
+	// Ghost dead FX
+	ghostdeadFx = config.child("fx_name5").attribute("ghost_dead").as_string("");
 	
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
@@ -196,6 +199,7 @@ bool j1Player::Start()
 	App->audio->LoadFx(deadFx.GetString());
 	App->audio->LoadFx(throwrockFx.GetString());
 	App->audio->LoadFx(ballhitFx.GetString());
+	App->audio->LoadFx(ghostdeadFx.GetString());
 	// Load spritesheet
 	graphics = App->tex->Load(spritesheet.GetString());
 
@@ -216,6 +220,7 @@ bool j1Player::CleanUp()
 	App->audio->UnloadFx(deadFx.GetString());
 	App->audio->UnloadFx(throwrockFx.GetString());
 	App->audio->UnloadFx(ballhitFx.GetString());
+	App->audio->UnloadFx(ghostdeadFx.GetString());
 	return true;
 }
 

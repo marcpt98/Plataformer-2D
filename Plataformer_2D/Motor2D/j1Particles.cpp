@@ -55,6 +55,8 @@ bool j1Particles::Awake(pugi::xml_node& config)
 	// Player spritesheet
 	spritesheet_projectiles = config.child("spritesheet").attribute("projectiles").as_string("");
 
+	
+
 	return true;
 }
 
@@ -64,6 +66,7 @@ bool j1Particles::Start()
 
 	// Load spritesheet
 	graphics = App->tex->Load(spritesheet_projectiles.GetString());
+	
 
 	return true;
 }
@@ -155,6 +158,7 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
 			{
 				App->audio->PlayFx(4, 0);
+				App->audio->PlayFx(5, 0);
 				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
 				AddParticle(dead, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
 

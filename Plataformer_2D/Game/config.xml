@@ -43,6 +43,7 @@
    <fx_name2 dead="audio/fx/fx_dead.wav"/>
    <fx_name3 throwrock="audio/fx/fx_trhowrock.wav"/>
    <fx_name4 ballhit="audio/fx/fx_ballhit.wav"/>
+   <fx_name5 ghost_dead="audio/fx/fx_phantomdead.wav"/>
    <position x="200" y="0"/>
    <iPosition x="200" y="0"/>
    <widthPlayer w="40"/>

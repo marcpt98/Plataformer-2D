@@ -74,6 +74,7 @@ public:
 	p2SString deadFx;
 	p2SString throwrockFx;
 	p2SString ballhitFx;
+	p2SString ghostdeadFx;
 
 	// Colliders
 	Collider* collider = nullptr;
