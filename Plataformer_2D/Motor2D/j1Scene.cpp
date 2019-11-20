@@ -153,6 +153,21 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
+	if (canbehighfps == true) {
+		highfps = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		if (lowfps == false) {
+			highfps = false;
+			lowfps = true;
+			canbehighfps = true;
+		}
+		if (highfps == true) {
+			lowfps = false;
+		}
+	}
+
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);

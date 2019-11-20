@@ -42,7 +42,10 @@ public:
 	p2List<p2SString*> map_names;
 	int currentMap;
 	p2List<p2SString*> music_names;
-
+	
+	bool lowfps = false;
+	bool canbehighfps = false;
+	bool highfps = false;
 private:
 };
 

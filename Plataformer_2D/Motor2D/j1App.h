@@ -120,7 +120,9 @@ public:
 	j1Timer				last_sec_frame_time;
 	uint32				last_sec_frame_count = 0u;
 	uint32				prev_last_sec_frame_count = 0u;
-	uint32				framerate=0u;
+	uint32				framerate30 = 0u;
+	uint32				framerate60 = 0u;
+	uint32				framerate = 0u;
 	float				dt;
 	
 };
