@@ -9,6 +9,7 @@
 #include "SDL/include/SDL.h"
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
+#pragma comment( lib, "Brofiler/ProfilerCore32.lib")
 
 enum MainState
 {
@@ -78,9 +79,12 @@ int main(int argc, char* args[])
 
 			// Loop all modules until we are asked to leave ---------------------
 			case LOOP:
-			if(App->Update() == false)
-				state = CLEAN;
-			break;
+			{
+				BROFILER_FRAME("YourThreadName");
+				if (App->Update() == false)
+					state = CLEAN;
+				break;
+			}
 
 			// Cleanup allocated memory -----------------------------------------
 			case CLEAN:

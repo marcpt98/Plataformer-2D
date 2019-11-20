@@ -72,6 +72,8 @@ bool j1Enemy::CleanUp()
 
 bool j1Enemy::PreUpdate()
 {
+	BROFILER_CATEGORY("PreupdateEnemies", Profiler::Color::Gold)
+
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -91,6 +93,8 @@ bool j1Enemy::PreUpdate()
 // Called before render is available
 bool j1Enemy::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateEnemies", Profiler::Color::OrangeRed)
+
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (enemies[i] != nullptr) enemies[i]->Draw(graphicsGhost);
 	return true;
@@ -98,6 +102,8 @@ bool j1Enemy::Update(float dt)
 
 bool j1Enemy::PostUpdate()
 {
+	BROFILER_CATEGORY("PostupdateEnemies", Profiler::Color::SandyBrown)
+
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{

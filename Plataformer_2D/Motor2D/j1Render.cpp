@@ -82,12 +82,16 @@ bool j1Render::Start()
 // Called each loop iteration
 bool j1Render::PreUpdate()
 {
+	BROFILER_CATEGORY("PreupdateRender", Profiler::Color::LawnGreen)
+
 	SDL_RenderClear(renderer);
 	return true;
 }
 
 bool j1Render::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateRender", Profiler::Color::DarkGreen)
+
 	camera.x = -(App->player->position.x + cameraOffset);
 
 	if (camera.x > MapLimitStart)
@@ -104,6 +108,8 @@ bool j1Render::Update(float dt)
 
 bool j1Render::PostUpdate()
 {
+	BROFILER_CATEGORY("PostupdateRender", Profiler::Color::DarkSeaGreen)
+
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

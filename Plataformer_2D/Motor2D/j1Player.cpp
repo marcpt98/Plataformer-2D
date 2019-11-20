@@ -221,6 +221,8 @@ bool j1Player::CleanUp()
 
 bool j1Player::Update(float dt) 
 {
+	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Pink);
+
 	// Gravity
 	if (godMode == true)
 	{
@@ -262,6 +264,8 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate(float dt)
 {
+	BROFILER_CATEGORY("PreupdatePlayer", Profiler::Color::HotPink)
+
 	return true;
 }
 

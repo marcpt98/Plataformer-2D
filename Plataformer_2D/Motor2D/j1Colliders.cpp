@@ -150,6 +150,8 @@ j1Colliders::~j1Colliders()
 
 bool j1Colliders::PreUpdate()
 {
+	BROFILER_CATEGORY("PreupdateColliders", Profiler::Color::DarkViolet)
+
 	bool ret = true;
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -206,6 +208,8 @@ bool j1Colliders::PreUpdate()
 // Called before render is available
 bool j1Colliders::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateColliders", Profiler::Color::DarkSlateBlue)
+
 	bool ret = true;
 	DebugDraw();
 

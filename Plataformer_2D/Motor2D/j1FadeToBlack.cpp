@@ -39,6 +39,8 @@ bool j1FadeToBlack::Start()
 // Update: draw background
 bool j1FadeToBlack::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateFadeToBlack", Profiler::Color::White)
+
 	if (current_step == fade_step::none)
 		return true;
 	Uint32 now = SDL_GetTicks() - start_time;

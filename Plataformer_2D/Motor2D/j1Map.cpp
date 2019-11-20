@@ -35,6 +35,8 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("DrawMap", Profiler::Color::Magenta)
+
 	if(map_loaded == false)
 		return;
 
@@ -57,14 +59,17 @@ void j1Map::Draw()
 					iPoint position = MapToWorld(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->GetTileRect(l->data[l->Get(i, j)]);
 		
-					if (data.type == MAPTYPE_ORTHOGONAL) 
-					{	
-						App->render->Blit(texture, position.x, position.y, sect, l->speed);
-					}
-					else
-					{
-						App->render->Blit(texture, position.x, position.y, sect);
-					}
+					//if (position.x >= -1*(App->render->camera.x+30) && position.x <= -1*(App->render->camera.x-1030))
+					//{
+						if (data.type == MAPTYPE_ORTHOGONAL)
+						{
+							App->render->Blit(texture, position.x, position.y, sect, l->speed);
+						}
+						else
+						{
+							App->render->Blit(texture, position.x, position.y, sect);
+						}
+					//}
 				}
 			}
 		}

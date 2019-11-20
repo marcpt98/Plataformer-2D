@@ -89,6 +89,8 @@ bool j1Particles::CleanUp()
 
 bool j1Particles::Update(float dt)
 {
+	BROFILER_CATEGORY("UpdateParticles", Profiler::Color::PaleVioletRed)
+
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		Particle* p = active[i];
@@ -198,6 +200,8 @@ Particle::~Particle()
 
 bool Particle::Update()
 {
+	BROFILER_CATEGORY("UpdateParticlesStruct", Profiler::Color::BurlyWood)
+
 	bool ret = true;
 
 	if (life > 0)
