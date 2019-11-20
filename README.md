@@ -36,7 +36,7 @@ https://github.com/marcpt98/Plataformer-2D
 
 - F10: God mode (player without collisions and can fly)
 
-- F11: Cap frames(siwtch fps cap between 30-60)
+- F11: Cap frames (siwtch fps cap between 30-60)
   
 ## Disclosure
 
