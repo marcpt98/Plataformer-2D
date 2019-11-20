@@ -34,7 +34,9 @@ https://github.com/marcpt98/Plataformer-2D
 
 - F9: Show all colliders
 
-- F10: God mode (player without collisions and can fly).
+- F10: God mode (player without collisions and can fly)
+
+- F11: Cap frames(siwtch fps cap between 30-60)
   
 ## Disclosure
 
@@ -53,6 +55,8 @@ Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
 Background music: TeknoAXE's Royalty Free Music http://www.facebook.com/teknoaxe
 
 Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sounds/399095/
+
+Sound efect from "chiptape": www.chiptape.com/chiptape/sounds/medium/gBallMinimize.wav from https://www.findsounds.com/ISAPI/search.dll
 
 Slime enemy art: Pixel Art created by rvros  Itch.io: https://rvros.itch.io/
 
