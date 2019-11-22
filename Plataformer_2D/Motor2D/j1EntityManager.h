@@ -1,9 +1,15 @@
 #ifndef __j1EntityManager_H__
 #define __j1EntityManager_H__
 
+#include "PugiXml/src/pugixml.hpp"
 #include "j1Module.h"
+#include "p2List.h"
 #include "p2Point.h"
 #include "p2DynArray.h"
+#include "j1Entity.h"
+
+struct SDL_Texture;
+struct Collider;
 
 enum class Types
 {
@@ -37,11 +43,10 @@ public:
 	bool CleanUp();
 
 public:
+	p2List<j1Entity*> entities;
+	pugi::xml_node node;
+	SDL_Texture* player = nullptr;
+	SDL_Texture* ghost = nullptr;
 	
 };
-
-
-
-
-
 #endif // __j1EntityManager_H__

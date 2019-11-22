@@ -19,6 +19,7 @@
 #include "j1Enemy.h"
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
+#include "j1Entity.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
