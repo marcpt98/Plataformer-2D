@@ -45,7 +45,8 @@ bool j1EntityManager::Update(float dt)
 	if (do_logic == true) {
 		accumulated_time = 0.0f;
 		do_logic = false;
-	}*/
+	}*/
+
 
 	return true;
 }
@@ -70,4 +71,4 @@ bool j1EntityManager::PostUpdate(float dt)
 	if (ret != nullptr)
 		entities.push_back(ret);
 	return ret;
-}*/
+}*/

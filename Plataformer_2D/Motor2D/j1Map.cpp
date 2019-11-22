@@ -59,8 +59,8 @@ void j1Map::Draw()
 					iPoint position = MapToWorld(i, j);
 					SDL_Rect* sect = &data.tilesets.start->data->GetTileRect(l->data[l->Get(i, j)]);
 		
-					//if (position.x >= -1*(App->render->camera.x+30) && position.x <= -1*(App->render->camera.x-1030))
-					//{
+					if (position.x >= -1*(App->render->camera.x+60)*l->speed && position.x <= -1*(App->render->camera.x-2100)*l->speed)
+					{
 						if (data.type == MAPTYPE_ORTHOGONAL)
 						{
 							App->render->Blit(texture, position.x, position.y, sect, l->speed);
@@ -69,7 +69,7 @@ void j1Map::Draw()
 						{
 							App->render->Blit(texture, position.x, position.y, sect);
 						}
-					//}
+					}
 				}
 			}
 		}

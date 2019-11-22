@@ -141,6 +141,7 @@ public:
 	bool dead_monster_animation = false;
 	bool count_monster_dead = false;
 	int dead_monster_animation_finish = 0;
+	bool pressspace = false;
 
 	// Player grabing
 	bool grabing = false;
