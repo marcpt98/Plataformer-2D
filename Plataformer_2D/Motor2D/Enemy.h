@@ -23,7 +23,7 @@ public:
 	const Collider* GetCollider() const;
 
 	virtual void Move() {};
-	virtual void Draw(SDL_Texture* sprites);
+	virtual void Draw(SDL_Texture* sprites,float dt);
 };
 
 #endif // __ENEMY_H__

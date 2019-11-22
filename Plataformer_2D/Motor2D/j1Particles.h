@@ -56,7 +56,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	// Add particle
-	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
+	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0,float dt =0.033);
 
 private:
 	// Create particle

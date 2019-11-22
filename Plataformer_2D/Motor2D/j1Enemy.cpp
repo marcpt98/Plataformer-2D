@@ -96,7 +96,7 @@ bool j1Enemy::Update(float dt)
 	BROFILER_CATEGORY("UpdateEnemies", Profiler::Color::OrangeRed)
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Draw(graphicsGhost);
+		if (enemies[i] != nullptr) enemies[i]->Draw(graphicsGhost,dt);
 	return true;
 }
 

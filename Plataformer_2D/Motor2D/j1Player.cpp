@@ -255,13 +255,13 @@ bool j1Player::Update(float dt)
 	// Print player
 	if (blit == false)
 	{
-		App->render->Blit(graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), 1.0f);
-		App->particles->Projectile.speed.x = 6;
+		App->render->Blit(graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), 1.0f);
+		App->particles->Projectile.speed.x = (6*dt*60);
 	}
 	else
 	{
-		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame()), -1, 1.0f, 1, TOP_RIGHT);
-		App->particles->Projectile_flip.speed.x = -6;
+		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), -1, 1.0f, 1, TOP_RIGHT);
+		App->particles->Projectile_flip.speed.x = -(6*dt*60);
 	}
 	speed = 3;
 	return true;
@@ -642,7 +642,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_PLATAFORM)
+	if (collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == false)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
@@ -656,6 +656,20 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		if ((position.y + playerHeight2) > (c2->rect.y+3) && goingdown==true)
 		{
 			position.y = position.y + gravity;
+		}
+	}
+	if (collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == true)
+	{
+		if (position.y + 40 < c2->rect.y && canjumpPlat == false)// over a floor collision
+		{
+			canJump1 = true;
+			energyfalling = 0;
+			position.y = c2->rect.y - playerhigh;
+			ground = true;
+		}
+		else // under a lowcorner floor collision
+		{
+
 		}
 	}
 

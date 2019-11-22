@@ -29,9 +29,9 @@ public:
 		speed[speeddelay++] = delay;
 	}
 
-	SDL_Rect& GetCurrentFrame()
+	SDL_Rect& GetCurrentFrame(float dt)
 	{
-		current_frame += speed[(int)current_frame];
+		current_frame += (speed[(int)current_frame] * 60 * dt);
 
 		if (current_frame >= last_frame)
 		{
