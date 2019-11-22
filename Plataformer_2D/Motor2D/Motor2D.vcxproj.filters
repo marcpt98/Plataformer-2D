@@ -64,6 +64,9 @@
     <ClCompile Include="j1PathFinding.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1EntityManager.cpp">
+      <Filter>Desenvolupament  ========</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -148,6 +151,9 @@
       <Filter>Desenvolupament  ========\Tools</Filter>
     </ClInclude>
     <ClInclude Include="j1PathFinding.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1EntityManager.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>

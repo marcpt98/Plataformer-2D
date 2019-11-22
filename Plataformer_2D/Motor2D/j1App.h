@@ -22,6 +22,7 @@ class j1Colliders;
 class j1Particles;
 class j1Enemy;
 class j1PathFinding;
+class j1EntityManager;
 
 class j1App
 {
@@ -90,6 +91,7 @@ public:
 	j1Particles*		particles;
 	j1Enemy*			enemy;
 	j1PathFinding*		path;
+	j1EntityManager*	entity;
 
 private:
 

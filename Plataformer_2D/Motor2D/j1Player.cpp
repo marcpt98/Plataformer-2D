@@ -269,7 +269,7 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate(float dt)
 {
-	BROFILER_CATEGORY("PreupdatePlayer", Profiler::Color::HotPink)
+	BROFILER_CATEGORY("PostupdatePlayer", Profiler::Color::HotPink)
 
 	return true;
 }
