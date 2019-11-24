@@ -14,28 +14,29 @@
 #include<stdio.h>
 #include "j1Colliders.h"
 #include "p2Log.h"
+#include "j1EntityManager.h"
+#include "j1Entity.h"
 
-j1Player::j1Player() 
+j1Player::j1Player(int posx, int posy) : j1Entity(entityType::PLAYER)
 { 
 	name.create("player");
 
 	// Initializing variables
 	actualState = ST_IDLE;
-	energyGrab = 0;
+	/*energyGrab = 0;
 	energyJump = 0;
 	energyfalling = 0;
 	fixBlit = 0;
-	gravity = 0;
 	igravity = 0;
 	incrementJ = 0;
 	jumpF = 0;
 	jumpG = 0;
 	speed = 0;
 	timegrab = 0;
-	timegrab2 = 0;
-	position.x = 0;
-	position.y = 0;
-	iPosition.x = 0;
+	timegrab2 = 0;*/
+	position.x = posx;
+	position.y = posy;
+	/*iPosition.x = 0;
 	iPosition.y = 0;
 	lasPosition.x = 0;
 	lasPosition.y = 0;
@@ -48,7 +49,7 @@ j1Player::j1Player()
 	acceleration = 0;
 	playerHeight = 0;
 	playerHeight2 = 0;
-	deadDelay = 0;
+	deadDelay = 0;*/
 
 	// Idle animation
 	idle.PushBack({ 0,0,42,52 }, 0.2, 0, 0);
@@ -115,20 +116,9 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	bool ret = true;
 
-	// Player position
-	position.x = config.child("position").attribute("x").as_int();
-	position.y = config.child("position").attribute("y").as_int();
-
-	// Player initial position
-	iPosition.x = config.child("iPosition").attribute("x").as_int();
-	iPosition.y = config.child("iPosition").attribute("y").as_int();
-
-	// Player colliders
-	playerwidth = config.child("widthPlayer").attribute("w").as_int();
-	playerhigh = config.child("highPlayer").attribute("h").as_int();
-
-	// Player spritesheet
-	spritesheet = config.child("spritesheet").attribute("player").as_string("");
+	// Player width and high
+	/*player_width = config.child("width").attribute("w").as_int();
+	player_high = config.child("high").attribute("h").as_int();
 
 	// Play Fx
 	jumpFx = config.child("fx_name").attribute("jump").as_string("");
@@ -138,7 +128,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	// Ghost dead FX
 	ghostdeadFx = config.child("fx_name5").attribute("ghost_dead").as_string("");
-	
+
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();
 	speedgm = config.child("speedgm").attribute("sgm").as_float();
@@ -159,11 +149,11 @@ bool j1Player::Awake(pugi::xml_node& config)
 	maxAcceleration = config.child("maxAcceleration").attribute("max").as_float();
 
 	// Initial jump force
-	iJumpF= config.child("iJumpF").attribute("j").as_float();
+	iJumpF = config.child("iJumpF").attribute("j").as_float();
 
 	// Jump force
 	jumpF = config.child("jumpF").attribute("j").as_float();
-	
+
 	// Jump force when grabbed
 	jumpG = config.child("jumpG").attribute("g").as_float();
 
@@ -171,7 +161,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	slipping = config.child("slipping").attribute("s").as_int();
 
 	// Grab time delay
-	timeGrabDelay= config.child("timeGrabDelay").attribute("time").as_int();
+	timeGrabDelay = config.child("timeGrabDelay").attribute("time").as_int();
 
 	// Delay to activate gravity accelerated
 	timeAccelerationDelay = config.child("timeAccelerationDelay").attribute("time").as_float();
@@ -185,14 +175,14 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	// Dead delay
 	deadDelay = config.child("deadDelay").attribute("d").as_int();
-	
+
 	// Fix blit
-	fixBlit = config.child("fixBlit").attribute("fix").as_int();
+	fixBlit = config.child("fixBlit").attribute("fix").as_int();*/
 
 	return ret;
 }
 
-bool j1Player::Start() 
+bool j1Player::Start()
 {
 	// Load Fx 
 	App->audio->LoadFx(jumpFx.GetString());
@@ -200,22 +190,15 @@ bool j1Player::Start()
 	App->audio->LoadFx(throwrockFx.GetString());
 	App->audio->LoadFx(ballhitFx.GetString());
 	App->audio->LoadFx(ghostdeadFx.GetString());
-	// Load spritesheet
-	graphics = App->tex->Load(spritesheet.GetString());
 
 	// Add player collider
-	collider = App->colliders->AddCollider({ position.x,position.y, playerwidth, playerhigh }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
-
-	// Set initial position
-	position.x = iPosition.x;
-	position.y = iPosition.y;
+	EntityCollider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
 
 	return true;
 }
 
 bool j1Player::CleanUp() 
 {
-	App->tex->UnLoad(graphics);
 	App->audio->UnloadFx(jumpFx.GetString());
 	App->audio->UnloadFx(deadFx.GetString());
 	App->audio->UnloadFx(throwrockFx.GetString());
@@ -228,8 +211,10 @@ bool j1Player::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Pink);
 
+	App->render->player_pos.x = position.x;
+
 	// Gravity
-	if (godMode == true)
+	if (player_godMode == true)
 	{
 		position.y = position.y;
 	}
@@ -250,19 +235,20 @@ bool j1Player::Update(float dt)
 	CheckAnimation(dt);
 
 	// Player colliders
-	collider->SetPos(position.x, position.y);
+	EntityCollider->SetPos(position.x, position.y);
 
 	// Print player
 	if (blit == false)
 	{
-		App->render->Blit(graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), 1.0f);
+		App->render->Blit(App->entity->player_graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), 1.0f);
 		App->particles->Projectile.speed.x = (6*dt*60);
 	}
 	else
 	{
-		App->render->BlitWithScale(graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), -1, 1.0f, 1, TOP_RIGHT);
+		App->render->BlitWithScale(App->entity->player_graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), -1, 1.0f, 1, TOP_RIGHT);
 		App->particles->Projectile_flip.speed.x = -(6*dt*60);
 	}
+
 	speed = 3;
 	return true;
 }
@@ -280,24 +266,39 @@ void j1Player::CheckInputState(float dt)
 	// God mode
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		if (godMode == false)
+		if (player_godMode == false)
 		{
-			collider->to_delete = true;
-			collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, NO_COLLIDER, this);
-			godMode = true;
+			EntityCollider->to_delete = true;
+			EntityCollider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, NO_COLLIDER, this);
+			player_godMode = true;
 		}
-		else if (godMode == true)
+		else if (player_godMode == true)
 		{
-			collider->to_delete = true;
-			collider = App->colliders->AddCollider({ position.x,position.y, 35, 53 }, COLLIDER_PLAYER, this);
-			godMode = false;
+			EntityCollider->to_delete = true;
+			EntityCollider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, COLLIDER_PLAYER, this);
+			player_godMode = false;
 		}
 	}
 
-	if (godMode == true)
+	if (player_godMode == true)
 	{
 		actualState = ST_IDLE;
 
+		// Map limits for God mode
+		if (position.x < 0)
+		{
+			position.x = 0;
+		}
+		if (position.y < 0)
+		{
+			position.y = 0;
+		}
+		else if (position.y > 713)
+		{
+			position.y = 713;
+		}
+
+		// Controls for god mode
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		{
 			position.y -= (int)(speedgm * dt * VELOCITY);
@@ -585,7 +586,7 @@ void j1Player::CheckAnimation(float dt)
 
 		if (SDL_GetTicks() > dead_monster_animation_finish + deadDelay)
 		{
-			dead = true;
+			App->scene->player_dead = true;
 			dead_monster_animation = false;
 			count_monster_dead = false;
 		}
@@ -597,7 +598,7 @@ void j1Player::CheckAnimation(float dt)
 		gravity = gGravity;
 		position.y = position.y + slipping;
 	}
-	if (fallingravity == true && godMode == false && canjumpPlat == false)
+	if (fallingravity == true && player_godMode == false && canjumpPlat == false)
 	{
 
 		grabFinish = false;
@@ -619,7 +620,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 
 
-	if (collider == c1 && c2->type == COLLIDER_FLOOR)
+	if (EntityCollider == c1 && c2->type == COLLIDER_FLOOR)
 	{
 		canJump1 = true;
 		ground = true;
@@ -634,15 +635,15 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.y = c2->rect.y + c2->rect.h + 1;
 			ground = false;
 		}
-		else if (position.y + playerhigh > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + playerwidth) >(c2->rect.x))// over a floor collision  
+		else if (position.y + player_high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + player_width) >(c2->rect.x))// over a floor collision  
 		{
-			position.y = c2->rect.y - playerhigh;
+			position.y = c2->rect.y - player_high;
 		}
 
 
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == false)
+	if (EntityCollider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == false)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
@@ -658,13 +659,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.y = position.y + gravity;
 		}
 	}
-	if (collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == true)
+	if (EntityCollider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == true)
 	{
 		if (position.y + 40 < c2->rect.y && canjumpPlat == false)// over a floor collision
 		{
 			canJump1 = true;
 			energyfalling = 0;
-			position.y = c2->rect.y - playerhigh;
+			position.y = c2->rect.y - player_high;
 			ground = true;
 		}
 		else // under a lowcorner floor collision
@@ -673,7 +674,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_DEATH)
+	if (EntityCollider == c1 && c2->type == COLLIDER_DEATH)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
@@ -688,13 +689,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 		if (SDL_GetTicks() > dead_animation_finish + deadDelay)
 		{
-			dead = true;
+			App->scene->player_dead = true;
 			dead_animation = false;
 			count_dead = false;
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_ENEMY)
+	if (EntityCollider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		if (count_monster_dead == false)
 		{
@@ -707,10 +708,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	}
 
 
-	if (collider == c1 && c2->type == COLLIDER_WALL)
+	if (EntityCollider == c1 && c2->type == COLLIDER_WALL)
 	{
 		speed = 0;
-		number = ((position.x + playerwidth) - c2->rect.x);
+		number = ((position.x + player_width) - c2->rect.x);
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
 		grab_falling = true;
@@ -737,7 +738,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_CORNER)
+	if (EntityCollider == c1 && c2->type == COLLIDER_CORNER)
 	{
 		if (position.y >= ceil(c2->rect.y + (c2->rect.h/1.5)))// under a floor collision
 		{
@@ -746,13 +747,13 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_LOW_CORNER)
+	if (EntityCollider == c1 && c2->type == COLLIDER_LOW_CORNER)
 	{
 		if (position.y + 35 < c2->rect.y)// over a floor collision
 		{
 			canJump1 = true;
 			energyfalling = 0;
-			position.y = c2->rect.y-playerhigh;
+			position.y = c2->rect.y-player_high;
 			ground = true;
 		}
 		else // under a lowcorner floor collision
@@ -761,28 +762,74 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (collider == c1 && c2->type == COLLIDER_NEXTMAP)
+	if (EntityCollider == c1 && c2->type == COLLIDER_NEXTMAP)
 	{
-		map_next = true;
+		App->scene->player_map_next = true;
 	}
 
 }
 
-// Load Game State
-bool j1Player::load(pugi::xml_node& savegame)
+bool j1Player::LoadConfigInfo(pugi::xml_node& config)
 {
-	lasPosition.x = savegame.child("posx").attribute("x").as_int();
-	lasPosition.y = savegame.child("posy").attribute("y").as_int();
-	position.x = savegame.child("posx").attribute("x").as_int();
-	position.y = savegame.child("posy").attribute("y").as_int();
-	return true;
-}
+	player_width = config.child("width").attribute("w").as_int();
+	player_high = config.child("high").attribute("h").as_int();
 
-// Save Game State
-bool j1Player::save(pugi::xml_node& savegame)
-{
-	savegame.append_child("posx").append_attribute("x").set_value(position.x);
-	savegame.append_child("posy").append_attribute("y").set_value(position.y);
+	// Play Fx
+	jumpFx = config.child("fx_name").attribute("jump").as_string("");
+	deadFx = config.child("fx_name2").attribute("dead").as_string("");
+	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
+	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
 
-	return true;
+	// Ghost dead FX
+	ghostdeadFx = config.child("fx_name5").attribute("ghost_dead").as_string("");
+
+	// Player speed
+	speed = config.child("speed").attribute("s").as_float();
+	speedgm = config.child("speedgm").attribute("sgm").as_float();
+
+	// Gravity
+	gravity = config.child("gravity").attribute("g").as_float();
+
+	// Gravity when grabbed
+	gGravity = config.child("gGravity").attribute("g").as_float();
+
+	// Initial Gravity
+	igravity = config.child("igravity").attribute("g").as_float();
+
+	// Acceleration
+	acceleration = config.child("acceleration").attribute("a").as_float();
+
+	// Gravity max acceleration
+	maxAcceleration = config.child("maxAcceleration").attribute("max").as_float();
+
+	// Initial jump force
+	iJumpF = config.child("iJumpF").attribute("j").as_float();
+
+	// Jump force
+	jumpF = config.child("jumpF").attribute("j").as_float();
+
+	// Jump force when grabbed
+	jumpG = config.child("jumpG").attribute("g").as_float();
+
+	// Slipping velocity
+	slipping = config.child("slipping").attribute("s").as_int();
+
+	// Grab time delay
+	timeGrabDelay = config.child("timeGrabDelay").attribute("time").as_int();
+
+	// Delay to activate gravity accelerated
+	timeAccelerationDelay = config.child("timeAccelerationDelay").attribute("time").as_float();
+
+	// Increment of jump force
+	incrementJ = config.child("incrementJ").attribute("i").as_float();
+
+	// Jumping on platform
+	playerHeight = config.child("playerHeight").attribute("h").as_int();
+	playerHeight2 = config.child("playerHeight2").attribute("h").as_int();
+
+	// Dead delay
+	deadDelay = config.child("deadDelay").attribute("d").as_int();
+
+	// Fix blit
+	fixBlit = config.child("fixBlit").attribute("fix").as_int();
 }

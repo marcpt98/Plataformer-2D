@@ -12,6 +12,7 @@
 #include "j1Particles.h"
 #include "j1Audio.h"
 #include "j1FadeToBlack.h"
+#include "j1EntityManager.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -175,8 +176,7 @@ bool j1Map::CleanUp()
 bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 {
 	// CleanUp
-	App->player->CleanUp();
-	App->enemy->CleanUp();
+	App->entity->CleanUp();
 	App->particles->CleanUp();
 	App->colliders->CleanUp();
 	App->audio->UnloadMusic(music->GetString());
@@ -186,8 +186,7 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 	App->fade->FadeToBlack(2);
 
 	// Load
-	App->player->Start();
-	App->enemy->Start();
+	createEntities();
 	App->particles->Start();
 	App->audio->PlayMusic(music->GetString());
 	Load(map->GetString());
@@ -534,5 +533,20 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 	}
 
 	return ret;
+}
+
+bool j1Map::createEntities()
+{
+	if (App->scene->currentMap == 0)
+	{
+		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
+		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 350, 0);
+	}
+	if (App->scene->currentMap == 1)
+	{
+		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 500, 0);
+	}
+
+	return true;
 }
 

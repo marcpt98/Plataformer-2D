@@ -37,44 +37,52 @@
     <music_name name="audio/music/music_level_2.ogg"/>
   </scene>
   
+  <entity>
+    <fx_name jump="audio/fx/fx_jump.wav"/>
+    <fx_name2 dead="audio/fx/fx_dead.wav"/>
+    <fx_name3 throwrock="audio/fx/fx_trhowrock.wav"/>
+    <fx_name4 ballhit="audio/fx/fx_ballhit.wav"/>
+    <fx_name5 ghost_dead="audio/fx/fx_phantomdead.wav"/>
+    <position x="200" y="0"/>
+    <iPosition x="200" y="0"/>
+    <width w="40"/>
+    <high h="53"/>
+    <fixBlit fix="40"/>
+    <gravity g="5"/>
+    <igravity g="5"/>
+    <gGravity g="4"/>
+    <speed s="1"/>
+    <speedgm sgm="6"/>
+    <jumpF j="-15"/>
+    <iJumpF j="-15"/>
+    <jumpG g="-5"/>
+    <slipping s="1"/>
+    <timeGrabDelay time="200"/>
+    <timeAccelerationDelay time="500"/>
+    <acceleration a="0.2"/>
+    <maxAcceleration max="50"/>
+    <playerHeight h="58"/>
+    <playerHeight2 h="53"/>
+    <incrementJ i="0.5"/>
+    <deadDelay d="800"/>
+  </entity>
+  
+  <entity_manager>
+    <spritesheet player="textures/Entities/Spritesheet_Character_1.png"/>
+    <spritesheet ghost="textures/Entities/Spritesheet_Ghost.png"/>
+    <spritesheet slime="textures/Entities/Spritesheet_Slime.png"/>
+  </entity_manager>
+  
   <player>
-   <spritesheet player="textures/Spritesheet_Character_1.png"/>
-   <fx_name jump="audio/fx/fx_jump.wav"/>
-   <fx_name2 dead="audio/fx/fx_dead.wav"/>
-   <fx_name3 throwrock="audio/fx/fx_trhowrock.wav"/>
-   <fx_name4 ballhit="audio/fx/fx_ballhit.wav"/>
-   <fx_name5 ghost_dead="audio/fx/fx_phantomdead.wav"/>
-   <position x="200" y="0"/>
-   <iPosition x="200" y="0"/>
-   <widthPlayer w="40"/>
-   <highPlayer h="53"/>
-   <fixBlit fix="40"/>
-   <gravity g="5"/>
-   <igravity g="5"/>
-   <gGravity g="4"/>
-   <speed s="1"/>
-   <speedgm sgm="6"/>
-   <jumpF j="-15"/>
-   <iJumpF j="-15"/>
-   <jumpG g="-5"/>
-   <slipping s="1"/>
-   <timeGrabDelay time="200"/>
-   <timeAccelerationDelay time="500"/>
-   <acceleration a="0.2"/>
-   <maxAcceleration max="50"/>
-   <playerHeight h="58"/>
-   <playerHeight2 h="53"/>
-   <incrementJ i="0.5"/>
-   <deadDelay d="800"/>
+   
   </player>
   
   <enemy>
-    <spritesheet ghost="textures/Spritesheet_Ghost.png"/>
     <position x="600" y="520"/>
   </enemy>
   
   <particles>
-    <spritesheet projectiles="textures/Spritesheet_Projectiles_2.png"/>
+    <spritesheet projectiles="textures/Particles/Spritesheet_Projectiles_2.png"/>
   </particles>
 
 </config>

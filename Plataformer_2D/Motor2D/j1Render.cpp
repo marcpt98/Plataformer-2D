@@ -4,6 +4,7 @@
 #include "j1Window.h"
 #include "j1Render.h"
 #include "j1Player.h"
+#include "j1EntityManager.h"
 
 #define VSYNC true
 
@@ -92,7 +93,8 @@ bool j1Render::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateRender", Profiler::Color::DarkGreen)
 
-	camera.x = -(App->player->position.x + cameraOffset);
+	// Camera limits
+	App->render->camera.x = -(player_pos.x + App->render->cameraOffset);
 
 	if (camera.x > MapLimitStart)
 	{

@@ -11,7 +11,7 @@
 struct SDL_Texture;
 struct Collider;
 
-enum class Types
+enum class entityType
 {
 	PLAYER,
 	ENEMY,
@@ -42,11 +42,27 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Create a new entity
+	j1Entity* CreateEntity(j1Entity::entityType type, int posx = 0, int posy = 0);
+
+	// Save and load position
+	bool save(pugi::xml_node& data);
+	bool load(pugi::xml_node& data);
+
+	// Destroy all entities
+	void DestroyEntity();
+
 public:
+	// Load entities textures
+	p2SString player;
+	SDL_Texture* player_graphics;
+
+	p2SString ghost;
+	SDL_Texture* ghost_graphics;
+
+	p2SString slime;
+	SDL_Texture* slime_graphics;
+
 	p2List<j1Entity*> entities;
-	pugi::xml_node node;
-	SDL_Texture* player = nullptr;
-	SDL_Texture* ghost = nullptr;
-	
 };
 #endif // __j1EntityManager_H__

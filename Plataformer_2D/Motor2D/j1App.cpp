@@ -20,6 +20,7 @@
 #include "j1PathFinding.h"
 #include "j1EntityManager.h"
 #include "j1Entity.h"
+#include "j1Player.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -35,7 +36,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	fade = new j1FadeToBlack();
 	scene = new j1Scene();
 	map = new j1Map();
-	player = new j1Player();
 	colliders = new j1Colliders();
 	particles = new j1Particles();
 	enemy = new j1Enemy();
@@ -52,7 +52,6 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(path);
 	AddModule(entity);
-	AddModule(player);
 	AddModule(enemy);
 	AddModule(particles);
 	AddModule(fade);
@@ -222,7 +221,7 @@ void j1App::FinishUpdate()
 	if (want_load == true)
 	{
 		load();
-		want_load = false;
+		App->want_load = false;
 	}
 	if (want_save == true)
 	{

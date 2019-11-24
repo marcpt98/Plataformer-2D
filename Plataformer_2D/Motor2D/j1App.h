@@ -17,12 +17,12 @@ class j1Audio;
 class j1FadeToBlack;
 class j1Scene;
 class j1Map;
-class j1Player;
 class j1Colliders;
 class j1Particles;
 class j1Enemy;
 class j1PathFinding;
 class j1EntityManager;
+class j1Entity;
 
 class j1App
 {
@@ -86,7 +86,6 @@ public:
 	j1FadeToBlack*		fade;
 	j1Scene*			scene;
 	j1Map*				map;
-	j1Player*			player;
 	j1Colliders*		colliders;
 	j1Particles*		particles;
 	j1Enemy*			enemy;

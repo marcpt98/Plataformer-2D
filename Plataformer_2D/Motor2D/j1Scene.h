@@ -46,6 +46,13 @@ public:
 	bool lowfps = false;
 	bool canbehighfps = false;
 	bool highfps = false;
+	
+	// Player
+	bool player_map_next = false;
+	bool player_dead = false;
+
+
+
 private:
 };
 

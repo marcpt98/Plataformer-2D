@@ -29,7 +29,6 @@ bool j1Enemy::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	LOG("Loading Ghost enemy");
-	spritesheetGhost = config.child("spritesheet").attribute("ghost").as_string("");
 
 	return ret;
 }
@@ -37,9 +36,6 @@ bool j1Enemy::Awake(pugi::xml_node& config)
 
 bool j1Enemy::Start()
 {
-	// Load spritesheet
-	graphicsGhost = App->tex->Load(spritesheetGhost.GetString());
-
 	// Enemies
 	if (App->scene->currentMap == 0)
 	{
@@ -56,8 +52,6 @@ bool j1Enemy::Start()
 // Called before quitting
 bool j1Enemy::CleanUp()
 {
-	App->tex->UnLoad(graphicsGhost);
-	
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (enemies[i] != nullptr)

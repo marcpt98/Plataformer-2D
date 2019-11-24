@@ -11,6 +11,8 @@
 #include "j1Player.h"
 #include "j1Enemy.h"
 #include "j1Colliders.h"
+#include "j1EntityManager.h"
+#include "j1Particles.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -53,8 +55,9 @@ bool j1Scene::Start()
 	App->map->Load("Level_1.tmx");
 	App->audio->PlayMusic("audio/music/music_level_1.ogg");
 
-	// Enemies
-	//App->enemy->AddEnemy(ENEMY_TYPES::GHOST, 500, 400); this is braking our game for now :)
+	// Player
+	currentMap = 0;
+	App->map->createEntities();
 
 	return true;
 }
@@ -71,6 +74,8 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
+
+
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->want_load = true;
@@ -92,7 +97,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	// Start from the beginning of the current level
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->player->dead==true)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true)
 	{
 		if (currentMap == 0)
 		{
@@ -103,10 +108,10 @@ bool j1Scene::Update(float dt)
 			LevelName(1);
 		}
 
-		App->player->dead = false;
+		player_dead = false;
 	}
 
-	if (App->player->map_next == true)
+	if (player_map_next == true)
 	{
 		if (currentMap == 0)
 		{
@@ -118,40 +123,10 @@ bool j1Scene::Update(float dt)
 			currentMap = 0;
 			LevelName(0);
 		}
-		App->player->map_next = false;
+		player_map_next = false;
 	}
 
 	App->map->Draw();
-
-	// Show player and map colliders
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-	{
-		if (App->player->showcolliders == false)
-		{
-			App->player->showcolliders = true;
-		}
-		else if (App->player->showcolliders == true)
-		{
-			App->player->showcolliders = false;
-		}
-	}
-
-	// Map limits for God mode
-	if (App->player->godMode == true)
-	{
-		if (App->player->position.x < 0)
-		{
-			App->player->position.x = 0;
-		}
-		if (App->player->position.y < 0)
-		{
-			App->player->position.y = 0;
-		}
-		else if (App->player->position.y > 713)
-		{
-			App->player->position.y = 713;
-		}
-	}
 
 	if (canbehighfps == true) {
 		highfps = true;
@@ -214,16 +189,47 @@ bool j1Scene::LevelName(int pos)
 // Load Game State
 bool j1Scene::load(pugi::xml_node& savegame)
 {
-	if (savegame.child("map").attribute("actual").as_int() == 0)
-	{
-		currentMap = 0;
-		LevelName(0);
-	}
-	if (savegame.child("map").attribute("actual").as_int() == 1)
+	// WE'LL PUT THIS ON CHANGEMAPMUSIC AND IT'LL NOT BE HARDCODED :)
+	// Loading SECOND map from FIRST map
+	if (currentMap == 0 && savegame.child("map").attribute("actual").as_int() != 0)
 	{
 		currentMap = 1;
-		LevelName(1);
+		App->map->CleanUp();
+		App->particles->CleanUp();
+		App->audio->UnloadMusic("audio/music/music_level_2.ogg");
+		App->map->Load("Level_2.tmx");
+		App->particles->Start();
+		App->audio->PlayMusic("audio/music/music_level_2.ogg");
 	}
+
+	// Loading FIRST map from SECOND map
+	if (currentMap == 1 && savegame.child("map").attribute("actual").as_int() != 1)
+	{
+		currentMap = 0;
+		App->map->CleanUp();
+		App->particles->CleanUp();
+		App->audio->UnloadMusic("audio/music/music_level_1.ogg");
+		App->map->Load("Level_1.tmx");
+		App->particles->Start();
+		App->audio->PlayMusic("audio/music/music_level_1.ogg");
+	}
+
+	// Loading FIRST map from FIRST map
+	if (currentMap == 0 && savegame.child("map").attribute("actual").as_int() == 0)
+	{
+		App->map->CleanUp();
+		App->colliders->CleanUp();
+		App->map->Load("Level_1.tmx");
+	}
+
+	// Loading SECOND map from SECOND map
+	if (currentMap == 1 && savegame.child("map").attribute("actual").as_int() == 1)
+	{
+		App->map->CleanUp();
+		App->colliders->CleanUp();
+		App->map->Load("Level_2.tmx");
+	}
+
 	
 	return true;
 }

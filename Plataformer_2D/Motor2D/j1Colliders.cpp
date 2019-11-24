@@ -5,6 +5,7 @@
 #include "j1Player.h"
 #include "p2Log.h"
 #include "j1Scene.h"
+#include "j1EntityManager.h"
 
 j1Colliders::j1Colliders()
 {
@@ -219,7 +220,7 @@ bool j1Colliders::Update(float dt)
 void j1Colliders::DebugDraw()
 {
 	
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false)
@@ -240,80 +241,47 @@ void j1Colliders::DebugDraw()
 			break;
 
 		case NO_COLLIDER: // white
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
 
 		case COLLIDER_FLOOR: // blue
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 
 		case COLLIDER_PLATAFORM: //purple
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
 
 		case COLLIDER_WALL: //turquesa
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 
 		case COLLIDER_PLAYER: // green
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 
 		case COLLIDER_PLAYER_SHOT: // yellow
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
 			break;
 
 		case COLLIDER_DEATH: // red
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
 			break;
 
 		case COLLIDER_NEXTMAP: // violet
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 130, 5, 255, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 130, 5, 255, alpha);
 			break;
 
 		case COLLIDER_ENEMY: // dark slategray
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 0,0,0, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 0,0,0, alpha);
 			break;
 
 		case COLLIDER_CORNER: // LIMA
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 81, 255, 0, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 81, 255, 0, alpha);
 			break;
 
 		case COLLIDER_LOW_CORNER: // Pink
-			if (App->player->showcolliders == true)
-			{
-				App->render->DrawQuad(colliders[i]->rect, 255, 0, 243, alpha);
-			}
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 243, alpha);
 			break;
 		}
 

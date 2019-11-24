@@ -15,7 +15,7 @@ Enemy_Ghost::Enemy_Ghost(int x, int y) : Enemy(x, y)
 
 	animation = &idle;
 
-	collider = App->colliders->AddCollider({ 0, 0, 50, 50 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->enemy);
+	//collider = App->colliders->AddCollider({ 0, 0, 50, 50 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->enemy);
 }
 
 void Enemy_Ghost::Move()

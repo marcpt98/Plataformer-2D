@@ -64,6 +64,9 @@ public:
 	// Map limits
 	int MapLimitStart;
 	int MapLimitEnd;
+
+	// Player
+	iPoint player_pos;
 };
 
 #endif // __j1RENDER_H__

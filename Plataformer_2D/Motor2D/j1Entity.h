@@ -11,7 +11,7 @@ class j1Entity : public j1Module
 
 public:
 
-	enum Types
+	enum entityType
 	{
 		NO_TYPE,
 		PLAYER,
@@ -19,11 +19,14 @@ public:
 		LAND_ENEMY,
 	};
 
-	Types type;
+	entityType type;
 
-	j1Entity(Types type);
+	j1Entity(entityType type);
 
 	~j1Entity();
+
+	// Called before render is available
+	bool Awake(pugi::xml_node&);
 
 	// Called before quitting
 	bool CleanUp();
@@ -33,9 +36,14 @@ public:
 	bool load(pugi::xml_node& data);
 
 public:
+	// Player
 	iPoint position;
-	bool to_delete = false;
+	iPoint lasPosition;
 
+	// Colliders
+	Collider* EntityCollider = nullptr;
+	bool to_delete = false;
+	bool player_godMode = false;
 };
 
 #endif // __j1Entity_H__

@@ -1,18 +1,23 @@
 <?xml version="1.0"?>
 <game_state>
+	<player />
 	<input />
 	<window />
 	<textures />
 	<audio />
 	<map />
 	<scene>
-		<map actual="1" />
+		<map actual="0" />
 	</scene>
 	<pathfinding />
-	<player>
-		<posx x="3684" />
-		<posy y="139" />
-	</player>
+	<entity_manager>
+		<Entity type="player">
+			<position pos.x="690" pos.y="564" />
+		</Entity>
+		<Entity type="player">
+			<position pos.x="740" pos.y="564" />
+		</Entity>
+	</entity_manager>
 	<enemy />
 	<particles />
 	<fadetoblack />
