@@ -1,24 +1,27 @@
 <?xml version="1.0"?>
 <game_state>
 	<player />
+	<enemy />
 	<input />
 	<window />
 	<textures />
 	<audio />
 	<map />
 	<scene>
-		<map actual="0" />
+		<map actual="1" />
 	</scene>
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="690" pos.y="564" />
+			<position pos.x="738" pos.y="425" />
 		</Entity>
-		<Entity type="player">
-			<position pos.x="740" pos.y="564" />
+		<Entity type="ghost">
+			<position pos.x="400" pos.y="300" />
+		</Entity>
+		<Entity type="ghost">
+			<position pos.x="400" pos.y="450" />
 		</Entity>
 	</entity_manager>
-	<enemy />
 	<particles />
 	<fadetoblack />
 	<colliders />

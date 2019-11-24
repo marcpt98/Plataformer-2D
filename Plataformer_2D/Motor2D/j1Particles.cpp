@@ -2,7 +2,6 @@
 #include "j1Textures.h"
 #include "j1Render.h"
 #include "j1Player.h"
-#include "j1Enemy.h"
 #include "j1Particles.h"
 #include "j1Audio.h"
 #include "SDL/include/SDL_timer.h"
@@ -35,16 +34,6 @@ j1Particles::j1Particles()
 	Projectile_explosion.anim.PushBack({ 40,17,23,21 }, 0.2, 0, 0);
 	Projectile_explosion.anim.PushBack({ 64,17,25,24 }, 0.2, 0, 0);
 	Projectile_explosion.anim.loop = false;
-
-	// Ghost dead
-	dead.anim.PushBack({ 0, 42, 60, 60 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 62, 42, 58, 52 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 122, 42, 30, 34 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 154, 42, 20, 24 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 176, 42, 40, 36 }, 0.15, 0, 0);
-	dead.anim.PushBack({ 218, 42, 34, 36 }, 0.15, 0, 0);
-	dead.anim.loop = false;
-	dead.life = 500;
 }
 
 j1Particles::~j1Particles()
@@ -158,9 +147,7 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
 			{
 				App->audio->PlayFx(4, 0);
-				App->audio->PlayFx(5, 0);
 				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
-				AddParticle(dead, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
 
 				delete active[i];
 				active[i] = nullptr;

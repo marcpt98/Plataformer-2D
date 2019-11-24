@@ -1,24 +1,74 @@
 #ifndef __ENEMY_GHOST_H__
 #define __ENEMY_GHOST_H__
 
-#include "Enemy.h"
+#include "j1Module.h"
+#include "Animation.h"
+#include "p2Point.h"
+#include "p2DynArray.h"
+#include "j1Entity.h"
 
-class Enemy_Ghost : public Enemy
+struct SDL_Texture;
+struct Collider;
+
+enum states_ghost
 {
-private:
-	Animation idle;
-	Animation dead;
+	ST_GHOST_IDLE,
+	ST_GHOST_FOLLOW,
+	ST_GHOST_DEAD
+};
 
-	float wave = -1.0f;
-	bool going_up = true;
-	int original_y = 0;
+class Enemy_Ghost : public j1Entity
+{
+public:
+	Enemy_Ghost(int posx, int posy);
+
+	// Destructor
+	~Enemy_Ghost();
+
+	// Called before the first frame
+	bool Start();
+
+	// Called each loop iteration
+	bool Update(float dt);
+
+	// Called before all Updates
+	bool PostUpdate(float dt);
+
+	// Called before quitting
+	bool CleanUp();
+
+	// Check ghost animation
+	void CheckAnimation(float dt);
+	
+	// Collisions
+	void OnCollision(Collider* c1, Collider* c2);
+
+	// Pathfinding
+	void Pathfinding(float dt);
 
 public:
+	int ghost_width = 40;
+	int ghost_high = 53;
 
-	Enemy_Ghost(int x, int y);
+	// Animations
+	states_ghost	actualState;
+	Animation* current_animation = nullptr;
+	Animation idle;
+	Animation follow;
+	Animation dead;
+	bool ghost_dead = false;
 
-	void Move();
+	// Blit
+	bool blit = false;
+	int fixBlit = 40;
 
+	// Speed
+	float speed = 3;
+
+	// Dead
+	bool count_ghost_dead = false;
+	int dead_ghost_animation_finish = 0;
+	int deadGhostDelay = 800;
 };
 
 #endif // __ENEMY_GHOST_H__

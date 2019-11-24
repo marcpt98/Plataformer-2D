@@ -11,16 +11,6 @@ j1Window::j1Window() : j1Module()
 	window = NULL;
 	screen_surface = NULL;
 	name.create("window");
-	/*
-	idle.PushBack({ 0, 92, 48, 84 }, 0.1, 0, 0);
-	idle.PushBack({ 50, 92, 60, 60 }, 0.1, 0, 0);
-	idle.PushBack({ 112, 92, 58, 82 }, 0.1, 0, 0);
-	idle.PushBack({ 172, 92, 30, 34 }, 0.1, 0, 0);
-	idle.PushBack({ 204, 92, 20, 24 }, 0.1, 0, 0);
-	idle.PushBack({ 226, 92, 40, 36 }, 0.1, 0, 0);
-	idle.PushBack({ 268, 92, 34, 36 }, 0.1, 0, 0);*/
-	
-	
 }
 
 // Destructor

@@ -2,7 +2,7 @@
 #include "j1EntityManager.h"
 #include "j1Entity.h"
 #include "j1Player.h"
-#include "j1Enemy.h"
+#include "Enemy_Ghost.h"
 #include<stdio.h>
 #include "p2Log.h"
 #include "j1Textures.h"
@@ -22,8 +22,8 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	// Entities spritesheets
-	//player = config.child("spritesheet").attribute("player").as_string("");
-	//ghost = config.child("spritesheet").attribute("ghost").as_string("");
+	player = config.child("spritesheet_player").attribute("player").as_string("");
+	ghost = config.child("spritesheet_ghost").attribute("ghost").as_string("");
 	//slime = config.child("spritesheet").attribute("slime").as_string("");
 	
 	return ret;
@@ -31,8 +31,8 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
-	player_graphics = App->tex->Load("textures/Entities/Spritesheet_Character_1.png");
-	//ghost_graphics = App->tex->Load("textures/Entities/Spritesheet_Ghost.png");
+	player_graphics = App->tex->Load(player.GetString());
+	ghost_graphics = App->tex->Load(ghost.GetString());
 	//slime_graphics = App->tex->Load("textures/Entities/Spritesheet_Slime.png");
 
 	return true;
@@ -76,13 +76,12 @@ bool j1EntityManager::PostUpdate(float dt)
 
 j1Entity* j1EntityManager::CreateEntity(j1Entity::entityType type, int posx, int posy)
 {
-	/*static_assert(j1Entity::Types::unknown == 5, "code needs update");*/
 	j1Entity* ret = nullptr;
 
 	switch (type) 
 	{
 	case j1Entity::entityType::PLAYER: ret = new j1Player(posx, posy); break;
-	//case j1Entity::entityType::FLYING_ENEMY: ret = new j1Enemy_Ghost(posx, posy); break;
+	case j1Entity::entityType::FLYING_ENEMY: ret = new Enemy_Ghost(posx, posy); break;
 	//case j1Entity::entityType::LAND_ENEMY: ret = new j1Slime(posx, posy); break;
 	}
 
@@ -122,11 +121,11 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 		{
 			entity_type = j1Entity::entityType::PLAYER;
 		}
-		/*if (type == "ghost")
+		if (type == "ghost")
 		{
-			id = j1Entity::entityType::FLYING_ENEMY;
+			entity_type = j1Entity::entityType::FLYING_ENEMY;
 		}
-		if (type == "slime")
+		/*if (type == "slime")
 		{
 			id = j1Entity::entityType::LAND_ENEMY;
 		}*/
@@ -143,8 +142,8 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 	return true;
 }
 
-void j1EntityManager::DestroyEntity() {
-
+void j1EntityManager::DestroyEntity() 
+{
 	p2List_item<j1Entity*>* entities_list = entities.start;
 	while (entities_list) {
 		if (entities_list->data->to_delete == true)

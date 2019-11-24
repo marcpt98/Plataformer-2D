@@ -9,7 +9,6 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
-#include "j1Enemy.h"
 #include "j1Colliders.h"
 #include "j1EntityManager.h"
 #include "j1Particles.h"

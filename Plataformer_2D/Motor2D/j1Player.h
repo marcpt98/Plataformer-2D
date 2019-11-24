@@ -6,6 +6,7 @@
 #include "p2Point.h"
 #include "p2DynArray.h"
 #include "j1Entity.h"
+
 #define VELOCITY 60
 
 struct SDL_Texture;
@@ -72,7 +73,7 @@ public:
 	p2SString deadFx= "audio/fx/fx_dead.wav";
 	p2SString throwrockFx= "audio/fx/fx_trhowrock.wav";
 	p2SString ballhitFx= "audio/fx/fx_ballhit.wav";
-	p2SString ghostdeadFx= "audio/fx/fx_phantomdead.wav";
+	p2SString ghostdeadFx = "audio/fx/fx_phantomdead.wav";
 
 	// Gravity
 	float gravity = 5;

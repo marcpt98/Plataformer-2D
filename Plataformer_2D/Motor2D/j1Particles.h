@@ -74,9 +74,6 @@ public:
 	
 	// Projectile spritesheet
 	p2SString spritesheet_projectiles;
-
-	// Ghost
-	Particle dead;
 };
 
 #endif

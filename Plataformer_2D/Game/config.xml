@@ -68,9 +68,9 @@
   </entity>
   
   <entity_manager>
-    <spritesheet player="textures/Entities/Spritesheet_Character_1.png"/>
-    <spritesheet ghost="textures/Entities/Spritesheet_Ghost.png"/>
-    <spritesheet slime="textures/Entities/Spritesheet_Slime.png"/>
+    <spritesheet_player player="textures/Entities/Spritesheet_Character_1.png"/>
+    <spritesheet_ghost ghost="textures/Entities/Spritesheet_Ghost.png"/>
+    <spritesheet_slime slime="textures/Entities/Spritesheet_Slime.png"/>
   </entity_manager>
   
   <player>
@@ -82,7 +82,7 @@
   </enemy>
   
   <particles>
-    <spritesheet projectiles="textures/Particles/Spritesheet_Projectiles_2.png"/>
+    <spritesheet projectiles="textures/Particles/Spritesheet_Projectiles.png"/>
   </particles>
 
 </config>

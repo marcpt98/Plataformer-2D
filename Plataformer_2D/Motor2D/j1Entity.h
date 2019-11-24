@@ -33,17 +33,20 @@ public:
 
 	// Save and load position
 	bool save(pugi::xml_node& data);
-	bool load(pugi::xml_node& data);
 
 public:
 	// Player
 	iPoint position;
 	iPoint lasPosition;
+	Collider* player_collider = nullptr;
+	bool player_godMode = false;
+
+	// Ghost
+	iPoint ghost_position;
+	Collider* ghost_collider = nullptr;
 
 	// Colliders
-	Collider* EntityCollider = nullptr;
-	bool to_delete = false;
-	bool player_godMode = false;
+	bool to_delete;
 };
 
 #endif // __j1Entity_H__

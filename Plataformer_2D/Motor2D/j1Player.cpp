@@ -10,7 +10,6 @@
 #include "j1Player.h"
 #include "j1Particles.h"
 #include "Animation.h"
-#include "j1Enemy.h"
 #include<stdio.h>
 #include "j1Colliders.h"
 #include "p2Log.h"
@@ -192,7 +191,7 @@ bool j1Player::Start()
 	App->audio->LoadFx(ghostdeadFx.GetString());
 
 	// Add player collider
-	EntityCollider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
+	player_collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
 
 	return true;
 }
@@ -235,7 +234,7 @@ bool j1Player::Update(float dt)
 	CheckAnimation(dt);
 
 	// Player colliders
-	EntityCollider->SetPos(position.x, position.y);
+	player_collider->SetPos(position.x, position.y);
 
 	// Print player
 	if (blit == false)
@@ -268,14 +267,14 @@ void j1Player::CheckInputState(float dt)
 	{
 		if (player_godMode == false)
 		{
-			EntityCollider->to_delete = true;
-			EntityCollider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, NO_COLLIDER, this);
+			player_collider->to_delete = true;
+			player_collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, NO_COLLIDER, this);
 			player_godMode = true;
 		}
 		else if (player_godMode == true)
 		{
-			EntityCollider->to_delete = true;
-			EntityCollider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, COLLIDER_PLAYER, this);
+			player_collider->to_delete = true;
+			player_collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, COLLIDER_PLAYER, this);
 			player_godMode = false;
 		}
 	}
@@ -618,9 +617,7 @@ void j1Player::CheckAnimation(float dt)
 
 void j1Player::OnCollision(Collider* c1, Collider* c2) 
 {
-
-
-	if (EntityCollider == c1 && c2->type == COLLIDER_FLOOR)
+	if (player_collider == c1 && c2->type == COLLIDER_FLOOR)
 	{
 		canJump1 = true;
 		ground = true;
@@ -643,7 +640,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	}
 
-	if (EntityCollider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == false)
+	if (player_collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == false)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
@@ -659,7 +656,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.y = position.y + gravity;
 		}
 	}
-	if (EntityCollider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == true)
+	if (player_collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == true)
 	{
 		if (position.y + 40 < c2->rect.y && canjumpPlat == false)// over a floor collision
 		{
@@ -674,7 +671,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (EntityCollider == c1 && c2->type == COLLIDER_DEATH)
+	if (player_collider == c1 && c2->type == COLLIDER_DEATH)
 	{
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
@@ -695,7 +692,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (EntityCollider == c1 && c2->type == COLLIDER_ENEMY)
+	if (player_collider == c1 && c2->type == COLLIDER_ENEMY)
 	{
 		if (count_monster_dead == false)
 		{
@@ -708,7 +705,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	}
 
 
-	if (EntityCollider == c1 && c2->type == COLLIDER_WALL)
+	if (player_collider == c1 && c2->type == COLLIDER_WALL)
 	{
 		speed = 0;
 		number = ((position.x + player_width) - c2->rect.x);
@@ -738,7 +735,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (EntityCollider == c1 && c2->type == COLLIDER_CORNER)
+	if (player_collider == c1 && c2->type == COLLIDER_CORNER)
 	{
 		if (position.y >= ceil(c2->rect.y + (c2->rect.h/1.5)))// under a floor collision
 		{
@@ -747,7 +744,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (EntityCollider == c1 && c2->type == COLLIDER_LOW_CORNER)
+	if (player_collider == c1 && c2->type == COLLIDER_LOW_CORNER)
 	{
 		if (position.y + 35 < c2->rect.y)// over a floor collision
 		{
@@ -762,7 +759,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 	}
 
-	if (EntityCollider == c1 && c2->type == COLLIDER_NEXTMAP)
+	if (player_collider == c1 && c2->type == COLLIDER_NEXTMAP)
 	{
 		App->scene->player_map_next = true;
 	}

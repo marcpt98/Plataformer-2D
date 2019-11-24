@@ -43,13 +43,7 @@
     <ClCompile Include="j1Particles.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Enemy.cpp">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy_Ghost.cpp">
-      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="j1PerfTimer.cpp">
@@ -135,13 +129,7 @@
     <ClInclude Include="j1Particles.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1Enemy.h">
-      <Filter>Desenvolupament  ========\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy_Ghost.h">
-      <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="j1PerfTimer.h">

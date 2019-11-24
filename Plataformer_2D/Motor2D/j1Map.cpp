@@ -8,7 +8,6 @@
 #include <math.h>
 #include "j1Colliders.h"
 #include "j1Player.h"
-#include "j1Enemy.h"
 #include "j1Particles.h"
 #include "j1Audio.h"
 #include "j1FadeToBlack.h"
@@ -540,11 +539,14 @@ bool j1Map::createEntities()
 	if (App->scene->currentMap == 0)
 	{
 		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
-		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 350, 0);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 300);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 450);
 	}
 	if (App->scene->currentMap == 1)
 	{
-		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 500, 0);
+		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 300);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 450);
 	}
 
 	return true;
