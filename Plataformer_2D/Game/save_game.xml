@@ -8,18 +8,18 @@
 	<audio />
 	<map />
 	<scene>
-		<map actual="1" />
+		<map actual="0" />
 	</scene>
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="738" pos.y="425" />
+			<position pos.x="300" pos.y="625" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="400" pos.y="300" />
+			<position pos.x="500" pos.y="300" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="400" pos.y="450" />
+			<position pos.x="500" pos.y="450" />
 		</Entity>
 	</entity_manager>
 	<particles />

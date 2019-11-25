@@ -185,7 +185,7 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 	App->fade->FadeToBlack(2);
 
 	// Load
-	createEntities();
+	App->scene->createEntities();
 	App->particles->Start();
 	App->audio->PlayMusic(music->GetString());
 	Load(map->GetString());
@@ -532,23 +532,5 @@ bool j1Map::LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup) {
 	}
 
 	return ret;
-}
-
-bool j1Map::createEntities()
-{
-	if (App->scene->currentMap == 0)
-	{
-		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 300);
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 450);
-	}
-	if (App->scene->currentMap == 1)
-	{
-		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 300);
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 450);
-	}
-
-	return true;
 }
 

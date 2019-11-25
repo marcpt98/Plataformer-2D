@@ -35,6 +35,9 @@ public:
 	// Say which map and music has to be loaded
 	bool LevelName(int time);
 
+	// Create entities when level loads
+	bool createEntities();
+
 	// Save and Load
 	bool load(pugi::xml_node&);
 	bool save(pugi::xml_node&);
@@ -51,9 +54,11 @@ public:
 	bool player_map_next = false;
 	bool player_dead = false;
 
-
-
-private:
+	// Maps and music
+	p2SString* map_1 = nullptr;
+	p2SString* map_2 = nullptr;
+	p2SString* music_1 = nullptr;
+	p2SString* music_2 = nullptr;
 };
 
 #endif // __j1SCENE_H__

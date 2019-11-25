@@ -27,6 +27,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 
+	bool ret = true;
+
 	for (pugi::xml_node map = config.child("map_name"); map; map = map.next_sibling("map_name"))
 	{
 		p2SString* data = new p2SString;
@@ -43,7 +45,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 		music_names.add(data);
 	}
 
-	bool ret = true;
+	map_1 = map_names[0];
+	map_2 = map_names[1];
+	music_1 = music_names[0];
+	music_2 = music_names[1];
 
 	return ret;
 }
@@ -51,12 +56,12 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("Level_1.tmx");
-	App->audio->PlayMusic("audio/music/music_level_1.ogg");
+	App->map->Load(map_1->GetString());
+	App->audio->PlayMusic(music_1->GetString());
 
 	// Player
 	currentMap = 0;
-	App->map->createEntities();
+	createEntities();
 
 	return true;
 }
@@ -185,6 +190,30 @@ bool j1Scene::LevelName(int pos)
 	return true;
 }
 
+bool j1Scene::createEntities()
+{
+	if (App->scene->currentMap == 0)
+	{
+		// Player
+		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
+
+		// Ghost
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 300);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 450);
+	}
+	if (App->scene->currentMap == 1)
+	{
+		// Player
+		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
+
+		// Ghost
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 300);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 450);
+	}
+
+	return true;
+}
+
 // Load Game State
 bool j1Scene::load(pugi::xml_node& savegame)
 {
@@ -195,10 +224,10 @@ bool j1Scene::load(pugi::xml_node& savegame)
 		currentMap = 1;
 		App->map->CleanUp();
 		App->particles->CleanUp();
-		App->audio->UnloadMusic("audio/music/music_level_2.ogg");
-		App->map->Load("Level_2.tmx");
+		App->audio->UnloadMusic(music_1->GetString());
+		App->map->Load(map_2->GetString());
 		App->particles->Start();
-		App->audio->PlayMusic("audio/music/music_level_2.ogg");
+		App->audio->PlayMusic(music_2->GetString());
 	}
 
 	// Loading FIRST map from SECOND map
@@ -207,10 +236,10 @@ bool j1Scene::load(pugi::xml_node& savegame)
 		currentMap = 0;
 		App->map->CleanUp();
 		App->particles->CleanUp();
-		App->audio->UnloadMusic("audio/music/music_level_1.ogg");
-		App->map->Load("Level_1.tmx");
+		App->audio->UnloadMusic(music_2->GetString());
+		App->map->Load(map_1->GetString());
 		App->particles->Start();
-		App->audio->PlayMusic("audio/music/music_level_1.ogg");
+		App->audio->PlayMusic(music_1->GetString());
 	}
 
 	// Loading FIRST map from FIRST map
@@ -218,7 +247,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	{
 		App->map->CleanUp();
 		App->colliders->CleanUp();
-		App->map->Load("Level_1.tmx");
+		App->map->Load(map_1->GetString());
 	}
 
 	// Loading SECOND map from SECOND map
@@ -226,7 +255,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	{
 		App->map->CleanUp();
 		App->colliders->CleanUp();
-		App->map->Load("Level_2.tmx");
+		App->map->Load(map_2->GetString());
 	}
 
 	

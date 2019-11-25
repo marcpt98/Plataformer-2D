@@ -49,9 +49,6 @@ public:
 	bool save(pugi::xml_node& data);
 	bool load(pugi::xml_node& data);
 
-	// Destroy all entities
-	void DestroyEntity();
-
 public:
 	// Load entities textures
 	p2SString player;

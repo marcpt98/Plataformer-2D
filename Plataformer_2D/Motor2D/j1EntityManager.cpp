@@ -58,11 +58,11 @@ bool j1EntityManager::Update(float dt)
 	BROFILER_CATEGORY("UpdateEntity", Profiler::Color::Bisque);
 
 	p2List_item<j1Entity*>* entities_list = entities.start;
-	while (entities_list) {
+	while (entities_list) 
+	{
 		entities_list->data->Update(dt);
 		entities_list = entities_list->next;
 	}
-	DestroyEntity();
 
 	return true;
 }
@@ -127,7 +127,7 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 		}
 		/*if (type == "slime")
 		{
-			id = j1Entity::entityType::LAND_ENEMY;
+			entity_type = j1Entity::entityType::LAND_ENEMY;
 		}*/
 		CreateEntity(entity_type, entity.child("position").attribute("pos.x").as_int(), entity.child("position").attribute("pos.y").as_int());
 	}
@@ -140,15 +140,4 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 	}
 
 	return true;
-}
-
-void j1EntityManager::DestroyEntity() 
-{
-	p2List_item<j1Entity*>* entities_list = entities.start;
-	while (entities_list) {
-		if (entities_list->data->to_delete == true)
-			entities.del(entities_list);
-
-		entities_list = entities_list->next;
-	}
 }

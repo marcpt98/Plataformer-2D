@@ -145,7 +145,6 @@ private:
 public:
 
 	MapData data;
-	bool createEntities();
 
 private:
 
