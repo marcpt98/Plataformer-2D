@@ -38,6 +38,16 @@
   </scene>
   
   <entity>
+   
+  </entity>
+  
+  <entity_manager>
+    <spritesheet_player player="textures/Entities/Spritesheet_Character_1.png"/>
+    <spritesheet_ghost ghost="textures/Entities/Spritesheet_Ghost.png"/>
+    <spritesheet_slime slime="textures/Entities/Spritesheet_Slime.png"/>
+  </entity_manager>
+  
+  <player>
     <fx_name jump="audio/fx/fx_jump.wav"/>
     <fx_name2 dead="audio/fx/fx_dead.wav"/>
     <fx_name3 throwrock="audio/fx/fx_trhowrock.wav"/>
@@ -65,16 +75,6 @@
     <playerHeight2 h="53"/>
     <incrementJ i="0.5"/>
     <deadDelay d="800"/>
-  </entity>
-  
-  <entity_manager>
-    <spritesheet_player player="textures/Entities/Spritesheet_Character_1.png"/>
-    <spritesheet_ghost ghost="textures/Entities/Spritesheet_Ghost.png"/>
-    <spritesheet_slime slime="textures/Entities/Spritesheet_Slime.png"/>
-  </entity_manager>
-  
-  <player>
-   
   </player>
   
   <enemy>

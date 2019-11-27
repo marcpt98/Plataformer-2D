@@ -38,12 +38,8 @@ public:
 	// Player
 	iPoint position;
 	iPoint lasPosition;
-	Collider* player_collider = nullptr;
+	Collider* collider = nullptr;
 	bool player_godMode = false;
-
-	// Ghost
-	iPoint ghost_position;
-	Collider* ghost_collider = nullptr;
 
 	// Colliders
 	bool to_delete;

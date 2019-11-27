@@ -13,7 +13,7 @@
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="300" pos.y="625" />
+			<position pos.x="639" pos.y="564" />
 		</Entity>
 		<Entity type="ghost">
 			<position pos.x="500" pos.y="300" />

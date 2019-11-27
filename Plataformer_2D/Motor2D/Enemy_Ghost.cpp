@@ -56,7 +56,7 @@ Enemy_Ghost::~Enemy_Ghost()
 bool Enemy_Ghost::Start()
 {
 	// Add ghost collider
-	ghost_collider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_ENEMY, this);
+	collider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_ENEMY, this);
 
 	return true;
 }
@@ -72,7 +72,7 @@ bool Enemy_Ghost::Update(float dt)
 	BROFILER_CATEGORY("UpdateGhost", Profiler::Color::BlanchedAlmond);
 
 	// Ghost colliders
-	ghost_collider->SetPos(position.x, position.y);
+	collider->SetPos(position.x, position.y);
 
 	CheckAnimation(dt);
 
@@ -118,7 +118,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 
 void Enemy_Ghost::OnCollision(Collider* c1, Collider* c2)
 {
-	if (ghost_collider == c1 && c2->type == COLLIDER_PLAYER_SHOT)
+	if (collider == c1 && c2->type == COLLIDER_PLAYER_SHOT)
 	{
 		if (count_ghost_dead == false)
 		{
