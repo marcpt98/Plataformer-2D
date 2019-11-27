@@ -25,7 +25,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	player = config.child("spritesheet_player").attribute("player").as_string("");
 	ghost = config.child("spritesheet_ghost").attribute("ghost").as_string("");
 	//slime = config.child("spritesheet").attribute("slime").as_string("");
-	
+
 	return ret;
 }
 

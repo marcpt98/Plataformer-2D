@@ -240,12 +240,12 @@ bool j1Player::Update(float dt)
 	if (blit == false)
 	{
 		App->render->Blit(App->entity->player_graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), 1.0f);
-		App->particles->Projectile.speed.x = (6*dt*60);
+		App->particles->Projectile.speed.x = (6 * dt * 60);
 	}
 	else
 	{
 		App->render->BlitWithScale(App->entity->player_graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), -1, 1.0f, 1, TOP_RIGHT);
-		App->particles->Projectile_flip.speed.x = -(6*dt*60);
+		App->particles->Projectile_flip.speed.x = -(6 * dt * 60);
 	}
 
 	speed = 3;
@@ -336,7 +336,7 @@ void j1Player::CheckInputState(float dt)
 		}
 
 		// Player controllers
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false)
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false && dead_monster_animation == false)
 		{
 
 			actualState = ST_JUMP;
