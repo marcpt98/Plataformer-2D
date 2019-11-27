@@ -200,6 +200,10 @@ bool j1Scene::createEntities()
 		// Ghost
 		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 300);
 		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 450);
+
+		//Slime
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 300);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 450);
 	}
 	if (App->scene->currentMap == 1)
 	{
@@ -209,6 +213,9 @@ bool j1Scene::createEntities()
 		// Ghost
 		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 300);
 		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 450);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 300);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 450);
+
 	}
 
 	return true;

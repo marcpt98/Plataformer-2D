@@ -2,6 +2,7 @@
 #include "j1EntityManager.h"
 #include "j1Entity.h"
 #include "j1Player.h"
+#include "Enemy_Slime.h"
 #include "Enemy_Ghost.h"
 #include<stdio.h>
 #include "p2Log.h"
@@ -24,7 +25,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	// Entities spritesheets
 	player = config.child("spritesheet_player").attribute("player").as_string("");
 	ghost = config.child("spritesheet_ghost").attribute("ghost").as_string("");
-	//slime = config.child("spritesheet").attribute("slime").as_string("");
+	slime = config.child("spritesheet_slime").attribute("slime").as_string("");
 
 	return ret;
 }
@@ -33,7 +34,7 @@ bool j1EntityManager::Start()
 {
 	player_graphics = App->tex->Load(player.GetString());
 	ghost_graphics = App->tex->Load(ghost.GetString());
-	//slime_graphics = App->tex->Load("textures/Entities/Spritesheet_Slime.png");
+	slime_graphics = App->tex->Load(slime.GetString());
 
 	return true;
 }
@@ -82,7 +83,7 @@ j1Entity* j1EntityManager::CreateEntity(j1Entity::entityType type, int posx, int
 	{
 	case j1Entity::entityType::PLAYER: ret = new j1Player(posx, posy); break;
 	case j1Entity::entityType::FLYING_ENEMY: ret = new Enemy_Ghost(posx, posy); break;
-	//case j1Entity::entityType::LAND_ENEMY: ret = new j1Slime(posx, posy); break;
+	case j1Entity::entityType::LAND_ENEMY: ret = new Enemy_Slime(posx, posy); break;
 	}
 
 	if (ret != nullptr) 
@@ -125,10 +126,10 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 		{
 			entity_type = j1Entity::entityType::FLYING_ENEMY;
 		}
-		/*if (type == "slime")
+		if (type == "slime")
 		{
 			entity_type = j1Entity::entityType::LAND_ENEMY;
-		}*/
+		}
 		CreateEntity(entity_type, entity.child("position").attribute("pos.x").as_int(), entity.child("position").attribute("pos.y").as_int());
 	}
 
