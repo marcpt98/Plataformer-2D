@@ -15,9 +15,12 @@
 #include "j1EntityManager.h"
 #include "j1Entity.h"
 #include "Enemy_Ghost.h"
+#include "j1PathFinding.h"
 
 Enemy_Ghost::Enemy_Ghost(int posx, int posy) : j1Entity(entityType::FLYING_ENEMY)
 {
+	LoadConfigInfo();
+
 	name.create("ghost");
 
 	actualState = ST_GHOST_IDLE;
@@ -56,7 +59,7 @@ Enemy_Ghost::~Enemy_Ghost()
 bool Enemy_Ghost::Start()
 {
 	// Add ghost collider
-	collider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_ENEMY, this);
+	collider = App->colliders->AddCollider({ position.x,position.y, ghost_width, ghost_high }, COLLIDER_ENEMY, this);
 
 	return true;
 }
@@ -75,6 +78,7 @@ bool Enemy_Ghost::Update(float dt)
 	collider->SetPos(position.x, position.y);
 
 	CheckAnimation(dt);
+	Pathfinding(dt);
 
 	// Print ghost
 	if (blit == false)
@@ -109,7 +113,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 
 		if (SDL_GetTicks() > dead_ghost_animation_finish + deadGhostDelay)
 		{
-			// TODO: Delete entity
+			App->entity->DeleteEntity(this);
 			count_ghost_dead = false;
 			ghost_dead = false;
 		}
@@ -120,6 +124,8 @@ void Enemy_Ghost::OnCollision(Collider* c1, Collider* c2)
 {
 	if (collider == c1 && c2->type == COLLIDER_PLAYER_SHOT)
 	{
+		collider->to_delete = true;
+
 		if (count_ghost_dead == false)
 		{
 			dead_ghost_animation_finish = SDL_GetTicks();
@@ -133,6 +139,30 @@ void Enemy_Ghost::OnCollision(Collider* c1, Collider* c2)
 
 void Enemy_Ghost::Pathfinding(float dt)
 {
+	
 
+}
 
+bool Enemy_Ghost::LoadConfigInfo()
+{
+	// Loading files from config
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	config = App->LoadConfig(config_file);
+	config = config.child("ghost");
+
+	// Ghost width and high
+	ghost_width = config.child("width").attribute("w").as_int();
+	ghost_high = config.child("high").attribute("h").as_int();
+	
+	// Ghost speed
+	speed = config.child("speed").attribute("s").as_float();
+
+	// Fix blit
+	fixBlit = config.child("fixBlit").attribute("fix").as_int();
+
+	// Dead delay
+	deadGhostDelay = config.child("deadDelay").attribute("d").as_int();
+
+	return true;
 }

@@ -38,8 +38,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Check ghost animation
+	// Check slime animation
 	void CheckAnimation(float dt);
+
+	// Load all config info
+	bool LoadConfigInfo();
 
 	// Collisions
 	void OnCollision(Collider* c1, Collider* c2);
@@ -48,8 +51,9 @@ public:
 	void Pathfinding(float dt);
 
 public:
-	int ghost_width = 40;
-	int ghost_high = 53;
+	// Size
+	int slime_width;
+	int slime_high;
 
 	// Animations
 	states_slime actualState;
@@ -61,15 +65,15 @@ public:
 
 	// Blit
 	bool blit = false;
-	int fixBlit = 40;
+	int fixBlit;
 
 	// Speed
-	float speed = 3;
+	float speed;
 
 	// Dead
 	bool count_slime_dead = false;
-	int dead_slime_animation_finish = 0;
-	int deadSlimeDelay = 800;
+	int dead_slime_animation_finish;
+	int deadSlimeDelay;
 };
 
 

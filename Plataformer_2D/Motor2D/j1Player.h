@@ -30,9 +30,6 @@ public:
 	
 	// Destructor
 	~j1Player();
-
-	// Called before render is available
-	bool Awake(pugi::xml_node& config);
 	
 	// Called before the first frame
 	bool Start();
@@ -49,13 +46,15 @@ public:
 	// Collisions
 	void OnCollision(Collider* c1, Collider* c2);
 
-	bool LoadConfigInfo(pugi::xml_node& config);
+	// Load all config info
+	bool LoadConfigInfo();
 
 public:
 	iPoint iPosition;
 
-	int player_width = 40;
-	int player_high = 53;
+	// Size
+	int player_width;
+	int player_high;
 	
 	// Animations
 	Animation* current_animation = nullptr;
@@ -69,34 +68,34 @@ public:
 	Animation shoot_run;
 	
 	// Fx
-	p2SString jumpFx= "audio/fx/fx_jump.wav";
-	p2SString deadFx= "audio/fx/fx_dead.wav";
-	p2SString throwrockFx= "audio/fx/fx_trhowrock.wav";
-	p2SString ballhitFx= "audio/fx/fx_ballhit.wav";
-	p2SString ghostdeadFx = "audio/fx/fx_phantomdead.wav";
+	p2SString jumpFx;
+	p2SString deadFx;
+	p2SString throwrockFx;
+	p2SString ballhitFx;
+	p2SString ghostdeadFx;
 
 	// Gravity
-	float gravity = 5;
-	float igravity = 5;
+	float gravity;
+	float igravity;
 	bool fallingravity = false;
-	float energyfalling = 0;
-	float timeAccelerationDelay = 500;
-	float acceleration = 0.2;
-	float maxAcceleration = 50;
+	float energyfalling;
+	float timeAccelerationDelay;
+	float acceleration;
+	float maxAcceleration;
 	
 	// Speed
-	float speed = 1;
-	float speedgm = 6;
+	float speed;
+	float speedgm;
 
 	// Jump force
 	bool canJump1 = false;
-	float jumpF = -15;
+	float jumpF;
 	float energyJump;
-	float incrementJ = 0.5;
-	float iJumpF = -15;
+	float incrementJ;
+	float iJumpF;
 
 	// Jump when grabbed
-	float jumpG = -5;
+	float jumpG;
 	float energyGrab;
 	bool goright = false;
 	bool goleft = false;
@@ -106,7 +105,7 @@ public:
 	bool controls = false;
 	bool nojumpingleft = false;
 	bool nojumpingright = false;
-	float gGravity = 4;
+	float gGravity;
 	
 	// Stats machine
 	void CheckInputState(float dt);
@@ -114,8 +113,7 @@ public:
 	states	actualState;
 	
 	// Player blit
-	bool	blit = false;	
-	int		fixBlit = 40;
+	int		fixBlit;
 
 	// God mode
 	bool godMode = false;
@@ -127,41 +125,41 @@ public:
 	// Player dead
 	bool dead_animation = false;
 	bool count_dead = false;
-	int dead_animation_finish = 0;
-	int deadDelay = 800;
+	int dead_animation_finish;
+	int deadDelay;
 
 	// Player dead by monster
 	bool dead_monster_animation = false;
 	bool count_monster_dead = false;
-	int dead_monster_animation_finish = 0;
+	int dead_monster_animation_finish;
 	bool pressspace = false;
 
 	// Player grabing
 	bool grabing = false;
-	int timeGrabDelay = 200;
-	int slipping = 1;
+	int timeGrabDelay;
+	int slipping;
 
 	// Player is grab_falling
 	bool grab_falling = false;
 
 	// Platforms
-	int playerHeight = 58;
-	int playerHeight2 = 53;
+	int playerHeight;
+	int playerHeight2;
 
 	// Shoot
-	int shoottime = 0;
+	int shoottime;
 	bool shootfinish = false;
 	bool isshooting = false;
 
 	// Shoot run
-	int shootruntime = 0;
+	int shootruntime;
 	bool shootrunfinish = false;
 	bool isrunshooting = false;
 
 	// Framerate new variables
 	bool ground = false;
 	
-	int number = 0;
+	int number;
 };
 
 #endif // __j1Player_H__

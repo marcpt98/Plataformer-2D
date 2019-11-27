@@ -39,6 +39,9 @@ public:
 
 	// Check ghost animation
 	void CheckAnimation(float dt);
+
+	// Load all config info
+	bool LoadConfigInfo();
 	
 	// Collisions
 	void OnCollision(Collider* c1, Collider* c2);
@@ -47,8 +50,9 @@ public:
 	void Pathfinding(float dt);
 
 public:
-	int ghost_width = 40;
-	int ghost_high = 53;
+	// Size
+	int ghost_width;
+	int ghost_high;
 
 	// Animations
 	states_ghost	actualState;
@@ -60,15 +64,16 @@ public:
 
 	// Blit
 	bool blit = false;
-	int fixBlit = 40;
+	int fixBlit;
 
 	// Speed
-	float speed = 3;
+	float speed;
 
 	// Dead
 	bool count_ghost_dead = false;
-	int dead_ghost_animation_finish = 0;
-	int deadGhostDelay = 800;
+	int dead_ghost_animation_finish;
+	int deadGhostDelay;
+
 };
 
 #endif // __ENEMY_GHOST_H__

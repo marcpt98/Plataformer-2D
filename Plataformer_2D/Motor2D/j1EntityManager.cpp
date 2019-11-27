@@ -43,7 +43,7 @@ bool j1EntityManager::CleanUp()
 {
 	p2List_item<j1Entity*>* entities_list = entities.start;
 
-	while (entities_list != NULL)
+	while (entities_list != nullptr)
 	{
 		entities_list->data->CleanUp();
 		RELEASE(entities_list->data);
@@ -139,6 +139,14 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 		entities_list->data->load(entity);
 		entities_list = entities_list->next;
 	}
+
+	return true;
+}
+
+bool j1EntityManager::DeleteEntity(j1Entity* entity)
+{
+	entity->CleanUp();
+	entities.del(entities.At(entities.find(entity)));
 
 	return true;
 }

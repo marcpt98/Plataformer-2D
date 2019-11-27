@@ -54,11 +54,10 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-private:
-
 	// Load config file
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
 
+private:
 	// Call modules before each loop iteration
 	void PrepareUpdate();
 

@@ -16,7 +16,7 @@ public:
 		NO_TYPE,
 		PLAYER,
 		FLYING_ENEMY,
-		LAND_ENEMY,
+		LAND_ENEMY
 	};
 
 	entityType type;
@@ -35,13 +35,18 @@ public:
 	bool save(pugi::xml_node& data);
 
 public:
-	// Player
+	// Position
 	iPoint position;
 	iPoint lasPosition;
-	Collider* collider = nullptr;
-	bool player_godMode = false;
+	
+	// God mode
+	bool godMode = false;
+
+	// Blit
+	bool blit = false;
 
 	// Colliders
+	Collider* collider = nullptr;
 	bool to_delete;
 };
 

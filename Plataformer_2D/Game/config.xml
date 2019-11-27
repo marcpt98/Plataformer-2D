@@ -38,7 +38,7 @@
   </scene>
   
   <entity>
-   
+
   </entity>
   
   <entity_manager>
@@ -76,6 +76,22 @@
     <incrementJ i="0.5"/>
     <deadDelay d="800"/>
   </player>
+  
+  <ghost>
+    <width w="40"/>
+    <high h="53"/>
+    <speed s="1"/>
+    <fixBlit fix="40"/>
+    <deadDelay d="800"/>
+  </ghost>
+  
+  <slime>
+    <width w="40"/>
+    <high h="53"/>
+    <speed s="1"/>
+    <fixBlit fix="40"/>
+    <deadDelay d="800"/>
+  </slime>
   
   <enemy>
     <position x="600" y="520"/>

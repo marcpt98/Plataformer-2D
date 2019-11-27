@@ -19,6 +19,8 @@
 
 Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
 {
+	LoadConfigInfo();
+
 	name.create("slime");
 
 	actualState = ST_SLIME_IDLE;
@@ -52,7 +54,7 @@ Enemy_Slime::~Enemy_Slime()
 bool Enemy_Slime::Start()
 {
 	// Add ghost collider
-	collider = App->colliders->AddCollider({ position.x,position.y, 40, 53 }, COLLIDER_ENEMY, this);
+	collider = App->colliders->AddCollider({ position.x,position.y, slime_width, slime_high }, COLLIDER_ENEMY, this);
 
 	return true;
 }
@@ -105,7 +107,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 
 		if (SDL_GetTicks() > dead_slime_animation_finish + deadSlimeDelay)
 		{
-			// TODO: Delete entity
+			App->entity->DeleteEntity(this);
 			count_slime_dead = false;
 			slime_dead = false;
 		}
@@ -116,6 +118,8 @@ void Enemy_Slime::OnCollision(Collider* c1, Collider* c2)
 {
 	if (collider == c1 && c2->type == COLLIDER_PLAYER_SHOT)
 	{
+		collider->to_delete = true;
+
 		if (count_slime_dead == false)
 		{
 			dead_slime_animation_finish = SDL_GetTicks();
@@ -131,4 +135,28 @@ void Enemy_Slime::Pathfinding(float dt)
 {
 
 
+}
+
+bool Enemy_Slime::LoadConfigInfo()
+{
+	// Loading files from config
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	config = App->LoadConfig(config_file);
+	config = config.child("slime");
+
+	// Slime width and high
+	slime_width = config.child("width").attribute("w").as_int();
+	slime_high = config.child("high").attribute("h").as_int();
+
+	// Slime speed
+	speed = config.child("speed").attribute("s").as_float();
+
+	// Fix blit
+	fixBlit = config.child("fixBlit").attribute("fix").as_int();
+
+	// Dead delay
+	deadSlimeDelay = config.child("deadDelay").attribute("d").as_int();
+
+	return true;
 }

@@ -49,6 +49,9 @@ public:
 	bool save(pugi::xml_node& data);
 	bool load(pugi::xml_node& data);
 
+	// Delete an entity
+	bool DeleteEntity(j1Entity* entity);
+
 public:
 	// Load entities textures
 	p2SString player;

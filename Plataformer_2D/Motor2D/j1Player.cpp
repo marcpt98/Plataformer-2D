@@ -18,37 +18,14 @@
 
 j1Player::j1Player(int posx, int posy) : j1Entity(entityType::PLAYER)
 { 
+	LoadConfigInfo();
+
 	name.create("player");
 
 	// Initializing variables
 	actualState = ST_IDLE;
-	/*energyGrab = 0;
-	energyJump = 0;
-	energyfalling = 0;
-	fixBlit = 0;
-	igravity = 0;
-	incrementJ = 0;
-	jumpF = 0;
-	jumpG = 0;
-	speed = 0;
-	timegrab = 0;
-	timegrab2 = 0;*/
 	position.x = posx;
 	position.y = posy;
-	/*iPosition.x = 0;
-	iPosition.y = 0;
-	lasPosition.x = 0;
-	lasPosition.y = 0;
-	timeGrabDelay = 0;
-	iJumpF = 0;
-	gGravity = 0;
-	slipping = 0;
-	timeAccelerationDelay = 0;
-	maxAcceleration = 0;
-	acceleration = 0;
-	playerHeight = 0;
-	playerHeight2 = 0;
-	deadDelay = 0;*/
 
 	// Idle animation
 	idle.PushBack({ 0,0,42,52 }, 0.2, 0, 0);
@@ -109,78 +86,6 @@ j1Player::j1Player(int posx, int posy) : j1Entity(entityType::PLAYER)
 j1Player::~j1Player()
 {}
 
-bool j1Player::Awake(pugi::xml_node& config)
-{
-	LOG("Loading Player");
-
-	bool ret = true;
-
-	// Player width and high
-	/*player_width = config.child("width").attribute("w").as_int();
-	player_high = config.child("high").attribute("h").as_int();
-
-	// Play Fx
-	jumpFx = config.child("fx_name").attribute("jump").as_string("");
-	deadFx = config.child("fx_name2").attribute("dead").as_string("");
-	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
-	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
-
-	// Ghost dead FX
-	ghostdeadFx = config.child("fx_name5").attribute("ghost_dead").as_string("");
-
-	// Player speed
-	speed = config.child("speed").attribute("s").as_float();
-	speedgm = config.child("speedgm").attribute("sgm").as_float();
-
-	// Gravity
-	gravity = config.child("gravity").attribute("g").as_float();
-
-	// Gravity when grabbed
-	gGravity = config.child("gGravity").attribute("g").as_float();
-
-	// Initial Gravity
-	igravity = config.child("igravity").attribute("g").as_float();
-
-	// Acceleration
-	acceleration = config.child("acceleration").attribute("a").as_float();
-
-	// Gravity max acceleration
-	maxAcceleration = config.child("maxAcceleration").attribute("max").as_float();
-
-	// Initial jump force
-	iJumpF = config.child("iJumpF").attribute("j").as_float();
-
-	// Jump force
-	jumpF = config.child("jumpF").attribute("j").as_float();
-
-	// Jump force when grabbed
-	jumpG = config.child("jumpG").attribute("g").as_float();
-
-	// Slipping velocity
-	slipping = config.child("slipping").attribute("s").as_int();
-
-	// Grab time delay
-	timeGrabDelay = config.child("timeGrabDelay").attribute("time").as_int();
-
-	// Delay to activate gravity accelerated
-	timeAccelerationDelay = config.child("timeAccelerationDelay").attribute("time").as_float();
-
-	// Increment of jump force
-	incrementJ = config.child("incrementJ").attribute("i").as_float();
-
-	// Jumping on platform
-	playerHeight = config.child("playerHeight").attribute("h").as_int();
-	playerHeight2 = config.child("playerHeight2").attribute("h").as_int();
-
-	// Dead delay
-	deadDelay = config.child("deadDelay").attribute("d").as_int();
-
-	// Fix blit
-	fixBlit = config.child("fixBlit").attribute("fix").as_int();*/
-
-	return ret;
-}
-
 bool j1Player::Start()
 {
 	// Load Fx 
@@ -213,7 +118,7 @@ bool j1Player::Update(float dt)
 	App->render->player_pos.x = position.x;
 
 	// Gravity
-	if (player_godMode == true)
+	if (godMode == true)
 	{
 		position.y = position.y;
 	}
@@ -265,21 +170,21 @@ void j1Player::CheckInputState(float dt)
 	// God mode
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		if (player_godMode == false)
+		if (godMode == false)
 		{
 			collider->to_delete = true;
 			collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, NO_COLLIDER, this);
-			player_godMode = true;
+			godMode = true;
 		}
-		else if (player_godMode == true)
+		else if (godMode == true)
 		{
 			collider->to_delete = true;
 			collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, COLLIDER_PLAYER, this);
-			player_godMode = false;
+			godMode = false;
 		}
 	}
 
-	if (player_godMode == true)
+	if (godMode == true)
 	{
 		actualState = ST_IDLE;
 
@@ -597,7 +502,7 @@ void j1Player::CheckAnimation(float dt)
 		gravity = gGravity;
 		position.y = position.y + slipping;
 	}
-	if (fallingravity == true && player_godMode == false && canjumpPlat == false)
+	if (fallingravity == true && godMode == false && canjumpPlat == false)
 	{
 
 		grabFinish = false;
@@ -766,8 +671,15 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 }
 
-bool j1Player::LoadConfigInfo(pugi::xml_node& config)
+bool j1Player::LoadConfigInfo()
 {
+	// Loading files from config
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+	config = App->LoadConfig(config_file);
+	config = config.child("player");
+
+	// Player width and high
 	player_width = config.child("width").attribute("w").as_int();
 	player_high = config.child("high").attribute("h").as_int();
 
@@ -829,4 +741,6 @@ bool j1Player::LoadConfigInfo(pugi::xml_node& config)
 
 	// Fix blit
 	fixBlit = config.child("fixBlit").attribute("fix").as_int();
+
+	return true;
 }
