@@ -82,6 +82,11 @@ public:
 	//Pathfinding
 	SDL_Texture* debug_tex;
 	int x = 0, y = 0;
+	
+	//Ghost idle
+	float wave = -0.7f;
+	bool going_up = true;
+	int start = 0;
 };
 
 #endif // __ENEMY_GHOST_H__

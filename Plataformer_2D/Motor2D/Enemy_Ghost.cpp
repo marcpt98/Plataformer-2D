@@ -139,6 +139,39 @@ void Enemy_Ghost::CheckAnimation(float dt)
 		current_animation = &follow;
 		position.x += (3 * 60 * dt);
 	}
+
+	if (actualState == ST_GHOST_IDLE)
+	{
+		LOG("%i", start);
+		start +=1;
+		if (going_up)
+		{
+			if (wave > 1.0f)
+				going_up = false;
+			else
+				wave += 0.05f;
+		}
+		else
+		{
+			if (wave < -1.0f)
+				going_up = true;
+			else
+				wave -= 0.05f;
+		}
+
+		position.y += int(3.0f * sinf(wave));
+		if (start < 100) {
+			position.x -= 1;
+		}
+		else {
+			position.x += 1;
+			if (start > 200) {
+				start = 0;
+			}
+		}
+		
+	}
+
 }
 
 void Enemy_Ghost::OnCollision(Collider* c1, Collider* c2)
