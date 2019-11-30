@@ -7,6 +7,8 @@
 #include "p2DynArray.h"
 #include "j1Entity.h"
 
+#define VELOCITY 60
+
 struct SDL_Texture;
 struct Collider;
 
@@ -51,7 +53,6 @@ public:
 
 	// Pathfinding
 	void Pathfinding(float dt);
-
 	void Follow_path(float dt);
 
 public:
@@ -72,7 +73,8 @@ public:
 	int fixBlit;
 
 	// Speed
-	float speed;
+	float speedx;
+	float speedy;
 
 	// Dead
 	bool count_ghost_dead = false;

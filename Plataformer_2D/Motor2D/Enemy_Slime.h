@@ -7,6 +7,7 @@
 #include "p2DynArray.h"
 #include "j1Entity.h"
 
+#define VELOCITY 60
 
 struct SDL_Texture;
 struct Collider;
@@ -14,7 +15,9 @@ struct Collider;
 enum states_slime
 {
 	ST_SLIME_IDLE,
-	ST_SLIME_FOLLOW,
+	ST_SLIME_FOLLOW_Forward,
+	ST_SLIME_FOLLOW_Backward,
+	ST_SLIME_FOLLOW_Down,
 	ST_SLIME_DEAD
 };
 
@@ -49,11 +52,15 @@ public:
 
 	// Pathfinding
 	void Pathfinding(float dt);
+	void Follow_path(float dt);
 
 public:
 	// Size
 	int slime_width;
 	int slime_high;
+	
+	// Gravity
+	float gravity;
 
 	// Animations
 	states_slime actualState;
@@ -74,6 +81,20 @@ public:
 	bool count_slime_dead = false;
 	int dead_slime_animation_finish;
 	int deadSlimeDelay;
+
+	//Pathfinding
+	p2SString debug_tex;
+	SDL_Texture* graphics_debug_tex;
+	int x;
+	int y;
+	iPoint p;
+	iPoint origin;
+	iPoint pos;
+	const p2DynArray<iPoint>* lastpath;
+	const p2DynArray<iPoint>* path;
+
+	// Slime idle
+	int start = 0;
 };
 
 

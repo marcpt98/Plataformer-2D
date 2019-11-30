@@ -13,19 +13,16 @@
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="300" pos.y="625" />
+			<position pos.x="239" pos.y="625" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="500" pos.y="300" />
-		</Entity>
-		<Entity type="ghost">
-			<position pos.x="500" pos.y="450" />
+			<position pos.x="799" pos.y="295" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="400" pos.y="300" />
+			<position pos.x="399" pos.y="300" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="400" pos.y="450" />
+			<position pos.x="399" pos.y="450" />
 		</Entity>
 	</entity_manager>
 	<particles />

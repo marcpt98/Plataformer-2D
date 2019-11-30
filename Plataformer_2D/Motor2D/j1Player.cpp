@@ -529,7 +529,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
 		grab_falling = false;
-		//gravity = igravity;
+		gravity = igravity;
 		ground = true;
 		if (position.y >= (c2->rect.y))// under a floor collision
 		{

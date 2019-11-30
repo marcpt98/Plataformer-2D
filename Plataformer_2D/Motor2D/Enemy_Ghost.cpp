@@ -61,6 +61,7 @@ bool Enemy_Ghost::Start()
 	// Add ghost collider
 	collider = App->colliders->AddCollider({ position.x,position.y, ghost_width, ghost_high }, COLLIDER_ENEMY, this);
 	graphics_debug_tex = App->tex->Load(debug_tex.GetString());
+
 	return true;
 }
 
@@ -122,7 +123,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 	if (actualState == ST_GHOST_FOLLOW_Down) 
 	{
 		current_animation = &follow;
-		position.y += (3 * 60 * dt);
+		position.y += (speedy * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
 			blit = false;
@@ -135,7 +136,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 	if (actualState == ST_GHOST_FOLLOW_Up)
 	{
 		current_animation = &follow;
-		position.y -= (3 * 60 * dt);
+		position.y -= (speedy * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
 			blit = false;
@@ -148,7 +149,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 	if (actualState == ST_GHOST_FOLLOW_Backward)
 	{
 		current_animation = &follow;
-		position.x -= (3 * 60 * dt);
+		position.x -= (speedx * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
 			blit = false;
@@ -161,7 +162,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 	if (actualState == ST_GHOST_FOLLOW_Forward)
 	{
 		current_animation = &follow;
-		position.x += (3 * 60 * dt);
+		position.x += (speedx * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
 			blit = false;
@@ -236,7 +237,7 @@ void Enemy_Ghost::Pathfinding(float dt)
 
 	origin = App->map->WorldToMap(position.x, position.y);	//Ghost position
 
-	if (origin != p && App->entity->InfoPlayer()->position.x - 200 < position.x && App->entity->InfoPlayer()->position.x + 200 > position.x && ghost_dead == false)
+	if (origin != p && App->entity->InfoPlayer()->position.x - 300 < position.x && App->entity->InfoPlayer()->position.x + 300 > position.x && App->entity->InfoPlayer()->position.y - 400 < position.y && App->entity->InfoPlayer()->position.y + 400 > position.y && ghost_dead == false)
 	{
 		App->path->CreatePath(origin, p);
 		Follow_path(dt);
@@ -299,7 +300,8 @@ bool Enemy_Ghost::LoadConfigInfo()
 	ghost_high = config.child("high").attribute("h").as_int();
 	
 	// Ghost speed
-	speed = config.child("speed").attribute("s").as_float();
+	speedx = config.child("speedx").attribute("s").as_float();
+	speedy = config.child("speedy").attribute("s").as_float();
 
 	// Fix blit
 	fixBlit = config.child("fixBlit").attribute("fix").as_int();

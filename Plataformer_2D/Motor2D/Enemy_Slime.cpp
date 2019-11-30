@@ -15,6 +15,7 @@
 #include "j1EntityManager.h"
 #include "j1Entity.h"
 #include "Enemy_Slime.h"
+#include "j1PathFinding.h"
 
 
 Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
@@ -28,7 +29,7 @@ Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
 	position.x = posx;
 	position.y = posy;
 
-	// Ghost follow
+	// Slime follow
 	idle.PushBack({ 0, 0, 56, 28 }, 0.1, 0, 0);
 	idle.PushBack({ 60, 0, 56, 28 }, 0.1, 0, 0);
 	idle.PushBack({ 120, 0, 56, 28 }, 0.1, 0, 0);
@@ -38,13 +39,12 @@ Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
 	idle.PushBack({ 352, 0, 48, 24 }, 0.1, 0, 0);
 	idle.PushBack({ 404, 0, 52, 22 }, 0.1, 0, 0);
 
-	// Ghost dead
-	dead.PushBack({ 50, 92, 60, 60 }, 0.1, 0, 0);
-	dead.PushBack({ 112, 92, 58, 82 }, 0.1, 0, 0);
-	dead.PushBack({ 172, 92, 30, 34 }, 0.1, 0, 0);
-	dead.PushBack({ 204, 92, 20, 24 }, 0.1, 0, 0);
-	dead.PushBack({ 226, 92, 40, 36 }, 0.1, 0, 0);
-	dead.PushBack({ 268, 92, 34, 36 }, 0.1, 0, 0);
+	// Slime dead
+	dead.PushBack({ 0,76,56,26 }, 0.15, 0, 0);
+	dead.PushBack({ 60,76,56,28 }, 0.15, 0, -1);
+	dead.PushBack({ 120,76,56,32 }, 0.15, 0, 0);
+	dead.PushBack({ 180,76,60,18 }, 0.15, 0, 10);
+	dead.PushBack({ 244,76,62,4 }, 0.15, 0, 20);
 	dead.loop = false;
 }
 
@@ -53,8 +53,9 @@ Enemy_Slime::~Enemy_Slime()
 
 bool Enemy_Slime::Start()
 {
-	// Add ghost collider
+	// Add slime collider
 	collider = App->colliders->AddCollider({ position.x,position.y, slime_width, slime_high }, COLLIDER_ENEMY, this);
+	graphics_debug_tex = App->tex->Load(debug_tex.GetString());
 
 	return true;
 }
@@ -69,12 +70,18 @@ bool Enemy_Slime::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateGhost", Profiler::Color::BlanchedAlmond);
 
+	lasPosition.x = position.x;
+
+	// Gravity
+	position.y += (int)(gravity * dt * VELOCITY);
+
 	// Ghost colliders
 	collider->SetPos(position.x, position.y);
 
 	CheckAnimation(dt);
+	Pathfinding(dt);
 
-	// Print ghost
+	// Print slime
 	if (blit == false)
 	{
 		App->render->Blit(App->entity->slime_graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), 1.0f);
@@ -89,7 +96,7 @@ bool Enemy_Slime::Update(float dt)
 
 bool Enemy_Slime::PostUpdate(float dt)
 {
-	BROFILER_CATEGORY("PostupdateGhost", Profiler::Color::BurlyWood)
+	BROFILER_CATEGORY("PostupdateSlime", Profiler::Color::BurlyWood)
 
 		return true;
 }
@@ -112,10 +119,80 @@ void Enemy_Slime::CheckAnimation(float dt)
 			slime_dead = false;
 		}
 	}
+
+	if (actualState == ST_SLIME_FOLLOW_Down)
+	{
+		current_animation = &idle;
+		position.y += (speed * VELOCITY * dt);
+		if (App->entity->InfoPlayer()->position.x < position.x)
+		{
+			blit = false;
+		}
+		else
+		{
+			blit = true;
+		}
+	}
+	if (actualState == ST_SLIME_FOLLOW_Backward)
+	{
+		current_animation = &idle;
+		position.x -= (speed * VELOCITY * dt);
+		if (App->entity->InfoPlayer()->position.x < position.x)
+		{
+			blit = false;
+		}
+		else
+		{
+			blit = true;
+		}
+	}
+	if (actualState == ST_SLIME_FOLLOW_Forward)
+	{
+		current_animation = &idle;
+		position.x += (speed * VELOCITY * dt);
+		if (App->entity->InfoPlayer()->position.x < position.x)
+		{
+			blit = false;
+		}
+		else
+		{
+			blit = true;
+		}
+	}
+
+	if (actualState == ST_SLIME_IDLE)
+	{
+		start += 1;
+
+		if (start < 100)
+		{
+			blit = false;
+			position.x -= 1;
+		}
+		else
+		{
+			blit = true;
+			position.x += 1;
+			if (start > 200)
+			{
+				start = 0;
+			}
+		}
+	}
 }
 
 void Enemy_Slime::OnCollision(Collider* c1, Collider* c2)
 {
+	if (collider == c1 && c2->type == COLLIDER_FLOOR)
+	{
+		gravity = 0;
+
+		if (position.y + slime_high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + slime_width) >(c2->rect.x))// over a floor collision  
+		{
+			position.y = c2->rect.y - slime_high;
+		}
+	}
+
 	if (collider == c1 && c2->type == COLLIDER_PLAYER_SHOT)
 	{
 		collider->to_delete = true;
@@ -133,8 +210,59 @@ void Enemy_Slime::OnCollision(Collider* c1, Collider* c2)
 
 void Enemy_Slime::Pathfinding(float dt)
 {
+	BROFILER_CATEGORY("PathfindingSlime", Profiler::Color::HoneyDew)
+
+	p = App->render->ScreenToWorld(x, y);   //Player position
+	p = App->entity->InfoPlayer()->position;
+	p = App->map->WorldToMap(p.x, p.y);
+
+	origin = App->map->WorldToMap(position.x, position.y);	//Slime position
+
+	if (origin != p && App->entity->InfoPlayer()->position.x - 300 < position.x && App->entity->InfoPlayer()->position.x + 300 > position.x && App->entity->InfoPlayer()->position.y - 400 < position.y && App->entity->InfoPlayer()->position.y + 400 > position.y && slime_dead == false)
+	{
+		App->path->CreatePath(origin, p);
+		Follow_path(dt);
+	}
+	else
+	{
+		actualState = ST_SLIME_IDLE;
+	}
 
 
+	//Draw pathfinding
+	if (App->colliders->debug == true) {
+
+		lastpath = App->path->GetLastPath();
+
+		for (uint i = 0; i < lastpath->Count(); ++i)
+		{
+			pos = App->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
+			App->render->Blit(graphics_debug_tex, pos.x, pos.y);
+		}
+	}
+
+}
+
+void Enemy_Slime::Follow_path(float dt)
+{
+	path = App->path->GetLastPath();
+	pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
+
+	if (path->At(1) != NULL)
+	{
+		if (pos.x < position.x)
+		{
+			actualState = ST_SLIME_FOLLOW_Backward;
+		}
+		if (pos.x > position.x)
+		{
+			actualState = ST_SLIME_FOLLOW_Forward;
+		}
+		if (pos.y > position.y)
+		{
+			actualState = ST_SLIME_FOLLOW_Down;
+		}
+	}
 }
 
 bool Enemy_Slime::LoadConfigInfo()
@@ -149,6 +277,9 @@ bool Enemy_Slime::LoadConfigInfo()
 	slime_width = config.child("width").attribute("w").as_int();
 	slime_high = config.child("high").attribute("h").as_int();
 
+	// Gravity
+	gravity = config.child("gravity").attribute("g").as_float();
+
 	// Slime speed
 	speed = config.child("speed").attribute("s").as_float();
 
@@ -157,6 +288,9 @@ bool Enemy_Slime::LoadConfigInfo()
 
 	// Dead delay
 	deadSlimeDelay = config.child("deadDelay").attribute("d").as_int();
+
+	// Pathfinding
+	debug_tex = config.child("Cross").attribute("c").as_string();
 
 	return true;
 }
