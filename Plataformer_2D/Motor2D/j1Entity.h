@@ -35,9 +35,16 @@ public:
 	bool save(pugi::xml_node& data);
 
 public:
+	// Size
+	int width;
+	int high;
+
 	// Position
 	iPoint position;
 	iPoint lasPosition;
+
+	//Fix blit
+	int	fixBlit;
 	
 	// God mode
 	bool godMode = false;
@@ -48,7 +55,6 @@ public:
 	// Colliders
 	Collider* collider = nullptr;
 	bool to_delete;
-	
 };
 
 #endif // __j1Entity_H__

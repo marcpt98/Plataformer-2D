@@ -94,9 +94,11 @@ bool j1Player::Start()
 	App->audio->LoadFx(throwrockFx.GetString());
 	App->audio->LoadFx(ballhitFx.GetString());
 	App->audio->LoadFx(ghostdeadFx.GetString());
+	App->audio->LoadFx(ghostfollowFx.GetString());
+	App->audio->LoadFx(slimedeadFx.GetString());
 
 	// Add player collider
-	collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
+	collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
 
 	return true;
 }
@@ -108,6 +110,9 @@ bool j1Player::CleanUp()
 	App->audio->UnloadFx(throwrockFx.GetString());
 	App->audio->UnloadFx(ballhitFx.GetString());
 	App->audio->UnloadFx(ghostdeadFx.GetString());
+	App->audio->UnloadFx(ghostfollowFx.GetString());
+	App->audio->UnloadFx(slimedeadFx.GetString());
+
 	return true;
 }
 
@@ -173,13 +178,13 @@ void j1Player::CheckInputState(float dt)
 		if (godMode == false)
 		{
 			collider->to_delete = true;
-			collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, NO_COLLIDER, this);
+			collider = App->colliders->AddCollider({ position.x,position.y, width, high }, NO_COLLIDER, this);
 			godMode = true;
 		}
 		else if (godMode == true)
 		{
 			collider->to_delete = true;
-			collider = App->colliders->AddCollider({ position.x,position.y, player_width, player_high }, COLLIDER_PLAYER, this);
+			collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_PLAYER, this);
 			godMode = false;
 		}
 	}
@@ -537,9 +542,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.y = c2->rect.y + c2->rect.h + 1;
 			ground = false;
 		}
-		else if (position.y + player_high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + player_width) >(c2->rect.x))// over a floor collision  
+		else if (position.y + high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + width) >(c2->rect.x))// over a floor collision  
 		{
-			position.y = c2->rect.y - player_high;
+			position.y = c2->rect.y - high;
 		}
 
 
@@ -567,7 +572,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			canJump1 = true;
 			energyfalling = 0;
-			position.y = c2->rect.y - player_high;
+			position.y = c2->rect.y - high;
 			ground = true;
 		}
 		else // under a lowcorner floor collision
@@ -618,7 +623,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (collider == c1 && c2->type == COLLIDER_WALL)
 	{
 		speed = 0;
-		number = ((position.x + player_width) - c2->rect.x);
+		number = ((position.x + width) - c2->rect.x);
 		timegrab2 = SDL_GetTicks();
 		energyfalling = 0;
 		grab_falling = true;
@@ -660,7 +665,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			canJump1 = true;
 			energyfalling = 0;
-			position.y = c2->rect.y-player_high;
+			position.y = c2->rect.y-high;
 			ground = true;
 		}
 		else // under a lowcorner floor collision
@@ -685,17 +690,21 @@ bool j1Player::LoadConfigInfo()
 	config = config.child("player");
 
 	// Player width and high
-	player_width = config.child("width").attribute("w").as_int();
-	player_high = config.child("high").attribute("h").as_int();
+	width = config.child("width").attribute("w").as_int();
+	high = config.child("high").attribute("h").as_int();
 
-	// Play Fx
+	// Player Fx
 	jumpFx = config.child("fx_name").attribute("jump").as_string("");
 	deadFx = config.child("fx_name2").attribute("dead").as_string("");
 	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
 	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
 
-	// Ghost dead FX
+	// Ghost FX
 	ghostdeadFx = config.child("fx_name5").attribute("ghost_dead").as_string("");
+	ghostfollowFx = config.child("fx_name6").attribute("ghost_follow").as_string("");
+
+	// Slime FX
+	slimedeadFx = config.child("fx_name7").attribute("slime_dead").as_string("");
 
 	// Player speed
 	speed = config.child("speed").attribute("s").as_float();

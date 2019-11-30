@@ -54,11 +54,7 @@ public:
 	void Pathfinding(float dt);
 	void Follow_path(float dt);
 
-public:
-	// Size
-	int slime_width;
-	int slime_high;
-	
+public:	
 	// Gravity
 	float gravity;
 	float gGravity;
@@ -70,10 +66,6 @@ public:
 	Animation follow;
 	Animation dead;
 	bool slime_dead = false;
-
-	// Blit
-	bool blit = false;
-	int fixBlit;
 
 	// Speed
 	float speed;

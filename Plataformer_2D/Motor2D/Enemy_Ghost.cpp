@@ -59,7 +59,7 @@ Enemy_Ghost::~Enemy_Ghost()
 bool Enemy_Ghost::Start()
 {
 	// Add ghost collider
-	collider = App->colliders->AddCollider({ position.x,position.y, ghost_width, ghost_high }, COLLIDER_ENEMY, this);
+	collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_ENEMY, this);
 	graphics_debug_tex = App->tex->Load(debug_tex.GetString());
 
 	return true;
@@ -239,12 +239,18 @@ void Enemy_Ghost::Pathfinding(float dt)
 
 	if (origin != p && App->entity->InfoPlayer()->position.x - 300 < position.x && App->entity->InfoPlayer()->position.x + 300 > position.x && App->entity->InfoPlayer()->position.y - 400 < position.y && App->entity->InfoPlayer()->position.y + 400 > position.y && ghost_dead == false)
 	{
+		if (ghost_playFx == false)
+		{
+			App->audio->PlayFx(6, 0);
+			ghost_playFx = true;
+		}
 		App->path->CreatePath(origin, p);
 		Follow_path(dt);
 	}
 	else 
 	{
 		actualState = ST_GHOST_IDLE;
+		ghost_playFx = false;
 	}
 		
 
@@ -296,8 +302,8 @@ bool Enemy_Ghost::LoadConfigInfo()
 	config = config.child("ghost");
 
 	// Ghost width and high
-	ghost_width = config.child("width").attribute("w").as_int();
-	ghost_high = config.child("high").attribute("h").as_int();
+	width = config.child("width").attribute("w").as_int();
+	high = config.child("high").attribute("h").as_int();
 	
 	// Ghost speed
 	speedx = config.child("speedx").attribute("s").as_float();
@@ -311,6 +317,9 @@ bool Enemy_Ghost::LoadConfigInfo()
 
 	// Pathfinding
 	debug_tex = config.child("Cross").attribute("c").as_string();
+	
+	// Ghost move idle
+	wave = config.child("Wave").attribute("w").as_float();
 
 	return true;
 }

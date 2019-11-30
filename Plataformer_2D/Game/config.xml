@@ -53,6 +53,8 @@
     <fx_name3 throwrock="audio/fx/fx_trhowrock.wav"/>
     <fx_name4 ballhit="audio/fx/fx_ballhit.wav"/>
     <fx_name5 ghost_dead="audio/fx/fx_phantomdead.wav"/>
+    <fx_name6 ghost_follow="audio/fx/fx_phantomfollow.wav"/>
+    <fx_name7 slime_dead="audio/fx/fx_slimedead.wav"/>
     <position x="200" y="0"/>
     <iPosition x="200" y="0"/>
     <width w="40"/>
@@ -85,6 +87,7 @@
     <fixBlit fix="40"/>
     <deadDelay d="800"/>
     <Cross c="maps/Cross.png"/>
+    <Wave w="-0.7"/>
   </ghost>
   
   <slime>

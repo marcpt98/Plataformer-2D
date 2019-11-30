@@ -54,7 +54,7 @@ Enemy_Slime::~Enemy_Slime()
 bool Enemy_Slime::Start()
 {
 	// Add slime collider
-	collider = App->colliders->AddCollider({ position.x,position.y, slime_width, slime_high }, COLLIDER_ENEMY, this);
+	collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_ENEMY, this);
 	graphics_debug_tex = App->tex->Load(debug_tex.GetString());
 
 	return true;
@@ -191,9 +191,9 @@ void Enemy_Slime::OnCollision(Collider* c1, Collider* c2)
 	{
 		gravity = 0;
 
-		if (position.y + slime_high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + slime_width) >(c2->rect.x))// over a floor collision  
+		if (position.y + high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + width) >(c2->rect.x))// over a floor collision  
 		{
-			position.y = c2->rect.y - slime_high;
+			position.y = c2->rect.y - high;
 		}
 	}
 
@@ -204,7 +204,7 @@ void Enemy_Slime::OnCollision(Collider* c1, Collider* c2)
 		if (count_slime_dead == false)
 		{
 			dead_slime_animation_finish = SDL_GetTicks();
-			App->audio->PlayFx(5, 0);
+			App->audio->PlayFx(7, 0);
 			slime_dead = true;
 			count_slime_dead = true;
 		}
@@ -278,8 +278,8 @@ bool Enemy_Slime::LoadConfigInfo()
 	config = config.child("slime");
 
 	// Slime width and high
-	slime_width = config.child("width").attribute("w").as_int();
-	slime_high = config.child("high").attribute("h").as_int();
+	width = config.child("width").attribute("w").as_int();
+	high = config.child("high").attribute("h").as_int();
 
 	// Gravity
 	gravity = config.child("gravity").attribute("g").as_float();

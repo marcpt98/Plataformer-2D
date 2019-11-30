@@ -51,10 +51,6 @@ public:
 
 public:
 	iPoint iPosition;
-
-	// Size
-	int player_width;
-	int player_high;
 	
 	// Animations
 	Animation* current_animation = nullptr;
@@ -73,6 +69,12 @@ public:
 	p2SString throwrockFx;
 	p2SString ballhitFx;
 	p2SString ghostdeadFx;
+	p2SString ghostfollowFx;
+	//p2SString ghostkillFx;
+	p2SString slimedeadFx;
+	//p2SString slimefollowFx;
+	//p2SString slimekillFx;
+
 
 	// Gravity
 	float gravity;
@@ -111,9 +113,6 @@ public:
 	void CheckInputState(float dt);
 	void CheckAnimation(float dt);
 	states	actualState;
-	
-	// Player blit
-	int		fixBlit;
 
 	// God mode
 	bool godMode = false;

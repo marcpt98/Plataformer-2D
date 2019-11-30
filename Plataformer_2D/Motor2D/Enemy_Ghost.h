@@ -56,9 +56,8 @@ public:
 	void Follow_path(float dt);
 
 public:
-	// Size
-	int ghost_width;
-	int ghost_high;
+	// Ghost Fx
+	bool ghost_playFx = false;
 
 	// Animations
 	states_ghost	actualState;
@@ -67,10 +66,6 @@ public:
 	Animation follow;
 	Animation dead;
 	bool ghost_dead = false;
-
-	// Blit
-	bool blit = false;
-	int fixBlit;
 
 	// Speed
 	float speedx;
@@ -93,7 +88,7 @@ public:
 	const p2DynArray<iPoint>* path;
 	
 	//Ghost idle
-	float wave = -0.7f;
+	float wave;
 	bool going_up = true;
 	int start = 0;
 };
