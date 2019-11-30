@@ -4,10 +4,11 @@
   <image source="Background_level_1.png" width="736" height="1450"/>
  </tileset>
  <tileset firstgid="1036" name="red_square" tilewidth="32" tileheight="32" tilecount="1" columns="1">
-  <image source="../../../../../../Desktop/TODO desenvolupamen/red_square.png" width="32" height="32"/>
+  <image source="red_square.png" width="32" height="32"/>
  </tileset>
  <layer name="m2_Background" width="200" height="100">
   <properties>
+   <property name="Nodraw" type="float" value="0"/>
    <property name="parallax" type="float" value="0.5"/>
   </properties>
   <data>
@@ -20015,6 +20016,7 @@
  </layer>
  <layer name="m2_Background_2" width="200" height="100">
   <properties>
+   <property name="Nodraw" type="float" value="0"/>
    <property name="parallax" type="float" value="0.8"/>
   </properties>
   <data>
@@ -40022,7 +40024,8 @@
  </layer>
  <layer name="m2_decoration" width="200" height="100">
   <properties>
-   <property name="parallax" type="int" value="1"/>
+   <property name="Nodraw" type="float" value="0"/>
+   <property name="parallax" type="float" value="1"/>
   </properties>
   <data>
    <tile gid="0"/>
@@ -60029,6 +60032,7 @@
  </layer>
  <layer name="m2_plataforms" width="200" height="100">
   <properties>
+   <property name="Nodraw" type="float" value="0"/>
    <property name="parallax" type="float" value="1"/>
   </properties>
   <data>
@@ -80204,9 +80208,10 @@
   <object id="268" name="LowCorner" x="4927.19" y="220.7" width="22.7045" height="13.3409"/>
   <object id="269" name="LowCorner" x="5567.83" y="673.83" width="23.5227" height="18.5227"/>
  </objectgroup>
- <layer name="Nowalkable" width="200" height="100" visible="0">
+ <layer name="Nowalkable" width="200" height="100">
   <properties>
-   <property name="Walkable" type="bool" value="false"/>
+   <property name="Navigation" type="int" value="1"/>
+   <property name="Nodraw" type="float" value="1"/>
   </properties>
   <data>
    <tile gid="0"/>

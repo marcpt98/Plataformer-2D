@@ -43,13 +43,10 @@ bool j1PathFinding::CheckBoundaries(const iPoint& pos) const
 }
 
 // Utility: returns true is the tile is walkable
-bool j1PathFinding::IsWalkable(const iPoint& pos, bool canFly) const
+bool j1PathFinding::IsWalkable(const iPoint& pos) const
 {
 	uchar t = GetTileAt(pos);
-	if (canFly)
-		return t != INVALID_WALK_CODE && t > 0;
-	else
-		return t != INVALID_WALK_CODE && t == 2;
+	return t != INVALID_WALK_CODE && t > 0;
 }
 
 // Utility: return the walkability value of a tile
@@ -118,30 +115,30 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& list_to_fill, PathNode* parent, bool canFly) const
+uint PathNode::FindWalkableAdjacents(PathList& list_to_fill)
 {
 	iPoint cell;
 	uint before = list_to_fill.list.count();
 
 	// north
 	cell.create(pos.x, pos.y + 1);
-	if (App->path->IsWalkable(cell, canFly))
-		list_to_fill.list.add(PathNode(-1, -1, cell, parent));
+	if (App->path->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// south
 	cell.create(pos.x, pos.y - 1);
-	if (App->path->IsWalkable(cell, canFly))
-		list_to_fill.list.add(PathNode(-1, -1, cell, parent));
+	if (App->path->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// east
 	cell.create(pos.x + 1, pos.y);
-	if (App->path->IsWalkable(cell, canFly))
-		list_to_fill.list.add(PathNode(-1, -1, cell, parent));
+	if (App->path->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x - 1, pos.y);
-	if (App->path->IsWalkable(cell, canFly))
-		list_to_fill.list.add(PathNode(-1, -1, cell, parent));
+	if (App->path->IsWalkable(cell))
+		list_to_fill.list.add(PathNode(-1, -1, cell, this));
 
 	return list_to_fill.list.count();
 }
@@ -160,7 +157,7 @@ int PathNode::Score() const
 int PathNode::CalculateF(const iPoint& destination)
 {
 	g = parent->g + 1;
-	h = pos.DistanceNoSqrt(destination);
+	h = pos.DistanceTo(destination);
 
 	return g + h;
 }
@@ -168,108 +165,78 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, const bool canFly)
+int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
-	last_path.Clear();
-	int ret = -1;
-	if (IsWalkable(origin, canFly) && IsWalkable(destination, true))
+	// TODO 1: if origin or destination are not walkable, return -1
+	if (IsWalkable(origin) == false || IsWalkable(destination) == false) 
 	{
-		PathList open;
-		PathList closed;
+		return -1;
+	}
+	// TODO 2: Create two lists: open, close
 
-		PathNode originNode(0, origin.DistanceNoSqrt(destination), origin, nullptr);
+	last_path.Clear();
 
-		open.list.add(originNode);
+	PathList open; PathList closed;
+	// Add the origin tile to open
+	open.list.add(PathNode(0, origin.DistanceTo(destination), origin, NULL));
+	// Iterate while we have tile in the open list
 
-		while (open.list.start != nullptr)
+	PathNode* current_node;
+
+	while (open.GetNodeLowestScore() != NULL)
+	{
+		current_node = new PathNode(open.GetNodeLowestScore()->data);
+		// TODO 3: Move the lowest score cell from open list to the closed list
+		closed.list.add(*current_node);
+		open.list.del(open.Find(current_node->pos));
+		// TODO 4: If we just added the destination, we are done!
+		// Backtrack to create the final path
+		// Use the Pathnode::parent and Flip() the path when you are finish... ¿ed?
+		if (current_node->pos == destination) 
 		{
-			ret++;
-			p2List_item<PathNode> lowestScoreNode = *open.GetNodeLowestScore();
 
-			closed.list.add(lowestScoreNode.data);
-			open.list.del(open.GetNodeLowestScore());
+			PathNode* iterator = current_node;
 
-			if (lowestScoreNode.data.pos == destination && canFly)
+			for (iterator; iterator->pos != origin; iterator = iterator->parent) 
 			{
-				PathNode current;
-				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
-					last_path.PushBack(current.pos);
-
-				last_path.Flip();
-				break;
+				last_path.PushBack(iterator->pos);
 			}
-			else if (lowestScoreNode.data.pos.x == destination.x && !canFly)
+			last_path.PushBack(origin);
+
+			last_path.Flip();
+			return 0;
+
+		}
+
+		// TODO 5: Fill a list of all adjancent nodes
+		PathList Adjacent_list;
+		uint limit = current_node->FindWalkableAdjacents(Adjacent_list);
+		// TODO 6: Iterate adjancent nodes:
+		for (uint i = 0; i < limit; i++) {
+			// ignore nodes in the closed list <======> do things only if we didnt find them
+			if ((closed.Find(Adjacent_list.list[i].pos)) == NULL) 
 			{
-				PathNode current;
-				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
-					last_path.PushBack(current.pos);
-
-				//last_path.PushBack(current.pos);
-				last_path.Flip();
-				break;
-			}
-
-			PathList neighbors;
-			lowestScoreNode.data.FindWalkableAdjacents(neighbors, &closed.Find(lowestScoreNode.data.pos)->data, canFly);
-
-			for (p2List_item<PathNode>* current = neighbors.list.start; current; current = current->next)
-			{
-				if (closed.Find(current->data.pos) == NULL)
+				// If it is NOT found, calculate its F and add it to the open list
+				if ((open.Find(Adjacent_list.list[i].pos)) == NULL) 
 				{
-					current->data.CalculateF(destination);
-					if (open.Find(current->data.pos) == NULL)
+					Adjacent_list.list[i].CalculateF(destination);
+					open.list.add(Adjacent_list.list[i]);
+				}
+				else { // If it is already in the open list, check if it is a better path (compare G)
+					if (Adjacent_list.list[i].g < open.Find(Adjacent_list.list[i].pos)->data.g) 
 					{
-						open.list.add(current->data);
-					}
-					else
-					{
-						if (open.Find(current->data.pos)->data.Score() > current->data.Score())
-						{
-							//closed.list.del(open.Find(current->data.pos));
-							open.list.del(open.Find(current->data.pos));
-							open.list.add(current->data);
-						}
+						// If it is a better path, Update the parent
+						//open.Find(Adjacent_list.list[i].pos)->data.parent = Adjacent_list.list[i].parent;
+						Adjacent_list.list[i].CalculateF(destination);
+						open.list.del(open.Find(Adjacent_list.list[i].pos));
+						open.list.add(Adjacent_list.list[i]);
+
 					}
 				}
 			}
-			if (neighbors.list.start == neighbors.list.end)
-			{
-				ret = -1;
-				break;
-			}
 		}
+
+
 	}
-	else if (!IsWalkable(origin, canFly))
-	{
-		PathList neighbors;
-		PathNode originNode(0, origin.DistanceNoSqrt(destination), origin, nullptr);
 
-		originNode.FindWalkableAdjacents(neighbors, &originNode, canFly);
-
-		if (neighbors.list.start)
-		{
-			last_path.PushBack(neighbors.list.start->data.pos);
-			ret++;
-		}
-	}
-	// TODO 2: Create two lists: open, close
-	// Add the origin tile to open
-	// Iterate while we have tile in the open list
-
-	// TODO 3: Move the lowest score cell from open list to the closed list
-
-	// TODO 4: If we just added the destination, we are done!
-	// Backtrack to create the final path
-	// Use the Pathnode::parent and Flip() the path when you are finish
-
-	// TODO 5: Fill a list of all adjancent nodes
-
-	// TODO 6: Iterate adjancent nodes:
-	// ignore nodes in the closed list
-	// If it is NOT found, calculate its F and add it to the open list
-	// If it is already in the open list, check if it is a better path (compare G)
-	// If it is a better path, Update the parent
-
-	return ret;
 }
-

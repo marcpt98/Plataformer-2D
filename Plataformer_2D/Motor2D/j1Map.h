@@ -6,6 +6,33 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		float value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	float Get(const char* name, int default_value = 0) const;
+	int iGet(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
 
 // ----------------------------------------------------
 struct MapLayer
@@ -14,7 +41,8 @@ struct MapLayer
 	int			width = 0;
 	int			height = 0;
 	float		speed = 0;
-	uint*		data=nullptr;
+	uint*		data = nullptr;
+	Properties	properties;
 
 	MapLayer() : data(NULL)
 	{}
@@ -48,7 +76,7 @@ struct TileSet
 	int					num_tiles_height = 0;
 	int					offset_x = 0;
 	int					offset_y = 0;
-	uint* data=nullptr;
+	uint*				data = nullptr;
 
 	TileSet(): data(NULL)
 	{}
@@ -95,7 +123,7 @@ struct MapData
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
 	p2List<ObjectGroup*> objectgroups;
-	uint* data = nullptr;
+	uint*				data = nullptr;
 
 	MapData() : data(NULL)
 	{}
@@ -134,6 +162,7 @@ public:
 	// Coordinate translation methods
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 private:
 
@@ -142,6 +171,10 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObjectGroup(pugi::xml_node& node, ObjectGroup* objectgroup);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+	TileSet* GetTilesetFromTileId(int id) const;
+
 public:
 
 	MapData data;
@@ -151,7 +184,7 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded = false;
-	float				parallax = 0;
+	float				parallax;
 };
 
 #endif // __j1MAP_H__

@@ -59,6 +59,10 @@ public:
 	p2SString* map_2 = nullptr;
 	p2SString* music_1 = nullptr;
 	p2SString* music_2 = nullptr;
+
+private:
+	// Pathfinding
+	SDL_Texture* debug_tex;
 };
 
 #endif // __j1SCENE_H__
