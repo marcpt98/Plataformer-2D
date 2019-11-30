@@ -61,6 +61,7 @@ public:
 	
 	// Gravity
 	float gravity;
+	float gGravity;
 
 	// Animations
 	states_slime actualState;

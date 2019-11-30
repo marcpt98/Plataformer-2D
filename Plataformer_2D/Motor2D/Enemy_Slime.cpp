@@ -42,9 +42,9 @@ Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
 	// Slime dead
 	dead.PushBack({ 0,76,56,26 }, 0.15, 0, 0);
 	dead.PushBack({ 60,76,56,28 }, 0.15, 0, -1);
-	dead.PushBack({ 120,76,56,32 }, 0.15, 0, 0);
+	dead.PushBack({ 120,76,56,32 }, 0.15, 0, -5);
 	dead.PushBack({ 180,76,60,18 }, 0.15, 0, 10);
-	dead.PushBack({ 244,76,62,4 }, 0.15, 0, 20);
+	dead.PushBack({ 244,76,62,4 }, 0.15, 0, 21);
 	dead.loop = false;
 }
 
@@ -73,13 +73,17 @@ bool Enemy_Slime::Update(float dt)
 	lasPosition.x = position.x;
 
 	// Gravity
-	position.y += (int)(gravity * dt * VELOCITY);
+	if (slime_dead == false)
+	{
+		position.y += (int)(gravity * dt * VELOCITY);
+	}
 
-	// Ghost colliders
+		CheckAnimation(dt);
+		Pathfinding(dt);
+	
+
+	// Slime colliders
 	collider->SetPos(position.x, position.y);
-
-	CheckAnimation(dt);
-	Pathfinding(dt);
 
 	// Print slime
 	if (blit == false)
@@ -90,7 +94,7 @@ bool Enemy_Slime::Update(float dt)
 	{
 		App->render->BlitWithScale(App->entity->slime_graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), -1, 1.0f, 1, TOP_RIGHT);
 	}
-
+	gravity = gGravity;
 	return true;
 }
 
@@ -149,7 +153,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 	if (actualState == ST_SLIME_FOLLOW_Forward)
 	{
 		current_animation = &idle;
-		position.x += (speed * VELOCITY * dt);
+		position.x += (2 * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
 			blit = false;
@@ -160,7 +164,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 		}
 	}
 
-	if (actualState == ST_SLIME_IDLE)
+	if (actualState == ST_SLIME_IDLE && slime_dead == false)
 	{
 		start += 1;
 
@@ -279,6 +283,9 @@ bool Enemy_Slime::LoadConfigInfo()
 
 	// Gravity
 	gravity = config.child("gravity").attribute("g").as_float();
+
+	// Ggravity
+	gGravity = config.child("gGravity").attribute("g").as_float();
 
 	// Slime speed
 	speed = config.child("speed").attribute("s").as_float();

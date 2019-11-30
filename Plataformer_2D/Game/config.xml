@@ -89,12 +89,13 @@
   
   <slime>
     <width w="40"/>
-    <high h="20"/>
+    <high h="24"/>
     <gravity g="1"/>
     <speed s="1"/>
     <fixBlit fix="40"/>
     <deadDelay d="800"/>
     <Cross c="maps/Cross.png"/>
+    <gGravity g="4"/>
   </slime>
   
   <enemy>

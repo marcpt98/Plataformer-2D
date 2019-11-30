@@ -216,7 +216,7 @@ bool j1Scene::createEntities()
 		//App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 800, 450);
 
 		//Slime
-		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 300);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 1050, 550);
 		//App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 450);
 	}
 	if (App->scene->currentMap == 1)
@@ -238,7 +238,6 @@ bool j1Scene::createEntities()
 // Load Game State
 bool j1Scene::load(pugi::xml_node& savegame)
 {
-	// WE'LL PUT THIS ON CHANGEMAPMUSIC AND IT'LL NOT BE HARDCODED :)
 	// Loading SECOND map from FIRST map
 	if (currentMap == 0 && savegame.child("map").attribute("actual").as_int() != 0)
 	{
