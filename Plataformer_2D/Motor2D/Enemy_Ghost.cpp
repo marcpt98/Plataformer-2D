@@ -40,8 +40,8 @@ Enemy_Ghost::Enemy_Ghost(int posx, int posy) : j1Entity(entityType::FLYING_ENEMY
 	// Ghost follow
 	//follow.PushBack({ 0, 0, 48, 84 }, 0.1, 0, 0);
 	//follow.PushBack({ 50, 0, 62, 84 }, 0.1, 0, 0);
-	follow.PushBack({ 114, 0, 92, 84 }, 0.1, 0, 0);
-	follow.PushBack({ 208, 0, 88, 86 }, 0.1, 0, 0);
+	follow.PushBack({ 114, 0, 92, 84 }, 0.1, -30, 0);
+	follow.PushBack({ 208, 0, 88, 86 }, 0.1, -30, 0);
 	
 	// Ghost dead
 	dead.PushBack({ 50, 92, 60, 60 }, 0.1, 0, 0);
@@ -60,7 +60,7 @@ bool Enemy_Ghost::Start()
 {
 	// Add ghost collider
 	collider = App->colliders->AddCollider({ position.x,position.y, ghost_width, ghost_high }, COLLIDER_ENEMY, this);
-	debug_tex = App->tex->Load("maps/Cross.png");
+	graphics_debug_tex = App->tex->Load(debug_tex.GetString());
 	return true;
 }
 
@@ -122,28 +122,60 @@ void Enemy_Ghost::CheckAnimation(float dt)
 	if (actualState == ST_GHOST_FOLLOW_Down) 
 	{
 		current_animation = &follow;
-		position.y +=  (3 *60*dt);
+		position.y += (3 * 60 * dt);
+		if (App->entity->InfoPlayer()->position.x < position.x)
+		{
+			blit = false;
+		}
+		else
+		{
+			blit = true;
+		}
 	}
 	if (actualState == ST_GHOST_FOLLOW_Up)
 	{
 		current_animation = &follow;
 		position.y -= (3 * 60 * dt);
+		if (App->entity->InfoPlayer()->position.x < position.x)
+		{
+			blit = false;
+		}
+		else
+		{
+			blit = true;
+		}
 	}
 	if (actualState == ST_GHOST_FOLLOW_Backward)
 	{
 		current_animation = &follow;
 		position.x -= (3 * 60 * dt);
+		if (App->entity->InfoPlayer()->position.x < position.x)
+		{
+			blit = false;
+		}
+		else
+		{
+			blit = true;
+		}
 	}
 	if (actualState == ST_GHOST_FOLLOW_Forward)
 	{
 		current_animation = &follow;
 		position.x += (3 * 60 * dt);
+		if (App->entity->InfoPlayer()->position.x < position.x)
+		{
+			blit = false;
+		}
+		else
+		{
+			blit = true;
+		}
 	}
 
 	if (actualState == ST_GHOST_IDLE)
 	{
-		LOG("%i", start);
 		start +=1;
+		
 		if (going_up)
 		{
 			if (wave > 1.0f)
@@ -160,18 +192,22 @@ void Enemy_Ghost::CheckAnimation(float dt)
 		}
 
 		position.y += int(3.0f * sinf(wave));
-		if (start < 100) {
+
+		if (start < 100) 
+		{
+			blit = false;
 			position.x -= 1;
 		}
-		else {
+		else 
+		{
+			blit = true;
 			position.x += 1;
-			if (start > 200) {
+			if (start > 200) 
+			{
 				start = 0;
 			}
 		}
-		
 	}
-
 }
 
 void Enemy_Ghost::OnCollision(Collider* c1, Collider* c2)
@@ -187,7 +223,6 @@ void Enemy_Ghost::OnCollision(Collider* c1, Collider* c2)
 			ghost_dead = true;
 			count_ghost_dead = true;
 		}
-		
 	}
 }
 
@@ -195,14 +230,13 @@ void Enemy_Ghost::Pathfinding(float dt)
 {
 	BROFILER_CATEGORY("PathfindingGhost", Profiler::Color::BlanchedAlmond)
 	
-	iPoint p = App->render->ScreenToWorld(x, y);   //Player position
+	p = App->render->ScreenToWorld(x, y);   //Player position
 	p = App->entity->InfoPlayer()->position;
 	p = App->map->WorldToMap(p.x, p.y);
 
-	iPoint origin;
-	origin= App->map->WorldToMap(position.x, position.y);//Ghost position
+	origin = App->map->WorldToMap(position.x, position.y);	//Ghost position
 
-	if (origin != p && App->entity->InfoPlayer()->position.x-200 < position.x && App->entity->InfoPlayer()->position.x + 200 > position.x && ghost_dead ==false)
+	if (origin != p && App->entity->InfoPlayer()->position.x - 200 < position.x && App->entity->InfoPlayer()->position.x + 200 > position.x && ghost_dead == false)
 	{
 		App->path->CreatePath(origin, p);
 		Follow_path(dt);
@@ -214,34 +248,39 @@ void Enemy_Ghost::Pathfinding(float dt)
 		
 
 	//Draw pathfinding
-	if (App->colliders->debug==true) {
+	if (App->colliders->debug == true) {
 
-		const p2DynArray<iPoint>* lastpath = App->path->GetLastPath();
+		lastpath = App->path->GetLastPath();
+
 		for (uint i = 0; i < lastpath->Count(); ++i)
 		{
-			iPoint pos = App->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
-			App->render->Blit(debug_tex, pos.x, pos.y);
+			pos = App->map->MapToWorld(lastpath->At(i)->x, lastpath->At(i)->y);
+			App->render->Blit(graphics_debug_tex, pos.x, pos.y);
 		}
 	}
 }
 
 void Enemy_Ghost::Follow_path(float dt)
 {
-	const p2DynArray<iPoint>* path = App->path->GetLastPath();
-	iPoint pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
+	path = App->path->GetLastPath();
+	pos = App->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
 	if (path->At(1) != NULL)
 	{
-		if (pos.x < position.x) {
+		if (pos.x < position.x) 
+		{
 			actualState = ST_GHOST_FOLLOW_Backward;
 		}
-		if (pos.x > position.x) {
+		if (pos.x > position.x) 
+		{
 			actualState = ST_GHOST_FOLLOW_Forward;
 		}
-		if (pos.y > position.y) {
+		if (pos.y > position.y) 
+		{
 			actualState = ST_GHOST_FOLLOW_Down;
 		}
-		if (pos.y < position.y) {
+		if (pos.y < position.y) 
+		{
 			actualState = ST_GHOST_FOLLOW_Up;
 		}
 	}
@@ -267,6 +306,9 @@ bool Enemy_Ghost::LoadConfigInfo()
 
 	// Dead delay
 	deadGhostDelay = config.child("deadDelay").attribute("d").as_int();
+
+	// Pathfinding
+	debug_tex = config.child("Cross").attribute("c").as_string();
 
 	return true;
 }

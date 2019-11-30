@@ -80,8 +80,15 @@ public:
 	int deadGhostDelay;
 	
 	//Pathfinding
-	SDL_Texture* debug_tex;
-	int x = 0, y = 0;
+	p2SString debug_tex;
+	SDL_Texture* graphics_debug_tex;
+	int x;
+	int y;
+	iPoint p;
+	iPoint origin;
+	iPoint pos;
+	const p2DynArray<iPoint>* lastpath;
+	const p2DynArray<iPoint>* path;
 	
 	//Ghost idle
 	float wave = -0.7f;

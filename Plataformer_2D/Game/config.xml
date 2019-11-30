@@ -79,10 +79,11 @@
   
   <ghost>
     <width w="40"/>
-    <high h="53"/>
+    <high h="70"/>
     <speed s="1"/>
     <fixBlit fix="40"/>
     <deadDelay d="800"/>
+    <Cross c="maps/Cross.png"/>
   </ghost>
   
   <slime>
