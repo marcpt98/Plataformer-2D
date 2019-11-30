@@ -82,6 +82,7 @@ bool j1Scene::PreUpdate()
 {
 	BROFILER_CATEGORY("PreupdateScene", Profiler::Color::Indigo)
 
+	/*
 	// debug pathfing ------------------
 	static iPoint origin;
 	static bool origin_selected = false;
@@ -104,7 +105,7 @@ bool j1Scene::PreUpdate()
 			origin_selected = true;
 		}
 	}
-
+	*/
 	return true;
 }
 
@@ -193,7 +194,8 @@ bool j1Scene::Update(float dt)
 	App->win->SetTitle(title.GetString());
 
 	App->win->SetTitle(title.GetString());
-
+	
+	/*
 	// Debug pathfinding ------------------------------
 	//int x, y;
 	App->input->GetMousePosition(x, y);
@@ -209,7 +211,7 @@ bool j1Scene::Update(float dt)
 	{
 		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
 		App->render->Blit(debug_tex, pos.x, pos.y);
-	}
+	}*/
 
 	return true;
 }
@@ -252,8 +254,8 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
 
 		// Ghost
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 300);
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 500, 450);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 800, 300);
+		//App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 800, 450);
 
 		//Slime
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 300);
@@ -266,7 +268,7 @@ bool j1Scene::createEntities()
 
 		// Ghost
 		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 300);
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 450);
+		//App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 450);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 300);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 450);
 

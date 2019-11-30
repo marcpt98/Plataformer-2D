@@ -13,7 +13,10 @@ struct Collider;
 enum states_ghost
 {
 	ST_GHOST_IDLE,
-	ST_GHOST_FOLLOW,
+	ST_GHOST_FOLLOW_Forward,
+	ST_GHOST_FOLLOW_Backward,
+	ST_GHOST_FOLLOW_Down,
+	ST_GHOST_FOLLOW_Up,
 	ST_GHOST_DEAD
 };
 
@@ -49,6 +52,8 @@ public:
 	// Pathfinding
 	void Pathfinding(float dt);
 
+	void Follow_path(float dt);
+
 public:
 	// Size
 	int ghost_width;
@@ -73,7 +78,10 @@ public:
 	bool count_ghost_dead = false;
 	int dead_ghost_animation_finish;
 	int deadGhostDelay;
-
+	
+	//Pathfinding
+	SDL_Texture* debug_tex;
+	int x = 0, y = 0;
 };
 
 #endif // __ENEMY_GHOST_H__

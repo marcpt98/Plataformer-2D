@@ -48,6 +48,7 @@ public:
 	// Colliders
 	Collider* collider = nullptr;
 	bool to_delete;
+	
 };
 
 #endif // __j1Entity_H__

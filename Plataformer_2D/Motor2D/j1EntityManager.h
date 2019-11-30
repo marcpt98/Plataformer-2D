@@ -52,6 +52,7 @@ public:
 	// Delete an entity
 	bool DeleteEntity(j1Entity* entity);
 
+	j1Entity* InfoPlayer();
 public:
 	// Load entities textures
 	p2SString player;

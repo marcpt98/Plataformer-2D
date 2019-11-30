@@ -605,9 +605,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			App->audio->PlayFx(2, 0);
 			dead_monster_animation = true;
 			count_monster_dead = true;
-		}
 
+		}
+		to_delete = true;
 	}
+	else {
+		to_delete = false;
+	}
+	
 
 
 	if (collider == c1 && c2->type == COLLIDER_WALL)

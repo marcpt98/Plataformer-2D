@@ -150,3 +150,15 @@ bool j1EntityManager::DeleteEntity(j1Entity* entity)
 
 	return true;
 }
+
+j1Entity* j1EntityManager::InfoPlayer() {
+
+	p2List_item<j1Entity*>* entities_list = entities.start;
+	while (entities_list) {
+		if (entities_list->data->name == "player") {
+			return entities_list->data;
+		}
+		entities_list = entities_list->next;
+	}
+	return NULL;
+}
