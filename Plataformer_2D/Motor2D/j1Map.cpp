@@ -12,6 +12,7 @@
 #include "j1Audio.h"
 #include "j1FadeToBlack.h"
 #include "j1EntityManager.h"
+#include "j1PathFinding.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -255,6 +256,12 @@ bool j1Map::ChangeMapMusic(p2SString* map, p2SString* music)
 	App->audio->PlayMusic(music->GetString());
 	Load(map->GetString());
 
+	int w, h;
+	uchar* data = NULL;
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->path->SetMap(w, h, data);
+
+	RELEASE_ARRAY(data);
 	return true;
 }
 

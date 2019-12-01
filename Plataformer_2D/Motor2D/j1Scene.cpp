@@ -68,8 +68,6 @@ bool j1Scene::Start()
 		RELEASE_ARRAY(data);
 	}
 
-	debug_tex = App->tex->Load("maps/Cross.png");
-
 	// Player
 	currentMap = 0;
 	createEntities();
@@ -212,12 +210,15 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
 
 		// Ghost
-		//App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 800, 300);
-		//App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 800, 450);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 1850, 100);
 
 		//Slime
-		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 1050, 550);
-		//App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 450);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 1050, 550); 
+		//App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 2950, 550);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 3050, 100);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 6000, 600);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 5900, 600);
+		
 	}
 	if (App->scene->currentMap == 1)
 	{
@@ -225,11 +226,13 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::PLAYER, 300, 0);
 
 		// Ghost
-		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 300);
-		//App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 400, 450);
-		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 300);
-		//App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 400, 450);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 2500, 150);
+		App->entity->CreateEntity(j1Entity::entityType::FLYING_ENEMY, 6000, 200);
 
+		//Slime
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 800, 440);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 3690, 100);
+		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 5390, 600);
 	}
 
 	return true;

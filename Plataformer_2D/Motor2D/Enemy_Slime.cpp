@@ -30,14 +30,14 @@ Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
 	position.y = posy;
 
 	// Slime follow
-	idle.PushBack({ 0, 0, 56, 28 }, 0.1, 0, 0);
-	idle.PushBack({ 60, 0, 56, 28 }, 0.1, 0, 0);
-	idle.PushBack({ 120, 0, 56, 28 }, 0.1, 0, 0);
-	idle.PushBack({ 180, 0, 56, 26 }, 0.1, 0, 0);
-	idle.PushBack({ 240, 0, 52, 24 }, 0.1, 0, 0);
+	idle.PushBack({ 0, 0, 56, 28 }, 0.18, 0, -4);
+	idle.PushBack({ 60, 0, 56, 28 }, 0.18, 0, -4);
+	idle.PushBack({ 120, 0, 56, 28 }, 0.18, 0, -4);
+	idle.PushBack({ 180, 0, 56, 26 }, 0.16, -6, -4);
+	idle.PushBack({ 240, 0, 52, 24 }, 0.1, -8, 0); //OK
 	idle.PushBack({ 296, 0, 52, 24 }, 0.1, 0, 0);
 	idle.PushBack({ 352, 0, 48, 24 }, 0.1, 0, 0);
-	idle.PushBack({ 404, 0, 52, 22 }, 0.1, 0, 0);
+	idle.PushBack({ 404, 0, 52, 22 }, 0.1, 0, 2);
 
 	// Slime dead
 	dead.PushBack({ 0,76,56,26 }, 0.15, 0, 0);
@@ -46,6 +46,13 @@ Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
 	dead.PushBack({ 180,76,60,18 }, 0.15, 0, 10);
 	dead.PushBack({ 244,76,62,4 }, 0.15, 0, 21);
 	dead.loop = false;
+
+	// Slime follow
+
+	follow.PushBack({ 122, 32, 56, 40 }, 0.08, 0, -17);
+	follow.PushBack({ 180, 32, 56, 30 }, 0.08, 0, -6);
+	follow.PushBack({ 238, 32, 56, 24 }, 0.08, 0, 0);
+
 }
 
 Enemy_Slime::~Enemy_Slime()
@@ -111,6 +118,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 	{
 		current_animation = &idle;
 		dead.Reset();
+		
 	}
 	if (slime_dead == true)
 	{
@@ -126,7 +134,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 
 	if (actualState == ST_SLIME_FOLLOW_Down)
 	{
-		current_animation = &idle;
+		current_animation = &follow;
 		position.y += (speed * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
@@ -139,7 +147,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 	}
 	if (actualState == ST_SLIME_FOLLOW_Backward)
 	{
-		current_animation = &idle;
+		current_animation = &follow;
 		position.x -= (speed * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
@@ -152,7 +160,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 	}
 	if (actualState == ST_SLIME_FOLLOW_Forward)
 	{
-		current_animation = &idle;
+		current_animation = &follow;
 		position.x += (2 * VELOCITY * dt);
 		if (App->entity->InfoPlayer()->position.x < position.x)
 		{
@@ -166,6 +174,7 @@ void Enemy_Slime::CheckAnimation(float dt)
 
 	if (actualState == ST_SLIME_IDLE && slime_dead == false)
 	{
+		current_animation = &idle;
 		start += 1;
 
 		if (start < 100)
@@ -209,6 +218,21 @@ void Enemy_Slime::OnCollision(Collider* c1, Collider* c2)
 			count_slime_dead = true;
 		}
 
+	}
+
+	if (collider == c1 && c2->type == COLLIDER_LOW_CORNER)
+	{
+		gravity = 0;
+
+		if (position.y < c2->rect.y)// over a floor collision  
+		{
+			position.y = c2->rect.y - high;
+		}
+
+	}
+	if (collider == c1 && c2->type == COLLIDER_WALL)
+	{
+		position.x = lasPosition.x;
 	}
 }
 

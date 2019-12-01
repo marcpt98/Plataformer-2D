@@ -60038,7 +60038,7 @@
   <object id="8" name="Floor" x="52" y="607" width="953" height="161"/>
   <object id="10" name="Floor" x="1202" y="481" width="100.5" height="285"/>
   <object id="12" name="Floor" x="1303" y="608" width="56.75" height="158"/>
-  <object id="13" name="Floor" x="718.182" y="478" width="286.818" height="136"/>
+  <object id="13" name="Floor" x="721.682" y="478" width="283.318" height="136"/>
   <object id="14" name="Floor" x="1711.73" y="387" width="514.94" height="379"/>
   <object id="17" name="Floor" x="2137" y="256" width="89" height="159"/>
   <object id="19" name="Floor" x="2442.5" y="384" width="41" height="63.75"/>
@@ -60058,7 +60058,7 @@
   <object id="52" name="Dead" x="941.667" y="764.667" width="325" height="14"/>
   <object id="54" name="Dead" x="2938.67" y="769.333" width="3437.09" height="34.6667"/>
   <object id="56" name="Dead" x="2169" y="766" width="553" height="43"/>
-  <object id="58" name="Wall" x="703.971" y="482.014" width="14.029" height="125.486"/>
+  <object id="58" name="Wall" x="703.971" y="482.014" width="17.6654" height="125.486"/>
   <object id="64" name="Wall" x="1004.8" y="497.957" width="19.2108" height="267.15"/>
   <object id="66" name="Wall" x="1184.08" y="498.488" width="19.2108" height="267.15"/>
   <object id="68" name="Wall" x="1291.06" y="486.122" width="19.2108" height="124.786"/>
@@ -60197,7 +60197,7 @@
   <object id="239" name="Floor" x="2441.45" y="421.434" width="43.6818" height="26.8295"/>
   <object id="240" name="Corner" x="2432.91" y="421.486" width="9.01876" height="26.8096"/>
   <object id="241" name="Corner" x="2485.25" y="397.522" width="10.2124" height="50.7111"/>
-  <object id="245" name="LowCorner" x="704" y="477.938" width="14.3125" height="8.5"/>
+  <object id="245" name="LowCorner" x="704" y="477.938" width="18.1307" height="8.5"/>
   <object id="246" name="LowCorner" x="993.719" y="478" width="30.3125" height="20.875"/>
   <object id="247" name="LowCorner" x="1184.12" y="481" width="30.3125" height="20.875"/>
   <object id="248" name="LowCorner" x="1279.97" y="481.063" width="30.3125" height="20.875"/>
@@ -60236,6 +60236,9 @@
   <object id="282" name="LowCorner" x="6257.93" y="638.011" width="13.1307" height="15.9773"/>
  </objectgroup>
  <layer name="Nowalkable" width="200" height="100">
+  <properties>
+   <property name="Navigation" type="int" value="1"/>
+  </properties>
   <data>
    <tile gid="1312"/>
    <tile gid="1312"/>

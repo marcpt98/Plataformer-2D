@@ -78,7 +78,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_ENEMY][COLLIDER_CORNER] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_NEXTMAP] = false;
 	matrix[COLLIDER_ENEMY][NO_COLLIDER] = false;
-	matrix[COLLIDER_ENEMY][COLLIDER_LOW_CORNER] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_LOW_CORNER] = true;
 
 	// Collider death
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
@@ -140,7 +140,7 @@ j1Colliders::j1Colliders()
 	matrix[COLLIDER_LOW_CORNER][COLLIDER_PLATAFORM] = false;
 	matrix[COLLIDER_LOW_CORNER][COLLIDER_WALL] = false;
 	matrix[COLLIDER_LOW_CORNER][COLLIDER_PLAYER_SHOT] = false;
-	matrix[COLLIDER_LOW_CORNER][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_LOW_CORNER][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_LOW_CORNER][COLLIDER_NEXTMAP] = false;
 	matrix[COLLIDER_LOW_CORNER][NO_COLLIDER] = false;
 }
