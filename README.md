@@ -19,6 +19,8 @@ https://github.com/marcpt98/Plataformer-2D
 
 - D: Move right.
 
+- F: Shoot.
+
 - SPACE BAR: Jump.
 
 ## Other controls
