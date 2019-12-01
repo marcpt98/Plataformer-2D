@@ -99,7 +99,6 @@ private:
 
 	p2SString			title;
 	p2SString			organization;
-
 public:
 	// Save and load
 	bool	want_save = false;

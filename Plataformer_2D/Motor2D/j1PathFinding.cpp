@@ -179,19 +179,19 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	open.list.add(PathNode(0, origin.DistanceTo(destination), origin, NULL));
 
 
-	PathNode* current_node;
+	PathNode* actual_node;
 
 	while (open.GetNodeLowestScore() != NULL)
 	{
-		current_node = new PathNode(open.GetNodeLowestScore()->data);
+		actual_node = new PathNode(open.GetNodeLowestScore()->data);
 
-		closed.list.add(*current_node);
-		open.list.del(open.Find(current_node->pos));
+		closed.list.add(*actual_node);
+		open.list.del(open.Find(actual_node->pos));
 
-		if (current_node->pos == destination) 
+		if (actual_node->pos == destination) 
 		{
 
-			PathNode* iterator = current_node;
+			PathNode* iterator = actual_node;
 
 			for (iterator; iterator->pos != origin; iterator = iterator->parent) 
 			{
@@ -203,25 +203,24 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 			return 0;
 
 		}
-		PathList Adjacent_list;
-		uint limit = current_node->FindWalkableAdjacents(Adjacent_list);
-		
+		PathList Adj_list;
+		uint limit = actual_node->FindWalkableAdjacents(Adj_list);
 		for (uint i = 0; i < limit; i++) {
 			
-			if ((closed.Find(Adjacent_list.list[i].pos)) == NULL) 
+			if ((closed.Find(Adj_list.list[i].pos)) == NULL) 
 			{
 				
-				if ((open.Find(Adjacent_list.list[i].pos)) == NULL) 
+				if ((open.Find(Adj_list.list[i].pos)) == NULL) 
 				{
-					Adjacent_list.list[i].CalculateF(destination);
-					open.list.add(Adjacent_list.list[i]);
+					Adj_list.list[i].CalculateF(destination);
+					open.list.add(Adj_list.list[i]);
 				}
 				else { 
-					if (Adjacent_list.list[i].g < open.Find(Adjacent_list.list[i].pos)->data.g) 
+					if (Adj_list.list[i].g < open.Find(Adj_list.list[i].pos)->data.g) 
 					{
-						Adjacent_list.list[i].CalculateF(destination);
-						open.list.del(open.Find(Adjacent_list.list[i].pos));
-						open.list.add(Adjacent_list.list[i]);
+						Adj_list.list[i].CalculateF(destination);
+						open.list.del(open.Find(Adj_list.list[i].pos));
+						open.list.add(Adj_list.list[i]);
 
 					}
 				}
