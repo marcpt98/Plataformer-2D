@@ -42,6 +42,9 @@ public:
 	bool load(pugi::xml_node&);
 	bool save(pugi::xml_node&);
 
+	//Ui events
+	bool OnUIEvent(UI_element* element, event_type event_type);
+
 	p2List<p2SString*> map_names;
 	int currentMap;
 	p2List<p2SString*> music_names;

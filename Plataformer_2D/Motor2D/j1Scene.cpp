@@ -13,6 +13,9 @@
 #include "j1EntityManager.h"
 #include "j1Particles.h"
 #include "j1PathFinding.h"
+#include "j1Gui.h"
+#include "j1Fonts.h"
+#include "UI_element.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -87,8 +90,12 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
-
-
+	// Gui ---
+	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
+	{
+		App->gui->AddButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+		App->gui->AddText("Hello World", 200, 200, App->font->Load("fonts/open_sans/OpenSans-Regular.ttf", 25), { 255, 0, 0, 255 }, this);
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->want_load = true;
@@ -300,3 +307,28 @@ bool j1Scene::save(pugi::xml_node& savegame)
 	return true;
 }
 
+
+//Ui events
+bool j1Scene::OnUIEvent(UI_element* element, event_type event_type)
+{
+	if (event_type == MOUSE_ENTER || event_type == MOUSE_LEFT_RELEASE || event_type == MOUSE_RIGHT_RELEASE)
+	{
+		element->state = MOUSEOVER;
+
+	}
+	else if (event_type == MOUSE_LEAVE)
+	{
+		element->state = STANDBY;
+
+	}
+	else if (event_type == MOUSE_LEFT_CLICK)
+	{
+		element->state = CLICKED;
+
+	}
+	else if (event_type == MOUSE_RIGHT_CLICK)
+	{
+	}
+
+	return true;
+}

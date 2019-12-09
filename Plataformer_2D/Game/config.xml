@@ -108,5 +108,8 @@
   <particles>
     <spritesheet projectiles="textures/Particles/Spritesheet_Projectiles.png"/>
   </particles>
-
+  
+  <gui>
+    <atlas file="gui/atlas.png"/>
+  </gui>
 </config>

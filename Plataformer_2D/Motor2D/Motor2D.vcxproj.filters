@@ -67,6 +67,21 @@
     <ClCompile Include="Enemy_Slime.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="UI_button.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_image.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Ui_text.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Fonts.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Gui.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -156,6 +171,24 @@
     <ClInclude Include="Enemy_Slime.h">
       <Filter>Desenvolupament  ========\Modules\Entities\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="UI_Button.h">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_image.h">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_text.h">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_element.h">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Fonts.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Gui.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -184,6 +217,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\Entities\Enemies">
       <UniqueIdentifier>{d25731d6-9a65-4b40-a4fe-ae6668b82b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\UI_elements">
+      <UniqueIdentifier>{c17e9231-671f-4e1b-ab8b-219d6a02cb43}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

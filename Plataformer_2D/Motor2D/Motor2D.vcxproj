@@ -82,6 +82,8 @@
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -98,6 +100,9 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="UI_button.cpp" />
+    <ClCompile Include="UI_image.cpp" />
+    <ClCompile Include="Ui_text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -107,6 +112,8 @@
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1FadeToBlack.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Particles.h" />
     <ClInclude Include="j1PathFinding.h" />
@@ -129,6 +136,10 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="UI_Button.h" />
+    <ClInclude Include="UI_element.h" />
+    <ClInclude Include="UI_image.h" />
+    <ClInclude Include="UI_text.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
