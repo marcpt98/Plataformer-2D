@@ -11,7 +11,6 @@ Elementorum is a 2D action plataformer where you control our character Derexito!
   Animations, state machine, audio, level 1, enemies, HUD.
 
 ## Controls 
-
 - A: Move left.
 
 - D: Move right.
@@ -42,44 +41,6 @@ Colliders made in Tiled, player besides jumping also can grab on walls to jump a
 
 ## Repository
 https://github.com/marcpt98/Plataformer-2D
-  
-## Disclosure
-Level 1 assets: Pixel Art created by Vicente Nitti (@vnitti) https://vnitti.itch.io/taiga-asset-pack 
-
-Twitter:   https://twitter.com/vnitti_art    Itch.io:   https://vnitti.itch.io/
-
-Level 2 assets: Artwork created by Luis Zuno (@ansimuz) https://ansimuz.itch.io/warped-caves
-
-Twitter: https://twitter.com/ansimuz?lang=es
-
-Player: " Free Tiny Hero Sprites Pixel Art " License: https://craftpix.net/file-licenses/
-
-Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
-
-Background music: TeknoAXE's Royalty Free Music http://www.facebook.com/teknoaxe
-
-Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sounds/399095/
-
-Sound efect from "chiptape": www.chiptape.com/chiptape/sounds/medium/gBallMinimize.wav from https://www.findsounds.com/ISAPI/search.dll
-
-Slime enemy art: Pixel Art created by rvros  Itch.io: https://rvros.itch.io/
-
-Ghost enemy art: Pixel Art created by ansimuz (@ansimuz) https://ansimuz.itch.io/gothicvania-patreon-collection
-
-Twitter: https://twitter.com/ansimuz
-
-Slime fx from Mike Koenig: http://soundbible.com/1097-Slime-Splash.html
-
-Ghost fx from Mike Koenig: http://soundbible.com/1025-Demon-Zombie-Ambiance.html
-
-Game made with SDL libraries:
-
-SDL: https://www.libsdl.org/
-
-SDL_Image: https://www.libsdl.org/projects/SDL_image/
-
-SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
-
 
 ## License
 //MIT License
