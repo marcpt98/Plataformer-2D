@@ -1,17 +1,14 @@
 # Elementorum 
-This is the first assigment for our game development subject in UPC,CITM
-
-## Repository
-https://github.com/marcpt98/Plataformer-2D
+Elementorum is a 2D action plataformer where you control our character Derexito! a little koala that has to fight against hard enemies while completing the level jumping against walls!
 
 ## Team:
 - Pol de la Torre Solé https://github.com/polf780.
 
-  Colliders, phisics, level 2
+  Colliders, phisics, level 2, enemies, HUD.
 
 - Marc Palma Turón https://github.com/marcpt98.
 
-  Loading things from XML, level 1,animations, keybinds
+  Animations, state machine, audio, level 1, enemies, HUD.
 
 ## Controls 
 
@@ -23,7 +20,7 @@ https://github.com/marcpt98/Plataformer-2D
 
 - SPACE BAR: Jump.
 
-## Other controls
+## Special controls
 - F1: Charge level 1 from the begining
 
 - F2: Charge level 2 from the begining
@@ -39,9 +36,14 @@ https://github.com/marcpt98/Plataformer-2D
 - F10: God mode (player without collisions and can fly)
 
 - F11: Cap frames (siwtch fps cap between 30-60)
+
+## Inovation
+Colliders made in Tiled, player besides jumping also can grab on walls to jump again and player can double jump if he's only a bit under the platform to facilitate the level.
+
+## Repository
+https://github.com/marcpt98/Plataformer-2D
   
 ## Disclosure
-
 Level 1 assets: Pixel Art created by Vicente Nitti (@vnitti) https://vnitti.itch.io/taiga-asset-pack 
 
 Twitter:   https://twitter.com/vnitti_art    Itch.io:   https://vnitti.itch.io/
@@ -78,10 +80,6 @@ SDL_Image: https://www.libsdl.org/projects/SDL_image/
 
 SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
 
-
-## Inovation
-
-Colliders made in Tiled, player besides jumping also can grab on walls to jump again and player can double jump if he's only a bit under the platform to facilitate the level.
 
 ## License
 //MIT License
