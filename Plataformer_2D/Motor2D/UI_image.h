@@ -21,4 +21,4 @@ public:
 
 };
 
-#endif // !__UI_IMAGE__
+#endif // __UI_IMAGE__

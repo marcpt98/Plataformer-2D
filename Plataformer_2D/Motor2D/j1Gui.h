@@ -10,7 +10,6 @@
 // TODO 1: Create your structure of classes
 struct _TTF_Font;
 struct SDL_Texture;
-class UI_element;
 class UI_text;
 class UI_image;
 class UI_button;
@@ -59,6 +58,8 @@ public:
 	SDL_Texture* GetAtlas();
 
 	void UIDebugDraw();
+
+	bool DeleteGui(UI_element* gui);
 
 public:
 	bool UI_debug = false;

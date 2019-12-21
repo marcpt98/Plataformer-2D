@@ -175,3 +175,11 @@ void j1Gui::UIDebugDraw()
 	}
 
 }
+
+bool j1Gui::DeleteGui(UI_element* gui)
+{
+	gui->CleanUp();
+	UI_elements.del(UI_elements.At(UI_elements.find(gui)));
+
+	return true;
+}

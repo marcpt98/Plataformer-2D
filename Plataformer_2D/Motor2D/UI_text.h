@@ -51,4 +51,4 @@ private:
 	iPoint outline_offset;
 };
 
-#endif // !__UI_TEXT__
+#endif // __UI_TEXT__

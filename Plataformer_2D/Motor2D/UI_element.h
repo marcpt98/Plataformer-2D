@@ -23,7 +23,7 @@ enum UI_element_state
 	CLICKED,
 };
 
-class UI_element
+class UI_element :public j1Module
 {
 public:
 
