@@ -157,7 +157,16 @@ bool j1Player::Update(float dt)
 		App->render->BlitWithScale(App->entity->player_graphics, position.x + fixBlit + (-current_animation->pivotx[current_animation->returnCurrentFrame()]), position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), -1, 1.0f, 1, TOP_RIGHT);
 		App->particles->Projectile_flip.speed.x = -(6 * dt * 60);
 	}
-
+	if (App->particles->explosion_time_init == true)
+	{
+		App->particles->explosion_time = SDL_GetTicks();
+		App->particles->explosion_time_init = false;
+	}
+	if (SDL_GetTicks() > App->particles->explosion_time + 1200)
+	{
+		App->particles->explosion_finish = false;
+		App->particles->explosion_time_init = false;
+	}
 	speed = 3;
 	return true;
 }
@@ -165,6 +174,8 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("PostupdatePlayer", Profiler::Color::HotPink)
+
+	
 
 	return true;
 }
@@ -263,17 +274,24 @@ void j1Player::CheckInputState(float dt)
 			grab.Reset();
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && dead_monster_animation==false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL)
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->input->GetKey(SDL_SCANCODE_D) == NULL && App->input->GetKey(SDL_SCANCODE_A) == NULL && App->particles->explosion_finish == false)
 		{
 			App->audio->PlayFx(3, 0);
 
+			App->particles->explosion_time_init = true;
+			App->particles->explosion_finish = true;
+			App->particles->explosion = false;
+			App->particles->hitobject = false;
+
 			if (blit == false)
 			{
+				App->particles->explosion_right = true;
 				App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
 			}
 			else
 			{
-				App->particles->AddParticle(App->particles->Projectile_flip, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+				App->particles->explosion_right = false;
+				App->particles->AddParticle(App->particles->Projectile_flip, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);	
 			}
 
 			isshooting = true;
@@ -285,17 +303,24 @@ void j1Player::CheckInputState(float dt)
 			}
 		}
 
-		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && dead_monster_animation == false && controls == false)
+		else if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN && dead_animation == false && controls == false && App->particles->explosion_finish == false)
 		{
 			App->audio->PlayFx(3, 0);
+
+			App->particles->explosion_time_init = true;
+			App->particles->explosion_finish = true;
+			App->particles->explosion = false;
+			App->particles->hitobject = false;
 
 			if (blit == false)
 			{
 				App->particles->AddParticle(App->particles->Projectile, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+				App->particles->explosion_right = true;
 			}
 			else
 			{
 				App->particles->AddParticle(App->particles->Projectile_flip, lasPosition.x + 10, lasPosition.y + 30, COLLIDER_PLAYER_SHOT);
+				App->particles->explosion_right = false;
 			}
 
 			isrunshooting = true;
@@ -461,7 +486,7 @@ void j1Player::CheckAnimation(float dt)
 
 	if (isshooting == true)
 	{
-		if (actualState == ST_IDLE|| actualState == ST_JUMP)
+		if (actualState == ST_IDLE || actualState == ST_JUMP)
 		{
 			current_animation = &shoot;
 			if (SDL_GetTicks() > shoottime + 300)

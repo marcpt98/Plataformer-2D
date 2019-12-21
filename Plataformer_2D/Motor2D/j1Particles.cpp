@@ -34,6 +34,7 @@ j1Particles::j1Particles()
 	Projectile_explosion.anim.PushBack({ 40,17,23,21 }, 0.2, 0, 0);
 	Projectile_explosion.anim.PushBack({ 64,17,25,24 }, 0.2, 0, 0);
 	Projectile_explosion.anim.loop = false;
+	Projectile_explosion.life = 300;
 }
 
 j1Particles::~j1Particles()
@@ -90,10 +91,35 @@ bool j1Particles::Update(float dt)
 		if (p == nullptr)
 			continue;
 
-		if (p->Update() == false)
+		if (p->Update() == false || hitobject == true)
 		{
+			hitobject = false;
 			delete p;
 			active[i] = nullptr;
+			if (explosion == false)
+			{
+				App->audio->PlayFx(4, 0);
+				
+				if (explosion_solid == true)
+				{
+					App->particles->Projectile_explosion.speed.x = 0;
+					explosion_solid = false;
+				}
+				else
+				{
+					if (explosion_right == true)
+					{
+						App->particles->Projectile_explosion.speed.x = (6 * dt * 60);
+					}
+					else
+					{
+						App->particles->Projectile_explosion.speed.x = -(6 * dt * 60);
+					}
+				}
+
+				AddParticle(Projectile_explosion, p->position.x, p->position.y, NO_COLLIDER);
+				explosion = true;
+			}
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
@@ -136,21 +162,19 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_WALL)
 			{
-				App->audio->PlayFx(4, 0);
-				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
-
-				delete active[i];
-				active[i] = nullptr;
+				//App->audio->PlayFx(4, 0);
+				//App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
+				explosion_solid = true;
+				hitobject = true;
 				break;
 			}
 
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
 			{
-				App->audio->PlayFx(4, 0);
-				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
-
-				delete active[i];
-				active[i] = nullptr;
+				//App->audio->PlayFx(4, 0);
+				//App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
+				explosion_solid = true;
+				hitobject = true;
 				break;
 			}
 

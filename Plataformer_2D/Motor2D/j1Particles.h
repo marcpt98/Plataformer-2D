@@ -71,6 +71,13 @@ public:
 	// Projectile explosion
 	Particle Projectile_explosion;
 	Particle FlipProjectile_explosion;
+	bool explosion = false;
+	bool hitobject = false;
+	bool explosion_right = false;
+	bool explosion_finish = false;
+	int explosion_time = false;
+	bool explosion_time_init = false;
+	bool explosion_solid = false;
 	
 	// Projectile spritesheet
 	p2SString spritesheet_projectiles;

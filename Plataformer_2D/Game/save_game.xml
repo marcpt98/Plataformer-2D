@@ -13,29 +13,28 @@
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="300" pos.y="625" />
+			<position pos.x="486" pos.y="625" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="1821" pos.y="91" />
+			<position pos.x="1782" pos.y="59" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="1021" pos.y="593" />
+			<position pos.x="982" pos.y="593" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="1" pos.y="-30" />
+			<position pos.x="2982" pos.y="656" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="3021" pos.y="564" />
+			<position pos.x="5932" pos.y="649" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5971" pos.y="649" />
-		</Entity>
-		<Entity type="slime">
-			<position pos.x="5871" pos.y="649" />
+			<position pos.x="5832" pos.y="649" />
 		</Entity>
 	</entity_manager>
 	<particles />
 	<fadetoblack />
 	<colliders />
+	<fonts />
+	<gui />
 	<renderer />
 </game_state>
