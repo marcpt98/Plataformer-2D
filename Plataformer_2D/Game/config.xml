@@ -45,6 +45,7 @@
     <spritesheet_player player="textures/Entities/Spritesheet_Character_1.png"/>
     <spritesheet_ghost ghost="textures/Entities/Spritesheet_Ghost.png"/>
     <spritesheet_slime slime="textures/Entities/Spritesheet_Slime.png"/>
+    <spritesheet_checkPoint checkPoint="textures/Entities/Spritesheet_Checkpoint_2.png"/>
   </entity_manager>
   
   <player>
@@ -78,6 +79,9 @@
     <incrementJ i="0.5"/>
     <deadDelay d="800"/>
   </player>
+  
+  <checkPoint>
+  </checkPoint>
   
   <ghost>
     <width w="40"/>
