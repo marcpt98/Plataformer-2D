@@ -85,8 +85,12 @@ void j1CheckPoint::CheckAnimation(float dt)
 
 void j1CheckPoint::OnCollision(Collider* c1, Collider* c2)
 {
+	if (collider == c1 && c2->type == COLLIDER_PLAYER) 
+	{
+		savecheck = true;
+	}
 	
-	if (collider == c1 && c2->type == COLLIDER_PLAYER && c1->rect.x <= (c2->rect.x+c2->rect.w+5) && (c1->rect.x+c1->rect.w-5) >= c2->rect.x)
+	if (collider == c1 && c2->type == COLLIDER_PLAYER && (c1->rect.x+10) <= (c2->rect.x+c2->rect.w) && (c1->rect.x+c1->rect.w-10) >= c2->rect.x)
 	{
 		App->want_save = true;
 		App->scene->CheckPoint = true;
