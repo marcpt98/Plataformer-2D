@@ -106,7 +106,7 @@
   </enemy>
   
   <particles>
-    <spritesheet projectiles="textures/Particles/Spritesheet_Projectiles.png"/>
+    <spritesheet projectiles="textures/Particles/Spritesheet_Particles.png"/>
   </particles>
   
   <gui>

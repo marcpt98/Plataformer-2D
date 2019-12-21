@@ -255,14 +255,27 @@ void j1Player::CheckInputState(float dt)
 			goleft = false;
 			controls = false;
 		}
+		if (App->particles->particle_jump == true)
+		{
+			App->particles->particle_jump_time = SDL_GetTicks();
+			App->particles->particle_jump = false;
+		}
+		if (SDL_GetTicks() > App->particles->particle_jump_time + 201)
+		{
+			App->particles->isjumping = false;
+		}
 
 		// Player controllers
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && dead_animation == false && dead_monster_animation == false)
 		{
-
 			actualState = ST_JUMP;
+
+			App->particles->isjumping = true;
+			App->particles->particle_jump = true;
+
 			if (canJump1 == true)
 			{
+				App->particles->AddParticle(App->particles->jump_particle, lasPosition.x + 5, lasPosition.y + 50, NO_COLLIDER);
 				energyJump = jumpF;
 				energyGrab = jumpG;
 			}
@@ -280,7 +293,7 @@ void j1Player::CheckInputState(float dt)
 
 			App->particles->explosion_time_init = true;
 			App->particles->explosion_finish = true;
-			App->particles->explosion = false;
+			App->particles->explosion = true;
 			App->particles->hitobject = false;
 
 			if (blit == false)
@@ -309,7 +322,7 @@ void j1Player::CheckInputState(float dt)
 
 			App->particles->explosion_time_init = true;
 			App->particles->explosion_finish = true;
-			App->particles->explosion = false;
+			App->particles->explosion = true;
 			App->particles->hitobject = false;
 
 			if (blit == false)

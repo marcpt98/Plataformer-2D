@@ -81,6 +81,12 @@ public:
 	
 	// Projectile spritesheet
 	p2SString spritesheet_projectiles;
+
+	// Jump particles
+	Particle jump_particle;
+	bool isjumping = false;
+	bool particle_jump = false;
+	int particle_jump_time;
 };
 
 #endif

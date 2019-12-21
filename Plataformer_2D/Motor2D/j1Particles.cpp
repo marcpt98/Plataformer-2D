@@ -35,6 +35,14 @@ j1Particles::j1Particles()
 	Projectile_explosion.anim.PushBack({ 64,17,25,24 }, 0.2, 0, 0);
 	Projectile_explosion.anim.loop = false;
 	Projectile_explosion.life = 300;
+
+	// Jump particle
+	jump_particle.anim.PushBack({ 0,41,38,10 }, 0.2, 0, 0);
+	jump_particle.anim.PushBack({ 44,41,42,10 }, 0.2, 0, 0);
+	jump_particle.anim.PushBack({ 92,41,46,6 }, 0.2, 0, 0);
+	jump_particle.anim.PushBack({ 144,41,46,4 }, 0.2, 0, 0);
+	jump_particle.anim.loop = false;
+	jump_particle.life = 200;
 }
 
 j1Particles::~j1Particles()
@@ -44,8 +52,6 @@ bool j1Particles::Awake(pugi::xml_node& config)
 {
 	// Player spritesheet
 	spritesheet_projectiles = config.child("spritesheet").attribute("projectiles").as_string("");
-
-	
 
 	return true;
 }
@@ -96,7 +102,9 @@ bool j1Particles::Update(float dt)
 			hitobject = false;
 			delete p;
 			active[i] = nullptr;
-			if (explosion == false)
+
+			hitobject = false;
+			if (explosion == true && isjumping == false)
 			{
 				App->audio->PlayFx(4, 0);
 				
@@ -118,12 +126,13 @@ bool j1Particles::Update(float dt)
 				}
 
 				AddParticle(Projectile_explosion, p->position.x, p->position.y, NO_COLLIDER);
-				explosion = true;
+				explosion = false;
 			}
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
 			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame(dt)));
+
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
