@@ -82,6 +82,9 @@
     <ClCompile Include="j1Gui.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1CheckPoint.cpp">
+      <Filter>Desenvolupament  ========\Modules\Entities\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -189,6 +192,9 @@
     <ClInclude Include="j1Gui.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1CheckPoint.h">
+      <Filter>Desenvolupament  ========\Modules\Entities\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Programacio 2 ===========">
@@ -220,6 +226,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\Modules\UI_elements">
       <UniqueIdentifier>{c17e9231-671f-4e1b-ab8b-219d6a02cb43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\Modules\Entities\Objects">
+      <UniqueIdentifier>{0da4abf3-4fb8-4c4c-b6de-01581630c604}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -13,22 +13,31 @@
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="486" pos.y="625" />
+			<position pos.x="777" pos.y="564" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="1782" pos.y="59" />
+			<position pos.x="1692" pos.y="70" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="982" pos.y="593" />
+			<position pos.x="855" pos.y="593" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="2982" pos.y="656" />
+			<position pos.x="2892" pos.y="656" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5932" pos.y="649" />
+			<position pos.x="5842" pos.y="649" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5832" pos.y="649" />
+			<position pos.x="5742" pos.y="649" />
+		</Entity>
+		<Entity type="checkPoint">
+			<position pos.x="2300" pos.y="211" />
+		</Entity>
+		<Entity type="checkPoint">
+			<position pos.x="700" pos.y="536" />
+		</Entity>
+		<Entity type="checkPoint">
+			<position pos.x="750" pos.y="536" />
 		</Entity>
 	</entity_manager>
 	<particles />

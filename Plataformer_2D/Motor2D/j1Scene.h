@@ -63,6 +63,8 @@ public:
 	p2SString* music_1 = nullptr;
 	p2SString* music_2 = nullptr;
 
+	bool CheckPoint = false;
+
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;

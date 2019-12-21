@@ -117,7 +117,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	// Start from the beginning of the current level
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true && CheckPoint == false)
 	{
 		if (currentMap == 0)
 		{
@@ -128,6 +128,11 @@ bool j1Scene::Update(float dt)
 			LevelName(1);
 		}
 
+		player_dead = false;
+	}
+	if (CheckPoint == true && player_dead == true)
+	{
+		App->want_load = true;
 		player_dead = false;
 	}
 
@@ -225,7 +230,11 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 3050, 100);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 6000, 600);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 5900, 600);
-		
+
+		//CheckPoints
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 2300, 211);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 700, 536);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 750, 536);
 	}
 	if (App->scene->currentMap == 1)
 	{

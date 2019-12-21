@@ -16,7 +16,8 @@ public:
 		NO_TYPE,
 		PLAYER,
 		FLYING_ENEMY,
-		LAND_ENEMY
+		LAND_ENEMY,
+		CHECKPOINT
 	};
 
 	entityType type;

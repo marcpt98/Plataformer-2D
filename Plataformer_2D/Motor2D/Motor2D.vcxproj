@@ -76,6 +76,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="j1CheckPoint.cpp" />
     <ClCompile Include="Enemy_Ghost.cpp" />
     <ClCompile Include="Enemy_Slime.cpp" />
     <ClCompile Include="j1Colliders.cpp" />
@@ -106,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="j1CheckPoint.h" />
     <ClInclude Include="Enemy_Ghost.h" />
     <ClInclude Include="Enemy_Slime.h" />
     <ClInclude Include="j1Colliders.h" />

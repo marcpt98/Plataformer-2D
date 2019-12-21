@@ -64,6 +64,9 @@ public:
 	p2SString slime;
 	SDL_Texture* slime_graphics;
 
+	p2SString checkPoint;
+	SDL_Texture* checkPoint_graphics;
+
 	p2List<j1Entity*> entities;
 };
 #endif // __j1EntityManager_H__
