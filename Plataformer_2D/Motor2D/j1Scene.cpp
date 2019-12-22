@@ -168,6 +168,11 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
+	//Game pause
+	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+
+	}
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
@@ -233,8 +238,8 @@ bool j1Scene::createEntities()
 
 		//CheckPoints
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 2300, 211);
-		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 700, 536);
-		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 750, 536);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 3850, 146);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 5106, 140);
 	}
 	if (App->scene->currentMap == 1)
 	{
@@ -249,6 +254,12 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 800, 440);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 3690, 100);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 5390, 600);
+
+		//CheckPoints
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 300, 520);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 2800, 431);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 3650, 110);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 5000, 105);
 	}
 
 	return true;

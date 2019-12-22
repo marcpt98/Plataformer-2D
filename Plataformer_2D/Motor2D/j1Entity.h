@@ -56,6 +56,9 @@ public:
 	// Colliders
 	Collider* collider = nullptr;
 	bool to_delete;
+
+	//Game pause
+	bool pause = false;
 };
 
 #endif // __j1Entity_H__

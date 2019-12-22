@@ -49,6 +49,7 @@ public:
 public:
 	CheckPoint_states actualState;
 	bool savecheck; 
+	bool savefx = false;
 
 	//Animations
 	Animation* current_animation = nullptr;

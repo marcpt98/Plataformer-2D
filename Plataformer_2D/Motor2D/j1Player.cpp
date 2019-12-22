@@ -96,6 +96,7 @@ bool j1Player::Start()
 	App->audio->LoadFx(ghostdeadFx.GetString());
 	App->audio->LoadFx(ghostfollowFx.GetString());
 	App->audio->LoadFx(slimedeadFx.GetString());
+	App->audio->LoadFx(checkPoint.GetString());
 
 	// Add player collider
 	collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
@@ -112,7 +113,7 @@ bool j1Player::CleanUp()
 	App->audio->UnloadFx(ghostdeadFx.GetString());
 	App->audio->UnloadFx(ghostfollowFx.GetString());
 	App->audio->UnloadFx(slimedeadFx.GetString());
-
+	App->audio->UnloadFx(checkPoint.GetString());
 	return true;
 }
 
@@ -736,7 +737,7 @@ bool j1Player::LoadConfigInfo()
 	deadFx = config.child("fx_name2").attribute("dead").as_string("");
 	throwrockFx = config.child("fx_name3").attribute("throwrock").as_string("");
 	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
-
+	checkPoint = config.child("fx_name8").attribute("checkPoint").as_string("");
 	// Ghost FX
 	ghostdeadFx = config.child("fx_name5").attribute("ghost_dead").as_string("");
 	ghostfollowFx = config.child("fx_name6").attribute("ghost_follow").as_string("");

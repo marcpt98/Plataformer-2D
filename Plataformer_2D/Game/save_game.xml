@@ -8,33 +8,36 @@
 	<audio />
 	<map />
 	<scene>
-		<map actual="0" />
+		<map actual="1" />
 	</scene>
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="2321" pos.y="243" />
+			<position pos.x="321" pos.y="554" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="1204" pos.y="345" />
+			<position pos.x="2468" pos.y="123" />
+		</Entity>
+		<Entity type="ghost">
+			<position pos.x="5968" pos.y="173" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5507" pos.y="720" />
+			<position pos.x="3658" pos.y="168" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5223" pos.y="7174" />
-		</Entity>
-		<Entity type="slime">
-			<position pos.x="5142" pos.y="7954" />
+			<position pos.x="5358" pos.y="617" />
 		</Entity>
 		<Entity type="checkPoint">
-			<position pos.x="2300" pos.y="211" />
+			<position pos.x="300" pos.y="520" />
 		</Entity>
 		<Entity type="checkPoint">
-			<position pos.x="700" pos.y="536" />
+			<position pos.x="2800" pos.y="431" />
 		</Entity>
 		<Entity type="checkPoint">
-			<position pos.x="750" pos.y="536" />
+			<position pos.x="3650" pos.y="110" />
+		</Entity>
+		<Entity type="checkPoint">
+			<position pos.x="5000" pos.y="105" />
 		</Entity>
 	</entity_manager>
 	<particles />
