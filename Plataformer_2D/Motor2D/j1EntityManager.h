@@ -67,6 +67,9 @@ public:
 	p2SString checkPoint;
 	SDL_Texture* checkPoint_graphics;
 
+	p2SString coins;
+	SDL_Texture* coins_graphics;
+
 	p2List<j1Entity*> entities;
 };
 #endif // __j1EntityManager_H__

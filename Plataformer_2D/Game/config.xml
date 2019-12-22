@@ -46,6 +46,7 @@
     <spritesheet_ghost ghost="textures/Entities/Spritesheet_Ghost.png"/>
     <spritesheet_slime slime="textures/Entities/Spritesheet_Slime.png"/>
     <spritesheet_checkPoint checkPoint="textures/Entities/Spritesheet_Checkpoint_2.png"/>
+    <spritesheet_coins coin="textures/Entities/Spritesheet_Coins.png"/>
   </entity_manager>
   
   <player>

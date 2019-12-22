@@ -5,6 +5,7 @@
 #include "Enemy_Slime.h"
 #include "Enemy_Ghost.h"
 #include "j1CheckPoint.h"
+#include "j1Coins.h"
 #include<stdio.h>
 #include "p2Log.h"
 #include "j1Textures.h"
@@ -28,6 +29,7 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 	ghost = config.child("spritesheet_ghost").attribute("ghost").as_string("");
 	slime = config.child("spritesheet_slime").attribute("slime").as_string("");
 	checkPoint = config.child("spritesheet_checkPoint").attribute("checkPoint").as_string("");
+	coins = config.child("spritesheet_coins").attribute("coin").as_string("");
 	return ret;
 }
 
@@ -37,6 +39,7 @@ bool j1EntityManager::Start()
 	ghost_graphics = App->tex->Load(ghost.GetString());
 	slime_graphics = App->tex->Load(slime.GetString());
 	checkPoint_graphics = App->tex->Load(checkPoint.GetString());
+	coins_graphics = App->tex->Load(coins.GetString());
 	return true;
 }
 
@@ -86,6 +89,7 @@ j1Entity* j1EntityManager::CreateEntity(j1Entity::entityType type, int posx, int
 	case j1Entity::entityType::FLYING_ENEMY: ret = new Enemy_Ghost(posx, posy); break;
 	case j1Entity::entityType::LAND_ENEMY: ret = new Enemy_Slime(posx, posy); break;
 	case j1Entity::entityType::CHECKPOINT: ret = new j1CheckPoint(posx, posy); break;
+	case j1Entity::entityType::COIN: ret = new j1Coins(posx, posy); break;
 	}
 
 	if (ret != nullptr) 
@@ -135,6 +139,10 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 		if (type == "checkPoint")
 		{
 			entity_type = j1Entity::entityType::CHECKPOINT;
+		}
+		if (type == "coin")
+		{
+			entity_type = j1Entity::entityType::COIN;
 		}
 		CreateEntity(entity_type, entity.child("position").attribute("pos.x").as_int(), entity.child("position").attribute("pos.y").as_int());
 	}

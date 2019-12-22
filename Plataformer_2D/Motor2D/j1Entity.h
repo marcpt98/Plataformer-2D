@@ -17,7 +17,8 @@ public:
 		PLAYER,
 		FLYING_ENEMY,
 		LAND_ENEMY,
-		CHECKPOINT
+		CHECKPOINT,
+		COIN
 	};
 
 	entityType type;
