@@ -60,6 +60,12 @@ Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sou
 
 Sound efect from "chiptape": www.chiptape.com/chiptape/sounds/medium/gBallMinimize.wav from https://www.findsounds.com/ISAPI/search.dll
 
+Sound efect from "Scrampunk": https://freesound.org/people/Scrampunk/sounds/345297/
+
+Assets UI pack from "Kenney": https://opengameart.org/content/pixel-ui-pack-750-assets
+
+Pixels fonts for UI from website: https://fontmeme.com/pixel-fonts/
+
 Slime enemy art: Pixel Art created by rvros  Itch.io: https://rvros.itch.io/
 
 Ghost enemy art: Pixel Art created by ansimuz (@ansimuz) https://ansimuz.itch.io/gothicvania-patreon-collection
