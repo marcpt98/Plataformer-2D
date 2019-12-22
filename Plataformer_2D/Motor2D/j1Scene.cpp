@@ -247,7 +247,7 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 3850, 146);
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 5106, 140);
 
-		App->entity->CreateEntity(j1Entity::entityType::COIN, 300, 0);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 880, 550);
 	}
 	if (App->scene->currentMap == 1)
 	{

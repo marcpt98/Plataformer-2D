@@ -74,6 +74,7 @@ public:
 	//p2SString ghostkillFx;
 	p2SString slimedeadFx;
 	p2SString checkPoint;
+	p2SString coin;
 	//p2SString slimefollowFx;
 	//p2SString slimekillFx;
 

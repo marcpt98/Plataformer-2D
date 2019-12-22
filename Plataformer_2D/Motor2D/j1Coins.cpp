@@ -40,6 +40,7 @@ j1Coins::~j1Coins()
 
 bool j1Coins::Start()
 {
+	alive = true;
 	// Add player collider
 	collider = App->colliders->AddCollider({ position.x,position.y, 27, 32 }, COLLIDER_CHECKPOINT, this);
 
@@ -81,9 +82,9 @@ void j1Coins::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_PLAYER)
 	{
-		
-			App->audio->PlayFx(8, 0);
-	
+		collider->to_delete = true;
+		App->audio->PlayFx(9, 0);
+		App->entity->DeleteEntity(this);
 
 	}
 

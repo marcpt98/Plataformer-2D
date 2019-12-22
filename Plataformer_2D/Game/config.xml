@@ -58,6 +58,7 @@
     <fx_name6 ghost_follow="audio/fx/fx_phantomfollow.wav"/>
     <fx_name7 slime_dead="audio/fx/fx_slimedead.wav"/>
     <fx_name8 checkPoint="audio/fx/fx_chekpoint.wav"/>
+    <fx_name9 coin="audio/fx/fx_coin.wav"/>
     <position x="200" y="0"/>
     <iPosition x="200" y="0"/>
     <width w="40"/>

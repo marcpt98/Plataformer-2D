@@ -54,6 +54,8 @@ public:
 	Animation* current_animation = nullptr;
 	Animation idle;
 
+	bool alive = false;
+
 };
 
 #endif // __j1Coins_H__
