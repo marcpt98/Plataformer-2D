@@ -247,6 +247,7 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 3850, 146);
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 5106, 140);
 
+		//Coins
 		App->entity->CreateEntity(j1Entity::entityType::COIN, 687, 550);
 		App->entity->CreateEntity(j1Entity::entityType::COIN, 627, 550);
 		App->entity->CreateEntity(j1Entity::entityType::COIN, 1460, 600);
@@ -280,6 +281,23 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 2800, 431);
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 3650, 110);
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 5000, 105);
+
+		//Coins
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 547, 450);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 1085, 400);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 1785, 340);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 1705, 340);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 2450, 340);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 3105, 580);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 3955, 450);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 4355, 350);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 4755, 250);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 5055, 150);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 5355, 450);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 5635, 110);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 6082, 270);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 6082, 493);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 6082, 493);
 	}
 
 	return true;
