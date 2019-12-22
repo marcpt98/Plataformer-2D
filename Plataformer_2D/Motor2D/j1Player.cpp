@@ -81,6 +81,8 @@ j1Player::j1Player(int posx, int posy) : j1Entity(entityType::PLAYER)
 	shoot_run.PushBack({ 192,334,42,52 }, 0.2, 0, 0);
 	shoot_run.PushBack({ 236,334,40,54 }, 0.2, 0, -4);
 	shoot_run.loop = false;
+
+	pause.PushBack({ 0,0,42,52 }, 0.2, 0, 0);
 }
 
 j1Player::~j1Player()
@@ -141,8 +143,17 @@ bool j1Player::Update(float dt)
 		}
 	}
 	ground = false;
-	CheckInputState(dt);
-	CheckAnimation(dt);
+	if (App->scene->pause == false)
+	{
+		CheckInputState(dt);
+		CheckAnimation(dt);
+	}
+
+	if (App->scene->pause == true)
+	{
+		current_animation = &pause;
+		position = lasPosition;
+	}
 
 	// Player colliders
 	collider->SetPos(position.x, position.y);

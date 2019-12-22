@@ -53,6 +53,8 @@ Enemy_Slime::Enemy_Slime(int posx, int posy) : j1Entity(entityType::LAND_ENEMY)
 	follow.PushBack({ 180, 32, 56, 30 }, 0.08, 0, -6);
 	follow.PushBack({ 238, 32, 56, 24 }, 0.08, 0, 0);
 
+	pause.PushBack({ 0, 0, 56, 28 }, 0.18, 0, -4);
+
 }
 
 Enemy_Slime::~Enemy_Slime()
@@ -85,9 +87,16 @@ bool Enemy_Slime::Update(float dt)
 		position.y += (int)(gravity * dt * VELOCITY);
 	}
 
+	if (App->scene->pause == false) 
+	{
 		CheckAnimation(dt);
-		Pathfinding(dt);
-	
+		Pathfinding(dt);	
+	}
+
+	if (App->scene->pause == true) 
+	{
+		current_animation = &pause;
+	}
 
 	// Slime colliders
 	collider->SetPos(position.x, position.y);

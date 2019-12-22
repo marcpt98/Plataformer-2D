@@ -65,6 +65,7 @@ public:
 	Animation idle;
 	Animation follow;
 	Animation dead;
+	Animation pause;
 	bool ghost_dead = false;
 
 	// Speed

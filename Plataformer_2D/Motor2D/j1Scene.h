@@ -64,7 +64,7 @@ public:
 	p2SString* music_2 = nullptr;
 
 	bool CheckPoint = false;
-
+	bool pause = false;
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;

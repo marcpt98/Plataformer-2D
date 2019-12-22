@@ -51,6 +51,8 @@ Enemy_Ghost::Enemy_Ghost(int posx, int posy) : j1Entity(entityType::FLYING_ENEMY
 	dead.PushBack({ 226, 92, 40, 36 }, 0.1, 0, 0);
 	dead.PushBack({ 268, 92, 34, 36 }, 0.1, 0, 0);
 	dead.loop = false;
+
+	pause.PushBack({ 0, 182, 48, 84 }, 0.1, 0, 0);
 }
 
 Enemy_Ghost::~Enemy_Ghost()
@@ -76,10 +78,17 @@ bool Enemy_Ghost::Update(float dt)
 	BROFILER_CATEGORY("UpdateGhost", Profiler::Color::BlanchedAlmond);
 	// Ghost colliders
 	collider->SetPos(position.x, position.y);
+	
+	if (App->scene->pause == false)
+	{
+		CheckAnimation(dt);
+		Pathfinding(dt);
+	}
 
-	CheckAnimation(dt);
-	Pathfinding(dt); 
-		
+	if (App->scene->pause == true)
+	{
+		current_animation = &pause;
+	}
 
 	// Print ghost
 	if (blit == false)

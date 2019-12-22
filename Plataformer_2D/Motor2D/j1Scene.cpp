@@ -171,7 +171,13 @@ bool j1Scene::Update(float dt)
 	//Game pause
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
-
+		if (pause == false) {
+			pause = true;
+		}
+		else {
+			pause = false;
+		}
+		
 	}
 	int x, y;
 	App->input->GetMousePosition(x, y);

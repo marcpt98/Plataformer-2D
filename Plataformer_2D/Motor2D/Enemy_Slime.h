@@ -65,6 +65,8 @@ public:
 	Animation idle;
 	Animation follow;
 	Animation dead;
+	Animation pause;
+
 	bool slime_dead = false;
 
 	// Speed

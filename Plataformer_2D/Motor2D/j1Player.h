@@ -62,6 +62,7 @@ public:
 	Animation grab;
 	Animation shoot;
 	Animation shoot_run;
+	Animation pause;
 	
 	// Fx
 	p2SString jumpFx;
