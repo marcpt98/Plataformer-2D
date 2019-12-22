@@ -13,22 +13,22 @@
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="489" pos.y="536" />
+			<position pos.x="3872" pos.y="179" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="1768" pos.y="105" />
+			<position pos.x="1851" pos.y="-33" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="968" pos.y="593" />
+			<position pos.x="977" pos.y="593" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="2968" pos.y="518" />
+			<position pos.x="3002" pos.y="656" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5918" pos.y="649" />
+			<position pos.x="5952" pos.y="649" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5818" pos.y="649" />
+			<position pos.x="5852" pos.y="649" />
 		</Entity>
 		<Entity type="checkPoint">
 			<position pos.x="2300" pos.y="211" />
@@ -40,7 +40,25 @@
 			<position pos.x="5106" pos.y="140" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="300" pos.y="0" />
+			<position pos.x="687" pos.y="550" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="627" pos.y="550" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="1460" pos.y="600" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="1587" pos.y="550" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="2087" pos.y="230" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="2600" pos.y="430" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="2660" pos.y="480" />
 		</Entity>
 	</entity_manager>
 	<particles />

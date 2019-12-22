@@ -247,16 +247,16 @@ void j1App::FinishUpdate()
 	uint32 last_frame_ms = frame_time.Read();
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
-	
+
 	if (App->scene->lowfps == true) {   //We are sorry for this bad code....
 		static char title[256];
-		sprintf_s(title, 256, "Elementorum | Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap: ON Vsync: off",
+		sprintf_s(title, 256, "Elementorum | Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap: ON Vsync: off ",
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 		App->win->SetTitle(title);
 	}
 	else {
 		static char title[256];
-		sprintf_s(title, 256, "Elementorum | Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap: OFF Vsync: off",
+		sprintf_s(title, 256, "Elementorum | Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap: OFF Vsync: off ",
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 		App->win->SetTitle(title);
 	}

@@ -247,7 +247,19 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 3850, 146);
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 5106, 140);
 
-		App->entity->CreateEntity(j1Entity::entityType::COIN, 880, 550);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 687, 550);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 627, 550);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 1460, 600);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 1587, 550);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 2087, 230);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 2600, 430);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 2660, 480);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 3400, 290);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 3650, 50);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 4480, 150);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 4580, 180);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 4640, 290);
+		App->entity->CreateEntity(j1Entity::entityType::COIN, 5310, 290);
 	}
 	if (App->scene->currentMap == 1)
 	{
