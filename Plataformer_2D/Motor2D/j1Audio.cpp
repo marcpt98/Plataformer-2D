@@ -184,3 +184,9 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+void j1Audio::setMusicVolume(float volume)
+{
+	Mix_VolumeMusic(MIX_MAX_VOLUME * volume);
+	music_volume = MIX_MAX_VOLUME * volume; //Save it for fading;
+}

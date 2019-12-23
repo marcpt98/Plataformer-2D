@@ -173,12 +173,15 @@ bool j1Scene::Update(float dt)
 	{
 		if (pause == false) {
 			pause = true;
+			App->audio->setMusicVolume(0.2);
 		}
 		else {
 			pause = false;
+			App->audio->setMusicVolume(1);
 		}
 		
 	}
+	
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
