@@ -123,6 +123,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 
 		if (SDL_GetTicks() > dead_ghost_animation_finish + deadGhostDelay)
 		{
+			App->scene->points = App->scene->points + 350;
 			App->entity->DeleteEntity(this);
 			count_ghost_dead = false;
 			ghost_dead = false;

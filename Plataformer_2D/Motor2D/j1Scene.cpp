@@ -76,8 +76,6 @@ bool j1Scene::Start()
 	currentMap = 0;
 	createEntities();
 
-	App->sceneui->Addingame_UI();
-
 	return true;
 }
 
@@ -93,6 +91,7 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
+		LOG("POINTS %i", points);
 	// Gui ---
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
@@ -328,6 +327,7 @@ bool j1Scene::PrepSceneIntro()
 	App->particles->CleanUp();
 	App->colliders->CleanUp();
 	App->map->CleanUp();
+	App->sceneui->Addingame_UI();
 	App->audio->PlayMusic(music_scene_intro->GetString());	// WE have to unload this song/////////////////////////////////////////////////////////////////////////////////////////////
 
 	return true;
@@ -391,6 +391,8 @@ bool j1Scene::save(pugi::xml_node& savegame)
 	{
 		savegame.append_child("map").append_attribute("actual").set_value(1);
 	}
+
+	savegame.append_child("map").append_attribute("points").set_value(0);
 
 	return true;
 }

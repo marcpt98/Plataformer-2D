@@ -60,6 +60,7 @@ public:
 	// Player
 	bool player_map_next = false;
 	bool player_dead = false;
+	int points;
 
 	// Maps and music
 	p2SString* map_1 = nullptr;

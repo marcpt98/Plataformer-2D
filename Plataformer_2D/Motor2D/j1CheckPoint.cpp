@@ -88,6 +88,7 @@ void j1CheckPoint::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_PLAYER) 
 	{
+
 		if (savefx == false) 
 		{
 			App->audio->PlayFx(8, 0);
