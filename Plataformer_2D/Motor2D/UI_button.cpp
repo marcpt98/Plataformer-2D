@@ -43,13 +43,4 @@ void UI_button::BlitElement()
 		App->render->Blit(texture, globalPos.x, globalPos.y, &OnClick, false);
 		break;
 	}
-
-	if (type == CHECKBOX && tick)
-	{
-		App->render->Blit(texture, globalPos.x, globalPos.y, &Tick, false);
-	}
-	else if (type == LINK && text != nullptr)
-	{
-		text->BlitElement();
-	}
 }

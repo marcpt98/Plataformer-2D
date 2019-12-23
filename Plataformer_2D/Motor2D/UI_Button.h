@@ -8,6 +8,7 @@ enum button_type
 	LINK,
 	CHECKBOX
 };
+
 class UI_button : public UI_element
 {
 public:

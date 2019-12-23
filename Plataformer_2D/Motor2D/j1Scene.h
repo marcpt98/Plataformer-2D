@@ -46,7 +46,7 @@ public:
 	bool save(pugi::xml_node&);
 
 	//Ui events
-	bool OnUIEvent(UI_element* element, event_type event_type);
+	//bool OnUIEvent(UI_element* element, event_type event_type);
 
 public:
 	p2List<p2SString*> map_names;

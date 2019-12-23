@@ -399,7 +399,7 @@ bool j1Scene::save(pugi::xml_node& savegame)
 
 
 //Ui events
-bool j1Scene::OnUIEvent(UI_element* element, event_type event_type)
+/*bool j1Scene::OnUIEvent(UI_element* element, event_type event_type)
 {
 	if (event_type == MOUSE_ENTER || event_type == MOUSE_LEFT_RELEASE || event_type == MOUSE_RIGHT_RELEASE)
 	{
@@ -421,4 +421,4 @@ bool j1Scene::OnUIEvent(UI_element* element, event_type event_type)
 	}
 
 	return true;
-}
+}*/

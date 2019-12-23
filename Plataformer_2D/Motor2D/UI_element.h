@@ -25,7 +25,7 @@ enum UI_element_state
 
 enum UI_element_action
 {
-	EXIT
+	START
 };
 
 class UI_element :public j1Module
@@ -73,6 +73,7 @@ public:
 	iPoint localPosition;
 	SDL_Rect section;
 	element_type element_type;
+	UI_element_action element_action;
 	j1Module* callback = nullptr;
 	UI_element* parent = nullptr;
 	bool hovering = false;

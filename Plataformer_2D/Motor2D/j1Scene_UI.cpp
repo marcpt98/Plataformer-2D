@@ -58,6 +58,7 @@ bool j1SceneUI::Addsceneintro_UI()
 	background = App->gui->AddImage(App->gui->scene_intro, 0, 0, { 0,0,1056,792 });
 	title = App->gui->AddImage(App->gui->title_intro, 200, 100, { 0,0,683,98 });
 	play_button = App->gui->AddButton(200, 350, App->gui->GetAtlas(), {1,1,234,72}, {1,74,259,80}, {1,155,234,63}, this);
+	play_button->element_action = START;
 
 	return true;
 }
@@ -65,6 +66,8 @@ bool j1SceneUI::Addsceneintro_UI()
 bool j1SceneUI::Deletesceneintro_UI()
 {
 	App->gui->DeleteGui(background);
+	App->gui->DeleteGui(title);
+	App->gui->DeleteGui(play_button);
 
 	return true;
 }
@@ -104,7 +107,7 @@ bool j1SceneUI::Deletepause_UI()
 //Ui events
 bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 {
-	if (event_type == MOUSE_ENTER || event_type == MOUSE_LEFT_RELEASE || event_type == MOUSE_RIGHT_RELEASE)
+	if (event_type == MOUSE_ENTER || event_type == MOUSE_RIGHT_RELEASE)
 	{
 		element->state = MOUSEOVER;
 
@@ -117,7 +120,16 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 	else if (event_type == MOUSE_LEFT_CLICK)
 	{
 		element->state = CLICKED;
-
+	}
+	else if (event_type == MOUSE_LEFT_RELEASE)
+	{
+		if (element->element_action == START)
+		{
+			App->scene->sceneintro = false;
+			App->scene->currentMap = 0;
+			App->scene->LevelName(0);
+			Deletesceneintro_UI();
+		}
 	}
 	else if (event_type == MOUSE_RIGHT_CLICK)
 	{
