@@ -23,6 +23,11 @@ enum UI_element_state
 	CLICKED,
 };
 
+enum UI_element_action
+{
+	EXIT
+};
+
 class UI_element :public j1Module
 {
 public:
