@@ -76,6 +76,8 @@ Ghost enemy art: Pixel Art created by ansimuz (@ansimuz) https://ansimuz.itch.io
 
 Twitter: https://twitter.com/ansimuz
 
+Title made with : https://textcraft.net/
+
 Slime fx from Mike Koenig: http://soundbible.com/1097-Slime-Splash.html
 
 Ghost fx from Mike Koenig: http://soundbible.com/1025-Demon-Zombie-Ambiance.html
