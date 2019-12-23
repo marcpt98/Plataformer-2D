@@ -44,10 +44,17 @@ public:
 	//bool OnUIEvent(UI_element* element, event_type event_type);
 
 	// UI menus
-	UI_ingame* Addingame_UI();
+	bool Addingame_UI();
+	bool Deleteingame_UI();
+	bool Addpause_UI();
+	bool Deletepause_UI();
 
 public:
 	p2List<UI*> UI_type;
+
+	UI_element* live1;
+	UI_element* live2;
+	UI_element* live3;
 };
 
 #endif // __j1SCENE_UI_H__

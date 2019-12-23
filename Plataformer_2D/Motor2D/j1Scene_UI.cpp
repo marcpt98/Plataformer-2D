@@ -44,7 +44,7 @@ bool j1SceneUI::PostUpdate()
 
 bool j1SceneUI::CleanUp()
 {
-	LOG("Freeing GUI");
+	LOG("Freeing UI_type list");
 
 	p2List_item<UI*>* item;
 	item = UI_type.start;
@@ -58,9 +58,34 @@ bool j1SceneUI::CleanUp()
 	return true;
 }
 
-UI_ingame* j1SceneUI::Addingame_UI()
+bool j1SceneUI::Addingame_UI()
 {
-	UI* ingame_UI = new UI(MENU_INGAME);
+	// Elements of this UI
+	live1 = App->gui->AddImage(App->gui->GetAtlas(), 10, 10, { 568,312,118,102 });
+	live2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 10, { 568,312,118,102 });
+	
+	return true;
+}
 
-	//UI_element* live1=App->gui->AddImage()
+bool j1SceneUI::Addpause_UI()
+{
+	// Elements of this UI
+	live3 = App->gui->AddImage(App->gui->GetAtlas(), 10, 500, { 568,312,118,102 });
+
+	return true;
+}
+
+bool j1SceneUI::Deleteingame_UI()
+{
+	App->gui->DeleteGui(live1);
+	App->gui->DeleteGui(live2);
+
+	return true;
+}
+
+bool j1SceneUI::Deletepause_UI()
+{
+	App->gui->DeleteGui(live3);
+
+	return true;
 }
