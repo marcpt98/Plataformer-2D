@@ -56,6 +56,8 @@ Itch.io: https://free-game-assets.itch.io/free-tiny-hero-sprites-pixel-art
 
 Background music: TeknoAXE's Royalty Free Music http://www.facebook.com/teknoaxe
 
+Scene intro music from Evan King on youtube : https://www.youtube.com/watch?v=uWILfcPIyto
+
 Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sounds/399095/
 
 Sound efect from "chiptape": www.chiptape.com/chiptape/sounds/medium/gBallMinimize.wav from https://www.findsounds.com/ISAPI/search.dll
