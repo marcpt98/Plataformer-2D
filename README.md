@@ -87,7 +87,17 @@ SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
 
 ## Inovation
 
-Colliders made in Tiled, player besides jumping also can grab on walls to jump again and player can double jump if he's only a bit under the platform to facilitate the level.
+-Enemy states and patrol
+
+-Game pause
+
+-Jump particles
+
+-Coldown on projectiles
+
+-Particle effects
+
+-Checkpoints
 
 ## License
 //MIT License
