@@ -71,7 +71,7 @@ bool j1Scene::Start()
 
 		RELEASE_ARRAY(data);
 	}
-
+	lives = 3;
 	// Player
 	currentMap = 0;
 	createEntities();
@@ -97,7 +97,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
 		App->gui->AddButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
-		App->gui->AddText("Hello World", 200, 200, App->font->Load("fonts/open_sans/OpenSans-Regular.ttf", 25), { 255, 0, 0, 255 }, this);
+		App->gui->AddText("Hello World", 200, 200, App->font->Load("fonts/open_sans/ARCADECLASSIC.ttf", 25), { 255, 0, 0, 255 }, this);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)

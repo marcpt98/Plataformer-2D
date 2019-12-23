@@ -72,7 +72,7 @@ public:
 	bool pause = false;
 
 	bool sceneintro = true;
-
+	int lives = 0;
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;

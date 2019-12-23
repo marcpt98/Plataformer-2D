@@ -161,6 +161,9 @@ public:
 	// Framerate new variables
 	bool ground = false;
 	
+	//Lives System
+	int current_lives;
+
 	int number;
 };
 
