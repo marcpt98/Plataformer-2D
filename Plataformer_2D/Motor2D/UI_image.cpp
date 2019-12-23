@@ -6,7 +6,7 @@ void UI_image::BlitElement()
 {
 	iPoint globalPos = calculateAbsolutePosition();
 	if (section.w != 0 && section.h != 0)
-		App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, 0.5f);
+		App->render->Blit(texture, globalPos.x, globalPos.y, &section, false);
 	else
-		App->render->Blit(texture, globalPos.x, globalPos.y, nullptr, false, 0.5f);
+		App->render->Blit(texture, globalPos.x, globalPos.y, nullptr, false);
 }

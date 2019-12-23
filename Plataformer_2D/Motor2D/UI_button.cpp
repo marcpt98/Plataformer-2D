@@ -34,19 +34,19 @@ void UI_button::BlitElement()
 	switch (state)
 	{
 	case STANDBY:
-		App->render->Blit(texture, globalPos.x, globalPos.y, &section, false, 0.5f);
+		App->render->Blit(texture, globalPos.x, globalPos.y, &section, false);
 		break;
 	case MOUSEOVER:
-		App->render->Blit(texture, globalPos.x, globalPos.y, &OnMouse, false, 0.5f);
+		App->render->Blit(texture, globalPos.x - 5, globalPos.y - 5, &OnMouse, false);
 		break;
 	case CLICKED:
-		App->render->Blit(texture, globalPos.x, globalPos.y, &OnClick, false, 0.5f);
+		App->render->Blit(texture, globalPos.x, globalPos.y, &OnClick, false);
 		break;
 	}
 
 	if (type == CHECKBOX && tick)
 	{
-		App->render->Blit(texture, globalPos.x, globalPos.y, &Tick, false, 0.5f);
+		App->render->Blit(texture, globalPos.x, globalPos.y, &Tick, false);
 	}
 	else if (type == LINK && text != nullptr)
 	{

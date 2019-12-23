@@ -52,10 +52,19 @@ bool j1SceneUI::CleanUp()
 	return true;
 }
 
-bool Addsceneintro_UI()
+bool j1SceneUI::Addsceneintro_UI()
 {
 	// Elements of this UI
+	background = App->gui->AddImage(App->gui->scene_intro, 0, 0, { 0,0,1056,792 });
+	title = App->gui->AddImage(App->gui->title_intro, 200, 100, { 0,0,683,98 });
+	play_button = App->gui->AddButton(200, 350, App->gui->GetAtlas(), {1,1,234,72}, {1,74,259,80}, {1,155,234,63}, this);
 
+	return true;
+}
+
+bool j1SceneUI::Deletesceneintro_UI()
+{
+	App->gui->DeleteGui(background);
 
 	return true;
 }
@@ -88,6 +97,31 @@ bool j1SceneUI::Deleteingame_UI()
 bool j1SceneUI::Deletepause_UI()
 {
 	App->gui->DeleteGui(live3);
+
+	return true;
+}
+
+//Ui events
+bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
+{
+	if (event_type == MOUSE_ENTER || event_type == MOUSE_LEFT_RELEASE || event_type == MOUSE_RIGHT_RELEASE)
+	{
+		element->state = MOUSEOVER;
+
+	}
+	else if (event_type == MOUSE_LEAVE)
+	{
+		element->state = STANDBY;
+
+	}
+	else if (event_type == MOUSE_LEFT_CLICK)
+	{
+		element->state = CLICKED;
+
+	}
+	else if (event_type == MOUSE_RIGHT_CLICK)
+	{
+	}
 
 	return true;
 }

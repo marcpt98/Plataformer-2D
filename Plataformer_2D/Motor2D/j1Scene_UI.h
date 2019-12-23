@@ -24,7 +24,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	//bool OnUIEvent(UI_element* element, event_type event_type);
+	bool OnUIEvent(UI_element* element, event_type event_type);
 
 	// Add UI menus
 	bool Addsceneintro_UI();
@@ -32,11 +32,15 @@ public:
 	bool Addpause_UI();
 	
 	// Delete UI menus
+	bool Deletesceneintro_UI();
 	bool Deleteingame_UI();
 	bool Deletepause_UI();
 
 public:
 	// Scene Intro
+	UI_element* background;
+	UI_element* title;
+	UI_element* play_button;
 
 	// In game
 	UI_element* live1;

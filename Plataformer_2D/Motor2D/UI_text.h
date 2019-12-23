@@ -25,13 +25,10 @@ public:
 
 	void createTexture();
 	void setColor(SDL_Color newColor);
-	void setOutlineColor(SDL_Color newColor);
-	void setOutlined(bool isOutlined);
 
 	p2SString getText() const;
 	void setText(const char* string);
 	void setText(const p2SString string);
-	int getLength() const;
 
 	void BlitElement();
 
@@ -45,10 +42,6 @@ private:
 
 	p2SString text = nullptr;
 	_TTF_Font* font = nullptr;
-	bool outlined = false;
-	SDL_Texture* outline = nullptr;
-	SDL_Color outline_color = { 0, 0, 0, 255 };
-	iPoint outline_offset;
 };
 
 #endif // __UI_TEXT__

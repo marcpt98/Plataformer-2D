@@ -28,6 +28,8 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	bool ret = true;
 
 	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
+	scene_intro_name = conf.child("intro").attribute("file").as_string("");
+	title_intro_name = conf.child("title").attribute("file").as_string("");
 
 	return ret;
 }
@@ -36,6 +38,8 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 bool j1Gui::Start()
 {
 	atlas = App->tex->Load(atlas_file_name.GetString());
+	scene_intro = App->tex->Load(scene_intro_name.GetString());
+	title_intro = App->tex->Load(title_intro_name.GetString());
 
 	return true;
 }

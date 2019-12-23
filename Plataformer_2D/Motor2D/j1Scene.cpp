@@ -327,7 +327,7 @@ bool j1Scene::PrepSceneIntro()
 	App->particles->CleanUp();
 	App->colliders->CleanUp();
 	App->map->CleanUp();
-	App->sceneui->Addingame_UI();
+	App->sceneui->Addsceneintro_UI();
 	App->audio->PlayMusic(music_scene_intro->GetString());	// WE have to unload this song/////////////////////////////////////////////////////////////////////////////////////////////
 
 	return true;
