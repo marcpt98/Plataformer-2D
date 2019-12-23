@@ -60,5 +60,7 @@ bool j1SceneUI::CleanUp()
 
 UI_ingame* j1SceneUI::Addingame_UI()
 {
+	UI* ingame_UI = new UI(MENU_INGAME);
 
+	//UI_element* live1=App->gui->AddImage()
 }

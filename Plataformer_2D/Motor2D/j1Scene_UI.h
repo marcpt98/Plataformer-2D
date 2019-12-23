@@ -41,7 +41,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	bool OnUIEvent(UI_element* element, event_type event_type);
+	//bool OnUIEvent(UI_element* element, event_type event_type);
 
 	// UI menus
 	UI_ingame* Addingame_UI();

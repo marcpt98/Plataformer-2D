@@ -88,6 +88,9 @@
     <ClCompile Include="j1Coins.cpp">
       <Filter>Desenvolupament  ========\Modules\Entities\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="j1Scene_UI.cpp">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="j1Coins.h">
       <Filter>Desenvolupament  ========\Modules\Entities\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Scene_UI.h">
+      <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

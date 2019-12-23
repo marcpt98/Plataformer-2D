@@ -69,7 +69,6 @@ private:
 	SDL_Texture* atlas;
 	p2SString atlas_file_name;
 	p2List<UI_element*> UI_elements;
-
 };
 
 #endif // __j1GUI_H__
