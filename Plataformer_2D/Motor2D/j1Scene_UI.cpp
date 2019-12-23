@@ -12,6 +12,11 @@
 #include "UI_Text.h"
 #include "UI_Button.h"
 #include "j1Scene_UI.h"
+#include "j1EntityManager.h"
+#include "j1Particles.h"
+#include "j1Colliders.h"
+#include "j1Map.h"
+#include "j1Scene.h"
 
 j1SceneUI::j1SceneUI()
 {
@@ -24,7 +29,7 @@ j1SceneUI::~j1SceneUI()
 
 bool j1SceneUI::Start()
 {
-
+	App->scene->PrepSceneIntro();
 
 	return true;
 }

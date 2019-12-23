@@ -35,6 +35,7 @@
     <map_name name="Level_2.tmx"/>
     <music_name name="audio/music/music_level_1.ogg"/>
     <music_name name="audio/music/music_level_2.ogg"/>
+    <music_name name="audio/music/music_scene_intro.ogg"/>
   </scene>
   
   <entity>

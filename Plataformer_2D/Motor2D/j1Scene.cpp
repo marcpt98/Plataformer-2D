@@ -16,6 +16,7 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "UI_element.h"
+#include "j1Scene_UI.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -53,6 +54,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	map_2 = map_names[1];
 	music_1 = music_names[0];
 	music_2 = music_names[1];
+	music_scene_intro = music_names[2];
 
 	return ret;
 }
@@ -62,7 +64,6 @@ bool j1Scene::Start()
 {
 	if (App->map->Load(map_1->GetString()) == true)
 	{
-		App->audio->PlayMusic(music_1->GetString());
 		int w, h;
 		uchar* data = NULL;
 		if (App->map->CreateWalkabilityMap(w, h, &data))
@@ -74,6 +75,8 @@ bool j1Scene::Start()
 	// Player
 	currentMap = 0;
 	createEntities();
+
+	App->sceneui->Addingame_UI();
 
 	return true;
 }
@@ -302,6 +305,17 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::COIN, 6082, 493);
 		App->entity->CreateEntity(j1Entity::entityType::COIN, 6082, 493);
 	}
+
+	return true;
+}
+
+bool j1Scene::PrepSceneIntro()
+{
+	App->entity->CleanUp();
+	App->particles->CleanUp();
+	App->colliders->CleanUp();
+	App->map->CleanUp();
+	App->audio->PlayMusic(music_scene_intro->GetString());	// WE have to unload this song/////////////////////////////////////////////////////////////////////////////////////////////
 
 	return true;
 }

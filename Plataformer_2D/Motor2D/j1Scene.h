@@ -35,6 +35,9 @@ public:
 	// Say which map and music has to be loaded
 	bool LevelName(int time);
 
+	// Preparing scene intro
+	bool PrepSceneIntro();
+
 	// Create entities when level loads
 	bool createEntities();
 
@@ -45,6 +48,7 @@ public:
 	//Ui events
 	bool OnUIEvent(UI_element* element, event_type event_type);
 
+public:
 	p2List<p2SString*> map_names;
 	int currentMap;
 	p2List<p2SString*> music_names;
@@ -62,9 +66,11 @@ public:
 	p2SString* map_2 = nullptr;
 	p2SString* music_1 = nullptr;
 	p2SString* music_2 = nullptr;
+	p2SString* music_scene_intro = nullptr;
 
 	bool CheckPoint = false;
 	bool pause = false;
+
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;
