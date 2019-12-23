@@ -109,12 +109,14 @@ bool j1Scene::Update(float dt)
 	// Change map
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
+		sceneintro = false;
 		currentMap = 0;
 		LevelName(0);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
+		sceneintro = false;
 		currentMap = 1;
 		LevelName(1);
 	}
@@ -122,6 +124,7 @@ bool j1Scene::Update(float dt)
 	// Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true && CheckPoint == false)
 	{
+		sceneintro = false;
 		if (currentMap == 0)
 		{
 			LevelName(0);
@@ -133,6 +136,13 @@ bool j1Scene::Update(float dt)
 
 		player_dead = false;
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		sceneintro = true;
+		PrepSceneIntro();
+	}
+
 	if (CheckPoint == true && player_dead == true)
 	{
 		App->want_load = true;
@@ -154,7 +164,10 @@ bool j1Scene::Update(float dt)
 		player_map_next = false;
 	}
 
-	App->map->Draw();
+	if (sceneintro == false)
+	{
+		App->map->Draw();
+	}
 
 	if (canbehighfps == true) {
 		highfps = true;

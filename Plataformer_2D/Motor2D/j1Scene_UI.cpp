@@ -49,16 +49,13 @@ bool j1SceneUI::PostUpdate()
 
 bool j1SceneUI::CleanUp()
 {
-	LOG("Freeing UI_type list");
+	return true;
+}
 
-	p2List_item<UI*>* item;
-	item = UI_type.start;
-	while (item != NULL)
-	{
-		RELEASE(item->data);
-		item = item->next;
-	}
-	UI_type.clear();
+bool Addsceneintro_UI()
+{
+	// Elements of this UI
+
 
 	return true;
 }

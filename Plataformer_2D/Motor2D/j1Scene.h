@@ -71,6 +71,8 @@ public:
 	bool CheckPoint = false;
 	bool pause = false;
 
+	bool sceneintro = true;
+
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;

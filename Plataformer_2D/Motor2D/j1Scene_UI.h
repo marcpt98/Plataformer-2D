@@ -4,23 +4,6 @@
 #include "j1Module.h"
 #include "p2List.h"
 
-class UI_ingame;
-
-enum UI_types
-{
-	MENU_INGAME,
-	MENU_PAUSE
-};
-
-struct UI
-{
-	UI(UI_types id) : id(id)
-	{}
-
-	p2List<UI_element*> elements;
-	UI_types id;
-};
-
 class j1SceneUI :public j1Module
 {
 public:
@@ -43,17 +26,23 @@ public:
 
 	//bool OnUIEvent(UI_element* element, event_type event_type);
 
-	// UI menus
+	// Add UI menus
+	bool Addsceneintro_UI();
 	bool Addingame_UI();
-	bool Deleteingame_UI();
 	bool Addpause_UI();
+	
+	// Delete UI menus
+	bool Deleteingame_UI();
 	bool Deletepause_UI();
 
 public:
-	p2List<UI*> UI_type;
+	// Scene Intro
 
+	// In game
 	UI_element* live1;
 	UI_element* live2;
+
+	// Pause
 	UI_element* live3;
 };
 
