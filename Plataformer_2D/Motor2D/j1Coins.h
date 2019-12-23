@@ -53,6 +53,7 @@ public:
 	//Animations
 	Animation* current_animation = nullptr;
 	Animation idle;
+	Animation paused;
 
 	bool alive = false;
 

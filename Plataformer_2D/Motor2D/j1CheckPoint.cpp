@@ -60,7 +60,7 @@ bool j1CheckPoint::CleanUp()
 bool j1CheckPoint::Update(float dt)
 {
 	BROFILER_CATEGORY("Updatej1CheckPoint", Profiler::Color::Pink);
-
+	
 	CheckAnimation(dt);
 
 	App->render->Blit(App->entity->checkPoint_graphics, position.x + current_animation->pivotx[current_animation->returnCurrentFrame()], position.y + current_animation->pivoty[current_animation->returnCurrentFrame()], &(current_animation->GetCurrentFrame(dt)), 1.0f);

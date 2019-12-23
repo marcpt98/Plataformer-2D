@@ -30,6 +30,8 @@ j1Coins::j1Coins(int posx, int posy) : j1Entity(entityType::COIN)
 	idle.PushBack({ 100,0,20,32 }, 0.2, 3, 0);
 	idle.PushBack({ 128,0,26,32 }, 0.2, 0, 0);
 
+	paused.PushBack({ 72,0,12,32 }, 0.2, 5, 0);
+
 	position.x = posx;
 	position.y = posy;
 
@@ -73,8 +75,13 @@ bool j1Coins::PostUpdate(float dt)
 
 void j1Coins::CheckAnimation(float dt)
 {
-	current_animation = &idle;
-
+	if (App->scene->pause == false)
+	{
+		current_animation = &idle;
+	}
+	else {
+		current_animation = &paused;
+	}
 }
 
 void j1Coins::OnCollision(Collider* c1, Collider* c2)
