@@ -41,6 +41,12 @@ public:
 	UI_element* background;
 	UI_element* title;
 	UI_element* play_button;
+	UI_element* load_button;
+	UI_element* settings_button;
+	UI_element* credits_button;
+	UI_element* exit_button;
+	bool exit = false;
+	
 
 	// In game
 	UI_element* live1;

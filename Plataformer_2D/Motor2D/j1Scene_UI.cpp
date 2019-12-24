@@ -17,10 +17,13 @@
 #include "j1Colliders.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Audio.h"
 
 j1SceneUI::j1SceneUI()
 {
 	name.create("sceneUI");
+
+	exit = false;
 }
 
 // Destructor
@@ -57,8 +60,16 @@ bool j1SceneUI::Addsceneintro_UI()
 	// Elements of this UI
 	background = App->gui->AddImage(App->gui->scene_intro, 0, 0, { 0,0,1056,792 });
 	title = App->gui->AddImage(App->gui->title_intro, 200, 100, { 0,0,683,98 });
-	play_button = App->gui->AddButton(200, 350, App->gui->GetAtlas(), {1,1,234,72}, {1,74,259,80}, {1,155,234,63}, this);
+	play_button = App->gui->AddButton(400, 250, App->gui->GetAtlas(), {1,1,234,72}, {1,74,259,80}, {1,155,234,63}, this);
 	play_button->element_action = START;
+	load_button = App->gui->AddButton(400, 350, App->gui->GetAtlas(), { 802,1,234,72 }, { 801,74,259,80 }, { 801,155,234,63 }, this);
+	load_button->element_action = LOAD;
+	credits_button = App->gui->AddButton(350, 550, App->gui->GetAtlas(), { 1073,1,337,72 }, { 1072,74,357,80 }, { 1072,155,338,63 }, this);
+	credits_button->element_action = CREDITS;
+	settings_button = App->gui->AddButton(350, 450, App->gui->GetAtlas(), { 0,220,360,72 }, { 1,293,392,80 }, { 1,374,362,63 }, this);
+	settings_button->element_action = SETTINGS;
+	exit_button = App->gui->AddButton(400, 650, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 }, this);
+	exit_button->element_action = EXIT;
 
 	return true;
 }
@@ -68,6 +79,10 @@ bool j1SceneUI::Deletesceneintro_UI()
 	App->gui->DeleteGui(background);
 	App->gui->DeleteGui(title);
 	App->gui->DeleteGui(play_button);
+	App->gui->DeleteGui(load_button);
+	App->gui->DeleteGui(credits_button);
+	App->gui->DeleteGui(settings_button);
+	App->gui->DeleteGui(exit_button);
 
 	return true;
 }
@@ -129,6 +144,24 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->currentMap = 0;
 			App->scene->LevelName(0);
 			Deletesceneintro_UI();
+		}
+		else if (element->element_action == LOAD)
+		{
+			App->scene->sceneintro = false;
+			App->want_load = true;
+			Deletesceneintro_UI();
+		}
+		else if (element->element_action == CREDITS)
+		{
+			
+		}
+		else if (element->element_action == SETTINGS)
+		{
+
+		}
+		else if (element->element_action == EXIT)
+		{
+			exit = true;
 		}
 	}
 	else if (event_type == MOUSE_RIGHT_CLICK)

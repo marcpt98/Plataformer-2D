@@ -37,7 +37,7 @@ void UI_button::BlitElement()
 		App->render->Blit(texture, globalPos.x, globalPos.y, &section, false);
 		break;
 	case MOUSEOVER:
-		App->render->Blit(texture, globalPos.x - 5, globalPos.y - 5, &OnMouse, false);
+		App->render->Blit(texture, globalPos.x - 10, globalPos.y - 3, &OnMouse, false);
 		break;
 	case CLICKED:
 		App->render->Blit(texture, globalPos.x, globalPos.y, &OnClick, false);

@@ -25,7 +25,11 @@ enum UI_element_state
 
 enum UI_element_action
 {
-	START
+	START,
+	LOAD,
+	SETTINGS,
+	CREDITS,
+	EXIT
 };
 
 class UI_element :public j1Module
