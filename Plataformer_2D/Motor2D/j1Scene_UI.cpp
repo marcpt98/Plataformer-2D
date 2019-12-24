@@ -58,6 +58,7 @@ bool j1SceneUI::CleanUp()
 bool j1SceneUI::Addsceneintro_UI()
 {
 	App->scene->introMap = 1;
+
 	// Elements of this UI
 	background = App->gui->AddImage(App->gui->scene_intro, 0, 0, { 0,0,1056,792 });
 	title = App->gui->AddImage(App->gui->title_intro, 200, 100, { 0,0,683,98 });
@@ -142,6 +143,7 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 		if (element->element_action == START)
 		{
 			App->scene->sceneintro = false;
+			App->scene->introMap = 0;
 			App->scene->currentMap = 0;
 			App->scene->LevelName(0);
 			Deletesceneintro_UI();
@@ -149,9 +151,9 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 		else if (element->element_action == LOAD)
 		{
 			App->scene->sceneintro = false;
-			App->want_load = true;
-			Deletesceneintro_UI();
+			App->load();
 			App->scene->introMap = 0;
+			Deletesceneintro_UI();
 		}
 		else if (element->element_action == CREDITS)
 		{

@@ -355,7 +355,7 @@ bool j1Scene::PrepSceneIntro()
 	App->colliders->CleanUp();
 	App->map->CleanUp();
 	App->sceneui->Addsceneintro_UI();
-	App->audio->PlayMusic(music_scene_intro->GetString());	// WE have to unload this song/////////////////////////////////////////////////////////////////////////////////////////////
+	App->audio->PlayMusic(music_scene_intro->GetString());
 
 	return true;
 }
@@ -368,7 +368,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	{
 		currentMap = 1;
 		App->audio->UnloadMusic(music_scene_intro->GetString());
-		App->map->Load(map_2->GetString());
+		App->map->Load("Level_2.tmx");
 		App->particles->Start();
 		App->audio->PlayMusic(music_2->GetString());
 	}
@@ -378,7 +378,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	{
 		currentMap = 0;
 		App->audio->UnloadMusic(music_scene_intro->GetString());
-		App->map->Load(map_1->GetString());
+		App->map->Load("Level_1.tmx");
 		App->particles->Start();
 		App->audio->PlayMusic(music_1->GetString());
 	}
