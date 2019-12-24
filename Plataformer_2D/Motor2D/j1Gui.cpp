@@ -11,6 +11,7 @@
 #include "UI_Image.h"
 #include "UI_Text.h"
 #include "UI_Button.h"
+#include "UI_window.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -161,6 +162,14 @@ UI_button* j1Gui::AddButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	UI_button* ret = new UI_button(x, y, usingTexture, standby, OnMouse, OnClick, LINK, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+UI_window* j1Gui::AddWindow(SDL_Texture* texture, int x, int y, SDL_Rect section, j1Module* callback)
+{
+	UI_window* ret = new UI_window(texture, x, y, section, callback);
 	UI_elements.add(ret);
 
 	return ret;

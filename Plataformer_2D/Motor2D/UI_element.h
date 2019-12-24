@@ -14,6 +14,7 @@ enum element_type
 	TEXT,
 	IMAGE,
 	BUTTON,
+	WINDOW
 };
 
 enum UI_element_state
@@ -29,7 +30,11 @@ enum UI_element_action
 	LOAD,
 	SETTINGS,
 	CREDITS,
-	EXIT
+	EXIT,
+	EXIT_SETTINGS,
+	EXIT_CREDITS,
+	LICENCE,
+	EXIT_LICENCE
 };
 
 class UI_element :public j1Module
