@@ -392,6 +392,14 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	}
 
 	player_score = savegame.child("map2").attribute("points").as_int();
+	
+	//This is to reset the player score
+	App->gui->DeleteGui(score);
+	score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+	score->setOutlined(true);
+	p2SString score_info("Score %i", player_score);
+	score->setText(score_info);
+	score->BlitElement();
 	return true;
 }
 

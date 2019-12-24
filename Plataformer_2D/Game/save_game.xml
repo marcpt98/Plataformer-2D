@@ -11,7 +11,7 @@
 	<map />
 	<scene>
 		<map actual="0" />
-		<map2 points="550" />
+		<map2 points="300" />
 	</scene>
 	<pathfinding />
 	<entity_manager>
@@ -19,16 +19,19 @@
 			<position pos.x="2322" pos.y="243" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="2156" pos.y="118" />
+			<position pos.x="2163" pos.y="192" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="2934" pos.y="656" />
+			<position pos.x="1033" pos.y="593" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5884" pos.y="649" />
+			<position pos.x="3037" pos.y="656" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5784" pos.y="649" />
+			<position pos.x="5987" pos.y="649" />
+		</Entity>
+		<Entity type="slime">
+			<position pos.x="5887" pos.y="649" />
 		</Entity>
 		<Entity type="checkPoint">
 			<position pos.x="2300" pos.y="211" />
@@ -38,6 +41,12 @@
 		</Entity>
 		<Entity type="checkPoint">
 			<position pos.x="5106" pos.y="140" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="1460" pos.y="600" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="1587" pos.y="550" />
 		</Entity>
 		<Entity type="coin">
 			<position pos.x="2600" pos.y="430" />
