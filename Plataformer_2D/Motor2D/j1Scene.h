@@ -62,6 +62,7 @@ public:
 	// Player
 	bool player_map_next = false;
 	bool player_dead = false;
+	bool firsttime = false;
 	int player_score;
 	int last_player_score;
 	int timer_pts;

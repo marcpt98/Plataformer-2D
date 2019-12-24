@@ -77,6 +77,13 @@ bool j1Scene::Start()
 	currentMap = 0;
 	createEntities();
 
+	//This is to reset the player score
+	firsttime = true;
+	score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+	score->setOutlined(true);
+	p2SString score_info("Score %i", player_score);
+	score->setText(score_info);
+	score->BlitElement();
 	return true;
 }
 
@@ -92,7 +99,12 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
-	
+	if (firsttime == true && diferent_score == true)
+	{
+		App->gui->DeleteGui(score);
+		firsttime = false;
+	}
+
 	if (timer_pts == 1 && diferent_score == true)
 	{
 		App->gui->DeleteGui(score);
