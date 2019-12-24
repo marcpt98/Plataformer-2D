@@ -221,7 +221,9 @@ void Enemy_Slime::OnCollision(Collider* c1, Collider* c2)
 
 		if (count_slime_dead == false)
 		{
-			App->scene->points = App->scene->points + 50;
+			App->scene->last_player_score = App->scene->player_score;
+			App->scene->player_score = App->scene->player_score + 50;
+			App->scene->diferent_score = true;
 			dead_slime_animation_finish = SDL_GetTicks();
 			App->audio->PlayFx(7, 0);
 			slime_dead = true;

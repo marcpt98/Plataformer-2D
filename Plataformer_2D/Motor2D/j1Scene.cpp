@@ -16,6 +16,7 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "UI_element.h"
+#include "UI_text.h"
 #include "j1Scene_UI.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -91,13 +92,33 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
-		LOG("POINTS %i", points);
+		LOG("POINTS %i", player_score);
 	// Gui ---
 	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
 	{
 		App->gui->AddButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
-		App->gui->AddText("Hello World", 200, 200, App->font->Load("fonts/open_sans/ARCADECLASSIC.ttf", 25), { 255, 0, 0, 255 }, this);
 	}
+	
+	if (timer_pts == 1 && diferent_score == true)
+	{
+		App->gui->DeleteGui(score);
+		timer_pts = 0;
+	}
+
+	if (diferent_score == true)
+	{
+		score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+		score->setOutlined(true);
+		p2SString score_info("Score %i", player_score);
+		score->setText(score_info);
+		score->BlitElement();
+		timer_pts++;
+	}
+	diferent_score = false;
+
+	
+	
+	//diferent_score = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->want_load = true;

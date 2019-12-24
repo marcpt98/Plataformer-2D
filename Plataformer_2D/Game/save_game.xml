@@ -16,22 +16,19 @@
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="323" pos.y="554" />
+			<position pos.x="566" pos.y="460" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="2472" pos.y="172" />
+			<position pos.x="2369" pos.y="152" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="5972" pos.y="222" />
+			<position pos.x="5869" pos.y="202" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="772" pos.y="454" />
+			<position pos.x="3545" pos.y="1663" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="3662" pos.y="168" />
-		</Entity>
-		<Entity type="slime">
-			<position pos.x="5362" pos.y="617" />
+			<position pos.x="5259" pos.y="617" />
 		</Entity>
 		<Entity type="checkPoint">
 			<position pos.x="300" pos.y="520" />
@@ -44,9 +41,6 @@
 		</Entity>
 		<Entity type="checkPoint">
 			<position pos.x="5000" pos.y="105" />
-		</Entity>
-		<Entity type="coin">
-			<position pos.x="547" pos.y="450" />
 		</Entity>
 		<Entity type="coin">
 			<position pos.x="1085" pos.y="400" />

@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "UI_element.h"
 
 struct SDL_Texture;
 
@@ -60,7 +61,9 @@ public:
 	// Player
 	bool player_map_next = false;
 	bool player_dead = false;
-	int points;
+	int player_score;
+	int last_player_score;
+	int timer_pts;
 
 	// Maps and music
 	p2SString* map_1 = nullptr;
@@ -74,6 +77,9 @@ public:
 
 	bool sceneintro = true;
 	int lives = 0;
+
+	UI_text* score = nullptr;
+	bool diferent_score = false;
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;
