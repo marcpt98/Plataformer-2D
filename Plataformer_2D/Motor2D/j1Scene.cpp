@@ -16,6 +16,7 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "UI_element.h"
+#include "UI_Image.h"
 #include "UI_text.h"
 #include "j1Scene_UI.h"
 
@@ -84,6 +85,11 @@ bool j1Scene::Start()
 	p2SString score_info("Score %i", player_score);
 	score->setText(score_info);
 	score->BlitElement();
+
+	player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 568,312,118,112 });
+	player_face2= App->gui->AddImage(App->gui->GetAtlas(),  80, 40, { 568,312,118,112 });
+	player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 130, 40, { 568,312,118,112 });
+
 	return true;
 }
 
@@ -223,7 +229,20 @@ bool j1Scene::Update(float dt)
 		}
 		
 	}
-	
+
+	//Live system
+	if (lives == 2) 
+	{
+		App->gui->DeleteGui(player_face3);
+	}
+	if (lives == 1)
+	{
+		App->gui->DeleteGui(player_face2);
+	}
+	if (lives == 0)
+	{
+		App->gui->DeleteGui(player_face1);
+	}
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);

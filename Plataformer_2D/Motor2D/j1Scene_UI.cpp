@@ -72,6 +72,7 @@ bool j1SceneUI::Addsceneintro_UI()
 	settings_button->element_action = SETTINGS;
 	exit_button = App->gui->AddButton(400, 650, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 }, this);
 	exit_button->element_action = EXIT;
+	
 
 	return true;
 }
@@ -85,7 +86,6 @@ bool j1SceneUI::Deletesceneintro_UI()
 	App->gui->DeleteGui(credits_button);
 	App->gui->DeleteGui(settings_button);
 	App->gui->DeleteGui(exit_button);
-
 	return true;
 }
 

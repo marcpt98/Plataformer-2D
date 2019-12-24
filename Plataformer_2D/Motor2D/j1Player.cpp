@@ -658,13 +658,19 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		deaddead++;
 		if (count_monster_dead == false)
 		{
 			dead_monster_animation_finish = SDL_GetTicks();
 			App->audio->PlayFx(2, 0);
 			dead_monster_animation = true;
 			count_monster_dead = true;
-
+			if (deaddead == 1) 
+			{
+				App->scene->lives = App->scene->lives - 1;
+				deaddead = 0;
+			}
+			
 		}
 		to_delete = true;
 	}
