@@ -104,7 +104,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	LOG("%i", player_score);
+	//LOG("%i", player_score);
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
 	if (firsttime == true && diferent_score == true)
 	{
@@ -129,8 +129,6 @@ bool j1Scene::Update(float dt)
 	}
 	diferent_score = false;
 
-	
-	
 	//diferent_score = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
@@ -217,20 +215,6 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	//Game pause
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-	{
-		if (pause == false) {
-			pause = true;
-			App->audio->setMusicVolume(0.2);
-		}
-		else {
-			pause = false;
-			App->audio->setMusicVolume(1);
-		}
-		
-	}
-
 	//Live system
 	if (lives == 2) 
 	{
@@ -288,7 +272,7 @@ bool j1Scene::PostUpdate()
 
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->sceneui->exit == true)
+	if (App->sceneui->exit == true)
 		ret = false;
 
 	return ret;

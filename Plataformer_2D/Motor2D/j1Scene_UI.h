@@ -42,61 +42,52 @@ public:
 	bool Deletecredits_UI();
 	bool Deletelicence_UI();
 
+	// Extra
+	bool back_intro_UI();
+	bool delete_intro_UI();
+
 public:
 	// Scene Intro
-	UI_element* background;
-	UI_element* title;
-	UI_element* play_button;
-	UI_element* load_button;
-	UI_element* settings_button;
-	UI_element* credits_button;
-	UI_element* exit_button;
+	UI_image* background = nullptr;
+	UI_image* title = nullptr;
+	UI_button* play_button = nullptr;
+	UI_button* load_button = nullptr;
+	UI_button* settings_button = nullptr;
+	UI_button* credits_button = nullptr;
+	UI_button* exit_button = nullptr;
 	bool exit = false;
-	
-
-	// In game
-	UI_element* live1;
-	UI_element* live2;
 
 	// Settings
-	UI_element* window_settings;
-	UI_element* music;
-	UI_element* fx;
-	UI_element* cap;
-	UI_element* exit_settings;
+	UI_window* window_settings = nullptr;
+	UI_element* music = nullptr;
+	UI_element* fx = nullptr;
+	UI_element* cap = nullptr;
+	UI_button* exit_settings = nullptr;
 
 	// Credits
-	UI_element* window_credits;
-	UI_element* exit_credits;
-	UI_element* text_1;
-	UI_element* text_2;
-	UI_element* text_3;
-	UI_element* text_4;
-	UI_element* text_5;
-	UI_element* licence_button;
+	UI_window* window_credits = nullptr;
+	UI_button* exit_credits = nullptr;
+	UI_text* text_1 = nullptr;
+	UI_text* text_2 = nullptr;
+	UI_text* text_3 = nullptr;
+	UI_text* text_4 = nullptr;
+	UI_button* licence_button = nullptr;
 	
 	// Licence
-	UI_element* window_licence;
-	UI_element* exit_licence;
-	UI_element* text_6;
-	UI_element* text_7;
-	UI_element* text_8;
-	UI_element* text_9;
-	UI_element* text_10;
-	UI_element* text_11;
-	UI_element* text_12;
-	UI_element* text_13;
-	UI_element* text_14;
-	UI_element* text_15;
-	UI_element* text_16;
-	UI_element* text_17;
-	UI_element* text_18;
-	UI_element* text_19;
-	UI_element* text_20;
-	UI_element* text_21;
+	UI_window* window_licence = nullptr;
+	UI_button* exit_licence = nullptr;
+	UI_text* text_5 = nullptr;
+	UI_image* licence = nullptr;
+
+	// In game
+	UI_image* live1 = nullptr;
+	UI_image* live2 = nullptr;
 
 	// Pause
-	UI_element* live3;
+	bool pause_UI = false;
+	UI_window* window_pause = nullptr;
+	UI_button* save_button = nullptr;
+	UI_button* exit_pause = nullptr;
 };
 
 #endif // __j1SCENE_UI_H__

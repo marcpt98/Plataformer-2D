@@ -121,5 +121,6 @@
     <atlas file="gui/atlas.png"/>
     <intro file="gui/scene_intro.png"/>
     <title file="gui/Title.png"/>
+    <licence file="gui/licence.png"/>
   </gui>
 </config>

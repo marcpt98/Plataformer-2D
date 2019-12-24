@@ -79,9 +79,11 @@ public:
 
 	bool sceneintro = true;
 	int lives = 0;
+	int timertime = 0;
 
 	UI_text* score = nullptr;
 	bool diferent_score = false;
+
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;	

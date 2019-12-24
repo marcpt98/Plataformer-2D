@@ -77,6 +77,8 @@ public:
 	p2SString scene_intro_name;
 	SDL_Texture* title_intro;
 	p2SString title_intro_name;
+	SDL_Texture* licence;
+	p2SString licence_name;
 };
 
 #endif // __j1GUI_H__

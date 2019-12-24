@@ -34,7 +34,8 @@ enum UI_element_action
 	EXIT_SETTINGS,
 	EXIT_CREDITS,
 	LICENCE,
-	EXIT_LICENCE
+	EXIT_LICENCE,
+	EXIT_PAUSE
 };
 
 class UI_element :public j1Module
