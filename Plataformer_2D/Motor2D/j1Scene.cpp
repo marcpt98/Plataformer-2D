@@ -235,7 +235,7 @@ bool j1Scene::PostUpdate()
 
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || App->sceneui->exit == true)
 		ret = false;
 
 	return ret;
@@ -351,6 +351,26 @@ bool j1Scene::PrepSceneIntro()
 // Load Game State
 bool j1Scene::load(pugi::xml_node& savegame)
 {
+	// Loading SECOND map from SCENE_INTRO
+	if (introMap == 1 && savegame.child("map").attribute("actual").as_int() != 0)
+	{
+		currentMap = 1;
+		App->audio->UnloadMusic(music_scene_intro->GetString());
+		App->map->Load(map_2->GetString());
+		App->particles->Start();
+		App->audio->PlayMusic(music_2->GetString());
+	}
+
+	// Loading FIRST map from SCENE_INTRO
+	if (introMap == 1 && savegame.child("map").attribute("actual").as_int() != 1)
+	{
+		currentMap = 0;
+		App->audio->UnloadMusic(music_scene_intro->GetString());
+		App->map->Load(map_1->GetString());
+		App->particles->Start();
+		App->audio->PlayMusic(music_1->GetString());
+	}
+
 	// Loading SECOND map from FIRST map
 	if (currentMap == 0 && savegame.child("map").attribute("actual").as_int() != 0)
 	{
@@ -419,29 +439,3 @@ bool j1Scene::save(pugi::xml_node& savegame)
 
 	return true;
 }
-
-
-//Ui events
-/*bool j1Scene::OnUIEvent(UI_element* element, event_type event_type)
-{
-	if (event_type == MOUSE_ENTER || event_type == MOUSE_LEFT_RELEASE || event_type == MOUSE_RIGHT_RELEASE)
-	{
-		element->state = MOUSEOVER;
-
-	}
-	else if (event_type == MOUSE_LEAVE)
-	{
-		element->state = STANDBY;
-
-	}
-	else if (event_type == MOUSE_LEFT_CLICK)
-	{
-		element->state = CLICKED;
-
-	}
-	else if (event_type == MOUSE_RIGHT_CLICK)
-	{
-	}
-
-	return true;
-}*/
