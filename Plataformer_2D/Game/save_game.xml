@@ -10,67 +10,85 @@
 	<gui />
 	<map />
 	<scene>
-		<map actual="0" />
-		<map2 points="250" />
+		<map actual="1" />
+		<map2 points="300" />
 	</scene>
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="1063" pos.y="564" />
+			<position pos.x="321" pos.y="554" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="1810" pos.y="81" />
+			<position pos.x="2437" pos.y="181" />
+		</Entity>
+		<Entity type="ghost">
+			<position pos.x="5937" pos.y="231" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="3010" pos.y="656" />
+			<position pos.x="737" pos.y="454" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5960" pos.y="649" />
+			<position pos.x="3627" pos.y="168" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5860" pos.y="649" />
+			<position pos.x="5327" pos.y="617" />
 		</Entity>
 		<Entity type="checkPoint">
-			<position pos.x="2300" pos.y="211" />
+			<position pos.x="300" pos.y="520" />
 		</Entity>
 		<Entity type="checkPoint">
-			<position pos.x="3850" pos.y="146" />
+			<position pos.x="2800" pos.y="431" />
 		</Entity>
 		<Entity type="checkPoint">
-			<position pos.x="5106" pos.y="140" />
+			<position pos.x="3650" pos.y="110" />
+		</Entity>
+		<Entity type="checkPoint">
+			<position pos.x="5000" pos.y="105" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="1460" pos.y="600" />
+			<position pos.x="547" pos.y="450" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="1587" pos.y="550" />
+			<position pos.x="1085" pos.y="400" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="2087" pos.y="230" />
+			<position pos.x="1785" pos.y="340" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="2600" pos.y="430" />
+			<position pos.x="1705" pos.y="340" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="2660" pos.y="480" />
+			<position pos.x="2450" pos.y="340" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="3400" pos.y="290" />
+			<position pos.x="3105" pos.y="580" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="3650" pos.y="50" />
+			<position pos.x="3955" pos.y="450" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="4480" pos.y="150" />
+			<position pos.x="4355" pos.y="350" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="4580" pos.y="180" />
+			<position pos.x="4755" pos.y="250" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="4640" pos.y="290" />
+			<position pos.x="5055" pos.y="150" />
 		</Entity>
 		<Entity type="coin">
-			<position pos.x="5310" pos.y="290" />
+			<position pos.x="5355" pos.y="450" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="5635" pos.y="110" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="6082" pos.y="270" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="6082" pos.y="493" />
+		</Entity>
+		<Entity type="coin">
+			<position pos.x="6082" pos.y="493" />
 		</Entity>
 	</entity_manager>
 	<particles />

@@ -667,6 +667,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			count_monster_dead = true;
 			if (deaddead == 1) 
 			{
+				App->scene->player_score = 0;
 				App->scene->lives = App->scene->lives - 1;
 				deaddead = 0;
 			}
