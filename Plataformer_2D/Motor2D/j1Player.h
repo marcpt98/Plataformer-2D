@@ -129,6 +129,7 @@ public:
 	bool count_dead = false;
 	int dead_animation_finish;
 	int deadDelay;
+	int deaddead = 0;
 
 	// Player dead by monster
 	bool dead_monster_animation = false;

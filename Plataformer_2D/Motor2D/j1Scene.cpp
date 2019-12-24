@@ -16,6 +16,7 @@
 #include "j1Gui.h"
 #include "j1Fonts.h"
 #include "UI_element.h"
+#include "UI_Image.h"
 #include "UI_text.h"
 #include "j1Scene_UI.h"
 
@@ -84,6 +85,11 @@ bool j1Scene::Start()
 	p2SString score_info("Score %i", player_score);
 	score->setText(score_info);
 	score->BlitElement();
+
+	player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 568,312,118,112 });
+	player_face2= App->gui->AddImage(App->gui->GetAtlas(),  80, 40, { 568,312,118,112 });
+	player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 130, 40, { 568,312,118,112 });
+
 	return true;
 }
 
@@ -98,6 +104,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	LOG("%i", player_score);
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
 	if (firsttime == true && diferent_score == true)
 	{
@@ -105,13 +112,13 @@ bool j1Scene::Update(float dt)
 		firsttime = false;
 	}
 
-	if (timer_pts == 1 && diferent_score == true)
+	if (timer_pts == 1 && diferent_score == true || player_dead == true)
 	{
 		App->gui->DeleteGui(score);
 		timer_pts = 0;
 	}
 
-	if (diferent_score == true)
+	if (diferent_score == true || player_dead==true)
 	{
 		score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
 		score->setOutlined(true);
@@ -223,7 +230,41 @@ bool j1Scene::Update(float dt)
 		}
 		
 	}
-	
+
+	//Live system
+	if (lives == 2) 
+	{
+		App->gui->DeleteGui(player_face3);
+	}
+	if (lives == 1)
+	{
+		App->gui->DeleteGui(player_face2);
+	}
+	if (lives == 0)
+	{
+		App->gui->DeleteGui(player_face1);
+	}
+	if (lives == -1)
+	{
+		sceneintro = true;
+		App->map->CleanUp();
+		App->particles->CleanUp();
+		App->colliders->CleanUp();
+		App->entity->CleanUp();
+		if (currentMap == 1) 
+		{
+			App->audio->UnloadMusic(music_1->GetString());
+		}	
+		if (currentMap == 0)
+		{
+			App->audio->UnloadMusic(music_2->GetString());
+		}
+		App->sceneui->Addsceneintro_UI();
+		App->audio->PlayMusic(music_scene_intro->GetString());
+		player_score = 0;
+		App->gui->DeleteGui(score);
+		lives = 3;
+	}
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);

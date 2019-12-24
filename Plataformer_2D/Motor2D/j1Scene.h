@@ -84,7 +84,11 @@ public:
 	bool diferent_score = false;
 private:
 	// Pathfinding
-	SDL_Texture* debug_tex;
+	SDL_Texture* debug_tex;	
+	
+	UI_element* player_face1;
+	UI_element* player_face2;
+	UI_element* player_face3;
 };
 
 #endif // __j1SCENE_H__
