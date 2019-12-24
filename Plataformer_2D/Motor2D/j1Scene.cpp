@@ -92,12 +92,6 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
-		LOG("POINTS %i", player_score);
-	// Gui ---
-	if (App->input->GetKey(SDL_SCANCODE_I) == KEY_DOWN)
-	{
-		App->gui->AddButton(100, 100, NULL, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
-	}
 	
 	if (timer_pts == 1 && diferent_score == true)
 	{
@@ -397,7 +391,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 		App->map->Load(map_2->GetString());
 	}
 
-	
+	player_score = savegame.child("map2").attribute("points").as_int();
 	return true;
 }
 
@@ -413,7 +407,7 @@ bool j1Scene::save(pugi::xml_node& savegame)
 		savegame.append_child("map").append_attribute("actual").set_value(1);
 	}
 
-	savegame.append_child("map").append_attribute("points").set_value(0);
+	savegame.append_child("map2").append_attribute("points").set_value(player_score);
 
 	return true;
 }
