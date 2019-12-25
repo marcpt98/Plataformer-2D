@@ -321,6 +321,7 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->currentMap = 0;
 			App->scene->LevelName(0);
 			App->scene->timertime = SDL_GetTicks();
+			App->scene->timer = 600;
 			App->scene->lives = 3;
 			App->scene->player_score = 0;
 			p2SString score_info("Score 0");

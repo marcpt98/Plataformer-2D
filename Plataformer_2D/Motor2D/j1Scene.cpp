@@ -116,6 +116,24 @@ bool j1Scene::Update(float dt)
 		timer_pts = 0;
 	}
 
+	if (sceneintro == false)
+	{
+		if (SDL_GetTicks() - timertime >= 1000)
+		{
+			if (time_text != nullptr)
+			{
+				App->gui->DeleteGui(time_text);
+			}
+			time_text = App->gui->AddText("Hello World", 530, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+			time_text->setOutlined(true);
+			p2SString timer_info("Time %i", timer);
+			time_text->setText(timer_info);
+			time_text->BlitElement();
+			timertime = SDL_GetTicks();
+			timer--;
+		}
+	}
+
 	if (diferent_score == true || player_dead==true)
 	{
 		score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
