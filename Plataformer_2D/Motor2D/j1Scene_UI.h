@@ -80,14 +80,18 @@ public:
 	UI_image* licence = nullptr;
 
 	// In game
-	UI_image* live1 = nullptr;
-	UI_image* live2 = nullptr;
+	UI_image* player_face1 = nullptr;
+	UI_image* player_face2 = nullptr;
+	UI_image* player_face3 = nullptr;
 
 	// Pause
 	bool pause_UI = false;
 	UI_window* window_pause = nullptr;
 	UI_button* save_button = nullptr;
 	UI_button* exit_pause = nullptr;
+	UI_button* load_ingame = nullptr;
+	UI_button* settings_ingame = nullptr;
+	UI_button* exit_intro = nullptr;
 };
 
 #endif // __j1SCENE_UI_H__

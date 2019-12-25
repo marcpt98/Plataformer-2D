@@ -114,7 +114,14 @@ bool j1SceneUI::Addsettings_UI()
 	fx = App->gui->AddText("fx", 480, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
 	cap = App->gui->AddText("cap   game   to   30fps", 140, 530, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
 	exit_settings = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
-	exit_settings->element_action = EXIT_SETTINGS;
+	if (App->scene->sceneintro == true)
+	{
+		exit_settings->element_action = EXIT_SETTINGS;
+	}
+	else
+	{
+		exit_settings->element_action = EXIT_SETTINGS_INGAME;
+	}
 
 	return true;
 }
@@ -212,16 +219,48 @@ bool j1SceneUI::delete_intro_UI()
 bool j1SceneUI::Addingame_UI()
 {
 	// Elements of this UI
-	live1 = App->gui->AddImage(App->gui->GetAtlas(), 10, 10, { 568,312,118,102 });
-	live2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 10, { 568,312,118,102 });
+	if (App->scene->lives == 3)
+	{
+		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
+		player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
+		player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 170, 40, { 531,384,59,52 });
+	}
+	else if (App->scene->lives == 2)
+	{
+		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
+		player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
+	}
+	else if (App->scene->lives == 1)
+	{
+		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
+	}
+	else if (App->scene->lives == 0)
+	{
+	}
 	
 	return true;
 }
 
 bool j1SceneUI::Deleteingame_UI()
 {
-	App->gui->DeleteGui(live1);
-	App->gui->DeleteGui(live2);
+	if (App->scene->lives == 3)
+	{
+		App->gui->DeleteGui(player_face1);
+		App->gui->DeleteGui(player_face2);
+		App->gui->DeleteGui(player_face3);
+	}
+	else if (App->scene->lives == 2)
+	{
+		App->gui->DeleteGui(player_face1);
+		App->gui->DeleteGui(player_face2);
+	}
+	else if (App->scene->lives == 1)
+	{
+		App->gui->DeleteGui(player_face1);
+	}
+	else if (App->scene->lives == 0)
+	{
+	}
 
 	return true;
 }
@@ -232,11 +271,14 @@ bool j1SceneUI::Addpause_UI()
 	window_pause = App->gui->AddWindow(App->gui->GetAtlas(), 300, 150, { 833,439,479,494 });
 	exit_pause = App->gui->AddButton(300, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
 	exit_pause->element_action = EXIT_PAUSE;
-	
-	
-	
-	exit_button = App->gui->AddButton(430, 550, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 }, this);
-	exit_button->element_action = EXIT;
+	save_button = App->gui->AddButton(430, 220, App->gui->GetAtlas(), { 268,1,234,72 }, { 268,74,258,81 }, { 268,156,234,63 }, this);
+	save_button->element_action = SAVE;
+	load_ingame = App->gui->AddButton(430, 320, App->gui->GetAtlas(), { 802,1,234,72 }, { 801,74,259,80 }, { 801,155,234,63 }, this);
+	load_ingame->element_action = LOAD_INGAME;
+	settings_ingame = App->gui->AddButton(365, 420, App->gui->GetAtlas(), { 0,220,360,72 }, { 1,293,392,80 }, { 1,374,362,63 }, this);
+	settings_ingame->element_action = SETTINGS_INGAME;
+	exit_intro = App->gui->AddButton(430, 520, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 }, this);
+	exit_intro->element_action = EXIT_MENU;
 
 	return true;
 }
@@ -245,7 +287,10 @@ bool j1SceneUI::Deletepause_UI()
 {
 	App->gui->DeleteGui(window_pause);
 	App->gui->DeleteGui(exit_pause);
-	App->gui->DeleteGui(exit_button);
+	App->gui->DeleteGui(save_button);
+	App->gui->DeleteGui(load_ingame);
+	App->gui->DeleteGui(settings_ingame);
+	App->gui->DeleteGui(exit_intro);
 
 	return true;
 }
@@ -276,7 +321,12 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->currentMap = 0;
 			App->scene->LevelName(0);
 			App->scene->timertime = SDL_GetTicks();
+			App->scene->lives = 3;
+			App->scene->player_score = 0;
+			p2SString score_info("Score 0");
+			App->scene->score->setText(score_info);
 			Deletesceneintro_UI();
+			Addingame_UI();
 		}
 		else if (element->element_action == LOAD)
 		{
@@ -284,12 +334,35 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->load();
 			App->scene->introMap = 0;
 			Deletesceneintro_UI();
+			Addingame_UI();
+			
+			
+		}
+		else if (element->element_action == LOAD_INGAME)
+		{
+			App->load();
+			Deleteingame_UI();
+			Addingame_UI();
+		}
+		else if (element->element_action == SAVE)
+		{
+			App->save();
 		}
 		else if (element->element_action == SETTINGS)
 		{
 			Deletesceneintro_UI();
 			back_intro_UI();
 			Addsettings_UI();
+		}
+		else if (element->element_action == SETTINGS_INGAME)
+		{
+			Deletepause_UI();
+			Addsettings_UI();
+		}
+		else if (element->element_action == EXIT_SETTINGS_INGAME)
+		{
+			Deletesettings_UI();
+			Addpause_UI();
 		}
 		else if (element->element_action == EXIT_SETTINGS)
 		{
@@ -328,6 +401,16 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->pause = false;
 			App->audio->setMusicVolume(1);
 			Deletepause_UI();
+			pause_UI = false;
+		}
+		else if (element->element_action == EXIT_MENU)
+		{
+			App->scene->sceneintro = true;
+			App->scene->PrepSceneIntro();
+			App->scene->pause = false;
+			App->audio->setMusicVolume(1);
+			Deletepause_UI();
+			Deleteingame_UI();
 			pause_UI = false;
 		}
 	}

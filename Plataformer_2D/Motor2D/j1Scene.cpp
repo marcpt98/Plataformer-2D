@@ -86,9 +86,7 @@ bool j1Scene::Start()
 	score->setText(score_info);
 	score->BlitElement();
 
-	player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 568,312,118,112 });
-	player_face2= App->gui->AddImage(App->gui->GetAtlas(),  80, 40, { 568,312,118,112 });
-	player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 130, 40, { 568,312,118,112 });
+	
 
 	return true;
 }
@@ -140,6 +138,10 @@ bool j1Scene::Update(float dt)
 	// Change map
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
+		if (sceneintro == true)
+		{
+			App->sceneui->Deletesceneintro_UI();
+		}
 		sceneintro = false;
 		currentMap = 0;
 		LevelName(0);
@@ -147,6 +149,10 @@ bool j1Scene::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
+		if (sceneintro == true)
+		{
+			App->sceneui->Deletesceneintro_UI();
+		}
 		sceneintro = false;
 		currentMap = 1;
 		LevelName(1);
@@ -155,6 +161,10 @@ bool j1Scene::Update(float dt)
 	// Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true && CheckPoint == false)
 	{
+		if (sceneintro == true)
+		{
+			App->sceneui->Deletesceneintro_UI();
+		}
 		sceneintro = false;
 		if (currentMap == 0)
 		{
@@ -216,17 +226,18 @@ bool j1Scene::Update(float dt)
 	}
 
 	//Live system
-	if (lives == 2) 
+	
+	if (lives == 2 || lives == 1 || lives == 0)
 	{
-		App->gui->DeleteGui(player_face3);
+		App->gui->DeleteGui(App->sceneui->player_face3);
 	}
-	if (lives == 1)
+	if (lives == 1 || lives == 0)
 	{
-		App->gui->DeleteGui(player_face2);
+		App->gui->DeleteGui(App->sceneui->player_face2);
 	}
 	if (lives == 0)
 	{
-		App->gui->DeleteGui(player_face1);
+		App->gui->DeleteGui(App->sceneui->player_face1);
 	}
 	if (lives == -1)
 	{
@@ -449,6 +460,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	}
 
 	player_score = savegame.child("map2").attribute("points").as_int();
+	lives = savegame.child("map3").attribute("lives").as_int();
 	
 	//This is to reset the player score
 	App->gui->DeleteGui(score);
@@ -473,6 +485,7 @@ bool j1Scene::save(pugi::xml_node& savegame)
 	}
 
 	savegame.append_child("map2").append_attribute("points").set_value(player_score);
+	savegame.append_child("map3").append_attribute("lives").set_value(lives);
 
 	return true;
 }
