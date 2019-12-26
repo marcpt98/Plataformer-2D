@@ -126,7 +126,7 @@ bool j1Player::Update(float dt)
 	BROFILER_CATEGORY("UpdatePlayer", Profiler::Color::Pink);
 
 	App->render->player_pos.x = position.x;
-	LOG("PLAYER LIVES= %i", App->scene->lives);
+	//LOG("PLAYER LIVES= %i", App->scene->lives);
 	// Gravity
 	if (godMode == true)
 	{

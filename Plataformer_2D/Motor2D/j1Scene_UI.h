@@ -45,6 +45,8 @@ public:
 	// Extra
 	bool back_intro_UI();
 	bool delete_intro_UI();
+	bool createtimelives();
+	bool deletetimelives();
 
 public:
 	// Scene Intro
@@ -83,6 +85,17 @@ public:
 	UI_image* player_face1 = nullptr;
 	UI_image* player_face2 = nullptr;
 	UI_image* player_face3 = nullptr;
+	UI_image* sand = nullptr;
+	UI_image* time_1 = nullptr;
+	UI_image* time_2 = nullptr;
+	UI_image* time_3 = nullptr;
+	UI_image* time_4 = nullptr;
+	UI_image* time_5 = nullptr;
+	UI_image* time_6 = nullptr;
+	UI_image* time_7 = nullptr;
+	UI_image* time_8 = nullptr;
+	UI_image* time_9 = nullptr;
+	UI_image* time_10 = nullptr;
 
 	// Pause
 	bool pause_UI = false;

@@ -80,7 +80,7 @@ bool j1Scene::Start()
 
 	//This is to reset the player score
 	firsttime = true;
-	score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+	score = App->gui->AddText("Hello World", 830, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
 	score->setOutlined(true);
 	p2SString score_info("Score %i", player_score);
 	score->setText(score_info);
@@ -116,27 +116,78 @@ bool j1Scene::Update(float dt)
 		timer_pts = 0;
 	}
 
-	if (sceneintro == false)
+	if (sceneintro == false && pause == false)
 	{
+		/*if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
+		{
+			timer--;
+		}*/
 		if (SDL_GetTicks() - timertime >= 1000)
 		{
-			if (time_text != nullptr)
+			/*if (time_text != nullptr)
 			{
 				App->gui->DeleteGui(time_text);
-			}
-			time_text = App->gui->AddText("Hello World", 530, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+			}*/
+			/*time_text = App->gui->AddText("Hello World", 530, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
 			time_text->setOutlined(true);
 			p2SString timer_info("Time %i", timer);
 			time_text->setText(timer_info);
-			time_text->BlitElement();
+			time_text->BlitElement();*/
 			timertime = SDL_GetTicks();
 			timer--;
+		}
+		if (timer < 600 && App->sceneui->time_10 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_10);
+		}
+		if (timer < 540 && App->sceneui->time_9 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_9);
+		}
+		if (timer < 480 && App->sceneui->time_8 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_8);
+		}
+		if (timer < 420 && App->sceneui->time_7 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_7);
+		}
+		if (timer < 360 && App->sceneui->time_6 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_6);
+		}
+		if (timer < 300 && App->sceneui->time_5 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_5);
+		}
+		if (timer < 240 && App->sceneui->time_4 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_4);
+		}
+		if (timer < 180 && App->sceneui->time_3 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_3);
+		}
+		if (timer < 120 && App->sceneui->time_2 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_2);
+		}
+		if (timer < 60 && App->sceneui->time_1 != nullptr)
+		{
+			App->gui->DeleteGui(App->sceneui->time_1);
+		}
+
+		if (timer <= 0)
+		{
+			sceneintro = true;
+			PrepSceneIntro();
+			App->sceneui->Deleteingame_UI();
 		}
 	}
 
 	if (diferent_score == true || player_dead==true)
 	{
-		score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+		score = App->gui->AddText("Hello World", 830, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
 		score->setOutlined(true);
 		p2SString score_info("Score %i", player_score);
 		score->setText(score_info);
@@ -479,6 +530,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 
 	player_score = savegame.child("map2").attribute("points").as_int();
 	lives = savegame.child("map3").attribute("lives").as_int();
+	timer = savegame.child("map4").attribute("timer").as_int();
 	
 	//This is to reset the player score
 	App->gui->DeleteGui(score);
@@ -504,6 +556,7 @@ bool j1Scene::save(pugi::xml_node& savegame)
 
 	savegame.append_child("map2").append_attribute("points").set_value(player_score);
 	savegame.append_child("map3").append_attribute("lives").set_value(lives);
+	savegame.append_child("map4").append_attribute("timer").set_value(timer);
 
 	return true;
 }

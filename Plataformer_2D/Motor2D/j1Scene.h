@@ -82,7 +82,7 @@ public:
 
 	int timertime = 0;
 	uint timer = 0;
-	UI_text* time_text;
+	//UI_text* time_text;
 
 	UI_text* score = nullptr;
 	bool diferent_score = false;
