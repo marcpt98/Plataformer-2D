@@ -40,7 +40,8 @@ enum UI_element_action
 	LICENCE,
 	EXIT_LICENCE,
 	EXIT_PAUSE,
-	EXIT_MENU
+	EXIT_MENU,
+	WEBPAGE
 };
 
 class UI_element :public j1Module

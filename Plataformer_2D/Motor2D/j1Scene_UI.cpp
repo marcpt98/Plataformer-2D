@@ -85,8 +85,10 @@ bool j1SceneUI::Addsceneintro_UI()
 	load_button->element_action = LOAD;
 	credits_button = App->gui->AddButton(350, 550, App->gui->GetAtlas(), { 1073,1,337,72 }, { 1072,74,357,80 }, { 1072,155,338,63 }, this);
 	credits_button->element_action = CREDITS;
-	settings_button = App->gui->AddButton(350, 450, App->gui->GetAtlas(), { 0,220,360,72 }, { 1,293,392,80 }, { 1,374,362,63 }, this);
+	settings_button = App->gui->AddButton(340, 450, App->gui->GetAtlas(), { 0,220,360,72 }, { 1,293,392,80 }, { 1,374,362,63 }, this);
 	settings_button->element_action = SETTINGS;
+	webpage_button = App->gui->AddButton(25, 650, App->gui->GetAtlas(), { 749,336,106,88 }, { 627,327,118,99 }, { 862,338,102,84 }, this);
+	webpage_button->element_action = WEBPAGE;
 	exit_button = App->gui->AddButton(400, 650, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 }, this);
 	exit_button->element_action = EXIT;
 	
@@ -102,6 +104,7 @@ bool j1SceneUI::Deletesceneintro_UI()
 	App->gui->DeleteGui(load_button);
 	App->gui->DeleteGui(credits_button);
 	App->gui->DeleteGui(settings_button);
+	App->gui->DeleteGui(webpage_button);
 	App->gui->DeleteGui(exit_button);
 
 	return true;
@@ -197,7 +200,8 @@ bool j1SceneUI::back_intro_UI()
 	play_button = App->gui->AddButton(400, 250, App->gui->GetAtlas(), { 1,1,234,72 }, { 1,74,259,80 }, { 1,155,234,63 });
 	load_button = App->gui->AddButton(400, 350, App->gui->GetAtlas(), { 802,1,234,72 }, { 801,74,259,80 }, { 801,155,234,63 });
 	credits_button = App->gui->AddButton(350, 550, App->gui->GetAtlas(), { 1073,1,337,72 }, { 1072,74,357,80 }, { 1072,155,338,63 });
-	settings_button = App->gui->AddButton(350, 450, App->gui->GetAtlas(), { 0,220,360,72 }, { 1,293,392,80 }, { 1,374,362,63 });
+	settings_button = App->gui->AddButton(340, 450, App->gui->GetAtlas(), { 0,220,360,72 }, { 1,293,392,80 }, { 1,374,362,63 });
+	webpage_button = App->gui->AddButton(25, 650, App->gui->GetAtlas(), { 749,336,106,88 }, { 627,327,118,99 }, { 862,338,102,84 });
 	exit_button = App->gui->AddButton(400, 650, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 });
 
 	return true;
@@ -211,6 +215,7 @@ bool j1SceneUI::delete_intro_UI()
 	App->gui->DeleteGui(load_button);
 	App->gui->DeleteGui(credits_button);
 	App->gui->DeleteGui(settings_button);
+	App->gui->DeleteGui(webpage_button);
 	App->gui->DeleteGui(exit_button);
 
 	return true;
@@ -382,6 +387,10 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			Deletepause_UI();
 			Deleteingame_UI();
 			pause_UI = false;
+		}
+		else if (element->element_action == WEBPAGE)
+		{
+			ShellExecuteA(NULL, "open", "https://marcpt98.github.io/Plataformer-2D/", NULL, NULL, SW_SHOWNORMAL);
 		}
 	}
 	else if (event_type == MOUSE_RIGHT_CLICK)

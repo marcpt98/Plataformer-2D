@@ -56,6 +56,7 @@ public:
 	UI_button* load_button = nullptr;
 	UI_button* settings_button = nullptr;
 	UI_button* credits_button = nullptr;
+	UI_button* webpage_button = nullptr;
 	UI_button* exit_button = nullptr;
 	bool exit = false;
 
