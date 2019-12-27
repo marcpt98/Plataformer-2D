@@ -68,6 +68,8 @@ Sound efect from "Scrampunk": https://freesound.org/people/Scrampunk/sounds/3452
 
 Assets UI pack from "Kenney": https://opengameart.org/content/pixel-ui-pack-750-assets
 
+Time bar asset from "adwitr": https://adwitr.itch.io/pixel-health-bar-asset-pack?download
+
 Pixels fonts for UI from website: https://fontmeme.com/pixel-fonts/
 
 Slime enemy art: Pixel Art created by rvros  Itch.io: https://rvros.itch.io/
