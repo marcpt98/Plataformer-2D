@@ -11,29 +11,26 @@
 	<map />
 	<scene>
 		<map actual="0" />
-		<map2 points="0" />
+		<map2 points="250" />
 		<map3 lives="3" />
-		<map4 timer="294" />
+		<map4 timer="588" />
 	</scene>
 	<pathfinding />
 	<entity_manager>
 		<Entity type="player">
-			<position pos.x="300" pos.y="625" />
+			<position pos.x="880" pos.y="564" />
 		</Entity>
 		<Entity type="ghost">
-			<position pos.x="1830" pos.y="99" />
+			<position pos.x="1659" pos.y="123" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="1030" pos.y="593" />
+			<position pos.x="2859" pos.y="656" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="3030" pos.y="656" />
+			<position pos.x="5809" pos.y="649" />
 		</Entity>
 		<Entity type="slime">
-			<position pos.x="5980" pos.y="649" />
-		</Entity>
-		<Entity type="slime">
-			<position pos.x="5880" pos.y="649" />
+			<position pos.x="5709" pos.y="649" />
 		</Entity>
 		<Entity type="checkPoint">
 			<position pos.x="2300" pos.y="211" />
@@ -43,12 +40,6 @@
 		</Entity>
 		<Entity type="checkPoint">
 			<position pos.x="5106" pos.y="140" />
-		</Entity>
-		<Entity type="coin">
-			<position pos.x="687" pos.y="550" />
-		</Entity>
-		<Entity type="coin">
-			<position pos.x="627" pos.y="550" />
 		</Entity>
 		<Entity type="coin">
 			<position pos.x="1460" pos.y="600" />

@@ -77,16 +77,14 @@ bool j1Scene::Start()
 	// Player
 	currentMap = 0;
 	createEntities();
-
-	//This is to reset the player score
-	firsttime = true;
-	score = App->gui->AddText("Hello World", 830, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
-	score->setOutlined(true);
-	p2SString score_info("Score %i", player_score);
-	score->setText(score_info);
-	score->BlitElement();
-
 	
+	//This is to reset the player score
+	App->scene->firsttime = true;
+	App->scene->score = App->gui->AddText("Hello World", 830, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+	App->scene->score->setOutlined(true);
+	p2SString score_info("Score %i", App->scene->player_score);
+	App->scene->score->setText(score_info);
+	App->scene->score->BlitElement();
 
 	return true;
 }
@@ -104,7 +102,7 @@ bool j1Scene::Update(float dt)
 {
 	//LOG("%i", player_score);
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
-	if (firsttime == true && diferent_score == true)
+	if (/*firsttime == true &&*/ diferent_score == true)
 	{
 		App->gui->DeleteGui(score);
 		firsttime = false;
@@ -534,7 +532,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	
 	//This is to reset the player score
 	App->gui->DeleteGui(score);
-	score = App->gui->AddText("Hello World", 830, 40, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
+	score = App->gui->AddText("Hello World", 830, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
 	score->setOutlined(true);
 	p2SString score_info("Score %i", player_score);
 	score->setText(score_info);
