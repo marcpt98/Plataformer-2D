@@ -7,11 +7,11 @@ https://github.com/marcpt98/Plataformer-2D
 ## Team:
 - Pol de la Torre Solé https://github.com/polf780.
 
-  Colliders, phisics, level 2
+  Colliders, phisics, level 2, entities, pathfinding, UI
 
 - Marc Palma Turón https://github.com/marcpt98.
 
-  Loading things from XML, level 1,animations, keybinds
+  Loading things from XML, level 1,animations, keybinds, entities, pathfinding, UI
 
 ## Controls 
 
@@ -28,13 +28,15 @@ https://github.com/marcpt98/Plataformer-2D
 
 - F2: Charge level 2 from the begining
 
-- F2: Charge current level from the begining
+- F3: Charge current level from the begining
 
 - F5: Save your current position
 
 - F6: Load your past position
 
-- F9: Show all colliders
+- F8: Show all UI debug
+
+- F9: Show all colliders and pathfinding
 
 - F10: God mode (player without collisions and can fly)
 
