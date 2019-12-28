@@ -651,7 +651,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 		if (SDL_GetTicks() > dead_animation_finish + deadDelay)
 		{
-			
+			App->scene->coin_number = 0;
 			App->scene->player_score = 0;
 			App->scene->player_dead = true;
 			dead_animation = false;
@@ -662,6 +662,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_ENEMY)
 	{
+		
 		deaddead++;
 		if (count_monster_dead == false)
 		{
@@ -672,7 +673,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			if (deaddead == 1) 
 			{
 				App->scene->player_score = 0;
-				
+				App->scene->coin_number = 0;
 				deaddead = 0;
 			}
 			

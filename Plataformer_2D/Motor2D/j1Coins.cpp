@@ -89,6 +89,8 @@ void j1Coins::OnCollision(Collider* c1, Collider* c2)
 
 	if (collider == c1 && c2->type == COLLIDER_PLAYER)
 	{
+		App->scene->coin_number = App->scene->coin_number + 1;
+		App->scene->diferent_coins = true;
 		App->scene->last_player_score = App->scene->player_score;
 		App->scene->player_score = App->scene->player_score + 100;
 		App->scene->diferent_score = true;

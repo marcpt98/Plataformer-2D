@@ -77,7 +77,8 @@ bool j1Scene::Start()
 	// Player
 	currentMap = 0;
 	createEntities();
-	
+
+	LOG("CREAR");
 	//This is to reset the player score
 	App->scene->firsttime = true;
 	App->scene->score = App->gui->AddText("Hello World", 830, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
@@ -85,7 +86,13 @@ bool j1Scene::Start()
 	p2SString score_info("Score %i", App->scene->player_score);
 	App->scene->score->setText(score_info);
 	App->scene->score->BlitElement();
-
+	
+	App->scene->coin_counter = App->gui->AddText("Hello World", 100, 120, App->font->Load("fonts/ARCADECLASSIC.ttf", 20), { 255, 255, 255, 255 }, this);
+	App->scene->coin_counter->setOutlined(true);
+	p2SString score_info2("x %i", App->scene->coin_number);
+	App->scene->coin_counter->setText(score_info2);
+	App->scene->coin_counter->BlitElement();
+	inwindownow++;
 	return true;
 }
 
@@ -100,20 +107,38 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	//LOG("%i", player_score);
+	if (coin_counter == nullptr) {
+		LOG("NULLPTR");
+	}
+	if (player_dead == true)
+	{
+		int a = 0;
+	}
+	LOG("%i", inwindownow);
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
 	if (/*firsttime == true &&*/ diferent_score == true)
 	{
-		App->gui->DeleteGui(score);
+		LOG("DESTRUIR");
+		App->gui->DeleteGui(score); 
 		firsttime = false;
+	}
+	if (diferent_coins == true && player_dead == false)
+	{
+		App->gui->DeleteGui(coin_counter);
+		inwindownow--;
 	}
 
 	if (timer_pts == 1 && diferent_score == true || player_dead == true)
 	{
-		App->gui->DeleteGui(score);
+		//App->gui->DeleteGui(score);
 		timer_pts = 0;
 	}
-
+	if (player_dead == true)
+	{
+		App->gui->DeleteGui(score);
+		App->gui->DeleteGui(coin_counter);
+		
+	}
 	if (sceneintro == false && pause == false)
 	{
 		/*if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
@@ -194,7 +219,17 @@ bool j1Scene::Update(float dt)
 	}
 	diferent_score = false;
 
-	//diferent_score = false;
+	if (diferent_coins == true || player_dead == true)
+	{
+		coin_counter = App->gui->AddText("Hello World", 100, 120, App->font->Load("fonts/ARCADECLASSIC.ttf", 20), { 255, 255, 255, 255 }, this);
+		coin_counter->setOutlined(true);
+		p2SString score_info2("x %i", coin_number);
+		coin_counter->setText(score_info2);
+		coin_counter->BlitElement();
+		timer_coins++;
+		inwindownow++;
+	}
+	diferent_coins = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->want_load = true;
@@ -222,6 +257,11 @@ bool j1Scene::Update(float dt)
 		App->scene->player_score = 0;
 		p2SString score_info("Score 0");
 		App->scene->score->setText(score_info);
+		LOG("CREAR");
+		App->scene->coin_number= 0;
+		p2SString score_info2("x 0");
+		App->scene->coin_counter->setText(score_info2);
+		inwindownow++;
 		sceneintro = false;
 		currentMap = 0;
 		LevelName(0);
@@ -238,9 +278,15 @@ bool j1Scene::Update(float dt)
 		App->scene->timertime = SDL_GetTicks();
 		App->scene->timer = 300;
 		App->scene->lives = 3;
+
 		App->scene->player_score = 0;
 		p2SString score_info("Score 0");
 		App->scene->score->setText(score_info);
+		LOG("CREAR");
+		App->scene->coin_number = 0;
+		p2SString score_info2("x 0");
+		App->scene->coin_counter->setText(score_info2);
+
 		App->sceneui->level_2 = true;
 		if (sceneintro == true)
 		{
@@ -251,10 +297,10 @@ bool j1Scene::Update(float dt)
 		LevelName(1);
 		App->sceneui->Addingame_UI();
 	}
-
 	// Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true && CheckPoint == false)
 	{
+		
 		if (player_dead == true)
 		{
 			lives--;
@@ -271,6 +317,11 @@ bool j1Scene::Update(float dt)
 		App->scene->player_score = 0;
 		p2SString score_info("Score 0");
 		App->scene->score->setText(score_info);
+
+		App->scene->coin_number = 0;
+		p2SString score_info2("x 0");
+		App->scene->coin_counter->setText(score_info2);
+		inwindownow++;
 		App->sceneui->Addingame_UI();
 		if (sceneintro == true)
 		{
@@ -285,7 +336,6 @@ bool j1Scene::Update(float dt)
 		{
 			LevelName(1);
 		}
-
 		player_dead = false;
 	}
 
@@ -348,8 +398,12 @@ bool j1Scene::Update(float dt)
 		}
 		App->sceneui->Addsceneintro_UI();
 		App->audio->PlayMusic(music_scene_intro->GetString());
+		coin_number = 0;
 		player_score = 0;
 		App->gui->DeleteGui(score);
+		//App->gui->DeleteGui(coin_counter);
+		inwindownow--;
+		LOG("DESTRUIR");
 		lives = 3;
 	}
 	int x, y;
@@ -552,6 +606,7 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	}
 
 	player_score = savegame.child("map2").attribute("points").as_int();
+	coin_number = savegame.child("map5").attribute("coin_number").as_int();
 	if (player_dead == true)
 	{
 		lives = savegame.child("map3").attribute("lives").as_int();
@@ -572,6 +627,16 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	p2SString score_info("Score %i", player_score);
 	score->setText(score_info);
 	score->BlitElement();
+	LOG("CREAR");
+
+	//This is to reset the player coins
+	App->gui->DeleteGui(coin_counter);
+	coin_counter = App->gui->AddText("Hello World", 100, 120, App->font->Load("fonts/ARCADECLASSIC.ttf", 20), { 255, 255, 255, 255 }, this);
+	coin_counter->setOutlined(true);
+	p2SString score_info2("x %i", coin_number);
+	coin_counter->setText(score_info2);
+	coin_counter->BlitElement();
+	inwindownow++;
 	return true;
 }
 
@@ -590,6 +655,6 @@ bool j1Scene::save(pugi::xml_node& savegame)
 	savegame.append_child("map2").append_attribute("points").set_value(player_score);
 	savegame.append_child("map3").append_attribute("lives").set_value(lives);
 	savegame.append_child("map4").append_attribute("timer").set_value(timer);
-
+	savegame.append_child("map5").append_attribute("coin_number").set_value(coin_number);
 	return true;
 }

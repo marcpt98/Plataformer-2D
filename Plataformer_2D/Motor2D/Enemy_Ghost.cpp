@@ -125,7 +125,7 @@ void Enemy_Ghost::CheckAnimation(float dt)
 		{
 			App->scene->last_player_score = App->scene->player_score;
 			App->scene->player_score = App->scene->player_score + 350;
-			App->scene->diferent_score = true;
+			App->scene->diferent_score = true; 
 			App->entity->DeleteEntity(this);
 			count_ghost_dead = false;
 			ghost_dead = false;

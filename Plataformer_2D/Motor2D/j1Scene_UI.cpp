@@ -322,6 +322,9 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->player_score = 0;
 			p2SString score_info("Score 0");
 			App->scene->score->setText(score_info);
+			App->scene->coin_number = 0;
+			p2SString score_info2("x 0");
+			App->scene->coin_counter->setText(score_info2);
 			Deletesceneintro_UI();
 			Addingame_UI();
 		}

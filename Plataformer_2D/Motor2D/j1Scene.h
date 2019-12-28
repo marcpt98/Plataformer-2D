@@ -66,6 +66,9 @@ public:
 	int player_score;
 	int last_player_score;
 	int timer_pts;
+	bool diferent_coins = false;
+	int timer_coins;
+	int inwindownow = 0;
 
 	// Maps and music
 	p2SString* map_1 = nullptr;
@@ -86,7 +89,8 @@ public:
 
 	UI_text* score = nullptr;
 	bool diferent_score = false;
-
+	int coin_number = 0;
+	UI_text* coin_counter = nullptr;
 private:
 	// Pathfinding
 	SDL_Texture* debug_tex;	

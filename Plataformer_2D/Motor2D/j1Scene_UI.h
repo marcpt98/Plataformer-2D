@@ -62,7 +62,7 @@ public:
 	int release_button = 0;
 	int over_button = 0;
 	bool exit = false;
-
+	int ña = 0;
 	// Settings
 	bool settings_open = false;
 	UI_boolbutton* cap_button = nullptr;
