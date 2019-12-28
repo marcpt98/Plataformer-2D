@@ -94,6 +94,8 @@ public:
 	UI_image* licence = nullptr;
 
 	// In game
+	bool level_1 = false;
+	bool level_2 = false;
 	UI_image* player_face1 = nullptr;
 	UI_image* player_face2 = nullptr;
 	UI_image* player_face3 = nullptr;

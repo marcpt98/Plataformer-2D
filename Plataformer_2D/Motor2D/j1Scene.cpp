@@ -205,17 +205,43 @@ bool j1Scene::Update(float dt)
 	// Change map
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
+		if (App->sceneui->level_2 == true)
+		{
+			App->sceneui->Deleteingame_UI();
+			App->sceneui->level_2 = false;
+		}
+		App->sceneui->level_1 = true;
+		
 		if (sceneintro == true)
 		{
 			App->sceneui->Deletesceneintro_UI();
 		}
+		App->scene->timertime = SDL_GetTicks();
+		App->scene->timer = 600;
+		App->scene->lives = 3;
+		App->scene->player_score = 0;
+		p2SString score_info("Score 0");
+		App->scene->score->setText(score_info);
 		sceneintro = false;
 		currentMap = 0;
 		LevelName(0);
+		App->sceneui->Addingame_UI();
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
+		if (App->sceneui->level_1 == true)
+		{
+			App->sceneui->Deleteingame_UI();
+			App->sceneui->level_1 = false;
+		}
+		App->scene->timertime = SDL_GetTicks();
+		App->scene->timer = 600;
+		App->scene->lives = 3;
+		App->scene->player_score = 0;
+		p2SString score_info("Score 0");
+		App->scene->score->setText(score_info);
+		App->sceneui->level_2 = true;
 		if (sceneintro == true)
 		{
 			App->sceneui->Deletesceneintro_UI();
@@ -223,11 +249,25 @@ bool j1Scene::Update(float dt)
 		sceneintro = false;
 		currentMap = 1;
 		LevelName(1);
+		App->sceneui->Addingame_UI();
 	}
 
 	// Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true && CheckPoint == false)
 	{
+		if (App->sceneui->level_1 == true || App->sceneui->level_2 == true)
+		{
+			App->sceneui->Deleteingame_UI();
+			App->sceneui->level_1 = false;
+			App->sceneui->level_2 = false;
+		}
+		App->scene->timertime = SDL_GetTicks();
+		App->scene->timer = 600;
+		App->scene->lives = 3;
+		App->scene->player_score = 0;
+		p2SString score_info("Score 0");
+		App->scene->score->setText(score_info);
+		App->sceneui->Addingame_UI();
 		if (sceneintro == true)
 		{
 			App->sceneui->Deletesceneintro_UI();
