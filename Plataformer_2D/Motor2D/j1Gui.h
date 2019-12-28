@@ -14,6 +14,7 @@ class UI_text;
 class UI_image;
 class UI_button;
 class UI_window;
+class UI_slider;
 
 enum event_type
 {
@@ -57,6 +58,7 @@ public:
 	UI_image* AddImage(SDL_Texture* texture, int x, int y, SDL_Rect section, j1Module* callback = nullptr);
 	UI_button* AddButton(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, j1Module* callback = nullptr);
 	UI_window* AddWindow(SDL_Texture* texture, int x, int y, SDL_Rect section, j1Module* callback = nullptr);
+	UI_slider* AddSlider(int x, int y, SDL_Texture* texture, UI_button* button, j1Module* callback, SDL_Rect image_bar);
 	SDL_Texture* GetAtlas();
 
 	void UIDebugDraw();

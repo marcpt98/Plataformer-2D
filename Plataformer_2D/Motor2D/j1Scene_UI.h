@@ -66,6 +66,14 @@ public:
 	UI_element* fx = nullptr;
 	UI_element* cap = nullptr;
 	UI_button* exit_settings = nullptr;
+	UI_button* slider_button = nullptr;
+	UI_slider* first_slider = nullptr;
+	bool slider_volume = false;
+
+	UI_button* fx_slider = nullptr;
+	UI_slider* second_slider = nullptr;
+	bool fx_volume = false;
+
 
 	// Credits
 	UI_window* window_credits = nullptr;

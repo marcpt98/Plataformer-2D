@@ -12,6 +12,8 @@
 #include "UI_Text.h"
 #include "UI_Button.h"
 #include "UI_window.h"
+#include "UI_slider.h"
+#include "j1Scene_UI.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -63,44 +65,51 @@ bool j1Gui::PreUpdate()
 	for (p2List_item<UI_element*>* item = UI_elements.start; item; item = item->next)
 	{
 		iPoint globalPos = item->data->calculateAbsolutePosition();
-		if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale)
-		{
-			if (!item->data->hovering)
+		
+			if (x > globalPos.x && x < globalPos.x + item->data->section.w / scale && y > globalPos.y && y < globalPos.y + item->data->section.h / scale)
 			{
-				item->data->hovering = true;
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_ENTER);
+				if (!item->data->hovering)
+				{
+					item->data->hovering = true;
+					if (item->data->callback != nullptr)
+						item->data->callback->OnUIEvent(item->data, MOUSE_ENTER);
+				}
+				else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+				{
+					if (item->data->callback != nullptr)
+						item->data->callback->OnUIEvent(item->data, MOUSE_LEFT_CLICK);
+				}
+				else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+				{
+					App->sceneui->slider_volume = false;
+					App->sceneui->fx_volume = false;
+					if (item->data->callback != nullptr)
+						item->data->callback->OnUIEvent(item->data, MOUSE_LEFT_RELEASE);
+				}
+				else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+				{
+					if (item->data->callback != nullptr)
+						item->data->callback->OnUIEvent(item->data, MOUSE_RIGHT_CLICK);
+				}
+				else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+				{
+					if (item->data->callback != nullptr)
+						item->data->callback->OnUIEvent(item->data, MOUSE_RIGHT_RELEASE);
+				}
+		
+				
 			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+			else
 			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_LEFT_CLICK);
+				if (item->data->hovering)
+				{
+					item->data->hovering = false;
+					if (item->data->callback != nullptr)
+						item->data->callback->OnUIEvent(item->data, MOUSE_LEAVE);
+				}
 			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_LEFT_RELEASE);
-			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
-			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_RIGHT_CLICK);
-			}
-			else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-			{
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_RIGHT_RELEASE);
-			}
-		}
-		else
-		{
-			if (item->data->hovering)
-			{
-				item->data->hovering = false;
-				if (item->data->callback != nullptr)
-					item->data->callback->OnUIEvent(item->data, MOUSE_LEAVE);
-			}
-		}
+		
+		
 	}
 	return true;
 }
@@ -162,6 +171,16 @@ UI_button* j1Gui::AddButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
 
 	UI_button* ret = new UI_button(x, y, usingTexture, standby, OnMouse, OnClick, LINK, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
+UI_slider* j1Gui::AddSlider(int x, int y, SDL_Texture* texture,UI_button* button, j1Module* callback, SDL_Rect image_bar)
+{
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	UI_slider* ret = new UI_slider(x, y, usingTexture,button,callback,image_bar);
 	UI_elements.add(ret);
 
 	return ret;

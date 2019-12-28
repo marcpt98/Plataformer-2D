@@ -20,7 +20,8 @@ public:
 		OnMouse(OnMouse),
 		Tick(OnMouse),
 		OnClick(OnClick),
-		type(type)
+		type(type),
+		trala(x)
 	{
 	}
 
@@ -31,7 +32,7 @@ public:
 	void appendChild(int x, int y, UI_element* child);
 	void appendChildAtCenter(UI_element* child);
 	void BlitElement();
-
+	void ChangeVolume();
 public:
 
 	UI_text* text = nullptr;
@@ -41,6 +42,12 @@ public:
 	button_type type = LINK;
 	bool tick = false;
 	bool clicked = false;
+	int newposition = 0;
+	int save_position = 0;
+	int trala;
+	int x, y;
+	float musicvolume = 0;
+	float fxvolume = 0;
 };
 
 

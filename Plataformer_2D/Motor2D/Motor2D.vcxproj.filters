@@ -94,6 +94,9 @@
     <ClCompile Include="UI_window.cpp">
       <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
     </ClCompile>
+    <ClCompile Include="UI_slider.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -211,6 +214,9 @@
       <Filter>Desenvolupament  ========\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="UI_window.h">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_slider.h">
       <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
     </ClInclude>
   </ItemGroup>

@@ -41,11 +41,14 @@ public:
 
 	//Change Music volume
 	void setMusicVolume(float volume);
+
+	void setFxVolume(float volume);
 private:
 
 	_Mix_Music*			music = NULL;
 	p2List<Mix_Chunk*>	fx;
 	int music_volume = DEFAULT_MUSIC_VOLUME;
+	float fx_volume;
 };
 
 #endif // __j1AUDIO_H__

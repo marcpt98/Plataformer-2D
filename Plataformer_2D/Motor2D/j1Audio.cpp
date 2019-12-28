@@ -190,3 +190,11 @@ void j1Audio::setMusicVolume(float volume)
 	Mix_VolumeMusic(MIX_MAX_VOLUME * volume);
 	music_volume = MIX_MAX_VOLUME * volume; //Save it for fading;
 }
+void j1Audio::setFxVolume(float volume)
+{
+	for (p2List_item<Mix_Chunk*>* item = fx.start; item; item = item->next)
+	{
+		Mix_VolumeChunk(item->data, MIX_MAX_VOLUME*volume);
+	}
+	fx_volume = MIX_MAX_VOLUME*volume; //Save it for future loaded fx
+}

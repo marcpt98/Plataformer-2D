@@ -12,6 +12,7 @@
 #include "UI_Text.h"
 #include "UI_Button.h"
 #include "UI_window.h"
+#include "UI_slider.h"
 #include "j1Scene_UI.h"
 #include "j1EntityManager.h"
 #include "j1Particles.h"
@@ -51,14 +52,12 @@ bool j1SceneUI::PostUpdate()
 		if (pause_UI == false)
 		{
 			App->scene->pause = true;
-			App->audio->setMusicVolume(0.2);
 			Addpause_UI();
 			pause_UI = true;
 		}
 		else if (pause_UI == true)
 		{
 			App->scene->pause = false;
-			App->audio->setMusicVolume(1);
 			Deletepause_UI();
 			pause_UI = false;
 		}
@@ -91,7 +90,6 @@ bool j1SceneUI::Addsceneintro_UI()
 	webpage_button->element_action = WEBPAGE;
 	exit_button = App->gui->AddButton(400, 650, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 }, this);
 	exit_button->element_action = EXIT;
-	
 
 	return true;
 }
@@ -113,10 +111,19 @@ bool j1SceneUI::Deletesceneintro_UI()
 bool j1SceneUI::Addsettings_UI()
 {
 	window_settings = App->gui->AddWindow(App->gui->GetAtlas(), 100, 150, { 1,439,831,494 });
-	music = App->gui->AddText("music", 425, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
-	fx = App->gui->AddText("fx", 480, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
-	cap = App->gui->AddText("cap   game   to   30fps", 140, 530, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
+	//music = App->gui->AddText("music", 425, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
+	//fx = App->gui->AddText("fx", 480, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
+	//cap = App->gui->AddText("cap   game   to   30fps", 140, 530, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
 	exit_settings = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
+
+	slider_button = App->gui->AddButton(450, 235, App->gui->GetAtlas(), { 394 ,312, 45, 65 }, { 394 ,312, 45, 65 }, { 394, 312 ,45 ,65 }, this);
+	slider_button->element_action = SLIDER_BUTTON;
+	first_slider = App->gui->AddSlider(450, 250, App->gui->GetAtlas(), slider_button, nullptr, { 394,281,607,30 });// 394 281 607
+
+	fx_slider = App->gui->AddButton(450, 435, App->gui->GetAtlas(), { 394 ,312, 45, 65 }, { 394 ,312, 45, 65 }, { 394, 312 ,45 ,65 }, this);
+	fx_slider->element_action = SLIDER_FX_BUTTON;
+	second_slider = App->gui->AddSlider(450, 450, App->gui->GetAtlas(), fx_slider, nullptr, { 394,281,607,30 });// 394 281 607
+	
 	if (App->scene->sceneintro == true)
 	{
 		exit_settings->element_action = EXIT_SETTINGS;
@@ -132,21 +139,24 @@ bool j1SceneUI::Addsettings_UI()
 bool j1SceneUI::Deletesettings_UI()
 {
 	App->gui->DeleteGui(window_settings);
-	App->gui->DeleteGui(music);
-	App->gui->DeleteGui(fx);
-	App->gui->DeleteGui(cap);
+	//App->gui->DeleteGui(music);
+	//App->gui->DeleteGui(fx);
+	//App->gui->DeleteGui(cap);
 	App->gui->DeleteGui(exit_settings);
-
+	App->gui->DeleteGui(slider_button);
+	App->gui->DeleteGui(first_slider);
+	App->gui->DeleteGui(fx_slider);
+	App->gui->DeleteGui(second_slider);
 	return true;
 }
 
 bool j1SceneUI::Addcredits_UI()
 {
 	window_credits = App->gui->AddWindow(App->gui->GetAtlas(), 100, 150, { 1,439,831,494 });
-	text_1 = App->gui->AddText("credits", 415, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
-	text_2 = App->gui->AddText("game   made   by", 140, 250, App->font->Load("fonts/ARCADECLASSIC.ttf", 50), { 255,255,255 });
-	text_3 = App->gui->AddText("marc   palma   turon", 140, 300, App->font->Load("fonts/ARCADECLASSIC.ttf", 55), { 255,255,255 });
-	text_4 = App->gui->AddText("pol   de   la   torre   sole", 140, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 55), { 255,255,255 });
+	//text_1 = App->gui->AddText("credits", 415, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
+	//text_2 = App->gui->AddText("game   made   by", 140, 250, App->font->Load("fonts/ARCADECLASSIC.ttf", 50), { 255,255,255 });
+	//text_3 = App->gui->AddText("marc   palma   turon", 140, 300, App->font->Load("fonts/ARCADECLASSIC.ttf", 55), { 255,255,255 });
+	//text_4 = App->gui->AddText("pol   de   la   torre   sole", 140, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 55), { 255,255,255 });
 	licence_button = App->gui->AddButton(160, 480, App->gui->GetAtlas(), { 1042,219,337,72 }, { 1041,292,357,80 }, { 1041,373,338,63 }, this);
 	licence_button->element_action = LICENCE;
 	exit_credits = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
@@ -158,14 +168,14 @@ bool j1SceneUI::Addcredits_UI()
 bool j1SceneUI::Deletecredits_UI()
 {
 	App->gui->DeleteGui(window_credits);
-	App->gui->DeleteGui(text_1);
-	delete(text_1);
-	App->gui->DeleteGui(text_2);
-	delete(text_2);
-	App->gui->DeleteGui(text_3);
-	delete(text_3);
-	App->gui->DeleteGui(text_4);
-	delete(text_4);
+	//App->gui->DeleteGui(text_1);
+	//delete(text_1);
+	//App->gui->DeleteGui(text_2);
+	//delete(text_2);
+	//App->gui->DeleteGui(text_3);
+	//delete(text_3);
+	//App->gui->DeleteGui(text_4);
+	//delete(text_4);
 	App->gui->DeleteGui(licence_button);
 	App->gui->DeleteGui(exit_credits);
 
@@ -175,7 +185,7 @@ bool j1SceneUI::Deletecredits_UI()
 bool j1SceneUI::Addlicence_UI()
 {
 	window_licence = App->gui->AddWindow(App->gui->GetAtlas(), 100, 150, { 1,439,831,494 });
-	text_5 = App->gui->AddText("licence", 415, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
+	//text_5 = App->gui->AddText("licence", 415, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
 	licence = App->gui->AddImage(App->gui->licence, 120, 250, { 0,0,788,345 });
 	exit_licence = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
 	exit_licence->element_action = EXIT_LICENCE;
@@ -186,7 +196,7 @@ bool j1SceneUI::Addlicence_UI()
 bool j1SceneUI::Deletelicence_UI()
 {
 	App->gui->DeleteGui(window_licence);
-	App->gui->DeleteGui(text_5);
+	//App->gui->DeleteGui(text_5);
 	App->gui->DeleteGui(licence);
 	App->gui->DeleteGui(exit_licence);
 
@@ -203,7 +213,6 @@ bool j1SceneUI::back_intro_UI()
 	settings_button = App->gui->AddButton(340, 450, App->gui->GetAtlas(), { 0,220,360,72 }, { 1,293,392,80 }, { 1,374,362,63 });
 	webpage_button = App->gui->AddButton(25, 650, App->gui->GetAtlas(), { 749,336,106,88 }, { 627,327,118,99 }, { 862,338,102,84 });
 	exit_button = App->gui->AddButton(400, 650, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 });
-
 	return true;
 }
 
@@ -217,7 +226,6 @@ bool j1SceneUI::delete_intro_UI()
 	App->gui->DeleteGui(settings_button);
 	App->gui->DeleteGui(webpage_button);
 	App->gui->DeleteGui(exit_button);
-
 	return true;
 }
 
@@ -255,7 +263,6 @@ bool j1SceneUI::Addpause_UI()
 	settings_ingame->element_action = SETTINGS_INGAME;
 	exit_intro = App->gui->AddButton(430, 520, App->gui->GetAtlas(), { 535,1,234,71 }, { 535,73,258,80 }, { 535,154,234,63 }, this);
 	exit_intro->element_action = EXIT_MENU;
-
 	return true;
 }
 
@@ -393,10 +400,15 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			ShellExecuteA(NULL, "open", "https://marcpt98.github.io/Plataformer-2D/", NULL, NULL, SW_SHOWNORMAL);
 		}
 	}
-	else if (event_type == MOUSE_RIGHT_CLICK)
+	if (element->element_action == SLIDER_BUTTON && event_type == MOUSE_LEFT_CLICK)
 	{
+		slider_volume = true;
 	}
-
+	if (element->element_action == SLIDER_FX_BUTTON && event_type == MOUSE_LEFT_CLICK)
+	{
+		fx_volume = true;
+	}
+	
 	return true;
 }
 

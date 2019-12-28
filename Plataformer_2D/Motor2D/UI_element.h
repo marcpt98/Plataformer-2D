@@ -14,7 +14,8 @@ enum element_type
 	TEXT,
 	IMAGE,
 	BUTTON,
-	WINDOW
+	WINDOW,
+	SLIDER
 };
 
 enum UI_element_state
@@ -41,7 +42,10 @@ enum UI_element_action
 	EXIT_LICENCE,
 	EXIT_PAUSE,
 	EXIT_MENU,
-	WEBPAGE
+	WEBPAGE,
+	SLIDER_BUTTON,
+	SLIDER_FX_BUTTON,
+	SLIDER_BAR
 };
 
 class UI_element :public j1Module
@@ -84,7 +88,7 @@ public:
 	{}
 
 public:
-
+	int positionwow;
 	SDL_Texture* texture = nullptr;
 	iPoint localPosition;
 	SDL_Rect section;
