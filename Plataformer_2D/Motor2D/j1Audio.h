@@ -5,6 +5,7 @@
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
 #define DEFAULT_MUSIC_VOLUME 25
+#define MAX_AUDIO 50
 
 struct _Mix_Music;
 struct Mix_Chunk;
@@ -43,11 +44,20 @@ public:
 	void setMusicVolume(float volume);
 
 	void setFxVolume(float volume);
+
+	//FX thins scene UI
+	int const LoadFX2(const char* path);
+
+	bool const PlayFX2(int fx);
+
+	bool const UnLoadFX2(int fx);
 private:
 
 	_Mix_Music*			music = NULL;
 	p2List<Mix_Chunk*>	fx;
+	Mix_Chunk* FX[MAX_AUDIO];
 	int music_volume = DEFAULT_MUSIC_VOLUME;
+	int lastFX = 0;
 	float fx_volume;
 };
 

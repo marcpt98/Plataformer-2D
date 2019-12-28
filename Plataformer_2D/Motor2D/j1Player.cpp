@@ -100,7 +100,7 @@ bool j1Player::Start()
 	App->audio->LoadFx(slimedeadFx.GetString());
 	App->audio->LoadFx(checkPoint.GetString());
 	App->audio->LoadFx(coin.GetString());
-
+	App->audio->LoadFx(push_button.GetString());
 	// Add player collider
 	collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
 
@@ -118,6 +118,7 @@ bool j1Player::CleanUp()
 	App->audio->UnloadFx(slimedeadFx.GetString());
 	App->audio->UnloadFx(checkPoint.GetString());
 	App->audio->UnloadFx(coin.GetString());
+	App->audio->UnloadFx(push_button.GetString());
 	return true;
 }
 
@@ -440,7 +441,7 @@ void j1Player::CheckAnimation(float dt)
 		{
 			if (energyJump < gravity)
 			{
-				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0); }
+				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0);}
 				energyJump += (incrementJ * dt * VELOCITY);
 				position.y += (int)(energyJump * dt * VELOCITY);
 				if (energyJump < 0)
@@ -459,7 +460,7 @@ void j1Player::CheckAnimation(float dt)
 		{
 			if (energyJump < gravity)
 			{
-				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0); }
+				if (energyJump == iJumpF) { App->audio->PlayFx(1, 0);}
 				energyJump += (incrementJ * dt * VELOCITY);
 				position.y += (int)(energyJump * dt * VELOCITY);
 				if (goleft == true && nojumpingleft == true)
@@ -763,7 +764,7 @@ bool j1Player::LoadConfigInfo()
 	ballhitFx = config.child("fx_name4").attribute("ballhit").as_string("");
 	checkPoint = config.child("fx_name8").attribute("checkPoint").as_string("");
 	coin = config.child("fx_name9").attribute("coin").as_string("");
-
+	push_button = config.child("fx_name10").attribute("button").as_string("");
 	// Ghost FX
 	ghostdeadFx = config.child("fx_name5").attribute("ghost_dead").as_string("");
 	ghostfollowFx = config.child("fx_name6").attribute("ghost_follow").as_string("");
