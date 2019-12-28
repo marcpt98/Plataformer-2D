@@ -116,9 +116,9 @@ bool j1SceneUI::Addsettings_UI()
 {
 	settings_open = true;
 	window_settings = App->gui->AddWindow(App->gui->GetAtlas(), 100, 150, { 1,439,831,494 });
-	//music = App->gui->AddText("music", 425, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
-	//fx = App->gui->AddText("fx", 480, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
-	//cap = App->gui->AddText("cap   game   to   30fps", 140, 530, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
+	music = App->gui->AddImage(App->gui->addText, 425, 175, { 0,0,176,33 });
+	fx = App->gui->AddImage(App->gui->addText, 480, 375, { 0,34,69,33 });
+	cap = App->gui->AddImage(App->gui->addText, 135, 545, { 0,68,573,33 });
 	exit_settings = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
 	cap_button = App->gui->AddBoolButton(720, 530, App->gui->GetAtlas(), { 440,312,63,63 }, { 504, 312, 63, 63 }, this);
 	cap_button->element_action = CAP;
@@ -146,9 +146,9 @@ bool j1SceneUI::Deletesettings_UI()
 {
 	settings_open = false;
 	App->gui->DeleteGui(window_settings);
-	//App->gui->DeleteGui(music);
-	//App->gui->DeleteGui(fx);
-	//App->gui->DeleteGui(cap);
+	App->gui->DeleteGui(music);
+	App->gui->DeleteGui(fx);
+	App->gui->DeleteGui(cap);
 	App->gui->DeleteGui(exit_settings);
 	App->gui->DeleteGui(cap_button);
 	App->gui->DeleteGui(slider_button);
@@ -161,10 +161,10 @@ bool j1SceneUI::Deletesettings_UI()
 bool j1SceneUI::Addcredits_UI()
 {
 	window_credits = App->gui->AddWindow(App->gui->GetAtlas(), 100, 150, { 1,439,831,494 });
-	//text_1 = App->gui->AddText("credits", 415, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
-	//text_2 = App->gui->AddText("game   made   by", 140, 250, App->font->Load("fonts/ARCADECLASSIC.ttf", 50), { 255,255,255 });
-	//text_3 = App->gui->AddText("marc   palma   turon", 140, 300, App->font->Load("fonts/ARCADECLASSIC.ttf", 55), { 255,255,255 });
-	//text_4 = App->gui->AddText("pol   de   la   torre   sole", 140, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 55), { 255,255,255 });
+	credits = App->gui->AddImage(App->gui->addText, 415, 170, { 0,102,247,33 });
+	game_made = App->gui->AddImage(App->gui->addText, 140, 250, { 0,136,371,30 });
+	marc = App->gui->AddImage(App->gui->addText, 140, 300, { 0,167,464,27 });
+	pol = App->gui->AddImage(App->gui->addText, 140, 340, { 0,195,566,27 });
 	licence_button = App->gui->AddButton(160, 480, App->gui->GetAtlas(), { 1042,219,337,72 }, { 1041,292,357,80 }, { 1041,373,338,63 }, this);
 	licence_button->element_action = LICENCE;
 	exit_credits = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
@@ -176,14 +176,10 @@ bool j1SceneUI::Addcredits_UI()
 bool j1SceneUI::Deletecredits_UI()
 {
 	App->gui->DeleteGui(window_credits);
-	//App->gui->DeleteGui(text_1);
-	//delete(text_1);
-	//App->gui->DeleteGui(text_2);
-	//delete(text_2);
-	//App->gui->DeleteGui(text_3);
-	//delete(text_3);
-	//App->gui->DeleteGui(text_4);
-	//delete(text_4);
+	App->gui->DeleteGui(credits);
+	App->gui->DeleteGui(game_made);
+	App->gui->DeleteGui(marc);
+	App->gui->DeleteGui(pol);
 	App->gui->DeleteGui(licence_button);
 	App->gui->DeleteGui(exit_credits);
 
@@ -193,7 +189,7 @@ bool j1SceneUI::Deletecredits_UI()
 bool j1SceneUI::Addlicence_UI()
 {
 	window_licence = App->gui->AddWindow(App->gui->GetAtlas(), 100, 150, { 1,439,831,494 });
-	//text_5 = App->gui->AddText("licence", 415, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
+	licence_title = App->gui->AddImage(App->gui->addText, 415, 170, { 0,223,250,33 });
 	licence = App->gui->AddImage(App->gui->licence, 120, 250, { 0,0,788,345 });
 	exit_licence = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
 	exit_licence->element_action = EXIT_LICENCE;
@@ -204,7 +200,7 @@ bool j1SceneUI::Addlicence_UI()
 bool j1SceneUI::Deletelicence_UI()
 {
 	App->gui->DeleteGui(window_licence);
-	//App->gui->DeleteGui(text_5);
+	App->gui->DeleteGui(licence_title);
 	App->gui->DeleteGui(licence);
 	App->gui->DeleteGui(exit_licence);
 

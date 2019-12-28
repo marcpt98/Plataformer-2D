@@ -65,9 +65,9 @@ public:
 	UI_boolbutton* cap_button = nullptr;
 	bool iscap = false;
 	UI_window* window_settings = nullptr;
-	UI_element* music = nullptr;
-	UI_element* fx = nullptr;
-	UI_element* cap = nullptr;
+	UI_image* music = nullptr;
+	UI_image* fx = nullptr;
+	UI_image* cap = nullptr;
 	UI_button* exit_settings = nullptr;
 	UI_button* slider_button = nullptr;
 	UI_slider* first_slider = nullptr;
@@ -80,17 +80,17 @@ public:
 
 	// Credits
 	UI_window* window_credits = nullptr;
+	UI_image* credits = nullptr;
+	UI_image* game_made = nullptr;
+	UI_image* marc = nullptr;
+	UI_image* pol = nullptr;
 	UI_button* exit_credits = nullptr;
-	UI_text* text_1 = nullptr;
-	UI_text* text_2 = nullptr;
-	UI_text* text_3 = nullptr;
-	UI_text* text_4 = nullptr;
 	UI_button* licence_button = nullptr;
 	
 	// Licence
 	UI_window* window_licence = nullptr;
 	UI_button* exit_licence = nullptr;
-	UI_text* text_5 = nullptr;
+	UI_image* licence_title = nullptr;
 	UI_image* licence = nullptr;
 
 	// In game

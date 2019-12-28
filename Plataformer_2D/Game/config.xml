@@ -122,5 +122,6 @@
     <intro file="gui/scene_intro.png"/>
     <title file="gui/Title.png"/>
     <licence file="gui/licence.png"/>
+    <text file="gui/Additional_Text.png"/>
   </gui>
 </config>
