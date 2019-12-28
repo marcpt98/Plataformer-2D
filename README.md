@@ -71,10 +71,10 @@ This game has 3 main core subsystems:
 
 
 ## Links
-# Repository
+### Repository
 https://github.com/marcpt98/Plataformer-2D
 
-# Download the game!
+### Download the game!
 https://github.com/marcpt98/Plataformer-2D/releases
 
 ## License
