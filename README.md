@@ -66,6 +66,10 @@ Sound effects from "plasterbrain": https://freesound.org/people/plasterbrain/sou
 
 Sound efect from "chiptape": www.chiptape.com/chiptape/sounds/medium/gBallMinimize.wav from https://www.findsounds.com/ISAPI/search.dll
 
+Sound efect from "junggle": https://freesound.org/people/junggle/sounds/29301/
+
+Sound efect UI from "SethBling": https://www.youtube.com/watch?v=Ha1PSF5MstI
+
 Sound efect from "Scrampunk": https://freesound.org/people/Scrampunk/sounds/345297/
 
 Assets UI pack from "Kenney": https://opengameart.org/content/pixel-ui-pack-750-assets
@@ -73,6 +77,7 @@ Assets UI pack from "Kenney": https://opengameart.org/content/pixel-ui-pack-750-
 Time bar asset from "adwitr": https://adwitr.itch.io/pixel-health-bar-asset-pack?download
 
 Pixels fonts for UI from website: https://fontmeme.com/pixel-fonts/
+
 
 Slime enemy art: Pixel Art created by rvros  Itch.io: https://rvros.itch.io/
 
