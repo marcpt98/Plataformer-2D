@@ -9,12 +9,6 @@
 #include "j1Input.h"
 #include "p2Log.h"
 
-void UI_slider::setOutlined(bool isOutlined)
-{
-	if (text != nullptr)
-		text->setOutlined(isOutlined);
-}
-
 void UI_slider::BlitElement()
 {
 	BROFILER_CATEGORY("Blitslider", Profiler::Color::Null)

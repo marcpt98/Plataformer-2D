@@ -28,14 +28,10 @@ public:
 	~UI_button()
 	{}
 
-	void setOutlined(bool isOutlined);
-	void appendChild(int x, int y, UI_element* child);
-	void appendChildAtCenter(UI_element* child);
 	void BlitElement();
 	void ChangeVolume();
 public:
 
-	UI_text* text = nullptr;
 	SDL_Rect OnMouse;
 	SDL_Rect Tick;
 	SDL_Rect OnClick;

@@ -20,14 +20,11 @@ public:
 	~UI_slider()
 	{}
 
-	void setOutlined(bool isOutlined);
 	void BlitElement();
 	void ChangeVolume();
 private:
 	
 public:
-
-	UI_text* text = nullptr;
 	SDL_Rect OnMouse;
 	SDL_Rect Tick;
 	SDL_Rect OnClick;

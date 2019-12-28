@@ -79,12 +79,6 @@ public:
 			return localPosition;
 	}
 
-	virtual void appendChild(int x, int y, UI_element* child)
-	{}
-
-	virtual void appendChildAtCenter(UI_element* child)
-	{}
-
 	virtual void BlitElement()
 	{}
 
