@@ -32,6 +32,8 @@ void UI_window::appendChildAtCenter(UI_element* child)
 
 void UI_window::BlitElement()
 {
+	BROFILER_CATEGORY("Blitwindow", Profiler::Color::SandyBrown)
+
 	iPoint globalPos = calculateAbsolutePosition();
 	App->render->Blit(texture, globalPos.x, globalPos.y, &section, false);
 

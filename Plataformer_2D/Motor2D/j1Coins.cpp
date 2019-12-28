@@ -57,7 +57,7 @@ bool j1Coins::CleanUp()
 
 bool j1Coins::Update(float dt)
 {
-	BROFILER_CATEGORY("Updatej1CheckPoint", Profiler::Color::Pink);
+	BROFILER_CATEGORY("UpdateCoins", Profiler::Color::Turquoise);
 
 	CheckAnimation(dt);
 
@@ -68,7 +68,7 @@ bool j1Coins::Update(float dt)
 
 bool j1Coins::PostUpdate(float dt)
 {
-	BROFILER_CATEGORY("Postupdatej1CheckPoint", Profiler::Color::HotPink)
+	BROFILER_CATEGORY("PostupdateCoins", Profiler::Color::DarkTurquoise)
 
 		return true;
 }

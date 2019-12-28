@@ -29,6 +29,8 @@ void UI_text::setColor(SDL_Color newColor)
 
 void UI_text::BlitElement()
 {
+	BROFILER_CATEGORY("Blittext", Profiler::Color::PeachPuff)
+
 	iPoint globalPos = calculateAbsolutePosition();
 
 	App->render->Blit(texture, globalPos.x, globalPos.y, NULL, false);

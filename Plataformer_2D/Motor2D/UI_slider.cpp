@@ -17,6 +17,7 @@ void UI_slider::setOutlined(bool isOutlined)
 
 void UI_slider::BlitElement()
 {
+	BROFILER_CATEGORY("Blitslider", Profiler::Color::Null)
 
 	App->input->GetMousePosition(x, y);
 	iPoint globalPos = calculateAbsolutePosition();

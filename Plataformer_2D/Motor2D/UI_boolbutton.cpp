@@ -31,6 +31,8 @@ void UI_boolbutton::appendChildAtCenter(UI_element* child)
 
 void UI_boolbutton::BlitElement()
 {
+	BROFILER_CATEGORY("Blitboolbutton", Profiler::Color::WhiteSmoke)
+
 	iPoint globalPos = calculateAbsolutePosition();
 
 	if (App->sceneui->iscap == true)

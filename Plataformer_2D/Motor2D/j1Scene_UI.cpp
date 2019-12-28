@@ -45,12 +45,15 @@ bool j1SceneUI::Start()
 
 bool j1SceneUI::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateSceneui", Profiler::Color::SeaShell)
 
 		return true;
 }
 
 bool j1SceneUI::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateSceneui", Profiler::Color::DarkGoldenRod)
+
 	if (App->gui->UI_debug)
 		App->gui->UIDebugDraw();
 

@@ -34,7 +34,8 @@ void UI_button::appendChildAtCenter(UI_element* child)
 
 void UI_button::BlitElement()
 {
-	
+	BROFILER_CATEGORY("Blitbutton", Profiler::Color::OldLace)
+
 	iPoint globalPos = calculateAbsolutePosition();
 	
 	App->input->GetMousePosition(x, y);

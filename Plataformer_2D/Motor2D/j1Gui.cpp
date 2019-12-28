@@ -56,6 +56,8 @@ bool j1Gui::Start()
 // Update all guis
 bool j1Gui::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdateGui", Profiler::Color::DarkOliveGreen)
+
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		UI_debug = !UI_debug;
 
@@ -118,6 +120,8 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdateFadeToBlack", Profiler::Color::MediumSlateBlue)
+
 	for (p2List_item<UI_element*>* item = UI_elements.start; item; item = item->next)
 	{
 		if (item->data->parent == nullptr)
