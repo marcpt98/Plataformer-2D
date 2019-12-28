@@ -58,6 +58,9 @@ public:
 	UI_button* credits_button = nullptr;
 	UI_button* webpage_button = nullptr;
 	UI_button* exit_button = nullptr;
+	int push_button = 0;
+	int release_button = 0;
+	int over_button = 0;
 	bool exit = false;
 
 	// Settings

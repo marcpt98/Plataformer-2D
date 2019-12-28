@@ -35,6 +35,9 @@ j1SceneUI::~j1SceneUI()
 
 bool j1SceneUI::Start()
 {
+	push_button = App->audio->LoadFX2("audio/fx/fx_push_button.wav");
+	release_button = App->audio->LoadFX2("audio/fx/fx_release_button.wav");
+	over_button = App->audio->LoadFX2("audio/fx/fx_over_button.wav");
 	App->scene->PrepSceneIntro();
 
 	return true;
@@ -287,6 +290,7 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 {
 	if (event_type == MOUSE_ENTER || event_type == MOUSE_RIGHT_RELEASE)
 	{
+		App->audio->PlayFX2(over_button);
 		element->state = MOUSEOVER;
 
 	}
@@ -297,10 +301,12 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 	}
 	else if (event_type == MOUSE_LEFT_CLICK)
 	{
+		App->audio->PlayFX2(push_button);
 		element->state = CLICKED;
 	}
 	else if (event_type == MOUSE_LEFT_RELEASE)
 	{
+		App->audio->PlayFX2(release_button);
 		if (element->element_action == START)
 		{
 			App->scene->sceneintro = false;

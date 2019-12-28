@@ -185,6 +185,38 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
+//Scene UI
+bool const j1Audio::PlayFX2(int fx)
+{
+	Mix_PlayChannel(-1, FX[fx], 0);
+	return nullptr;
+}
+
+int const j1Audio::LoadFX2(const char* path)
+{
+	if (lastFX == MAX_AUDIO - 1)
+	{
+		return -1;
+	}
+	lastFX++;
+
+	FX[lastFX] = Mix_LoadWAV(path);
+
+	return lastFX;
+}
+
+bool const j1Audio::UnLoadFX2(int fx)
+{
+	if (FX[fx] == NULL)
+	{
+		return false;
+	}
+
+	Mix_FreeChunk(FX[fx]);
+	FX[fx] = NULL;
+	return true;
+}
+
 void j1Audio::setMusicVolume(float volume)
 {
 	Mix_VolumeMusic(MIX_MAX_VOLUME * volume);
