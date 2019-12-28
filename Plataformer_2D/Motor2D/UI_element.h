@@ -45,7 +45,8 @@ enum UI_element_action
 	WEBPAGE,
 	SLIDER_BUTTON,
 	SLIDER_FX_BUTTON,
-	SLIDER_BAR
+	SLIDER_BAR,
+	CAP
 };
 
 class UI_element :public j1Module

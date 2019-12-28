@@ -11,6 +11,7 @@
 #include "UI_Image.h"
 #include "UI_Text.h"
 #include "UI_Button.h"
+#include "UI_boolbutton.h"
 #include "UI_window.h"
 #include "UI_slider.h"
 #include "j1Scene_UI.h"
@@ -42,12 +43,15 @@ bool j1SceneUI::Start()
 bool j1SceneUI::PreUpdate()
 {
 
-	return true;
+		return true;
 }
 
 bool j1SceneUI::PostUpdate()
 {
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && App->scene->sceneintro == false)
+	if (App->gui->UI_debug)
+		App->gui->UIDebugDraw();
+
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && App->scene->sceneintro == false && App->sceneui->settings_open == false)
 	{
 		if (pause_UI == false)
 		{
@@ -110,12 +114,14 @@ bool j1SceneUI::Deletesceneintro_UI()
 
 bool j1SceneUI::Addsettings_UI()
 {
+	settings_open = true;
 	window_settings = App->gui->AddWindow(App->gui->GetAtlas(), 100, 150, { 1,439,831,494 });
 	//music = App->gui->AddText("music", 425, 160, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
 	//fx = App->gui->AddText("fx", 480, 340, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
 	//cap = App->gui->AddText("cap   game   to   30fps", 140, 530, App->font->Load("fonts/ARCADECLASSIC.ttf", 60), { 255,255,255 });
 	exit_settings = App->gui->AddButton(100, 150, App->gui->GetAtlas(), { 435,220,54,54 }, { 490,220,61,60 }, { 552,220,54,54 }, this);
-
+	cap_button = App->gui->AddBoolButton(720, 530, App->gui->GetAtlas(), { 440,312,63,63 }, { 504, 312, 63, 63 }, this);
+	cap_button->element_action = CAP;
 	slider_button = App->gui->AddButton(450, 235, App->gui->GetAtlas(), { 394 ,312, 45, 65 }, { 394 ,312, 45, 65 }, { 394, 312 ,45 ,65 }, this);
 	slider_button->element_action = SLIDER_BUTTON;
 	first_slider = App->gui->AddSlider(450, 250, App->gui->GetAtlas(), slider_button, nullptr, { 394,281,607,30 });// 394 281 607
@@ -138,11 +144,13 @@ bool j1SceneUI::Addsettings_UI()
 
 bool j1SceneUI::Deletesettings_UI()
 {
+	settings_open = false;
 	App->gui->DeleteGui(window_settings);
 	//App->gui->DeleteGui(music);
 	//App->gui->DeleteGui(fx);
 	//App->gui->DeleteGui(cap);
 	App->gui->DeleteGui(exit_settings);
+	App->gui->DeleteGui(cap_button);
 	App->gui->DeleteGui(slider_button);
 	App->gui->DeleteGui(first_slider);
 	App->gui->DeleteGui(fx_slider);
@@ -341,6 +349,22 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			Deletepause_UI();
 			Addsettings_UI();
 		}
+		else if (element->element_action == CAP)
+		{
+			if (App->scene->lowfps == false) 
+			{
+				App->scene->highfps = false;
+				App->scene->lowfps = true;
+				App->scene->canbehighfps = true;
+				iscap = true;
+			}
+			if (App->scene->highfps == true) 
+			{
+				App->scene->lowfps = false;
+				iscap = false;
+			}
+		}
+
 		else if (element->element_action == EXIT_SETTINGS_INGAME)
 		{
 			Deletesettings_UI();
@@ -414,24 +438,9 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 
 bool j1SceneUI::createtimelives()
 {
-	if (App->scene->lives == 3)
-	{
-		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
-		player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
-		player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 170, 40, { 531,384,59,52 });
-	}
-	else if (App->scene->lives == 2)
-	{
-		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
-		player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
-	}
-	else if (App->scene->lives == 1)
-	{
-		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
-	}
-	else if (App->scene->lives == 0)
-	{
-	}
+	player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
+	player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
+	player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 170, 40, { 531,384,59,52 });
 
 	if (App->scene->timer == 600)
 	{

@@ -144,7 +144,14 @@ bool j1EntityManager::load(pugi::xml_node& savegame)
 		{
 			entity_type = j1Entity::entityType::COIN;
 		}
-		CreateEntity(entity_type, entity.child("position").attribute("pos.x").as_int(), entity.child("position").attribute("pos.y").as_int());
+		if (type == "player")
+		{
+			CreateEntity(entity_type, entity.child("position").attribute("pos.x").as_int() - 5, entity.child("position").attribute("pos.y").as_int());
+		}
+		else
+		{
+			CreateEntity(entity_type, entity.child("position").attribute("pos.x").as_int(), entity.child("position").attribute("pos.y").as_int());
+		}
 	}
 
 	p2List_item<j1Entity*>* entities_list = entities.start;

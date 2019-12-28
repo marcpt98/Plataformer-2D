@@ -97,6 +97,9 @@
     <ClCompile Include="UI_slider.cpp">
       <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
     </ClCompile>
+    <ClCompile Include="UI_boolbutton.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -217,6 +220,9 @@
       <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
     </ClInclude>
     <ClInclude Include="UI_slider.h">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_boolbutton.h">
       <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
     </ClInclude>
   </ItemGroup>

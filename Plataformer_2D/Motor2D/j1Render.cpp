@@ -6,7 +6,7 @@
 #include "j1Player.h"
 #include "j1EntityManager.h"
 
-#define VSYNC true
+#define VSYNC false
 
 j1Render::j1Render() : j1Module()
 {

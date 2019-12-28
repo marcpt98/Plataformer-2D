@@ -103,6 +103,7 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
+    <ClCompile Include="UI_boolbutton.cpp" />
     <ClCompile Include="UI_button.cpp" />
     <ClCompile Include="UI_image.cpp" />
     <ClCompile Include="UI_slider.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="p2SString.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="UI_boolbutton.h" />
     <ClInclude Include="UI_Button.h" />
     <ClInclude Include="UI_element.h" />
     <ClInclude Include="UI_image.h" />

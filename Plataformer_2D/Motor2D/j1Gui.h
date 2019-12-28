@@ -13,6 +13,7 @@ struct SDL_Texture;
 class UI_text;
 class UI_image;
 class UI_button;
+class UI_boolbutton;
 class UI_window;
 class UI_slider;
 
@@ -57,11 +58,12 @@ public:
 	UI_text* AddText(char* text, int x, int y, _TTF_Font* font, SDL_Color color = { 255, 255, 255, 255 }, j1Module* callback = nullptr);
 	UI_image* AddImage(SDL_Texture* texture, int x, int y, SDL_Rect section, j1Module* callback = nullptr);
 	UI_button* AddButton(int x, int y, SDL_Texture* texture, SDL_Rect standby, SDL_Rect OnMouse, SDL_Rect OnClick, j1Module* callback = nullptr);
+	UI_boolbutton* AddBoolButton(int x, int y, SDL_Texture* texture, SDL_Rect booltrue, SDL_Rect boolfalse, j1Module* callback = nullptr);
 	UI_window* AddWindow(SDL_Texture* texture, int x, int y, SDL_Rect section, j1Module* callback = nullptr);
 	UI_slider* AddSlider(int x, int y, SDL_Texture* texture, UI_button* button, j1Module* callback, SDL_Rect image_bar);
 	SDL_Texture* GetAtlas();
 
-	void UIDebugDraw();
+	bool UIDebugDraw();
 
 	bool DeleteGui(UI_element* gui);
 

@@ -61,6 +61,9 @@ public:
 	bool exit = false;
 
 	// Settings
+	bool settings_open = false;
+	UI_boolbutton* cap_button = nullptr;
+	bool iscap = false;
 	UI_window* window_settings = nullptr;
 	UI_element* music = nullptr;
 	UI_element* fx = nullptr;

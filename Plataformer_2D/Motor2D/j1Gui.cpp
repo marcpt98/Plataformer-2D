@@ -13,7 +13,9 @@
 #include "UI_Button.h"
 #include "UI_window.h"
 #include "UI_slider.h"
+#include "UI_boolbutton.h"
 #include "j1Scene_UI.h"
+#include "j1Scene.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -54,9 +56,6 @@ bool j1Gui::PreUpdate()
 {
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		UI_debug = !UI_debug;
-
-	if (UI_debug)
-		UIDebugDraw();
 
 	//Send events related to UI elements
 	int x, y;
@@ -176,6 +175,16 @@ UI_button* j1Gui::AddButton(int x, int y, SDL_Texture* texture, SDL_Rect standby
 	return ret;
 }
 
+UI_boolbutton* j1Gui::AddBoolButton(int x, int y, SDL_Texture* texture, SDL_Rect booltrue, SDL_Rect boolfalse, j1Module* callback)
+{
+	SDL_Texture* usingTexture = (texture) ? texture : atlas;
+
+	UI_boolbutton* ret = new UI_boolbutton(x, y, usingTexture, boolfalse, booltrue, callback);
+	UI_elements.add(ret);
+
+	return ret;
+}
+
 UI_slider* j1Gui::AddSlider(int x, int y, SDL_Texture* texture,UI_button* button, j1Module* callback, SDL_Rect image_bar)
 {
 	SDL_Texture* usingTexture = (texture) ? texture : atlas;
@@ -194,18 +203,21 @@ UI_window* j1Gui::AddWindow(SDL_Texture* texture, int x, int y, SDL_Rect section
 	return ret;
 }
 
-void j1Gui::UIDebugDraw()
+bool j1Gui::UIDebugDraw()
 {
-	for (p2List_item<UI_element*>* item = UI_elements.start; item != NULL; item = item->next)
+	bool ret = true;
+	for (p2List_item<UI_element*>* item = UI_elements.start; item; item = item->next)
 	{
-		SDL_Rect box;
-		box.x = item->data->section.x;
-		box.y = item->data->section.y;
-		box.w = item->data->section.w;
-		box.h = item->data->section.h;
-		App->render->DrawQuad(box, 255, 0, 0, 255, false, false);
-	}
+		if (item->data->element_type == IMAGE)
+			App->render->DrawQuad({ item->data->localPosition.x,  item->data->localPosition.y, item->data->section.w, item->data->section.h }, 255, 0, 0, 60, true, false);
 
+		else if (item->data->element_type == WINDOW)
+			App->render->DrawQuad({ item->data->localPosition.x,  item->data->localPosition.y, item->data->section.w, item->data->section.h }, 255, 0, 0, 80, true, false);
+
+		else
+			App->render->DrawQuad({ item->data->localPosition.x,  item->data->localPosition.y, item->data->section.w, item->data->section.h }, 255, 0, 0, 100, true, false);
+	}
+	return ret;
 }
 
 bool j1Gui::DeleteGui(UI_element* gui)

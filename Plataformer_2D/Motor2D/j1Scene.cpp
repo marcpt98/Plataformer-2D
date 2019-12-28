@@ -253,7 +253,7 @@ bool j1Scene::Update(float dt)
 
 	if (CheckPoint == true && player_dead == true)
 	{
-		App->want_load = true;
+		App->load();
 		player_dead = false;
 	}
 
@@ -527,7 +527,15 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	}
 
 	player_score = savegame.child("map2").attribute("points").as_int();
-	lives = savegame.child("map3").attribute("lives").as_int();
+	if (player_dead == true && CheckPoint == true)
+	{
+		lives = savegame.child("map3").attribute("lives").as_int();
+		lives--;
+	}
+	else
+	{
+		lives = savegame.child("map3").attribute("lives").as_int();
+	}
 	timer = savegame.child("map4").attribute("timer").as_int();
 	
 	//This is to reset the player score
