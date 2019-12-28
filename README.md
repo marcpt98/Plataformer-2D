@@ -45,17 +45,17 @@ Elementorum is a 2D action plataformer where you control our character Derexito!
 
 ## Inovation
 
--Enemy states and patrol
+- Enemy states and patrol
 
--Game pause
+- Game pause
 
--Jump particles
+- Jump particles
 
--Coldown on projectiles
+- Coldown on projectiles
 
--Particle effects
+- Particle effects
 
--Checkpoints
+- Checkpoints
 
 
 ## Main core subsytems
