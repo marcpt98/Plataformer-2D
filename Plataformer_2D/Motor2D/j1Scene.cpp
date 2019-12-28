@@ -73,7 +73,7 @@ bool j1Scene::Start()
 
 		RELEASE_ARRAY(data);
 	}
-	lives = 3;
+
 	// Player
 	currentMap = 0;
 	createEntities();
@@ -134,43 +134,43 @@ bool j1Scene::Update(float dt)
 			timertime = SDL_GetTicks();
 			timer--;
 		}
-		if (timer < 600 && App->sceneui->time_10 != nullptr)
+		if (timer < 300 && App->sceneui->time_10 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_10);
 		}
-		if (timer < 540 && App->sceneui->time_9 != nullptr)
+		if (timer < 270 && App->sceneui->time_9 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_9);
 		}
-		if (timer < 480 && App->sceneui->time_8 != nullptr)
+		if (timer < 240 && App->sceneui->time_8 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_8);
 		}
-		if (timer < 420 && App->sceneui->time_7 != nullptr)
+		if (timer < 210 && App->sceneui->time_7 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_7);
 		}
-		if (timer < 360 && App->sceneui->time_6 != nullptr)
+		if (timer < 180 && App->sceneui->time_6 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_6);
 		}
-		if (timer < 300 && App->sceneui->time_5 != nullptr)
+		if (timer < 150 && App->sceneui->time_5 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_5);
 		}
-		if (timer < 240 && App->sceneui->time_4 != nullptr)
+		if (timer < 120 && App->sceneui->time_4 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_4);
 		}
-		if (timer < 180 && App->sceneui->time_3 != nullptr)
+		if (timer < 90 && App->sceneui->time_3 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_3);
 		}
-		if (timer < 120 && App->sceneui->time_2 != nullptr)
+		if (timer < 60 && App->sceneui->time_2 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_2);
 		}
-		if (timer < 60 && App->sceneui->time_1 != nullptr)
+		if (timer < 30 && App->sceneui->time_1 != nullptr)
 		{
 			App->gui->DeleteGui(App->sceneui->time_1);
 		}
@@ -217,7 +217,7 @@ bool j1Scene::Update(float dt)
 			App->sceneui->Deletesceneintro_UI();
 		}
 		App->scene->timertime = SDL_GetTicks();
-		App->scene->timer = 600;
+		App->scene->timer = 300;
 		App->scene->lives = 3;
 		App->scene->player_score = 0;
 		p2SString score_info("Score 0");
@@ -236,7 +236,7 @@ bool j1Scene::Update(float dt)
 			App->sceneui->level_1 = false;
 		}
 		App->scene->timertime = SDL_GetTicks();
-		App->scene->timer = 600;
+		App->scene->timer = 300;
 		App->scene->lives = 3;
 		App->scene->player_score = 0;
 		p2SString score_info("Score 0");
@@ -255,15 +255,19 @@ bool j1Scene::Update(float dt)
 	// Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true && CheckPoint == false)
 	{
-		if (App->sceneui->level_1 == true || App->sceneui->level_2 == true)
+		if (player_dead == true)
 		{
-			App->sceneui->Deleteingame_UI();
-			App->sceneui->level_1 = false;
-			App->sceneui->level_2 = false;
+			lives--;
 		}
-		App->scene->timertime = SDL_GetTicks();
-		App->scene->timer = 600;
-		App->scene->lives = 3;
+
+		App->sceneui->Deleteingame_UI();
+
+		if (player_dead == false)
+		{
+			App->scene->timertime = SDL_GetTicks();
+			App->scene->timer = 300;
+			App->scene->lives = 3;
+		}
 		App->scene->player_score = 0;
 		p2SString score_info("Score 0");
 		App->scene->score->setText(score_info);
@@ -283,12 +287,6 @@ bool j1Scene::Update(float dt)
 		}
 
 		player_dead = false;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		sceneintro = true;
-		PrepSceneIntro();
 	}
 
 	if (CheckPoint == true && player_dead == true)
@@ -333,19 +331,6 @@ bool j1Scene::Update(float dt)
 	}
 
 	//Live system
-	
-	if (lives == 2 || lives == 1 || lives == 0)
-	{
-		App->gui->DeleteGui(App->sceneui->player_face3);
-	}
-	if (lives == 1 || lives == 0)
-	{
-		App->gui->DeleteGui(App->sceneui->player_face2);
-	}
-	if (lives == 0)
-	{
-		App->gui->DeleteGui(App->sceneui->player_face1);
-	}
 	if (lives == -1)
 	{
 		sceneintro = true;
@@ -567,10 +552,12 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	}
 
 	player_score = savegame.child("map2").attribute("points").as_int();
-	if (player_dead == true && CheckPoint == true)
+	if (player_dead == true)
 	{
 		lives = savegame.child("map3").attribute("lives").as_int();
 		lives--;
+		App->sceneui->Deleteingame_UI();
+		App->sceneui->Addingame_UI();
 	}
 	else
 	{

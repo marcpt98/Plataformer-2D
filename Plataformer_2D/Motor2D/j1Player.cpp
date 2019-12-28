@@ -104,6 +104,8 @@ bool j1Player::Start()
 	// Add player collider
 	collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
 
+	energyfalling = 0;
+
 	return true;
 }
 
@@ -648,7 +650,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 		if (SDL_GetTicks() > dead_animation_finish + deadDelay)
 		{
-			App->scene->lives = App->scene->lives - 1;
+			
 			App->scene->player_score = 0;
 			App->scene->player_dead = true;
 			dead_animation = false;
@@ -669,7 +671,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			if (deaddead == 1) 
 			{
 				App->scene->player_score = 0;
-				App->scene->lives = App->scene->lives - 1;
+				
 				deaddead = 0;
 			}
 			

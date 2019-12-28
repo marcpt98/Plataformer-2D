@@ -308,7 +308,7 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->currentMap = 0;
 			App->scene->LevelName(0);
 			App->scene->timertime = SDL_GetTicks();
-			App->scene->timer = 600;
+			App->scene->timer = 300;
 			App->scene->lives = 3;
 			App->scene->player_score = 0;
 			p2SString score_info("Score 0");
@@ -432,11 +432,29 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 
 bool j1SceneUI::createtimelives()
 {
-	player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
-	player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
-	player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 170, 40, { 531,384,59,52 });
+	if (App->scene->lives == 3)
+	{
+		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
+		player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
+		player_face3 = App->gui->AddImage(App->gui->GetAtlas(), 170, 40, { 531,384,59,52 });
+		LOG("3");
+	}
+	else if (App->scene->lives == 2)
+	{
+		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
+		player_face2 = App->gui->AddImage(App->gui->GetAtlas(), 100, 40, { 531,384,59,52 });
+		LOG("2");
+	}
+	else if (App->scene->lives == 1)
+	{
+		player_face1 = App->gui->AddImage(App->gui->GetAtlas(), 30, 40, { 531,384,59,52 });
+		LOG("1");
+	}
+	else if (App->scene->lives == 0)
+	{
+	}
 
-	if (App->scene->timer == 600)
+	if (App->scene->timer == 300)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
@@ -449,7 +467,7 @@ bool j1SceneUI::createtimelives()
 		time_9 = App->gui->AddImage(App->gui->GetAtlas(), 694, 52, { 597,386,26,27 });
 		time_10 = App->gui->AddImage(App->gui->GetAtlas(), 712, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 600 && App->scene->timer >= 540)
+	else if (App->scene->timer < 300 && App->scene->timer >= 270)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
@@ -461,7 +479,7 @@ bool j1SceneUI::createtimelives()
 		time_8 = App->gui->AddImage(App->gui->GetAtlas(), 676, 52, { 597,386,26,27 });
 		time_9 = App->gui->AddImage(App->gui->GetAtlas(), 694, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 540 && App->scene->timer >= 480)
+	else if (App->scene->timer < 270 && App->scene->timer >= 240)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
@@ -472,7 +490,7 @@ bool j1SceneUI::createtimelives()
 		time_7 = App->gui->AddImage(App->gui->GetAtlas(), 658, 52, { 597,386,26,27 });
 		time_8 = App->gui->AddImage(App->gui->GetAtlas(), 676, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 480 && App->scene->timer >= 420)
+	else if (App->scene->timer < 240 && App->scene->timer >= 210)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
@@ -482,7 +500,7 @@ bool j1SceneUI::createtimelives()
 		time_6 = App->gui->AddImage(App->gui->GetAtlas(), 640, 52, { 597,386,26,27 });
 		time_7 = App->gui->AddImage(App->gui->GetAtlas(), 658, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 420 && App->scene->timer >= 360)
+	else if (App->scene->timer < 210 && App->scene->timer >= 180)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
@@ -491,7 +509,7 @@ bool j1SceneUI::createtimelives()
 		time_5 = App->gui->AddImage(App->gui->GetAtlas(), 622, 52, { 597,386,26,27 });
 		time_6 = App->gui->AddImage(App->gui->GetAtlas(), 640, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 360 && App->scene->timer >= 300)
+	else if (App->scene->timer < 180 && App->scene->timer >= 150)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
@@ -499,29 +517,29 @@ bool j1SceneUI::createtimelives()
 		time_4 = App->gui->AddImage(App->gui->GetAtlas(), 604, 52, { 597,386,26,27 });
 		time_5 = App->gui->AddImage(App->gui->GetAtlas(), 622, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 300 && App->scene->timer >= 240)
+	else if (App->scene->timer < 150 && App->scene->timer >= 120)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
 		time_3 = App->gui->AddImage(App->gui->GetAtlas(), 586, 52, { 597,386,26,27 });
 		time_4 = App->gui->AddImage(App->gui->GetAtlas(), 604, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 240 && App->scene->timer >= 180)
+	else if (App->scene->timer < 120 && App->scene->timer >= 90)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
 		time_3 = App->gui->AddImage(App->gui->GetAtlas(), 586, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 180 && App->scene->timer >= 120)
+	else if (App->scene->timer < 90 && App->scene->timer >= 60)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 		time_2 = App->gui->AddImage(App->gui->GetAtlas(), 568, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 120 && App->scene->timer >= 60)
+	else if (App->scene->timer < 60 && App->scene->timer >= 30)
 	{
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 	}
-	else if (App->scene->timer < 60 && App->scene->timer >= 0)
+	else if (App->scene->timer < 30 && App->scene->timer >= 0)
 	{
 	}
 
@@ -540,16 +558,19 @@ bool j1SceneUI::deletetimelives()
 	{
 		App->gui->DeleteGui(player_face1);
 		App->gui->DeleteGui(player_face2);
+		App->gui->DeleteGui(player_face3);
 	}
 	else if (App->scene->lives == 1)
 	{
 		App->gui->DeleteGui(player_face1);
+		App->gui->DeleteGui(player_face2);
 	}
 	else if (App->scene->lives == 0)
 	{
+		App->gui->DeleteGui(player_face1);
 	}
 
-	if (App->scene->timer == 600)
+	if (App->scene->timer == 300)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
@@ -562,7 +583,7 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(time_9);
 		App->gui->DeleteGui(time_10);
 	}
-	else if (App->scene->timer < 600 && App->scene->timer >= 540)
+	else if (App->scene->timer < 300 && App->scene->timer >= 270)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
@@ -574,7 +595,7 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(time_8);
 		App->gui->DeleteGui(time_9);	
 	}
-	else if (App->scene->timer < 540 && App->scene->timer >= 480)
+	else if (App->scene->timer < 270 && App->scene->timer >= 240)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
@@ -585,7 +606,7 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(time_7);
 		App->gui->DeleteGui(time_8);		
 	}
-	else if (App->scene->timer < 480 && App->scene->timer >= 420)
+	else if (App->scene->timer < 240 && App->scene->timer >= 210)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
@@ -595,7 +616,7 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(time_6);
 		App->gui->DeleteGui(time_7);
 	}
-	else if (App->scene->timer < 420 && App->scene->timer >= 360)
+	else if (App->scene->timer < 210 && App->scene->timer >= 180)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
@@ -604,7 +625,7 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(time_5);
 		App->gui->DeleteGui(time_6);
 	}
-	else if (App->scene->timer < 360 && App->scene->timer >= 300)
+	else if (App->scene->timer < 180 && App->scene->timer >= 150)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
@@ -612,29 +633,29 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(time_4);
 		App->gui->DeleteGui(time_5);
 	}
-	else if (App->scene->timer < 300 && App->scene->timer >= 240)
+	else if (App->scene->timer < 150 && App->scene->timer >= 120)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
 		App->gui->DeleteGui(time_3);
 		App->gui->DeleteGui(time_4);
 	}
-	else if (App->scene->timer < 240 && App->scene->timer >= 180)
+	else if (App->scene->timer < 120 && App->scene->timer >= 90)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
 		App->gui->DeleteGui(time_3);
 	}
-	else if (App->scene->timer < 180 && App->scene->timer >= 120)
+	else if (App->scene->timer < 90 && App->scene->timer >= 60)
 	{
 		App->gui->DeleteGui(time_1);
 		App->gui->DeleteGui(time_2);
 	}
-	else if (App->scene->timer < 120 && App->scene->timer >= 60)
+	else if (App->scene->timer < 60 && App->scene->timer >= 30)
 	{
 		App->gui->DeleteGui(time_1);
 	}
-	else if (App->scene->timer < 60 && App->scene->timer >= 0)
+	else if (App->scene->timer < 30 && App->scene->timer >= 0)
 	{
 	}
 
