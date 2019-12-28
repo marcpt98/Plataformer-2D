@@ -232,7 +232,11 @@ bool j1Scene::Update(float dt)
 	diferent_coins = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->want_load = true;
+	{
+		App->load();
+		App->sceneui->Deleteingame_UI();
+		App->sceneui->Addingame_UI();
+	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->want_save = true;
