@@ -78,10 +78,10 @@ void UI_button::ChangeVolume()
 		Tick.x = x;
 		OnClick.x = x;
 		iPoint  globalPos=calculateAbsolutePosition();
-		//LOG("position: %i", localPosition.x);//197 746
-		musicvolume = ((localPosition.x * 1.) / 706);
+		LOG("position: %i", localPosition.x);//197 746
+		musicvolume = (((localPosition.x - 197) * 1.) / 552);
 		App->audio->setMusicVolume(musicvolume);
-		//LOG("position: %f", musicvolume);
+		LOG("position: %f", musicvolume);
 	}
 
 	if (App->sceneui->fx_volume == true && x > 206 && x < 760 && element_action == SLIDER_FX_BUTTON)//206 760
@@ -92,10 +92,10 @@ void UI_button::ChangeVolume()
 		Tick.x = x;
 		OnClick.x = x;
 		iPoint  globalPos = calculateAbsolutePosition();
-		//LOG("position: %i", localPosition.x);//197 746
-		fxvolume = ((localPosition.x * 1.) / 706);
+		LOG("position: %i", localPosition.x);//197 746
+		fxvolume = (((localPosition.x-197) * 1.) / 552);
 		App->audio->setFxVolume(fxvolume);
-		//LOG("position: %f", musicvolume);
+		LOG("position: %f", musicvolume);
 	}
 	
 }//App->audio->setMusicVolume(0.2);
