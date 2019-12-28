@@ -401,7 +401,6 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 		else if (element->element_action == EXIT_PAUSE)
 		{
 			App->scene->pause = false;
-			App->audio->setMusicVolume(1);
 			Deletepause_UI();
 			pause_UI = false;
 		}
@@ -410,7 +409,6 @@ bool j1SceneUI::OnUIEvent(UI_element* element, event_type event_type)
 			App->scene->sceneintro = true;
 			App->scene->PrepSceneIntro();
 			App->scene->pause = false;
-			App->audio->setMusicVolume(1);
 			Deletepause_UI();
 			Deleteingame_UI();
 			pause_UI = false;
