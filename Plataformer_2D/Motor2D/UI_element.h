@@ -15,7 +15,8 @@ enum element_type
 	IMAGE,
 	BUTTON,
 	WINDOW,
-	SLIDER
+	SLIDER,
+	INPUTBOX
 };
 
 enum UI_element_state

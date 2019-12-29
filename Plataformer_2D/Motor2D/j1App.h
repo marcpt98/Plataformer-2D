@@ -25,6 +25,7 @@ class j1Entity;
 class j1Fonts;
 class j1Gui;
 class j1SceneUI;
+class j1Console;
 
 class j1App
 {
@@ -94,6 +95,7 @@ public:
 	j1Fonts*			font;
 	j1Gui*				gui;
 	j1SceneUI*			sceneui;
+	j1Console*			console;
 
 private:
 

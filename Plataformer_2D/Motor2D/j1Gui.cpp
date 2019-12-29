@@ -37,6 +37,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	title_intro_name = conf.child("title").attribute("file").as_string("");
 	licence_name = conf.child("licence").attribute("file").as_string("");
 	addText_name = conf.child("text").attribute("file").as_string("");
+	list_name = conf.child("list").attribute("file").as_string("");
 
 	return ret;
 }
@@ -49,6 +50,7 @@ bool j1Gui::Start()
 	title_intro = App->tex->Load(title_intro_name.GetString());
 	licence = App->tex->Load(licence_name.GetString());
 	addText = App->tex->Load(addText_name.GetString());
+	list = App->tex->Load(list_name.GetString());
 
 	return true;
 }

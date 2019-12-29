@@ -21,6 +21,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1Console.h"
 
 j1SceneUI::j1SceneUI()
 {

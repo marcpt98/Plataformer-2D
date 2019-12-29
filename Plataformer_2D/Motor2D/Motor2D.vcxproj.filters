@@ -100,6 +100,12 @@
     <ClCompile Include="UI_boolbutton.cpp">
       <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
     </ClCompile>
+    <ClCompile Include="UI_inputbox.cpp">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClCompile>
+    <ClCompile Include="j1Console.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -224,6 +230,12 @@
     </ClInclude>
     <ClInclude Include="UI_boolbutton.h">
       <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_inputbox.h">
+      <Filter>Desenvolupament  ========\Modules\UI_elements</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Console.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

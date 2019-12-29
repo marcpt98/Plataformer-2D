@@ -123,5 +123,6 @@
     <title file="gui/Title.png"/>
     <licence file="gui/licence.png"/>
     <text file="gui/Additional_Text.png"/>
+    <list file="gui/Command_list.png"/>
   </gui>
 </config>

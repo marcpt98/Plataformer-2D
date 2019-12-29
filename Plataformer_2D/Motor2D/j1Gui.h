@@ -85,6 +85,8 @@ public:
 	p2SString licence_name;
 	SDL_Texture* addText;
 	p2SString addText_name;
+	SDL_Texture* list;
+	p2SString list_name;
 };
 
 #endif // __j1GUI_H__

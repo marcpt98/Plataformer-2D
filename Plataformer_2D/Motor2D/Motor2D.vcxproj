@@ -81,6 +81,7 @@
     <ClCompile Include="Enemy_Ghost.cpp" />
     <ClCompile Include="Enemy_Slime.cpp" />
     <ClCompile Include="j1Colliders.cpp" />
+    <ClCompile Include="j1Console.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="UI_boolbutton.cpp" />
     <ClCompile Include="UI_button.cpp" />
     <ClCompile Include="UI_image.cpp" />
+    <ClCompile Include="UI_inputbox.cpp" />
     <ClCompile Include="UI_slider.cpp" />
     <ClCompile Include="Ui_text.cpp" />
     <ClCompile Include="UI_window.cpp" />
@@ -117,6 +119,7 @@
     <ClInclude Include="Enemy_Ghost.h" />
     <ClInclude Include="Enemy_Slime.h" />
     <ClInclude Include="j1Colliders.h" />
+    <ClInclude Include="j1Console.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1FadeToBlack.h" />
@@ -149,6 +152,7 @@
     <ClInclude Include="UI_Button.h" />
     <ClInclude Include="UI_element.h" />
     <ClInclude Include="UI_image.h" />
+    <ClInclude Include="UI_inputbox.h" />
     <ClInclude Include="UI_slider.h" />
     <ClInclude Include="UI_text.h" />
     <ClInclude Include="UI_window.h" />

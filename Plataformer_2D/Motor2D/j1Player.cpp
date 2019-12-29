@@ -15,6 +15,7 @@
 #include "p2Log.h"
 #include "j1EntityManager.h"
 #include "j1Entity.h"
+#include "j1Console.h"
 
 j1Player::j1Player(int posx, int posy) : j1Entity(entityType::PLAYER)
 { 
@@ -202,7 +203,7 @@ void j1Player::CheckInputState(float dt)
 {
 	
 	// God mode
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN || App->console->godConsole == true)
 	{
 		if (godMode == false)
 		{
@@ -216,6 +217,7 @@ void j1Player::CheckInputState(float dt)
 			collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_PLAYER, this);
 			godMode = false;
 		}
+		App->console->godConsole = false;
 	}
 
 	if (godMode == true)
