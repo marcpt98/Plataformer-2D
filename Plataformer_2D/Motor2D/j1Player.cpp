@@ -578,7 +578,6 @@ void j1Player::CheckAnimation(float dt)
 				energyfalling = energyfalling + acceleration;
 			}
 		}
-
 	}
 	
 	fallingravity = true;
@@ -595,18 +594,16 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		grab_falling = false;
 		gravity = igravity;
 		ground = true;
-		if (position.y >= (c2->rect.y))// under a floor collision
+		if (position.y >= (c2->rect.y)) // under a floor collision
 		{
 			canJump1 = false;
 			position.y = c2->rect.y + c2->rect.h + 1;
 			ground = false;
 		}
-		else if (position.y + high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + width) >(c2->rect.x))// over a floor collision  
+		else if (position.y + high > c2->rect.y && position.x < (c2->rect.x + c2->rect.w) && (position.x + width) >(c2->rect.x)) // over a floor collision  
 		{
 			position.y = c2->rect.y - high;
 		}
-
-
 	}
 
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == false)
@@ -625,9 +622,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			position.y = position.y + gravity;
 		}
 	}
+
 	if (collider == c1 && c2->type == COLLIDER_PLATAFORM && App->scene->lowfps == true)
 	{
-		if (position.y + 40 < c2->rect.y && canjumpPlat == false)// over a floor collision
+		if (position.y + 40 < c2->rect.y && canjumpPlat == false) // over a floor collision
 		{
 			canJump1 = true;
 			energyfalling = 0;

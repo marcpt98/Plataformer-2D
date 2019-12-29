@@ -41,7 +41,7 @@ void j1Map::Draw()
 	if(map_loaded == false)
 		return;
 
-	MapLayer* layer = data.layers.start->data; // for now we just use the first layer and tileset
+	MapLayer* layer = data.layers.start->data;
 	TileSet* tileset = data.tilesets.start->data;
 
 	p2List_item<MapLayer*>* item_layer = data.layers.start;

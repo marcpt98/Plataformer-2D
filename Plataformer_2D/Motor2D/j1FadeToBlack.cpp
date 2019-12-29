@@ -43,6 +43,7 @@ bool j1FadeToBlack::Update(float dt)
 
 	if (current_step == fade_step::none)
 		return true;
+
 	Uint32 now = SDL_GetTicks() - start_time;
 	float normalized = MIN(1.0f, (float)now / (float)total_time);
 
@@ -56,7 +57,8 @@ bool j1FadeToBlack::Update(float dt)
 				start_time = SDL_GetTicks();
 				current_step = fade_step::fade_from_black;
 			}
-	} break;
+		} 
+		break;
 	
 		case fade_step::fade_from_black:
 		{
@@ -86,6 +88,5 @@ bool j1FadeToBlack::FadeToBlack(float time)
 		total_time = (Uint32)(time * 500.0f);
 		ret = true;
 	}
-
 	return ret;
 }

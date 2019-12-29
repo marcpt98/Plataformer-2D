@@ -136,7 +136,6 @@ bool j1Particles::Update(float dt)
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
-				//App->audio->PlayFx(p->fx);
 			}
 		}
 	}
@@ -171,8 +170,6 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 		{
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_WALL)
 			{
-				//App->audio->PlayFx(4, 0);
-				//App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
 				explosion_solid = true;
 				hitobject = true;
 				break;
@@ -180,22 +177,10 @@ void j1Particles::OnCollision(Collider* c1, Collider* c2)
 
 			if (c1->type == COLLIDER_PLAYER_SHOT && c2->type == COLLIDER_ENEMY)
 			{
-				//App->audio->PlayFx(4, 0);
-				//App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
 				explosion_solid = true;
 				hitobject = true;
 				break;
 			}
-
-			// Always destroy particles that collide
-			/*if (active[i] != nullptr && active[i]->collider == c1)
-			{
-				App->particles->AddParticle(Projectile_explosion, active[i]->position.x, active[i]->position.y, NO_COLLIDER);
-
-				delete active[i];
-				active[i] = nullptr;
-				break;
-			}*/
 			break;
 		}
 	}

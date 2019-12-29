@@ -150,21 +150,8 @@ bool j1Scene::Update(float dt)
 	}
 	if (sceneintro == false && pause == false)
 	{
-		/*if (App->input->GetKey(SDL_SCANCODE_G) == KEY_REPEAT)
-		{
-			timer--;
-		}*/
 		if (SDL_GetTicks() - timertime >= 1000)
 		{
-			/*if (time_text != nullptr)
-			{
-				App->gui->DeleteGui(time_text);
-			}*/
-			/*time_text = App->gui->AddText("Hello World", 530, 50, App->font->Load("fonts/ARCADECLASSIC.ttf", 36), { 255, 255, 255, 255 }, this);
-			time_text->setOutlined(true);
-			p2SString timer_info("Time %i", timer);
-			time_text->setText(timer_info);
-			time_text->BlitElement();*/
 			timertime = SDL_GetTicks();
 			timer--;
 		}
@@ -308,6 +295,7 @@ bool j1Scene::Update(float dt)
 		LevelName(1);
 		App->sceneui->Addingame_UI();
 	}
+
 	// Start from the beginning of the current level
 	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || player_dead == true && CheckPoint == false)
 	{
@@ -424,7 +412,6 @@ bool j1Scene::Update(float dt)
 		coin_number = 0;
 		player_score = 0;
 		App->gui->DeleteGui(score);
-		//App->gui->DeleteGui(coin_counter);
 		LOG("DESTRUIR");
 		lives = 3;
 	}
@@ -486,7 +473,6 @@ bool j1Scene::createEntities()
 
 		//Slime
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 1050, 550); 
-		//App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 2950, 550);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 3050, 100);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 6000, 600);
 		App->entity->CreateEntity(j1Entity::entityType::LAND_ENEMY, 5900, 600);

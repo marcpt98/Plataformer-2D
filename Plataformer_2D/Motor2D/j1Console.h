@@ -7,8 +7,6 @@
 #include "p2DynArray.h"
 #include "UI_text.h"
 
-#define COORDS(a) a+3000 
-
 struct _TTF_Font;
 
 class j1Console : public j1Module
@@ -33,16 +31,21 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Check player input
 	bool Checkinput();
 
+	// Open console
 	void Open();
 
+	// Close console
 	void Close();
 
 public:
+	// Text open console
 	UI_text* opened_text = nullptr;
 	UI_text* insert_text = nullptr;
 	
+	// Text player input
 	UI_text* text_1 = nullptr;
 	UI_text* text_2 = nullptr;
 	UI_text* text_3 = nullptr;

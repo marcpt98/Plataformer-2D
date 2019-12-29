@@ -98,6 +98,4 @@ struct PathList
 	p2List<PathNode> list;
 };
 
-
-
 #endif // __j1PATHFINDING_H__

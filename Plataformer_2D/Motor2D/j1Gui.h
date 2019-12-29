@@ -7,7 +7,7 @@
 
 #define CURSOR_WIDTH 2
 
-// TODO 1: Create your structure of classes
+// UI_classes
 struct _TTF_Font;
 struct SDL_Texture;
 class UI_text;
@@ -53,7 +53,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// TODO 2: Create the factory methods
 	// Gui creation functions
 	UI_text* AddText(char* text, int x, int y, _TTF_Font* font, SDL_Color color = { 255, 255, 255, 255 }, j1Module* callback = nullptr);
 	UI_image* AddImage(SDL_Texture* texture, int x, int y, SDL_Rect section, j1Module* callback = nullptr);

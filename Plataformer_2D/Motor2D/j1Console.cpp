@@ -72,7 +72,6 @@ bool j1Console::Update(float dt)
 bool j1Console::PostUpdate(float dt)
 {
 	
-
 	return true;
 }
 
@@ -86,6 +85,7 @@ void j1Console::Open()
 void j1Console::Close()
 {
 	App->scene->pause = false;
+
 	if (opened_text != nullptr)
 	{
 		App->gui->DeleteGui(opened_text);
@@ -214,6 +214,7 @@ bool j1Console::Checkinput()
 
 			}
 		}
+		
 		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		{
 			if (text_1_god == true && text_2_god == true && text_3_god == true && forthletter == false)
@@ -327,6 +328,7 @@ bool j1Console::Checkinput()
 			}
 			
 		}
+		
 		else if (secondletter == false)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_O) == KEY_DOWN)
@@ -375,6 +377,7 @@ bool j1Console::Checkinput()
 				secondletter = true;
 			}
 		}
+		
 		else if (thirdletter == false)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
@@ -415,6 +418,7 @@ bool j1Console::Checkinput()
 				thirdletter = true;
 			}
 		}
+		
 		else if (forthletter == false)
 		{
 			if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
@@ -448,7 +452,6 @@ bool j1Console::Checkinput()
 				forthletter = true;
 			}
 		}
-		
 	}
 
 	return true;

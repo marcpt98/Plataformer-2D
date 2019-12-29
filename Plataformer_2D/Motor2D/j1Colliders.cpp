@@ -15,7 +15,6 @@ j1Colliders::j1Colliders()
 		colliders[i] = nullptr;
 
 	// No colliders
-	// Collider floor
 	matrix[NO_COLLIDER][NO_COLLIDER] = false;
 	matrix[NO_COLLIDER][COLLIDER_FLOOR] = false;
 	matrix[NO_COLLIDER][COLLIDER_PLAYER] = false;

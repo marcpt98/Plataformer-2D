@@ -464,8 +464,7 @@ bool j1SceneUI::createtimelives()
 		LOG("1");
 	}
 	else if (App->scene->lives == 0)
-	{
-	}
+	{}
 
 	if (App->scene->timer == 300)
 	{
@@ -553,8 +552,7 @@ bool j1SceneUI::createtimelives()
 		time_1 = App->gui->AddImage(App->gui->GetAtlas(), 550, 52, { 597,386,26,27 });
 	}
 	else if (App->scene->timer < 30 && App->scene->timer >= 0)
-	{
-	}
+	{}
 
 	return true;
 }
@@ -669,8 +667,7 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(time_1);
 	}
 	else if (App->scene->timer < 30 && App->scene->timer >= 0)
-	{
-	}
+	{}
 
 	return true;
 }
