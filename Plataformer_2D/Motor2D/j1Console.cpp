@@ -61,7 +61,7 @@ bool j1Console::Update(float dt)
 	}
 	if (App->console->opened == true)
 	{
-		App->render->DrawQuad({ 0, 160, App->win->width, 220 }, 0, 0, 0, 200);
+		App->render->DrawQuad({ -App->render->camera.x, -App->render->camera.y + 160, App->win->width, 220 }, 0, 0, 0, 200);
 
 		Checkinput();
 	}
