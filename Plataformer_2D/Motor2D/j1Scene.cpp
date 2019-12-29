@@ -109,7 +109,7 @@ bool j1Scene::Update(float dt)
 {
 	if (player_score >= score_lives && lives<3) {
 		App->sceneui->deletetimelives();
-	
+		more_lives = true;
 		LOG("%i", player_score); LOG("%i", score_lives);
 		lives++;
 		score_lives = score_lives + 1000;
@@ -495,6 +495,7 @@ bool j1Scene::createEntities()
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 2300, 211);
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 3850, 146);
 		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 5106, 140);
+		App->entity->CreateEntity(j1Entity::entityType::CHECKPOINT, 300, 594);
 
 		//Coins
 		App->entity->CreateEntity(j1Entity::entityType::COIN, 687, 550);
@@ -632,7 +633,15 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	if (player_dead == true)
 	{
 		lives = savegame.child("map3").attribute("lives").as_int();
-		lives--;
+		if (more_lives == true)
+		{
+			//lives++;
+			more_lives = false;
+		}
+		else 
+		{
+			lives--;
+		}
 		App->sceneui->Deleteingame_UI();
 		App->sceneui->Addingame_UI();
 	}
