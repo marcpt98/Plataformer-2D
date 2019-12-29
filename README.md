@@ -114,6 +114,8 @@ SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
 
 -Checkpoints
 
+- Every 1000 points you gain an extra life (if you get 1000 points (an extra life) and die, you have to get to 2000 points for another extra life)
+
 ## License
 //MIT License
 
