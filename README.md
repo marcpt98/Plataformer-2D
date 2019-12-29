@@ -119,9 +119,13 @@ SDL_Mixer: https://www.libsdl.org/projects/SDL_mixer/
 
 ## Console
 Due to the lack of time and knowledge, we haven't been able to create a normal and fully functional console.
+
 You can only introduce letters that match with the letter of a command (you can't write "w" because any command has an "w" in his name).
+
 Also, the position of the letter matters (you can't write "t" as the first letter because although list has this letter, it doesn't correspont with the order).
+
 You can write and delete the letters all that you want.
+
 If you write a wrong command, the console will do nothing and you'll have to delete it to introduce a new one.
 ### Commands
 -GOD: player godmode (if you type god and the player is in godmode, it'll exit of godmode)
