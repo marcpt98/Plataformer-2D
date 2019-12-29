@@ -125,11 +125,17 @@ You can write and delete the letters all that you want.
 If you write a wrong command, the console will do nothing and you'll have to delete it to introduce a new one.
 ### Commands
 -GOD: player godmode (if you type god and the player is in godmode, it'll exit of godmode)
+
 -MAP1: charge level 1
+
 -MAP2: charge level 2
+
 -FPS1: change to 30FPS
+
 -FPS2: change to 60FPS
+
 -LIST: show all commands
+
 -EXIT: exit game
 
 ## License
