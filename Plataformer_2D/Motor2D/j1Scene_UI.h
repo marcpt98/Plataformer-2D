@@ -49,6 +49,7 @@ public:
 	bool deletetimelives();
 	bool createCOIN_ui();
 	bool deleteCOIN_ui();
+	bool reset();
 
 public:
 	// Scene Intro

@@ -68,8 +68,7 @@ public:
 	int timer_pts;
 	bool diferent_coins = false;
 	int timer_coins;
-	int inwindownow = 0;
-
+	int score_lives = 0;
 	// Maps and music
 	p2SString* map_1 = nullptr;
 	p2SString* map_2 = nullptr;

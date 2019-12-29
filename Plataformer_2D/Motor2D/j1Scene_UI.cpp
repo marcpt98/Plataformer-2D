@@ -565,21 +565,21 @@ bool j1SceneUI::deletetimelives()
 		App->gui->DeleteGui(player_face1);
 		App->gui->DeleteGui(player_face2);
 		App->gui->DeleteGui(player_face3);
+		LOG("3");
 	}
 	else if (App->scene->lives == 2)
 	{
 		App->gui->DeleteGui(player_face1);
 		App->gui->DeleteGui(player_face2);
-		App->gui->DeleteGui(player_face3);
+		LOG("2");
 	}
 	else if (App->scene->lives == 1)
 	{
 		App->gui->DeleteGui(player_face1);
-		App->gui->DeleteGui(player_face2);
+		LOG("1");
 	}
 	else if (App->scene->lives == 0)
 	{
-		App->gui->DeleteGui(player_face1);
 	}
 
 	if (App->scene->timer == 300)
@@ -685,4 +685,15 @@ bool j1SceneUI::deleteCOIN_ui()
 {
 	App->gui->DeleteGui(coin);
 	return true;
+}
+
+bool j1SceneUI::reset() 
+{
+	bool ret = false;
+	if (player_face1 != nullptr && player_face2 != nullptr && player_face3 != nullptr && time_1 != nullptr && sand != nullptr && time_2 != nullptr && time_3 != nullptr && time_4 != nullptr && time_5 != nullptr && time_6 != nullptr && time_7 != nullptr && time_8 != nullptr && time_9 != nullptr && time_10 != nullptr && coin != nullptr) 
+	{
+		ret = true;
+	}
+
+	return ret;
 }

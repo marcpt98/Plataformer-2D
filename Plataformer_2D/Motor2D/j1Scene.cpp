@@ -77,7 +77,8 @@ bool j1Scene::Start()
 	// Player
 	currentMap = 0;
 	createEntities();
-
+	score_lives = 1000;
+	player_score = 0;
 	LOG("CREAR");
 	//This is to reset the player score
 	App->scene->firsttime = true;
@@ -92,7 +93,6 @@ bool j1Scene::Start()
 	p2SString score_info2("x %i", App->scene->coin_number);
 	App->scene->coin_counter->setText(score_info2);
 	App->scene->coin_counter->BlitElement();
-	inwindownow++;
 	return true;
 }
 
@@ -107,6 +107,17 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	if (player_score >= score_lives && lives<3) {
+		App->sceneui->deletetimelives();
+	
+		LOG("%i", player_score); LOG("%i", score_lives);
+		lives++;
+		score_lives = score_lives + 1000;
+		App->sceneui->createtimelives();
+		
+	}
+	LOG("%i", lives);
+
 	if (coin_counter == nullptr) {
 		LOG("NULLPTR");
 	}
@@ -114,7 +125,6 @@ bool j1Scene::Update(float dt)
 	{
 		int a = 0;
 	}
-	LOG("%i", inwindownow);
 	BROFILER_CATEGORY("UpdateScene", Profiler::Color::Peru)
 	if (/*firsttime == true &&*/ diferent_score == true)
 	{
@@ -125,7 +135,6 @@ bool j1Scene::Update(float dt)
 	if (diferent_coins == true && player_dead == false)
 	{
 		App->gui->DeleteGui(coin_counter);
-		inwindownow--;
 	}
 
 	if (timer_pts == 1 && diferent_score == true || player_dead == true)
@@ -227,7 +236,6 @@ bool j1Scene::Update(float dt)
 		coin_counter->setText(score_info2);
 		coin_counter->BlitElement();
 		timer_coins++;
-		inwindownow++;
 	}
 	diferent_coins = false;
 
@@ -265,7 +273,6 @@ bool j1Scene::Update(float dt)
 		App->scene->coin_number= 0;
 		p2SString score_info2("x 0");
 		App->scene->coin_counter->setText(score_info2);
-		inwindownow++;
 		sceneintro = false;
 		currentMap = 0;
 		LevelName(0);
@@ -325,7 +332,7 @@ bool j1Scene::Update(float dt)
 		App->scene->coin_number = 0;
 		p2SString score_info2("x 0");
 		App->scene->coin_counter->setText(score_info2);
-		inwindownow++;
+
 		App->sceneui->Addingame_UI();
 		if (sceneintro == true)
 		{
@@ -342,7 +349,7 @@ bool j1Scene::Update(float dt)
 		}
 		player_dead = false;
 	}
-
+	
 	if (CheckPoint == true && player_dead == true)
 	{
 		App->load();
@@ -385,6 +392,18 @@ bool j1Scene::Update(float dt)
 	}
 
 	//Live system
+	if ((lives == 2  || lives == 1 || lives == 0) && App->sceneui->player_face3 != nullptr)
+	{
+		App->gui->DeleteGui(App->sceneui->player_face3);
+	}
+	if ((lives == 1 || lives == 0) && App->sceneui->player_face2 != nullptr)
+	{
+		App->gui->DeleteGui(App->sceneui->player_face2);
+	}
+	if (lives == 0 && App->sceneui->player_face1 != nullptr)
+	{
+		App->gui->DeleteGui(App->sceneui->player_face1);
+	}
 	if (lives == -1)
 	{
 		sceneintro = true;
@@ -406,7 +425,6 @@ bool j1Scene::Update(float dt)
 		player_score = 0;
 		App->gui->DeleteGui(score);
 		//App->gui->DeleteGui(coin_counter);
-		inwindownow--;
 		LOG("DESTRUIR");
 		lives = 3;
 	}
@@ -640,7 +658,6 @@ bool j1Scene::load(pugi::xml_node& savegame)
 	p2SString score_info2("x %i", coin_number);
 	coin_counter->setText(score_info2);
 	coin_counter->BlitElement();
-	inwindownow++;
 	return true;
 }
 

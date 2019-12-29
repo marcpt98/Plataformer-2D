@@ -105,7 +105,8 @@ bool j1Player::Start()
 	collider = App->colliders->AddCollider({ position.x,position.y, width, high }, COLLIDER_PLAYER, this); //a collider to start COLLIDER PLAYER
 
 	energyfalling = 0;
-
+	gravity = 5;
+	gGravity = 5;
 	return true;
 }
 
@@ -577,6 +578,7 @@ void j1Player::CheckAnimation(float dt)
 		}
 
 	}
+	
 	fallingravity = true;
 }
 

@@ -77,7 +77,7 @@
     <timeGrabDelay time="200"/>
     <timeAccelerationDelay time="500"/>
     <acceleration a="0.2"/>
-    <maxAcceleration max="50"/>
+    <maxAcceleration max="15"/>
     <playerHeight h="58"/>
     <playerHeight2 h="53"/>
     <incrementJ i="0.5"/>
