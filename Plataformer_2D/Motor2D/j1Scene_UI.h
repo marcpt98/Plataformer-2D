@@ -47,6 +47,8 @@ public:
 	bool delete_intro_UI();
 	bool createtimelives();
 	bool deletetimelives();
+	bool createCOIN_ui();
+	bool deleteCOIN_ui();
 
 public:
 	// Scene Intro
@@ -113,6 +115,7 @@ public:
 	UI_image* time_8 = nullptr;
 	UI_image* time_9 = nullptr;
 	UI_image* time_10 = nullptr;
+	UI_image* coin = nullptr;
 
 	// Pause
 	bool pause_UI = false;

@@ -245,7 +245,7 @@ bool j1SceneUI::Addingame_UI()
 
 	// Elements of this UI
 	createtimelives();
-
+	createCOIN_ui();
 	
 	return true;
 }
@@ -255,7 +255,7 @@ bool j1SceneUI::Deleteingame_UI()
 	App->gui->DeleteGui(sand);
 
 	deletetimelives();
-
+	deleteCOIN_ui();
 	return true;
 }
 
@@ -671,5 +671,18 @@ bool j1SceneUI::deletetimelives()
 	{
 	}
 
+	return true;
+}
+
+bool j1SceneUI::createCOIN_ui()
+{
+	coin = App->gui->AddImage(App->gui->GetAtlas(), 40, 105, { 490,382,40,49 });
+	
+	return true;
+}
+
+bool j1SceneUI::deleteCOIN_ui() 
+{
+	App->gui->DeleteGui(coin);
 	return true;
 }
